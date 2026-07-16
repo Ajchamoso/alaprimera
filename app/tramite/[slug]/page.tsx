@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCadena, getTramiteBySlug, getTramites } from "@/lib/data";
 import { SelloVerificacion } from "@/components/SelloVerificacion";
+import { Asistente } from "@/components/Asistente";
 
 export function generateStaticParams() {
   return getTramites().map((t) => ({ slug: t.slug }));
@@ -70,21 +71,13 @@ export default async function PaginaTramite({
         </section>
       )}
 
-      <section className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-        <h2 className="font-semibold text-emerald-900">Prepara TU caso</h2>
-        <p className="mt-1 text-sm text-emerald-900/80">
-          Respondiendo {tramite.preguntas.length} preguntas te damos la checklist exacta de tu
-          situación — no la genérica.
-        </p>
-        <p className="mt-3 text-sm text-stone-500">
-          🚧 El asistente paso a paso llega en la siguiente iteración (T-008). De momento, abajo
-          tienes todos los requisitos posibles del trámite.
-        </p>
-      </section>
+      <Asistente tramite={tramite} />
 
-      <section className="space-y-3">
-        <h2 className="text-lg font-semibold">Todo lo que puede pedirte este trámite</h2>
-        <ul className="space-y-2">
+      <details className="rounded-xl border border-stone-200 bg-white p-5">
+        <summary className="cursor-pointer font-medium text-stone-600">
+          Ver todos los requisitos posibles (sin personalizar)
+        </summary>
+        <ul className="mt-3 space-y-2">
           {tramite.requisitos.map((r) => (
             <li key={r.id} className="rounded-lg border border-stone-200 bg-white p-4">
               <p className="font-medium">
@@ -92,12 +85,14 @@ export default async function PaginaTramite({
               </p>
               <p className="mt-1 text-sm text-stone-600">{r.explicacion}</p>
               {r.soloSiOpciones && (
-                <p className="mt-1 text-xs text-stone-400">Solo en algunos casos — el asistente te dirá si te aplica.</p>
+                <p className="mt-1 text-xs text-stone-400">
+                  Solo en algunos casos — el asistente te dice si te aplica.
+                </p>
               )}
             </li>
           ))}
         </ul>
-      </section>
+      </details>
 
       {tramite.urlCitaPrevia && (
         <p>

@@ -15,10 +15,10 @@
 
 - [x] **T-006** Catálogo navegable con las fichas publicadas (H1). *Acepta: home lista fichas con nombre coloquial + oficial.* ✅ 16/07
 - [x] **T-007** Búsqueda por alias curados con tolerancia básica (H1, FR-002). *Verificado en navegador: "lo del carné de mi hijo" → DNI; "empadronamiento" → mensaje honesto (FR-003).* ✅ 16/07
-- [ ] **T-008** Wizard de máx. 4 preguntas, la 1ª siempre destinatario (H2, FR-004). *Acepta: respuestas distintas → checklists distintas.*
-- [ ] **T-009** Veredicto de inviabilidad con alternativas (H2, FR-005). *Acepta: caso "online para mi madre sin certificado" muestra veredicto, no checklist.*
-- [ ] **T-010** Checklist personalizada: 4 tipos etiquetados + cadena de prerrequisitos antes de los requisitos + fuente prominente (H3, FR-007..009). *Acepta: la cadena navega con camino de vuelta.*
-- [ ] **T-011** Progreso anónimo en localStorage con guardado automático (H4, FR-010/011). *Acepta: marcar → cerrar navegador → volver → sigue marcado.*
+- [x] **T-008** Wizard de máx. 4 preguntas, la 1ª siempre destinatario (H2, FR-004). *Verificado: "menor+caducidad+sin cambio domicilio" da 4 requisitos y excluye denuncia y empadronamiento; el borrador se retoma sin repetir (H2.4).* ✅ 16/07
+- [x] **T-009** Veredicto de inviabilidad con alternativas (H2, FR-005). *Verificado: certificado "para otra persona" → veredicto con alternativas y vuelta atrás, sin checklist.* ✅ 16/07
+- [x] **T-010** Checklist personalizada: 4 tipos etiquetados + requisito trámite_previo enlazado + fuente prominente (H3, FR-007..009). ✅ 16/07
+- [x] **T-011** Progreso anónimo en localStorage con guardado automático (H4, FR-010/011). *Verificado: marcar 2 → recargar → siguen marcados. Store externo (useSyncExternalStore) con sync entre pestañas.* ✅ 16/07
 - [ ] **T-012** Elección de canal + "antes de empezar" (online) / "qué llevar" imprimible (presencial) (H5, FR-015/016). *Acepta: la versión print es legible en B/N, ≥14pt.*
 - [ ] **T-013** Multi-checklist con nombre propio ("DNI Hugo") (FR-013). *Acepta: dos checklists del mismo trámite conviven.*
 
