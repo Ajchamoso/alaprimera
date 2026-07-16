@@ -15,4 +15,17 @@
     text-decoration: none;
     color: inherit;
   }
+  /* Solo se imprime la preparación (FR-016): legible en B/N y con letra amplia. */
+  body:has(#imprimible) * {
+    visibility: hidden;
+  }
+  body:has(#imprimible) #imprimible,
+  body:has(#imprimible) #imprimible * {
+    visibility: visible;
+  }
+  body:has(#imprimible) #imprimible {
+    position: absolute;
+    inset: 0;
+    padding: 2rem;
+  }
 }

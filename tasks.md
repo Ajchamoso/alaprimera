@@ -19,8 +19,8 @@
 - [x] **T-009** Veredicto de inviabilidad con alternativas (H2, FR-005). *Verificado: certificado "para otra persona" → veredicto con alternativas y vuelta atrás, sin checklist.* ✅ 16/07
 - [x] **T-010** Checklist personalizada: 4 tipos etiquetados + requisito trámite_previo enlazado + fuente prominente (H3, FR-007..009). ✅ 16/07
 - [x] **T-011** Progreso anónimo en localStorage con guardado automático (H4, FR-010/011). *Verificado: marcar 2 → recargar → siguen marcados. Store externo (useSyncExternalStore) con sync entre pestañas.* ✅ 16/07
-- [ ] **T-012** Elección de canal + "antes de empezar" (online) / "qué llevar" imprimible (presencial) (H5, FR-015/016). *Acepta: la versión print es legible en B/N, ≥14pt.*
-- [ ] **T-013** Multi-checklist con nombre propio ("DNI Hugo") (FR-013). *Acepta: dos checklists del mismo trámite conviven.*
+- [x] **T-012** Elección de canal + "antes de empezar" (online) / "qué llevar" imprimible (presencial) (H5, FR-015/016). *Verificado: canal único → preparación directa sin elección falsa (H5.6); aviso de faltantes (H5.5); imprimible con cabecera de contexto, solo-imprimible vía CSS. El selector de dos vías (EligeCanal) queda pendiente de probar con una ficha de doble canal (la beca).* ✅ 16/07
+- [x] **T-013** Multi-checklist con nombre propio (FR-013). *Verificado: "menor" y "para mí (pérdida)" conviven con requisitos distintos y progreso independiente; renombrar disponible.* ✅ 16/07
 
 ## Fase 2 — Persistencia real (semana 2)
 
