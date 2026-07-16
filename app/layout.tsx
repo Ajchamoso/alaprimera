@@ -30,6 +30,12 @@ export default function RootLayout({
             <span className="hidden text-sm text-stone-500 sm:inline">
               tu trámite, tu checklist, tu progreso
             </span>
+            <Link
+              href="/cuenta"
+              className="ml-auto text-sm font-medium text-stone-500 hover:text-emerald-700"
+            >
+              Mi cuenta
+            </Link>
           </div>
         </header>
         <main className="mx-auto max-w-3xl px-4 py-8">{children}</main>

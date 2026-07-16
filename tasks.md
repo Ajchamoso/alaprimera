@@ -24,7 +24,7 @@
 
 ## Fase 2 — Persistencia real (semana 2)
 
-- [ ] **T-014** Login magic link (Supabase Auth) (FR-011). 
+- [ ] **T-014** Login magic link (Supabase Auth) (FR-011). *Construido y conectado al proyecto real (cliente, middleware, callback, /cuenta); pendiente de probar el ciclo completo pulsando el enlace de un email real — solo el humano puede.*
 - [ ] **T-015** Merge anónimo→cuenta sin pérdida, con test E2E propio (FR-012). *Riesgo nº1 del plan: se prueba a conciencia.*
 - [ ] **T-016** Multi-dispositivo: checklists en BD con RLS (SC-005).
 
