@@ -222,7 +222,7 @@ para revisión sin bloquear ni afectar a nada visible por usuarios finales.
 
 **Canal y cierre**
 - **FR-015**: El sistema DEBE ofrecer la preparación específica del canal elegido: "antes de empezar" con requisitos técnicos y enlace a la sede (online), o "qué llevar" imprimible y enlace a cita previa (presencial).
-- **FR-016**: La versión imprimible DEBE ser legible sin depender del color y con cuerpo de letra apto para personas mayores, e incluir trámite, requisitos, fuente y fecha de verificación.
+- **FR-016**: La versión imprimible DEBE ser legible sin depender del color y con cuerpo de letra apto para personas mayores, e incluir trámite, requisitos, fuente y fecha de verificación. El contraste de texto DEBE cumplir **WCAG 2.1 nivel AA** (ratio ≥ 4.5:1 para texto normal), criterio que aplica también al texto de la aplicación. *(Medible: es lo que hace falsable "legible".)*
 - **FR-017**: El sistema DEBE preguntar "¿salió a la primera?" una única vez por checklist completada y registrar la respuesta asociada a la ficha.
 - **FR-018**: El sistema DEBE permitir reportar un error desde cualquier ficha; el reporte queda en cola de revisión sin alterar el contenido publicado.
 
@@ -240,7 +240,7 @@ para revisión sin bloquear ni afectar a nada visible por usuarios finales.
 
 **Presentación** *(FR-028/029 añadidos el 17/07 tras la revisión de diseño)*
 - **FR-028**: Los iconos y símbolos de la interfaz DEBEN renderizarse de forma idéntica en cualquier sistema operativo y navegador. En concreto, el sistema NO DEBE usar emoji del sistema para transmitir información. *(No es cosmética: usábamos ⛓️ para el encadenamiento —nuestro diferencial— y su dibujo lo decidía el equipo del usuario; en algunos navegadores se rompía.)*
-- **FR-029**: El estado de confianza de una ficha DEBE ser distinguible sin depender del color, para que funcione impreso en blanco y negro y para quien no distinga colores. *(Refuerza FR-016: el imprimible es el único canal hacia la persona mayor que nunca abre la app.)*
+- **FR-029**: El estado de confianza de una ficha DEBE ser distinguible sin depender del color (por texto o forma, no solo por tinte), para que funcione impreso en blanco y negro y para quien no distinga colores. *(Refuerza FR-016: el imprimible es el único canal hacia la persona mayor que nunca abre la app. Verificable: el estado se lee sin color y el contraste cumple el AA de FR-016.)*
 
 **Generales**
 - **FR-024**: La aplicación DEBE ser plenamente utilizable en móvil y en escritorio.
