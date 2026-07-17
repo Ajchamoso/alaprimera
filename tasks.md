@@ -31,12 +31,13 @@
 - [x] **T-015** Merge anónimo→cuenta sin pérdida (FR-012). *Verificado E2E con usuario de prueba confirmado: 3 checklists anónimas subieron a la cuenta con sus marcados intactos; conflicto = gana lo local.* ✅ 17/07
 - [x] **T-016** Multi-dispositivo: checklists en BD con RLS (SC-005). *Verificado: localStorage borrado (dispositivo nuevo) → recarga → las 3 checklists bajan con su progreso exacto; marcar con sesión replica a BD al momento. Diseño sync-through: la UI lee siempre local (offline-first), el espejo replica.* ✅ 17/07
 
-## Fase 3 — Confianza + cierre (semana 3)
+## Fase 3 — Confianza + cierre (semana 3) ✅ 17/07
 
-- [ ] **T-017** Sello "verificada el DD/MM" con degradación derivada a 90 días (H6, FR-020).
-- [ ] **T-018** Compartir por token, solo lectura (H7, FR-014).
-- [ ] **T-019** "¿Salió a la primera?" una vez por checklist (H8, FR-017).
-- [ ] **T-020** Reportar error → cola de revisión (FR-018).
+- [x] **T-017** Sello "verificada el DD/MM" con degradación derivada a 90 días (H6, FR-020). *Verificado con fechas reales en BD: a 100 días → "⚠️ Puede estar desactualizada (verificada el 08/04/2026)"; a 10 días → "✅ Verificada el". Los tres estados (sin verificar / vigente / caducada) correctos.*
+- [x] **T-018** Compartir por token, solo lectura (H7, FR-014). *Verificado: enlace generado, abierto sin sesión muestra la lista con el progreso real (3 de 4) y sin checkboxes; token inválido → "Esta checklist ya no existe". Token de 128 bits, página `noindex`.*
+- [x] **T-019** "¿Salió a la primera?" una vez por checklist (H8, FR-017). *Verificado E2E: el "no" pregunta qué falló, el motivo llega a BD con la checklist como contexto, y no se vuelve a preguntar.*
+- [x] **T-020** Reportar error → cola de revisión (FR-018). *Verificado: reporte en BD como `pendiente`; la ficha no cambia hasta revisión humana.*
+- [x] **RLS auditada**: con la anon key, `checklists`, `shares`, `feedback` y `reportes` devuelven vacío. Los datos de usuario no se filtran; solo el endpoint del share (service role, server-side) los sirve por token válido.
 
 ## Fase 4 — Motor de curación (semana 4)
 

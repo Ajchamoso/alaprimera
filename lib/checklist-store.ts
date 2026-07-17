@@ -1,4 +1,4 @@
-import type { Requisito, Tramite } from "@/lib/types";
+import { requisitosAplicablesDe } from "@/lib/personaliza";
 
 /**
  * Progreso anónimo en el navegador (FR-011), modelado como store externo para
@@ -144,14 +144,5 @@ export function borraBorrador(slug: string) {
   guarda(KEY_BORRADORES, copia);
 }
 
-// ── Personalización (FR-006): qué requisitos aplican a estas respuestas ──────
-
-export function requisitosAplicables(
-  tramite: Tramite,
-  respuestas: Record<string, string>
-): Requisito[] {
-  const elegidas = new Set(Object.values(respuestas));
-  return tramite.requisitos.filter(
-    (r) => !r.soloSiOpciones || r.soloSiOpciones.some((o) => elegidas.has(o))
-  );
-}
+// La personalización vive en lib/personaliza (pura, compartida con el servidor).
+export const requisitosAplicables = requisitosAplicablesDe;

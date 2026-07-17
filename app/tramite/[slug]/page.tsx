@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getCadena, getTramites } from "@/lib/data";
 import { SelloVerificacion } from "@/components/SelloVerificacion";
 import { Asistente } from "@/components/Asistente";
+import { ReportarError } from "@/components/ReportarError";
 
 export const revalidate = 300;
 
@@ -97,18 +98,7 @@ export default async function PaginaTramite({
         </ul>
       </details>
 
-      {tramite.urlCitaPrevia && (
-        <p>
-          <a
-            href={tramite.urlCitaPrevia}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-emerald-700 underline underline-offset-2"
-          >
-            📅 Pedir cita previa oficial
-          </a>
-        </p>
-      )}
+      <ReportarError tramiteSlug={tramite.slug} />
     </article>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import type { Requisito, Tramite } from "@/lib/types";
 import {
@@ -7,6 +8,9 @@ import {
   actualizaChecklist,
   requisitosAplicables,
 } from "@/lib/checklist-store";
+import { Compartir } from "@/components/Compartir";
+import { SalioALaPrimera } from "@/components/SalioALaPrimera";
+import { haySesion, suscribeSesion } from "@/lib/sesion";
 
 const ETIQUETA_TIPO: Record<string, string> = {
   tramite_previo: "⛓️",
@@ -17,6 +21,7 @@ const ETIQUETA_TIPO: Record<string, string> = {
 
 /** Vista de checklist: requisitos marcables, elección de canal (H5) y preparación final con imprimible (FR-015/016). */
 export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist: ChecklistLocal }) {
+  const conSesion = useSyncExternalStore(suscribeSesion, haySesion, () => false);
   const aplicables = requisitosAplicables(tramite, checklist.respuestas);
   const conseguidos = aplicables.filter((r) => checklist.marcados[r.id]).length;
 
@@ -107,13 +112,17 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
       {canal === undefined ? (
         <EligeCanal tramite={tramite} checklist={checklist} aplicables={aplicables} />
       ) : (
-        <Preparacion
-          tramite={tramite}
-          checklist={checklist}
-          aplicables={aplicables}
-          canal={canal}
-          puedeCambiar={tramite.canales.length > 1}
-        />
+        <>
+          <Preparacion
+            tramite={tramite}
+            checklist={checklist}
+            aplicables={aplicables}
+            canal={canal}
+            puedeCambiar={tramite.canales.length > 1}
+          />
+          <Compartir checklist={checklist} conSesion={conSesion} />
+          <SalioALaPrimera checklist={checklist} />
+        </>
       )}
     </div>
   );
