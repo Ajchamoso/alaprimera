@@ -3,6 +3,12 @@
 > Generadas desde [spec.md](./spec.md) + [plan.md](./plan.md) (Spec Kit: spec → plan → tasks →
 > implement). Una tarea = un incremento verificable. Se marcan aquí al completarse.
 
+**Estado a 17/07/2026:** Fases 0-3 completas y en producción (https://alaprimera.vercel.app).
+Catálogo de 11 fichas extraídas con cita literal. **Deuda única: verificación humana de las 11
+fichas** (T-024) — el único paso que no puede hacer una IA. La Fase 4 (motor en la app) se reenfocó
+a extracción asistida sin API key (R2). Pendiente de humano además: probar el magic link con un
+email real (T-014) y las 4 fichas de la CM confirmar el enlace "firma electrónica reconocida".
+
 ## Fase 0 — Esqueleto (semana 1)
 
 - [x] **T-001** Scaffold Next.js 15 + TypeScript + Tailwind, corriendo en local. *Acepta: `npm run dev` sirve la home.* ✅ 16/07

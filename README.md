@@ -8,21 +8,45 @@ a la primera, sin que te frene a mitad un requisito que no sabías que necesitab
 App del reto **Viberano** (Comunidad IÁgil de 233 Academy) — construida 100% mediante prompts con
 Claude Code, sin editar una línea de código a mano.
 
-## Documentos
+## Documentos (este repo es la fuente de verdad de la construcción)
 
-- [spec.md](./spec.md) — especificación SDD (el QUÉ): historias, requisitos, entidades, criterios de éxito.
-- [plan.md](./plan.md) — plan técnico (el CÓMO): stack, arquitectura, modelo de datos, fases de agosto.
-- [CLAUDE.md](./CLAUDE.md) — reglas del reto y del producto para las sesiones de construcción.
-- El discovery completo (hipótesis, mapa de historias, análisis competitivo) está en el repo
-  `Viberano` de la propuesta (local, sin publicar).
+- [spec.md](./spec.md) — especificación SDD viva (el QUÉ): historias, 27 requisitos, entidades, criterios de éxito.
+- [plan.md](./plan.md) — plan técnico (el CÓMO): stack, arquitectura, modelo de datos, fases.
+- [tasks.md](./tasks.md) — el desglose en tareas y su estado.
+- [docs/curacion.md](./docs/curacion.md) — cómo se cura y verifica una ficha, y qué aprendimos curando las 11.
+- [CLAUDE.md](./CLAUDE.md) / [AGENTS.md](./AGENTS.md) — reglas del reto y del producto para cada sesión.
+- El *discovery* (hipótesis, mapa de historias, análisis competitivo, el pivote desde SpecLens) vive
+  en el repo `Viberano` de la propuesta.
 
-## Estado
+## Estado (17/07/2026)
 
-✅ **URL pública en marcha desde el 17/07/2026** — el requisito del reto, cumplido. Cada push a
-`main` despliega solo.
+✅ **URL pública en marcha** — el requisito del reto, cumplido. Cada push a `main` despliega solo.
 
-🔨 En construcción: catálogo, wizard, checklist y cuenta funcionan; faltan compartir, feedback y el
-motor de curación. El catálogo son 2 fichas de ejemplo **sin verificar** — las 11 reales se curan
-contra fuente oficial antes de septiembre.
+**Funciona de punta a punta:**
+- Catálogo de **11 trámites** con búsqueda coloquial (Comunidad de Madrid + Estado)
+- Wizard personalizado con **veredicto de inviabilidad** ("esto no lo puedes hacer tú por ella")
+- Checklist con 4 tipos de requisito y **cadenas de trámites encadenados** ⛓️
+- **Aviso de plazo** cuando un trámite está fuera de fechas
+- Progreso persistente **anónimo**, con login opcional (magic link) y **sincronización multi-dispositivo**
+- **Compartir** por enlace de solo lectura · **"¿salió a la primera?"** · **reportar error**
+
+**La única deuda del proyecto:** las 11 fichas están extraídas de fuentes oficiales **con cita
+literal**, pero marcadas "⚠️ Generada por IA — sin verificar". Falta el cotejo humano contra la
+fuente — el único paso que ninguna IA puede hacer. Ver [docs/curacion.md](./docs/curacion.md).
+
+**Fases del plan:** 0 (esqueleto), 1 (walking skeleton), 2 (cuentas y sync) y 3 (confianza y cierre)
+completas. El motor de curación automático (Historia 9 de la spec) se reenfocó a extracción asistida
+sin API key, y queda como R2.
 
 🎯 Entrega: primer directo de la Comunidad IÁgil de septiembre.
+
+## Cómo correrlo
+
+```bash
+npm install
+npm run dev            # http://localhost:3000
+```
+
+Variables de entorno en `.env.local` (no versionado): `NEXT_PUBLIC_SUPABASE_URL`,
+`NEXT_PUBLIC_SUPABASE_ANON_KEY`, y para tareas de servidor/seed `SUPABASE_SERVICE_ROLE_KEY` y
+`DATABASE_URL`. Migraciones en `supabase/migrations/`; seed del catálogo con `npm run db:seed`.

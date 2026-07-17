@@ -2,13 +2,21 @@
 
 **Rama**: `001-a-la-primera`
 **Creada**: 2026-07-16
-**Estado**: Cerrada el 2026-07-16 — las 5 preguntas abiertas resueltas (ver Decisiones). Lista para construcción.
+**Estado**: **Spec viva.** Cerrada el 16/07 (5 preguntas resueltas); evoluciona con la construcción
+— añadido FR-027 (plazos) el 17/07 al descubrir el modo de fallo curando las becas. Esta copia, en
+el repo de construcción, es la canónica; la del repo `Viberano` es el snapshot congelado de la
+propuesta.
 **Input**: Descripción del usuario: "Asistente personal de trámites con la administración española: TU trámite, TU checklist, TU progreso. MVP funcionalmente completo con volumen reducido (10-12 trámites), construido solo con prompts para el reto Viberano."
 
+> **Estado de construcción (17/07):** Fases 0-3 completas y desplegadas en
+> https://alaprimera.vercel.app. Historias 1-8 implementadas y verificadas en navegador; la 9 (motor
+> de curación en la app) se reenfocó a extracción asistida sin API key → R2. Catálogo de 11 fichas
+> extraídas con cita literal, **todas pendientes de verificación humana**. Detalle en `tasks.md`.
+>
 > Esta spec sustituye a la anterior (SpecLens, idea descartada). Nace de la cadena
-> [hipotesis.md](hipotesis.md) → [mapa-historias.md](mapa-historias.md) (v3). La decisión de
-> construir está tomada (16/07): la hipótesis se contrasta con el producto real, con la métrica
-> "¿salió a la primera?" como señal principal.
+> hipótesis → mapa de historias (v3), que viven en el repo `Viberano`. La decisión de construir está
+> tomada (16/07): la hipótesis se contrasta con el producto real, con la métrica "¿salió a la
+> primera?" como señal principal.
 >
 > **Regla de oro de esta spec:** describe el QUÉ y el PORQUÉ. El CÓMO (stack, tablas, librerías)
 > se decide en el plan, no aquí.
@@ -146,7 +154,7 @@ o dejarle claro a la beneficiaria qué se necesita.
 Como equipo del producto, queremos preguntar "¿salió a la primera?" tras la gestión, para medir la
 promesa central de la hipótesis y recoger testimonios reales.
 
-**Por qué esta prioridad**: es la métrica del proyecto (ver [hipotesis.md](hipotesis.md)) y la
+**Por qué esta prioridad**: es la métrica del proyecto (ver hipotesis.md (repo Viberano)) y la
 fábrica de historias para septiembre. Son dos botones: barata y de alto valor.
 
 **Test independiente**: se prueba completando el flujo hasta el final y comprobando que la
@@ -265,7 +273,7 @@ para revisión sin bloquear ni afectar a nada visible por usuarios finales.
 
 ## Suposiciones
 
-- **La hipótesis se valida con el producto real** ([hipotesis.md](hipotesis.md)): la señal principal es "¿salió a la primera?" (SC-003) y el uso de la beta por la comunidad. Vigilancia especial: si los usuarios llegan sin saber qué trámite necesitan (búsquedas fallidas), la Actividad 1 pasa a ser el centro del producto.
+- **La hipótesis se valida con el producto real** (hipotesis.md (repo Viberano)): la señal principal es "¿salió a la primera?" (SC-003) y el uso de la beta por la comunidad. Vigilancia especial: si los usuarios llegan sin saber qué trámite necesitan (búsquedas fallidas), la Actividad 1 pasa a ser el centro del producto.
 - **Extranjería queda fuera** del MVP (máximo dolor, máximo riesgo de daño; requiere verificación reforzada).
 - **La curación humana existe**: el equipo (2 personas) reserva tiempo de agosto para verificar cada ficha contra su fuente oficial. Es el cuello de botella real y asumido.
 - **Solo español** en MVP. Sin soporte multi-idioma.
