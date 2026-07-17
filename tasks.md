@@ -102,5 +102,21 @@ BD para cuando llegue.
       - [x] **FR-027 (plazos)**: descubierto al curar la beca — su convocatoria cerró el 28/05 y la app
             habría servido una checklist para un trámite no solicitable. Añadido campo `plazo`,
             migración `0002_plazos.sql` y aviso en la ficha.
-- [ ] **T-025** E2E del viaje de la demo en CI.
+- [ ] **T-025** E2E del viaje de la demo en CI (Playwright). **Parcial**: la CI ya corre lint +
+      tipos + tests + build en cada push (ver Fase 6), pero falta el clic-a-clic del recorrido.
 - [ ] **T-026** Ensayo cronometrado de la demo (<3 min) contra producción.
+
+## Fase 6 — Red de seguridad e infraestructura *(17/07, no estaba planificado)*
+
+Como todo se construye por prompts, se montó una red que caza regresiones antes que un humano.
+
+- [x] **T-027** Tests de invariantes (Vitest): regla de oro, wizard, cadenas, aislamiento por zona,
+      sello a 90 días (extraído a `lib/sello.ts`), taxonomía. Verificados por mutación.
+- [x] **T-028** Accesibilidad: `axe` sobre componentes + contraste WCAG AA de la paleta. Destapó que
+      `tinta-tenue` daba 2.2:1; corregido a `#726957`. Guardias: cero emoji (FR-028), color semántico.
+- [x] **T-029** CI en GitHub Actions: lint + tipos + tests + build en cada push y PR a `main`.
+- [x] **T-030** Skill `/revisar-codigo` de mantenibilidad (encontró y arregló 2 emoji en la UI).
+- [x] **T-031** Documentación generada desde los datos (`npm run docs` → `docs/estado-catalogo.md`),
+      con test anti-deriva.
+- [x] **T-032** Ficha de inscripción de nacimiento curada con cita (arranque de la cadena "nace un
+      hijo"). La prestación por nacimiento queda aplazada (seg-social bloquea la extracción).

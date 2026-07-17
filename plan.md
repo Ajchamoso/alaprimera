@@ -213,6 +213,27 @@ motor en local si hace falta, y es el cuello de botella asumido. La cadena estre
   fecha estampada). SC-002 se audita listando fichas con `generada_por_ia = true` y sin revisión.
 - **La demo se ensaya** contra producción la última semana, cronometrada (<3 min, SC-007).
 
+## 7bis. Red de seguridad automática *(añadida el 17/07)*
+
+Como el código se escribe 100% por prompts, un cambio puede romper una invariante sin que nadie lo
+note. Se montó una red que lo caza antes que un humano. Detalle operativo en AGENTS.md; el resumen:
+
+- **Tests de invariantes (Vitest, `npm test`)** sobre `lib/` y los datos, sin runtime ni BD:
+  - Regla de oro (FR-019): ninguna ficha real sin citar; los pendientes no publican contenido.
+  - Estructura del wizard (primera pregunta destinatario, ids únicos, condiciones que existen),
+    integridad referencial de las cadenas (`getCadena`), aislamiento territorial (`visibleEnZona`),
+    sello a 90 días (FR-020, extraído a `lib/sello.ts`), taxonomía por hechos vitales.
+- **Accesibilidad**: `axe` sobre los componentes de presentación + **contraste WCAG AA** de la
+  paleta leído de `globals.css` (fue lo que destapó que `tinta-tenue` daba 2.2:1; corregido a
+  `#726957`). Guardias del "sello": cero emoji en la UI (FR-028) y solo tokens de color semánticos.
+- **CI** (GitHub Actions, `.github/workflows/ci.yml`): lint + tipos + tests + build en cada push y
+  PR a `main`. El build degrada sin Supabase, así que no necesita secretos.
+- **Skill `/revisar-codigo`**: revisión de mantenibilidad contra los patrones del proyecto.
+- **Docs generadas** (`npm run docs` → `docs/estado-catalogo.md`), con un test que falla si derivan.
+
+Lo que aún NO está: el **E2E del viaje de la demo** (Playwright) que anticipaba §7 sigue pendiente
+(T-025). La CI ya corre, pero verifica la lógica y el build, no el clic-a-clic del recorrido.
+
 ## 8. Riesgos técnicos y mitigaciones
 
 | Riesgo | Mitigación |
