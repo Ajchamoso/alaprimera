@@ -43,22 +43,19 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
   const deMiZona = useMemo(() => tramites.filter((t) => visibleEnZona(t, zona)), [tramites, zona]);
   const resultados = useMemo(() => buscaTramites(consulta, deMiZona), [consulta, deMiZona]);
 
-  // Los destacados salen arriba; para no repetirlos, se excluyen de sus temas.
+  // Los destacados salen arriba como atajo, pero también viven en su tema
+  // (a la gente que entra en "Documentos base" a buscar el DNI le cuadra ahí).
   const destacadosTramites = useMemo(() => {
     const porSlug = new Map(deMiZona.map((t) => [t.slug, t]));
     return destacados.map((s) => porSlug.get(s)).filter((t): t is Tramite => Boolean(t));
   }, [deMiZona]);
-  const enDestacados = useMemo(() => new Set(destacadosTramites.map((t) => t.slug)), [destacadosTramites]);
 
   const grupos = useMemo(
     () =>
       hechosVitales
-        .map((hv) => ({
-          hv,
-          items: deMiZona.filter((t) => t.hechoVital === hv.codigo && !enDestacados.has(t.slug)),
-        }))
+        .map((hv) => ({ hv, items: deMiZona.filter((t) => t.hechoVital === hv.codigo) }))
         .filter((g) => g.items.length > 0),
-    [deMiZona, enDestacados]
+    [deMiZona]
   );
 
   const grupoActivo = grupos.find((g) => g.hv.codigo === tema);
