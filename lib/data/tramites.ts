@@ -685,6 +685,530 @@ export const tramites: Tramite[] = [
 
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
+    slug: "clave",
+    nombreOficial: "Registro en el sistema Cl@ve",
+    nombreColoquial: "Cl@ve, la identidad electrónica del Estado",
+    descripcion:
+      "El sistema con el que el Estado te identifica por internet, alternativa al certificado digital. Se puede sacar por vídeo, con una carta que te mandan a casa, con certificado, o en persona en una oficina.",
+    organismo: "Cl@ve · Gobierno de España",
+    territorio: "España",
+    canales: ["online", "presencial"],
+    urlFuente: "https://clave.gob.es/registro/como-puedo-registrarme",
+    verificadaEn: null,
+    generadaPorIa: true,
+    alias: ["clave", "cl@ve", "clave pin", "clave permanente", "identidad electronica", "clave movil"],
+    preguntas: [
+      {
+        id: "clv-p1",
+        orden: 1,
+        texto: "¿Para quién es el registro en Cl@ve?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "clv-p1-yo", texto: "Para mí" },
+          {
+            id: "clv-p1-otra",
+            texto: "Para otra persona (mi madre, mi padre…)",
+            veredictoInviable: true,
+            textoAlternativas:
+              "Aquí la fuente es tajante y ni siquiera vale un apoderamiento: «Para el registro en Cl@ve de forma presencial es imprescindible la presencia física de la persona que se va a registrar, así como que acuda con su DNI. Por tanto, no cabe instar registros en CL@VE mediante representación por parte de un tercero o apoderado». Tus opciones reales: (1) sentaros juntos y que se registre ella —por vídeo desde su móvil es lo más cómodo—; (2) acompañarla a una oficina de registro con su DNI.",
+          },
+        ],
+      },
+      {
+        id: "clv-p2",
+        orden: 2,
+        texto: "¿Cómo prefieres registrarte?",
+        tipo: "normal",
+        opciones: [
+          { id: "clv-p2-video", texto: "Por vídeo, desde el móvil" },
+          { id: "clv-p2-carta", texto: "Con una carta que me manden a casa" },
+          { id: "clv-p2-cert", texto: "Con mi certificado digital o DNIe" },
+          { id: "clv-p2-oficina", texto: "En persona, en una oficina" },
+        ],
+      },
+      {
+        id: "clv-p3",
+        orden: 3,
+        texto: "¿Qué documento de identidad tienes?",
+        tipo: "normal",
+        opciones: [
+          { id: "clv-p3-dni", texto: "DNI español" },
+          { id: "clv-p3-nie", texto: "NIE" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "clv-r1",
+        tipo: "tramite_previo",
+        titulo: "DNI en vigor (la vía de vídeo solo admite DNI español)",
+        explicacion:
+          "Fuente: «Temporalmente solo se ofrecerá el registro por videoidentificación a ciudadanos españoles con un DNI en vigor». Si tienes NIE, esta vía está cerrada ahora mismo: usa la carta de invitación o el certificado.",
+        canal: "online",
+        tramitePrevioSlug: "renovacion-dni",
+        soloSiOpciones: ["clv-p2-video"],
+      },
+      {
+        id: "clv-r2",
+        tipo: "tecnico",
+        titulo: "App Cl@ve, móvil con cámara y micro, y un sitio tranquilo",
+        explicacion:
+          "Fuente: «Tener instalada la APP Cl@ve. Un teléfono móvil con buena conexión, cámara y micrófono. Una dirección de correo electrónico y un número de teléfono personal. Un lugar tranquilo, bien iluminado, con fondo neutro».",
+        canal: "online",
+        soloSiOpciones: ["clv-p2-video"],
+      },
+      {
+        id: "clv-r3",
+        tipo: "doc_fisico",
+        titulo: "El documento original, sin funda ni plastificar",
+        explicacion:
+          "Fuente: «Documento original en buen estado. No se pueden usar fundas, fotocopias o plastificados» y «El ciudadano debe ser el titular del documento».",
+        canal: "online",
+        soloSiOpciones: ["clv-p2-video"],
+      },
+      {
+        id: "clv-r4",
+        tipo: "doc_fisico",
+        titulo: "La fecha de validez de tu DNI",
+        explicacion:
+          "Fuente: «DNI: indica la fecha de validez. DNI permanente (con fecha de validez 01-01-9999) solo es posible utilizar la fecha de expedición».",
+        canal: "ambos",
+        soloSiOpciones: ["clv-p3-dni"],
+      },
+      {
+        id: "clv-r5",
+        tipo: "doc_fisico",
+        titulo: "El número de soporte de tu NIE",
+        explicacion:
+          "Fuente: «NIE: se solicitará el número de soporte que aparece en su documento».",
+        canal: "ambos",
+        soloSiOpciones: ["clv-p3-nie"],
+      },
+      {
+        id: "clv-r6",
+        tipo: "doc_fisico",
+        titulo: "La carta de invitación con su código de 16 caracteres",
+        explicacion:
+          "Llega por correo postal a tu domicilio fiscal — el que conste en Hacienda, ojo. Fuente: «Localiza el Código Seguro de Verificación (CSV) en la carta. Es un código de 16 números y letras en mayúsculas».",
+        canal: "ambos",
+        soloSiOpciones: ["clv-p2-carta"],
+      },
+      {
+        id: "clv-r7",
+        tipo: "tecnico",
+        titulo: "Un móvil por persona, y un email",
+        explicacion:
+          "Fuente: «además del DNI, necesitas un número de teléfono móvil (solo se podrá asociar un DNI/NIE a un mismo número de móvil) y una dirección de correo electrónico». Si compartís móvil en casa, esto os va a frenar.",
+        canal: "ambos",
+        soloSiOpciones: ["clv-p2-carta"],
+      },
+      {
+        id: "clv-r8",
+        tipo: "tramite_previo",
+        titulo: "Certificado digital o DNIe, con su número de soporte",
+        explicacion:
+          "Fuente: «Identifícate con tu certificado o DNI electrónico, además será necesario que consignes el número de soporte del documento para verificar la validez del mismo». Esta vía da nivel avanzado.",
+        canal: "online",
+        tramitePrevioSlug: "certificado-digital-fnmt",
+        soloSiOpciones: ["clv-p2-cert"],
+      },
+      {
+        id: "clv-r9",
+        tipo: "doc_fisico",
+        titulo: "Ir en persona con tu DNI (y mirar si piden cita)",
+        explicacion:
+          "Fuente: «es imprescindible la presencia física de la persona que se va a registrar, así como que acuda con su DNI» y «Recuerda, asimismo, que muchas oficinas requieren cita previa». Oficinas: AEAT, Seguridad Social, SEPE y Delegaciones del Gobierno.",
+        canal: "presencial",
+        soloSiOpciones: ["clv-p2-oficina"],
+      },
+    ],
+    prerequisitos: [],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "apoderamiento",
+    nombreOficial: "Registro Electrónico de Apoderamientos (REA) de la AGE",
+    nombreColoquial: "Poder actuar en nombre de otra persona",
+    descripcion:
+      "La vía oficial para que alguien pueda hacer trámites en tu nombre ante la Administración del Estado — o para que tú los hagas por un familiar. No sirve para todo: solo para los trámites que estén marcados como apoderables.",
+    organismo: "Administración General del Estado · Punto de Acceso General",
+    territorio: "España",
+    canales: ["online", "presencial"],
+    urlFuente: "https://sede.administracion.gob.es/servicios-electronicos/rea",
+    verificadaEn: null,
+    generadaPorIa: true,
+    alias: [
+      "apoderamiento",
+      "apoderar",
+      "poder notarial",
+      "actuar en nombre de",
+      "representar a mi madre",
+      "rea",
+      "representacion",
+    ],
+    preguntas: [
+      {
+        id: "apo-p1",
+        orden: 1,
+        texto: "¿Qué lado eres tú?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "apo-p1-poderdante", texto: "Quiero autorizar a alguien a actuar por mí" },
+          { id: "apo-p1-apoderado", texto: "Quiero que un familiar me autorice a actuar por él o ella" },
+        ],
+      },
+      {
+        id: "apo-p2",
+        orden: 2,
+        texto: "¿Quién va a inscribir el apoderamiento?",
+        tipo: "normal",
+        opciones: [
+          { id: "apo-p2-poderdante", texto: "La persona que da el poder" },
+          { id: "apo-p2-apoderado", texto: "La persona que lo recibe" },
+        ],
+      },
+      {
+        id: "apo-p3",
+        orden: 3,
+        texto: "¿Para qué lo necesitas?",
+        tipo: "normal",
+        opciones: [
+          { id: "apo-p3-todo", texto: "Para cualquier trámite (poder general)" },
+          { id: "apo-p3-concreto", texto: "Para un trámite concreto" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "apo-r1",
+        tipo: "tramite_previo",
+        titulo: "DNI electrónico o certificado digital en vigor",
+        explicacion:
+          "La fuente lo marca como imprescindible: «¿Cómo acredito mi identidad? Con DNI electrónico o certificado digital reconocido en vigor (requisito imprescindible)». Ojo: esta fuente NO menciona Cl@ve como alternativa.",
+        canal: "ambos",
+        tramitePrevioSlug: "certificado-digital-fnmt",
+      },
+      {
+        id: "apo-r2",
+        tipo: "tecnico",
+        titulo: "Que el trámite esté marcado como apoderable",
+        explicacion:
+          "El límite grande: no todo se puede apoderar. Fuente: se podrá inscribir «en todos aquellos trámites y actuaciones que con carácter previo hayan sido inscritos en el Sistema de Información Administrativa (SIA) con capacidad para ser iniciados por apoderado». Comprueba tu trámite antes de montar todo esto.",
+        canal: "ambos",
+      },
+      {
+        id: "apo-r3",
+        tipo: "doc_fisico",
+        titulo: "Poder notarial o documento privado firmado por ambos",
+        explicacion:
+          "Solo si lo inscribe quien recibe el poder. Fuente: «será necesario que aporte un poder notarial o un documento privado firmado electrónicamente por ella y por la persona poderdante». Los documentos privados con firma electrónica «solo se podrán presentar por comparecencia electrónica».",
+        canal: "ambos",
+        soloSiOpciones: ["apo-p2-apoderado"],
+      },
+      {
+        id: "apo-r4",
+        tipo: "tramite_previo",
+        titulo: "Bastanteo por los servicios jurídicos",
+        explicacion:
+          "Un paso intermedio que bloquea. Fuente: el poder «tendrá que ser bastanteado […] El apoderamiento no estará autorizado y no surtirá efecto sin haber pasado por este trámite».",
+        canal: "ambos",
+        soloSiOpciones: ["apo-p2-apoderado"],
+      },
+      {
+        id: "apo-r5",
+        tipo: "tramite_previo",
+        titulo: "Que la otra persona acepte después",
+        explicacion:
+          "Fuente: si lo inscribe quien da el poder, «la persona apoderada deberá comparecer a posteriori para aceptar el apoderamiento. Solo en este momento el apoderamiento pasará a estar autorizado y podrá ser usado».",
+        canal: "ambos",
+        soloSiOpciones: ["apo-p2-poderdante"],
+      },
+      {
+        id: "apo-r6",
+        tipo: "doc_fisico",
+        titulo: "Decidir el tipo de poder y su fecha de fin",
+        explicacion:
+          "Fuente: hay tres tipos — «Tipo a: apoderamiento general para cualquier actuación administrativa ante cualquier Administración Pública. Tipo b: […] para una Administración y sus Organismos Públicos […]. Tipo c: apoderamiento para determinados trámites». Y: «El plazo máximo de vigencia no podrá ser superior a los 5 años».",
+        canal: "ambos",
+      },
+    ],
+    prerequisitos: [
+      { slug: "certificado-digital-fnmt", nota: "La fuente lo marca como requisito imprescindible." },
+    ],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "tarjeta-sanitaria-madrid",
+    nombreOficial: "Tarjeta Sanitaria Individual (Comunidad de Madrid)",
+    nombreColoquial: "La tarjeta sanitaria",
+    descripcion:
+      "La tarjeta del médico. Se pide en el centro de salud o por internet. Hace falta estar empadronado en la Comunidad de Madrid y tener reconocido el derecho a la asistencia por el INSS.",
+    organismo: "Servicio Madrileño de Salud · Consejería de Sanidad",
+    territorio: "Comunidad de Madrid",
+    canales: ["online", "presencial"],
+    urlFuente: "https://sede.comunidad.madrid/prestacion-social/tarjeta-sanitaria",
+    verificadaEn: null,
+    generadaPorIa: true,
+    alias: [
+      "tarjeta sanitaria",
+      "tarjeta del medico",
+      "sanidad",
+      "medico de cabecera",
+      "tsi",
+      "tarjeta sanitaria de mi hijo",
+    ],
+    preguntas: [
+      {
+        id: "san-p1",
+        orden: 1,
+        texto: "¿Para quién es la tarjeta?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "san-p1-yo", texto: "Para mí" },
+          { id: "san-p1-otro", texto: "Para otra persona (hijo, madre…) y la pido yo" },
+        ],
+      },
+      {
+        id: "san-p2",
+        orden: 2,
+        texto: "¿Qué necesitas hacer?",
+        tipo: "normal",
+        opciones: [
+          { id: "san-p2-primera", texto: "Sacarla por primera vez" },
+          { id: "san-p2-repo", texto: "Se ha perdido, roto o hay que cambiar datos" },
+        ],
+      },
+      {
+        id: "san-p3",
+        orden: 3,
+        texto: "¿Qué nacionalidad tiene el titular?",
+        tipo: "normal",
+        opciones: [
+          { id: "san-p3-es", texto: "Española" },
+          { id: "san-p3-ext", texto: "Extranjera" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "san-r1",
+        tipo: "tramite_previo",
+        titulo: "Estar empadronado en la Comunidad de Madrid",
+        explicacion: "Fuente, literal: «Estar empadronado en la Comunidad de Madrid».",
+        canal: "ambos",
+        tramitePrevioSlug: "empadronamiento-madrid",
+        soloSiOpciones: ["san-p2-primera"],
+      },
+      {
+        id: "san-r2",
+        tipo: "tramite_previo",
+        titulo: "Tener reconocido el derecho a la asistencia por el INSS",
+        explicacion:
+          "Fuente: «Tener derecho a la asistencia sanitaria por el Instituto Nacional de la Seguridad Social (INSS)». Ojo: es tener el derecho reconocido, no aportar el documento de afiliación — la fuente no lo pide.",
+        canal: "ambos",
+        soloSiOpciones: ["san-p2-primera"],
+      },
+      {
+        id: "san-r3",
+        tipo: "doc_fisico",
+        titulo: "Permiso de residencia en vigor o en trámite",
+        explicacion:
+          "Fuente: «En caso de personas extranjeras, disponer de un permiso de residencia en vigor o en trámite de renovación». Y hay que «Acreditar la vigencia del permiso de residencia, cada vez que se renueve»: la tarjeta de personas extranjeras sí caduca, la de españolas no.",
+        canal: "ambos",
+        soloSiOpciones: ["san-p3-ext"],
+      },
+      {
+        id: "san-r4",
+        tipo: "doc_fisico",
+        titulo: "Certificado de nacimiento (menores de 14 sin DNI)",
+        explicacion:
+          "Fuente: «Certificado de nacimiento (solo en menores de 14 años, en ausencia de DNI o TIE)».",
+        canal: "ambos",
+        soloSiOpciones: ["san-p1-otro"],
+      },
+      {
+        id: "san-r5",
+        tipo: "doc_fisico",
+        titulo: "Documento que acredite la representación",
+        explicacion:
+          "Fuente: «En caso de actuar por medio de un representante, documento que acredite la representación o vinculación familiar (Libro de familia, Sentencia judicial de incapacitación, Resolución de acogimiento o tutela, poderes o autorización)».",
+        canal: "ambos",
+        soloSiOpciones: ["san-p1-otro"],
+      },
+      {
+        id: "san-r6",
+        tipo: "doc_fisico",
+        titulo: "Volante de empadronamiento de menos de 90 días",
+        explicacion:
+          "Fuente: «Volante de empadronamiento expedido con menos de 90 días a su presentación». Curiosamente la fuente lo pide para esto, y no para la primera tarjeta.",
+        canal: "ambos",
+        tramitePrevioSlug: "empadronamiento-madrid",
+        soloSiOpciones: ["san-p2-repo"],
+      },
+      {
+        id: "san-r7",
+        tipo: "tecnico",
+        titulo: "Firma electrónica reconocida",
+        explicacion:
+          "Fuente: «Para realizar este trámite por medios electrónicos necesitas uno de los sistemas de firma electrónica reconocidos por la Comunidad de Madrid». Si vas al centro de salud, no hace falta ni el formulario: «El personal de la Unidad Administrativa te indicará la documentación necesaria en tu caso concreto».",
+        canal: "online",
+      },
+    ],
+    prerequisitos: [
+      { slug: "empadronamiento-madrid", nota: "Hay que estar empadronado en la Comunidad de Madrid." },
+    ],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "familia-numerosa-madrid",
+    nombreOficial: "Título de Familia Numerosa (Comunidad de Madrid)",
+    nombreColoquial: "El título de familia numerosa",
+    descripcion:
+      "El título que da descuentos y ventajas — entre ellas, el DNI y el pasaporte gratis. Ya no es un papel: es una tarjeta digital. Se puede pedir todo el año.",
+    organismo: "Dirección General de Infancia, Familia y Fomento de la Natalidad · Comunidad de Madrid",
+    territorio: "Comunidad de Madrid",
+    canales: ["online", "presencial"],
+    urlFuente:
+      "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/titulo-familia-numerosa",
+    verificadaEn: null,
+    generadaPorIa: true,
+    alias: [
+      "familia numerosa",
+      "titulo de familia numerosa",
+      "carnet familia numerosa",
+      "descuentos familia numerosa",
+    ],
+    preguntas: [
+      {
+        id: "fn-p1",
+        orden: 1,
+        texto: "¿El título es para tu familia?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "fn-p1-yo", texto: "Sí, soy progenitor, tutor o acogedor" },
+          {
+            id: "fn-p1-otro",
+            texto: "No, es para la familia de otra persona",
+            veredictoInviable: true,
+            textoAlternativas:
+              "El título lo pide la propia unidad familiar. Si hay separación o divorcio y lo pide el progenitor no custodio, la fuente exige documentación específica: sentencia y/o convenio regulador, los tres últimos recibos de la pensión y un escrito firmado del progenitor custodio dando por conocida la inclusión de los hijos. Si no eres de la familia, no puedes pedirlo tú.",
+          },
+        ],
+      },
+      {
+        id: "fn-p2",
+        orden: 2,
+        texto: "¿Qué nacionalidad tienen los miembros de la familia?",
+        tipo: "normal",
+        opciones: [
+          { id: "fn-p2-es", texto: "Española" },
+          { id: "fn-p2-ue", texto: "De la UE" },
+          { id: "fn-p2-otra", texto: "De fuera de la UE" },
+        ],
+      },
+      {
+        id: "fn-p3",
+        orden: 3,
+        texto: "¿Hay hijos de entre 21 y 25 años?",
+        tipo: "normal",
+        opciones: [
+          { id: "fn-p3-no", texto: "No" },
+          { id: "fn-p3-si", texto: "Sí" },
+        ],
+      },
+      {
+        id: "fn-p4",
+        orden: 4,
+        texto: "¿Hay separación, divorcio o custodia compartida?",
+        tipo: "normal",
+        opciones: [
+          { id: "fn-p4-no", texto: "No" },
+          { id: "fn-p4-si", texto: "Sí" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "fn-r1",
+        tipo: "tramite_previo",
+        titulo: "Certificado o volante de empadronamiento de menos de 3 meses",
+        explicacion:
+          "De todos los que vayan en el título. Fuente: «expedido como máximo, dentro de los tres meses inmediatos anteriores a la fecha de solicitud. No se requiere que figuren los hijos menores de seis meses».",
+        canal: "ambos",
+        tramitePrevioSlug: "empadronamiento-madrid",
+      },
+      {
+        id: "fn-r2",
+        tipo: "doc_fisico",
+        titulo: "Copia del libro de familia (o certificados de matrimonio y nacimiento)",
+        explicacion:
+          "Fuente: «Copia del Libro de Familia donde conste, en su caso, el matrimonio y nacimiento de los hijos o, en su defecto copia de los certificados de matrimonio y nacimiento de los hijos. En el caso de que los miembros de la familia figuren en distintos Libros de Familia se aportará copia de todos ellos».",
+        canal: "ambos",
+        soloSiOpciones: ["fn-p2-es"],
+      },
+      {
+        id: "fn-r3",
+        tipo: "doc_fisico",
+        titulo: "Certificado de inscripción en el Registro Central de Extranjeros",
+        explicacion:
+          "Fuente (personas comunitarias): «Copia del certificado de inscripción en el Registro Central de Extranjeros». Y la documentación familiar «análoga, si ésta existe en el Estado del que son nacionales».",
+        canal: "ambos",
+        soloSiOpciones: ["fn-p2-ue"],
+      },
+      {
+        id: "fn-r4",
+        tipo: "doc_fisico",
+        titulo: "Permiso de residencia o visado de reagrupación familiar",
+        explicacion:
+          "Fuente (extracomunitarias): «copia de la documentación acreditativa de la residencia legal: permiso de residencia o visado de reagrupación familiar». Si está caducado, hace falta copia de la solicitud de prórroga y el Anexo V.",
+        canal: "ambos",
+        soloSiOpciones: ["fn-p2-otra"],
+      },
+      {
+        id: "fn-r5",
+        tipo: "doc_fisico",
+        titulo: "Certificado de estudios de los hijos de 21 a 25 años",
+        explicacion:
+          "Fuente: «Copia del certificado del Centro donde cursen estudios, matrícula oficial donde conste el curso que va a realizar, preinscripción o cualquier otro documento válido en derecho».",
+        canal: "ambos",
+        soloSiOpciones: ["fn-p3-si"],
+      },
+      {
+        id: "fn-r6",
+        tipo: "doc_fisico",
+        titulo: "Sentencia, convenio regulador y recibos de la pensión",
+        explicacion:
+          "Fuente: si lo pide el progenitor no custodio, «copia de sentencia judicial y/o convenio regulador donde se determine la custodia de los hijos, tres últimos recibos bancarios correspondientes al pago de la pensión alimenticia de sus hijos y escrito firmado por el progenitor custodio». En custodia compartida, «acuerdo entre progenitores sobre titularidad y tiempos del Título».",
+        canal: "ambos",
+        soloSiOpciones: ["fn-p4-si"],
+      },
+      {
+        id: "fn-r7",
+        tipo: "tecnico",
+        titulo: "Firma electrónica reconocida (también para usar el título)",
+        explicacion:
+          "No solo para pedirlo: el título ya no existe en papel. Fuente: «El título en soporte físico ha sido sustituido por una tarjeta digital en la aplicación de Familias Numerosas. Para acceder tienes que disponer de uno de los sistemas de firma electrónica reconocidos por la Comunidad de Madrid».",
+        canal: "ambos",
+      },
+      {
+        id: "fn-r8",
+        tipo: "doc_fisico",
+        titulo: "Cita previa (para la vía presencial)",
+        explicacion:
+          "Fuente: «si deseas presentar la solicitud de forma presencial, es preciso tener cita previa. Para obtenerla, pulsa en el siguiente enlace o llama al teléfono 012».",
+        canal: "presencial",
+      },
+    ],
+    prerequisitos: [
+      { slug: "empadronamiento-madrid", nota: "El empadronamiento caduca a los 3 meses para este trámite." },
+    ],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
     slug: "beca-comedor-madrid",
     nombreOficial: "Becas de comedor escolar 2026-2027 (Comunidad de Madrid)",
     nombreColoquial: "La beca de comedor del cole",

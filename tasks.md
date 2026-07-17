@@ -62,15 +62,17 @@ BD para cuando llegue.
 ## Fase 5 — Contenido + pulido (semanas 3-5, paralelo, humano)
 
 - [ ] **T-024** Curar y verificar las 11 fichas contra fuente oficial (empezando por beca → certificado → DNI).
-      **7 de 11 extraídas con citas el 17/07 — todas ⚠️ pendientes de verificación humana:**
-      - [x] Certificado digital FNMT
-      - [x] Renovación DNI (re-extraída: la anterior era de memoria)
-      - [x] Beca comedor Madrid · primera ficha de doble canal y con plazo
-      - [x] DNI primera vez · encadena con certificado de nacimiento (6 meses) y empadronamiento (3 meses)
-      - [x] Pasaporte · encadena con DNI en vigor (**citado literalmente**)
-      - [x] Certificado de nacimiento
-      - [x] Empadronamiento Madrid
-      - [ ] Cl@ve · Tarjeta sanitaria · Familia numerosa · Apoderamiento
+      **✅ 11 de 11 extraídas con citas el 17/07 — todas ⚠️ pendientes de verificación humana:**
+      - [x] Renovación DNI (re-extraída) · DNI primera vez · Pasaporte
+      - [x] Certificado de nacimiento · Empadronamiento Madrid
+      - [x] Certificado digital FNMT · Cl@ve · Apoderamiento
+      - [x] Tarjeta sanitaria · Familia numerosa · Beca comedor Madrid
+      - **Cadenas citadas por la fuente**: pasaporte→DNI · DNI primera vez→{certificado nacimiento,
+        empadronamiento} · tarjeta sanitaria→empadronamiento · familia numerosa→empadronamiento
+      - **El veredicto de Cl@ve es el único citado literalmente**: «no cabe instar registros en
+        CL@VE mediante representación por parte de un tercero o apoderado». Corta la cadena
+        apoderamiento→Cl@ve, que era justo la salida que ofrecíamos a Marta con su madre.
+      - **⚠️ La verificación humana es ahora la única deuda del proyecto.** 11 fichas sin cotejar.
       - [x] **FR-027 (plazos)**: descubierto al curar la beca — su convocatoria cerró el 28/05 y la app
             habría servido una checklist para un trámite no solicitable. Añadido campo `plazo`,
             migración `0002_plazos.sql` y aviso en la ficha.

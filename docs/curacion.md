@@ -111,36 +111,61 @@ Los falsos negativos son más peligrosos que los falsos positivos: un invento se
 pero un requisito que descartas por creerlo inventado desaparece de la lista sin dejar rastro — y
 tu usuario se queda en la ventanilla sin él.
 
-## Dos fuentes que dan guerra (aviso de arquitectura)
+## Las fuentes que dan guerra (aviso de arquitectura para el motor de R2)
+
+Curar las 11 dejó un mapa de minas. Si el motor automático de R2 se construye sin esto, fracasará:
 
 - **`madrid.es` bloquea el acceso automatizado**: 403 en todo el dominio, a `curl` y a fetch. Solo
-  se lee con navegador real, y sus datos viven en acordeones que no salen en el texto plano. Si el
-  motor de R2 depende de scrapear Madrid, esto no es un detalle: es un riesgo de diseño.
+  se lee con navegador real, y sus datos viven en acordeones que no salen en el texto plano.
+- **`administracion.gob.es` devuelve HTTP 200 con páginas de error.** Dos URLs plausibles del REA
+  responden 200 y sirven un `<title>Error - Punto de Acceso General</title>`. Un comprobador de
+  código de estado te dice que todo va bien mientras extraes un menú de navegación. Hay que mirar
+  el `<title>`.
 - **`dnielectronico.es` tiene trampas de URL**: `REF_1084` es la página del **pasaporte**, no del
   DNI, aunque los buscadores la devuelvan como "requisitos del DNI". La del DNI es `REF_410`
-  (primera inscripción) y `REF_420` (renovación).
+  (primera inscripción) y `REF_420` (renovación). Además sirve `iso-8859-1`: sin `iconv`, los
+  acentos salen corruptos.
+- **`sede.comunidad.madrid` esconde la documentación en acordeones de pestañas.** Al desetiquetar,
+  los 10 títulos salen apelotonados y separados de sus contenidos: emparejarlos "a ojo" produce
+  atribuciones falsas. Hay que mapearlos por posición en el DOM.
+- **`sede.mjusticia.gob.es` es una fachada**: los requisitos reales viven en `www.mjusticia.gob.es`,
+  otro dominio y otro CMS.
+- **Los `&nbsp;` dentro de las frases rompen los greps literales.** Y `grep` con `.` no cruza saltos
+  de línea: para buscar contexto hay que aplanar el HTML a una línea antes.
 
-## Estado del catálogo (7 de 11 extraídas)
+**Conclusión honesta para la presentación:** el motor automático de fichas es más difícil de lo que
+parecía en julio. No porque la IA no sepa leer, sino porque las sedes españolas están construidas
+para que no las lea nadie automáticamente. Es un argumento a favor del diseño que elegimos —
+extracción asistida + verificación humana — y en contra de prometer un scraper mágico.
+
+## Estado del catálogo: 11 de 11 extraídas ✅ · 0 verificadas ❌
+
+Las once están extraídas con citas y en producción marcadas "⚠️ Generada por IA — sin verificar".
+**Ninguna está verificada: esa es toda la deuda del proyecto ahora mismo.**
 
 | Trámite | Extraída | Verificada |
 |---|---|---|
-| Certificado digital FNMT | ✅ 17/07 | ❌ **pendiente** |
-| Renovación DNI | ✅ 17/07 | ❌ **pendiente** |
-| Beca comedor Madrid | ✅ 17/07 | ❌ **pendiente** |
-| DNI primera vez | ✅ 17/07 | ❌ **pendiente** |
-| Pasaporte | ✅ 17/07 | ❌ **pendiente** |
-| Certificado de nacimiento | ✅ 17/07 | ❌ **pendiente** |
-| Empadronamiento Madrid | ✅ 17/07 | ❌ **pendiente** |
-| Cl@ve · Tarjeta sanitaria · Familia numerosa · Apoderamiento | ❌ | ❌ |
+| Renovación DNI · DNI primera vez · Pasaporte | ✅ | ❌ |
+| Certificado de nacimiento · Empadronamiento Madrid | ✅ | ❌ |
+| Certificado digital FNMT · Cl@ve · Apoderamiento | ✅ | ❌ |
+| Tarjeta sanitaria · Familia numerosa · Beca comedor | ✅ | ❌ |
 
-## Inferencias nuestras a confirmar (no son citas)
+## Inferencias nuestras a confirmar (no son citas) ⚠️
+
+Esto es lo primero que hay que mirar en la verificación: son enlaces del producto que **la fuente
+no respalda literalmente**.
 
 1. **Beca → certificado digital.** La fuente dice «uno de los sistemas de firma electrónica
-   reconocidos por la Comunidad de Madrid» sin nombrarlos. Que el certificado FNMT valga es
-   deducción nuestra.
+   reconocidos por la Comunidad de Madrid» sin nombrarlos. Igual en tarjeta sanitaria y familia
+   numerosa.
 2. **DNI primera vez → empadronamiento de Madrid.** La fuente dice «del Ayuntamiento donde la
    persona solicitante tenga su domicilio». Enlazamos al de Madrid porque es nuestro territorio de
    MVP; para otro municipio, la ficha no aplica.
+3. **Apoderamiento → certificado digital FNMT.** La fuente exige «DNI electrónico o certificado
+   digital reconocido en vigor (requisito imprescindible)» — que el de la FNMT sirva es deducción.
+4. **Cl@ve (vía certificado) → certificado FNMT.** Mismo caso.
+5. **Cl@ve (vía vídeo) → renovación DNI.** La fuente exige «un DNI en vigor»; enlazamos a la ficha
+   de renovación como el camino para conseguirlo.
 
 ## Hallazgos de contenido que merecen mirada humana
 
@@ -156,3 +181,22 @@ tu usuario se queda en la ventanilla sin él.
 - **El certificado de nacimiento anterior a 1950 no tiene vía online.**
 - **Gratuidad del certificado de nacimiento: la fuente NO lo dice.** Lo es en la práctica, pero no
   lo afirméis citando la fuente.
+- **Cl@ve no se puede apoderar — y lo dice la fuente.** «no cabe instar registros en CL@VE mediante
+  representación por parte de un tercero o apoderado». Es el único veredicto del catálogo que sale
+  literalmente de la fuente, y corta en seco la cadena apoderamiento → Cl@ve. Justo la pared contra
+  la que choca Marta con su madre.
+- **El REA solo admite certificado digital o DNIe, no Cl@ve.** «(requisito imprescindible)», y
+  Cl@ve no aparece por ningún lado en esa página (verificado con grep sobre el HTML aplanado).
+  Mucha gente asume que Cl@ve sirve; esta fuente no lo respalda. No lo afirméis en ninguna dirección
+  sin otra fuente.
+- **"Familia numerosa hasta los 26 años" NO está en la sede.** Es el dato más repetido de internet
+  sobre este trámite, y la fuente oficial no lo dice: procede de fedma.es, que no es oficial. Si lo
+  queréis mostrar, la cita tiene que salir del BOCM nº 87 de 13/04/2023. **Este es el ejemplo
+  perfecto de por qué no se cura de memoria: un modelo lo habría escrito sin dudar.**
+- **La tarjeta sanitaria NO pide el documento de afiliación a la Seguridad Social.** Exige *tener*
+  el derecho reconocido por el INSS, que es otra cosa. Verificado con grep: cero coincidencias de
+  "afiliaci" en la fuente.
+- **Ni "gratuito" ni "gratuita" aparecen en las fichas de Madrid.** Lo que dicen es «No requiere el
+  pago de tasas». Y en familia numerosa hay una contradicción interna de la propia fuente: el badge
+  dice que no hay tasas, pero la pestaña de RMI habla de «solicitar exención de tasas». Sin resolver.
+- **Familia numerosa da DNI y pasaporte gratis** — eso sí está citado en la fuente del DNI.
