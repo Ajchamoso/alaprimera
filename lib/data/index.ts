@@ -63,6 +63,9 @@ function mapeaTramite(fila: any): Tramite {
     canales: fila.canales as Canal[],
     urlFuente: fila.url_fuente,
     urlCitaPrevia: fila.url_cita_previa ?? undefined,
+    plazo: fila.plazo_inicio
+      ? { inicio: fila.plazo_inicio, fin: fila.plazo_fin, nota: fila.plazo_nota ?? undefined }
+      : undefined,
     verificadaEn: fila.verificada_en,
     generadaPorIa: fila.generada_por_ia,
     alias: fila.alias ?? [],
@@ -83,7 +86,8 @@ export async function getTramites(): Promise<Tramite[]> {
     .from("tramites")
     .select(
       `id, nombre_oficial, nombre_coloquial, descripcion, organismo, territorio, canales,
-       url_fuente, url_cita_previa, verificada_en, generada_por_ia, alias,
+       url_fuente, url_cita_previa, plazo_inicio, plazo_fin, plazo_nota,
+       verificada_en, generada_por_ia, alias,
        preguntas ( id, orden, texto, tipo,
          opciones ( id, texto, veredicto_inviable, texto_alternativas ) ),
        requisitos!requisitos_tramite_id_fkey ( id, tipo, titulo, explicacion, canal, tramite_previo_id, orden,

@@ -4,6 +4,7 @@ import { getCadena, getTramites } from "@/lib/data";
 import { SelloVerificacion } from "@/components/SelloVerificacion";
 import { Asistente } from "@/components/Asistente";
 import { ReportarError } from "@/components/ReportarError";
+import { AvisoPlazo } from "@/components/AvisoPlazo";
 
 export const revalidate = 300;
 
@@ -40,6 +41,7 @@ export default async function PaginaTramite({
         </p>
         <SelloVerificacion verificadaEn={tramite.verificadaEn} generadaPorIa={tramite.generadaPorIa} />
         <p className="max-w-prose text-stone-600">{tramite.descripcion}</p>
+        <AvisoPlazo plazo={tramite.plazo} />
         <p>
           <a
             href={tramite.urlFuente}

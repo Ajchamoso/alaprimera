@@ -19,12 +19,14 @@ async function main() {
     const ids = tramites.map((t) => t.slug);
     await db.query("delete from tramites where id = any($1)", [ids]);
 
+    // Todos los trámites primero: sus hijos (requisitos con trámite previo,
+    // prerrequisitos) se referencian entre fichas, así el orden del array da igual.
     for (const t of tramites) {
       await db.query(
         `insert into tramites (id, nombre_oficial, nombre_coloquial, descripcion, organismo,
            territorio, canales, url_fuente, url_cita_previa, estado, verificada_en,
-           generada_por_ia, alias)
-         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,'publicada',$10,$11,$12)`,
+           generada_por_ia, alias, plazo_inicio, plazo_fin, plazo_nota)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,'publicada',$10,$11,$12,$13,$14,$15)`,
         [
           t.slug,
           t.nombreOficial,
@@ -38,9 +40,16 @@ async function main() {
           t.verificadaEn,
           t.generadaPorIa,
           t.alias,
+          t.plazo?.inicio ?? null,
+          t.plazo?.fin ?? null,
+          t.plazo?.nota ?? null,
         ]
       );
 
+    }
+
+    // Preguntas y opciones (solo dependen de su propio trámite).
+    for (const t of tramites) {
       for (const p of t.preguntas) {
         await db.query(
           "insert into preguntas (id, tramite_id, orden, texto, tipo) values ($1,$2,$3,$4,$5)",
@@ -54,7 +63,11 @@ async function main() {
           );
         }
       }
+    }
 
+    // Requisitos y prerrequisitos: apuntan a OTRAS fichas, así que van cuando
+    // todas existen.
+    for (const t of tramites) {
       for (const [i, r] of t.requisitos.entries()) {
         await db.query(
           `insert into requisitos (id, tramite_id, tipo, titulo, explicacion, canal, tramite_previo_id, orden)
@@ -68,10 +81,6 @@ async function main() {
           );
         }
       }
-    }
-
-    // Los prerrequisitos al final: ambos trámites deben existir ya.
-    for (const t of tramites) {
       for (const pre of t.prerequisitos) {
         await db.query(
           "insert into prerequisitos (tramite_id, requiere_tramite_id, nota) values ($1,$2,$3)",

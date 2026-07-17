@@ -77,10 +77,38 @@ Al leer la fuente aparecen distinciones que nadie habría inventado, y que son
 español, de la UE o de fuera — tres listas distintas, las tres citadas. Eso es
 justo lo que las guías genéricas no hacen.
 
+## Lo que la curación real nos enseñó (17/07)
+
+**Las sedes son páginas-índice.** Ni la FNMT ni el portal del DNI ni la Comunidad de Madrid tienen
+los datos en su página principal: hay que bajar a las subpáginas (configuración previa, acreditación,
+requisitos). Una URL rara vez basta, y alguna devuelve 404 — se dice, no se rellena de memoria.
+
+**Hay trámites con plazo.** Las becas 2026-2027 se pedían del 29/04 al 28/05: hoy están cerradas.
+Servir una checklist impecable de un trámite que no puedes solicitar es engañar. De ahí salió el
+campo `plazo` y el aviso en la ficha (FR-027).
+
+**La verificación humana caza inventos, y no pocos.** Cuatro solo en el seed de desarrollo escrito
+de memoria:
+
+| Lo que decía el seed | Lo que dice la fuente |
+|---|---|
+| "Vídeo identificación" como forma de acreditar el certificado | Es un **proceso distinto** (Certificado con Vídeo Identificación ≠ con Acreditación Presencial) |
+| Foto "sin gafas oscuras" | No lo dice; sí dice «cabeza totalmente descubierta» y **máximo 2 años** de antigüedad |
+| "En algunas oficinas solo se paga en efectivo" | «abono en efectivo **o a través de tarjeta** de crédito/débito» |
+| Menores: "libro de familia o certificado de nacimiento" | El adulto presenta **su propio** DNI, TIE o Certificado de Registro de Ciudadano de la Unión |
+
+Todas eran plausibles. Ninguna era verdad. Ese es el trabajo.
+
 ## Estado del catálogo
 
 | Trámite | Extraída | Verificada |
 |---|---|---|
-| Renovación DNI | ⚠️ contenido de ejemplo, sin fuente | ❌ |
 | Certificado digital FNMT | ✅ 17/07, con citas | ❌ **pendiente** |
-| Los otros 9 (ver spec.md) | ❌ | ❌ |
+| Renovación DNI | ✅ 17/07, con citas | ❌ **pendiente** |
+| Beca comedor Madrid | ✅ 17/07, con citas | ❌ **pendiente** |
+| Los otros 8 (ver spec.md) | ❌ | ❌ |
+
+**Inferencia a confirmar en la verificación:** en la beca, el enlace ⛓️ al certificado digital.
+La fuente dice «uno de los sistemas de firma electrónica reconocidos por la Comunidad de Madrid»
+sin nombrarlos; que el certificado FNMT valga es deducción nuestra, no cita. Confirmadlo o
+matizadlo.

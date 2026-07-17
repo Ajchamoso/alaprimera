@@ -34,6 +34,17 @@ export interface Prerequisito {
   nota?: string;
 }
 
+/**
+ * Ventana de solicitud (descubierto al curar las becas, 17/07): hay trámites que
+ * solo se pueden pedir en unas fechas. Fuera de plazo, la checklist más perfecta
+ * del mundo es inútil — y prometer lo contrario es engañar.
+ */
+export interface Plazo {
+  inicio: string; // ISO date
+  fin: string; // ISO date
+  nota?: string; // p. ej. cuándo suele abrir el siguiente
+}
+
 export interface Tramite {
   slug: string;
   nombreOficial: string;
@@ -44,6 +55,7 @@ export interface Tramite {
   canales: Canal[];
   urlFuente: string;
   urlCitaPrevia?: string;
+  plazo?: Plazo;
   /** null = sin verificar (se muestra el aviso). Fecha ISO si una persona la cotejó. */
   verificadaEn: string | null;
   generadaPorIa: boolean;

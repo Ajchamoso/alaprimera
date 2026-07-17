@@ -227,6 +227,9 @@ para revisión sin bloquear ni afectar a nada visible por usuarios finales.
 - **FR-022**: Los borradores DEBEN nacer etiquetados "Generada por IA — sin verificar", ser visibles solo para curadoras y requerir aprobación humana explícita para publicarse.
 - **FR-023**: Si la extracción falla o carece de confianza suficiente, el sistema DEBE avisar del fallo y NO publicar contenido parcial.
 
+**Plazos** *(FR-027 añadido el 17/07: lo reveló la curación real, no el diseño)*
+- **FR-027**: Cuando un trámite solo pueda solicitarse en una ventana de fechas, el sistema DEBE mostrar el estado del plazo (abierto / aún no abierto / cerrado) antes que la checklist, y DEBE decir explícitamente que está cerrado cuando lo esté. Servir una checklist impecable de un trámite no solicitable contradice el JTBD ("que no te frene algo que no sabías") y roza el "contenido engañoso" que el reto prohíbe.
+
 **Generales**
 - **FR-024**: La aplicación DEBE ser plenamente utilizable en móvil y en escritorio.
 - **FR-025**: Toda la interfaz y el contenido DEBEN estar en español.

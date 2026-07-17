@@ -62,8 +62,13 @@ BD para cuando llegue.
 ## Fase 5 — Contenido + pulido (semanas 3-5, paralelo, humano)
 
 - [ ] **T-024** Curar y verificar las 11 fichas contra fuente oficial (empezando por beca → certificado → DNI).
-      - [x] Certificado digital FNMT — **extraída con citas** el 17/07 · ⚠️ **pendiente de verificación humana**
-      - [ ] Renovación DNI — el contenido actual es de ejemplo, sin fuente: hay que re-extraerlo
-      - [ ] Las otras 9
+      **Cadena estrella completa y extraída con citas el 17/07 — las tres pendientes de verificación humana:**
+      - [x] Certificado digital FNMT · ⚠️ pendiente de verificar
+      - [x] Renovación DNI (re-extraída: la anterior era de memoria y tenía 3 inventos) · ⚠️ pendiente de verificar
+      - [x] Beca comedor Madrid · ⚠️ pendiente de verificar · primera ficha de doble canal y con plazo
+      - [ ] Las otras 8
+      - [x] **FR-027 (plazos)**: descubierto al curar la beca — su convocatoria cerró el 28/05 y la app
+            habría servido una checklist para un trámite no solicitable. Añadido campo `plazo`,
+            migración `0002_plazos.sql` y aviso en la ficha.
 - [ ] **T-025** E2E del viaje de la demo en CI.
 - [ ] **T-026** Ensayo cronometrado de la demo (<3 min) contra producción.
