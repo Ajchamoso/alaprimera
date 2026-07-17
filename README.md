@@ -14,6 +14,7 @@ Claude Code, sin editar una línea de código a mano.
 - [plan.md](./plan.md) — plan técnico (el CÓMO): stack, arquitectura, modelo de datos, identidad visual, fases.
 - [tasks.md](./tasks.md) — el desglose en tareas y su estado.
 - [docs/preparar-fichas.md](./docs/preparar-fichas.md) — cómo se prepara, verifica y mantiene una ficha, y qué aprendimos preparando las 11.
+- [docs/hechos-vitales.md](./docs/hechos-vitales.md) — el backlog del catálogo (~55 trámites) y el diseño de la futura navegación por hechos vitales.
 - [CLAUDE.md](./CLAUDE.md) / [AGENTS.md](./AGENTS.md) — reglas del reto y del producto para cada sesión.
 - El *discovery* (hipótesis, mapa de historias, análisis competitivo, el pivote desde SpecLens) vive
   en el repo `Viberano` de la propuesta.
