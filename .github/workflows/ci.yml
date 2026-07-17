@@ -1,0 +1,39 @@
+name: CI
+
+# La red de seguridad, automática: en cada push y cada PR a main se corre lo
+# mismo que exigimos antes de commitear. Como todo se construye por prompts, esto
+# es lo que garantiza que un cambio no rompe lo que ya funcionaba sin que nadie
+# tenga que acordarse de comprobarlo.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Comprobación de tipos
+        run: npx tsc --noEmit
+
+      - name: Tests (invariantes del dominio)
+        run: npm test
+
+      # El build degrada sin Supabase (sirve el seed local), así que no necesita
+      # secretos: verifica que la app compila y prerrenderiza de punta a punta.
+      - name: Build
+        run: npm run build
