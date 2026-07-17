@@ -106,6 +106,13 @@ Qué vigila:
   bordes. Si tocas el umbral, ese test tiene que seguir cuadrando.
 - **Taxonomía**: cada ficha real y cada pendiente cuelgan de un hecho vital que existe; `tieneFichas`
   cuadra con lo curado.
+- **Accesibilidad** (el público es gente mayor; el imprimible llega a una persona de 74 años):
+  - `tests/a11y.test.tsx` pasa **axe** sobre los componentes de presentación (sello, selector de
+    zona, iconos de requisito): etiquetas, roles, nombres accesibles. Corre en jsdom.
+  - `tests/contraste.test.ts` lee los tokens de `app/globals.css` y exige **WCAG AA (4.5:1)** en cada
+    par texto/fondo real. **Regla de paleta: cualquier color de texto tiene que pasar AA.** Por eso
+    `tinta-tenue` es `#726957` (no el `#a79e92` original, que daba 2.2:1): se usa para info real
+    —subtítulos, notas de caducidad—, no solo decoración. Si tocas un color de texto, este test manda.
 
 Al **añadir una ficha nueva** no suele hacer falta escribir tests: las invariantes ya la cubren. Si
 introduces un concepto nuevo (un tipo de requisito, un nivel territorial), añade su invariante aquí.

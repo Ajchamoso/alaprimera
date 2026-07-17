@@ -16,7 +16,7 @@
   --color-hoja: #f7f4ee; /* tarjetas: la hoja encima del expediente */
   --color-tinta: #24221f; /* texto principal */
   --color-tinta-media: #635c52; /* texto secundario */
-  --color-tinta-tenue: #a79e92; /* texto terciario, deshabilitado */
+  --color-tinta-tenue: #726957; /* texto terciario. Oscurecido de #a79e92 para pasar WCAG AA (4.5:1): se usa para info real (subtítulos, notas de caducidad), no solo decoración. Ver tests/contraste.test.ts */
   --color-linea: #d8d1c4; /* filetes y bordes */
   --color-sello: #5a3a82; /* violeta de sello: verificado, acento */
   --color-sello-suave: #ede6f3; /* fondo del acento */
