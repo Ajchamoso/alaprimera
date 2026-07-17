@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import type { Tramite } from "@/lib/types";
 import { buscaTramites } from "@/lib/data";
+import { destacados } from "@/lib/data/destacados";
 import { hechosVitales } from "@/lib/data/hechos-vitales";
 import { nombreComunidad, tieneFichas } from "@/lib/data/comunidades";
 import { getZona, getZonaServidor, suscribeZona, visibleEnZona } from "@/lib/zona";
@@ -42,12 +43,22 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
   const deMiZona = useMemo(() => tramites.filter((t) => visibleEnZona(t, zona)), [tramites, zona]);
   const resultados = useMemo(() => buscaTramites(consulta, deMiZona), [consulta, deMiZona]);
 
+  // Los destacados salen arriba; para no repetirlos, se excluyen de sus temas.
+  const destacadosTramites = useMemo(() => {
+    const porSlug = new Map(deMiZona.map((t) => [t.slug, t]));
+    return destacados.map((s) => porSlug.get(s)).filter((t): t is Tramite => Boolean(t));
+  }, [deMiZona]);
+  const enDestacados = useMemo(() => new Set(destacadosTramites.map((t) => t.slug)), [destacadosTramites]);
+
   const grupos = useMemo(
     () =>
       hechosVitales
-        .map((hv) => ({ hv, items: deMiZona.filter((t) => t.hechoVital === hv.codigo) }))
+        .map((hv) => ({
+          hv,
+          items: deMiZona.filter((t) => t.hechoVital === hv.codigo && !enDestacados.has(t.slug)),
+        }))
         .filter((g) => g.items.length > 0),
-    [deMiZona]
+    [deMiZona, enDestacados]
   );
 
   const grupoActivo = grupos.find((g) => g.hv.codigo === tema);
@@ -113,11 +124,24 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
           <Lista tramites={grupoActivo.items} />
         </div>
       ) : (
-        // ── El índice de temas ──
-        <div className="space-y-3">
-          <p className="text-sm text-tinta-media">
-            ¿Qué te trae por aquí? Entra en el momento que estás viviendo:
-          </p>
+        // ── El índice de temas, con los destacados fuera ──
+        <div className="space-y-8">
+          {destacadosTramites.length > 0 && (
+            <div className="space-y-3">
+              <Rotulo>Empieza por aquí</Rotulo>
+              <ul className="space-y-2">
+                {destacadosTramites.map((t) => (
+                  <li key={t.slug}>
+                    <TarjetaFicha t={t} compacto />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="space-y-3">
+            <Rotulo>Según lo que estés viviendo</Rotulo>
+            <p className="-mt-1 text-sm text-tinta-media">Entra en el momento que te trae por aquí:</p>
           <ul className="grid gap-2 sm:grid-cols-2">
             {grupos.map(({ hv, items }) => {
               const listos = items.filter((t) => !t.pendiente).length;
@@ -140,6 +164,7 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
               );
             })}
           </ul>
+          </div>
         </div>
       )}
     </section>
@@ -166,14 +191,16 @@ function Lista({ tramites }: { tramites: Tramite[] }) {
   );
 }
 
-function TarjetaFicha({ t }: { t: Tramite }) {
+function TarjetaFicha({ t, compacto = false }: { t: Tramite; compacto?: boolean }) {
   return (
     <Link
       href={`/tramite/${t.slug}`}
-      className="block rounded-xl border border-linea bg-hoja p-5 shadow-sm transition hover:border-sello hover:shadow"
+      className={`block rounded-xl border border-linea bg-hoja shadow-sm transition hover:border-sello hover:shadow ${
+        compacto ? "p-4" : "p-5"
+      }`}
     >
       <div className="flex flex-wrap items-center gap-2">
-        <h3 className="text-lg font-semibold">{t.nombreColoquial}</h3>
+        <h3 className={compacto ? "font-semibold" : "text-lg font-semibold"}>{t.nombreColoquial}</h3>
         {t.verificadaEn === null && (
           <span className="rounded-xs border border-pendiente px-1.5 py-0.5 font-cond text-[10px] font-bold uppercase tracking-widest text-pendiente">
             Sin verificar
@@ -188,7 +215,9 @@ function TarjetaFicha({ t }: { t: Tramite }) {
       <p className="text-sm text-tinta-tenue">
         {t.nombreOficial} · {t.organismo}
       </p>
-      {t.descripcion && <p className="mt-2 text-sm text-tinta-media">{t.descripcion}</p>}
+      {!compacto && t.descripcion && (
+        <p className="mt-2 text-sm text-tinta-media">{t.descripcion}</p>
+      )}
     </Link>
   );
 }
