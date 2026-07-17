@@ -24,6 +24,7 @@ Claude Code, sin editar una línea de código a mano.
 
 **Funciona de punta a punta:**
 - Catálogo de **11 trámites** con búsqueda coloquial (Comunidad de Madrid + Estado)
+- Home con **destacados** ("empieza por aquí") sobre el catálogo completo; la búsqueda los colapsa
 - Wizard personalizado con **veredicto de inviabilidad** ("esto no lo puedes hacer tú por ella")
 - Checklist con 4 tipos de requisito y **cadenas de trámites encadenados** ⛓️
 - **Aviso de plazo** cuando un trámite está fuera de fechas
