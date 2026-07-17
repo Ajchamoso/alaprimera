@@ -19,10 +19,11 @@ progreso.** Proyecto del reto Viberano (233 Academy): vibe coding puro.
 
 ## Skill del proyecto
 
-- **`/curar-tramite`** — investiga un trámite en su fuente oficial y lo añade al catálogo
-  (extracción con cita literal → ficha → seed → verificación en navegador → documentar).
-  Úsala siempre que haya que ampliar o re-extraer el catálogo; lleva dentro el mapa de minas
-  de las sedes españolas y las reglas anti-invención.
+- **`/preparar-ficha`** — prepara o revisa una ficha contra su fuente oficial. Dos modos:
+  **añadir** (trámite nuevo: extraer con cita → ficha → seed → verificar en navegador) y
+  **revisar** (mantenimiento: comprueba si la fuente sigue diciendo lo mismo y devuelve solo el
+  diff). Úsala siempre que haya que ampliar o mantener el catálogo; lleva dentro el mapa de minas
+  de las sedes españolas, las reglas anti-invención y el calendario de revisión.
 
 ## Reglas del reto (innegociables)
 

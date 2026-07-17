@@ -1,13 +1,52 @@
-# Cómo se cura una ficha
+# Cómo se prepara y se mantiene una ficha
 
 > El cuello de botella real del proyecto. La IA acelera la extracción; **la
 > verificación no la puede hacer una IA** — es lo que separa esto de publicar
 > información falsa sobre trámites oficiales.
 >
-> **⚡ Este flujo está empaquetado como skill:** en una sesión de Claude Code sobre este repo,
-> `/curar-tramite añade el trámite X` ejecuta todo el proceso (investigar fuente → extraer con
-> citas → ficha → seed → verificar en navegador → documentar). La skill vive en
-> `.claude/skills/curar-tramite/` e incluye el mapa de minas de las sedes.
+> **⚡ Este flujo está empaquetado como skill**, en `.claude/skills/preparar-ficha/`. En una
+> sesión de Claude Code sobre este repo:
+> - `/preparar-ficha añade el trámite X` → investiga la fuente, extrae con citas, escribe la
+>   ficha, la vuelca a BD y la verifica en el navegador.
+> - `/preparar-ficha revisa la ficha de X` → **mantenimiento**: contrasta las citas guardadas
+>   contra la fuente actual y devuelve solo lo que ha cambiado.
+
+## Mantener el catálogo al día
+
+La ficha envejece sola. Tres cosas hacen el trabajo:
+
+**1. El suelo ya está construido: no mentir sobre la frescura.** El sello degrada a los 90 días
+(FR-020), "reportar error" (FR-018) recoge avisos, y —la señal más infravalorada— cada **"no" de
+"¿salió a la primera?"** (FR-017) es un informe de error de contenido con contexto, escrito por
+alguien que acaba de chocar con la realidad en una ventanilla.
+
+**2. La deriva es estacional, no aleatoria.** No hace falta vigilancia continua, hace falta
+calendario:
+
+| Cuándo | Qué revisar | Por qué |
+|---|---|---|
+| **Enero** | Tasas (DNI, pasaporte) | La fuente lo dice: «se actualiza mediante la Ley de Presupuestos Generales del Estado» |
+| **Primavera** | Plazos de convocatorias (becas) | Convocatoria anual, fechas nuevas cada año |
+| **A los 90 días** | Lo que degrade el sello | FR-020 |
+| **Al instante** | Reportes de error y los "no" del feedback | La señal más barata y con más contexto |
+
+Los requisitos de fondo (qué documentos pide el DNI) casi nunca cambian. Priorizad por uso real,
+no por ansiedad. Con 11 fichas y 90 días de sello: **una ficha cada 8 días**.
+
+**3. Las citas son el ancla.** Aquí está el truco que hace viable el mantenimiento: cada requisito
+guarda la frase literal de la fuente, así que comprobar si sigue vigente es un `grep`, no un
+juicio. `/preparar-ficha revisa …` contrasta las citas y devuelve un diff:
+
+```
+✅ 7 de 8 requisitos: la fuente sigue diciendo lo mismo, literalmente.
+⚠️ 1 cambio: dni-r6 (tasa) — ficha «fijada en 12 euros» / fuente «fijada en 13 euros»
+```
+
+Eso convierte el cotejo humano de *"releer 8 requisitos"* a *"mirar esta línea"*. Es la diferencia
+entre que el mantenimiento sea viable o no lo sea.
+
+⚠️ **Aviso de calendario:** las 11 fichas se prepararon el mismo día (17/07), así que **degradarán
+todas a la vez** a mediados de octubre. Antes del directo de septiembre no afecta.
 
 ## La regla que no se negocia
 

@@ -13,7 +13,7 @@ Claude Code, sin editar una línea de código a mano.
 - [spec.md](./spec.md) — especificación SDD viva (el QUÉ): historias, 27 requisitos, entidades, criterios de éxito.
 - [plan.md](./plan.md) — plan técnico (el CÓMO): stack, arquitectura, modelo de datos, fases.
 - [tasks.md](./tasks.md) — el desglose en tareas y su estado.
-- [docs/curacion.md](./docs/curacion.md) — cómo se cura y verifica una ficha, y qué aprendimos curando las 11.
+- [docs/preparar-fichas.md](./docs/preparar-fichas.md) — cómo se prepara, verifica y mantiene una ficha, y qué aprendimos preparando las 11.
 - [CLAUDE.md](./CLAUDE.md) / [AGENTS.md](./AGENTS.md) — reglas del reto y del producto para cada sesión.
 - El *discovery* (hipótesis, mapa de historias, análisis competitivo, el pivote desde SpecLens) vive
   en el repo `Viberano` de la propuesta.
@@ -32,7 +32,7 @@ Claude Code, sin editar una línea de código a mano.
 
 **La única deuda del proyecto:** las 11 fichas están extraídas de fuentes oficiales **con cita
 literal**, pero marcadas "⚠️ Generada por IA — sin verificar". Falta el cotejo humano contra la
-fuente — el único paso que ninguna IA puede hacer. Ver [docs/curacion.md](./docs/curacion.md).
+fuente — el único paso que ninguna IA puede hacer. Ver [docs/preparar-fichas.md](./docs/preparar-fichas.md).
 
 **Fases del plan:** 0 (esqueleto), 1 (walking skeleton), 2 (cuentas y sync) y 3 (confianza y cierre)
 completas. El motor de curación automático (Historia 9 de la spec) se reenfocó a extracción asistida
