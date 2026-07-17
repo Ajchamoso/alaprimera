@@ -1,14 +1,16 @@
 import type { Tramite } from "@/lib/types";
 
 /**
- * Seed de desarrollo: 2 fichas de prueba encadenadas (T-003).
+ * Fichas del catálogo.
  *
- * ⚠️ Contenido de EJEMPLO, aún no cotejado contra la fuente oficial:
- * por eso `verificadaEn` es null y la UI muestra el aviso "sin verificar".
- * Antes de publicar, cada requisito se coteja contra `urlFuente` (regla de oro).
+ * ⚠️ REGLA DE ORO (FR-019): el contenido sale de la fuente oficial, nunca de la
+ * memoria de un modelo. Cada requisito lleva su cita literal en `fuenteCita`.
+ * Las fichas nacen con `verificadaEn: null` ("sin verificar") y solo una persona
+ * que las coteje contra `urlFuente` puede fechar la verificación.
  *
- * En la Fase 2 estas fichas migran a Supabase; este módulo queda como
- * fixture de tests y fallback de desarrollo local.
+ * Flujo de curación: se extrae de la fuente con IA (con cita obligatoria; sin
+ * cita, el campo va vacío) → se vuelca a BD con `npm run db:seed` → una persona
+ * revisa y sella. Ver docs/curacion.md.
  */
 export const tramites: Tramite[] = [
   {
@@ -120,24 +122,27 @@ export const tramites: Tramite[] = [
     ],
     prerequisitos: [],
   },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "certificado-digital-fnmt",
-    nombreOficial: "Certificado digital de persona física (FNMT)",
+    nombreOficial: "Certificado digital de persona física (software) — acreditación presencial",
     nombreColoquial: "El certificado para hacer trámites por internet",
     descripcion:
-      "El certificado digital te identifica en las sedes electrónicas y te permite hacer trámites online (becas, Hacienda, Seguridad Social…) sin desplazarte. Se solicita por internet y hay que acreditar tu identidad.",
+      "El certificado digital te identifica en las sedes electrónicas y te permite hacer trámites online (becas, Hacienda, Seguridad Social…) sin desplazarte. El proceso tiene cuatro pasos: instalar un programa, solicitarlo por internet, acreditar tu identidad en una oficina y descargarlo.",
     organismo: "FNMT — Fábrica Nacional de Moneda y Timbre",
     territorio: "España",
     canales: ["online"],
-    urlFuente: "https://www.sede.fnmt.gob.es/certificados/persona-fisica",
+    urlFuente: "https://www.sede.fnmt.gob.es/certificados/persona-fisica/obtener-certificado-software",
     verificadaEn: null,
-    generadaPorIa: false,
+    generadaPorIa: true,
     alias: [
       "certificado digital",
       "certificado electrónico",
       "fnmt",
       "firma digital",
       "certificado para tramites online",
+      "configurador fnmt",
     ],
     preguntas: [
       {
@@ -152,19 +157,30 @@ export const tramites: Tramite[] = [
             texto: "Para otra persona (mi madre, mi padre…)",
             veredictoInviable: true,
             textoAlternativas:
-              "El certificado digital es personal e intransferible: no puedes solicitarlo tú en nombre de otra persona adulta. Tus opciones reales: (1) que lo solicite ella con tu ayuda, sentados juntos; (2) acompañarla a acreditar su identidad el día de la cita; (3) si lo que necesitas es actuar por ella ante la administración, mira el trámite de apoderamiento.",
+              "El certificado es personal: la fuente oficial dice que «el solicitante y futuro titular del certificado deberá acudir personalmente a una Oficina de Acreditación de Identidad». No puedes acreditarte tú por ella. Tus opciones reales: (1) que lo solicite ella desde su ordenador con tu ayuda y la acompañes a la oficina; (2) si lo que necesitas es poder actuar por ella ante la administración, el camino es un apoderamiento, no su certificado.",
           },
         ],
       },
       {
         id: "cert-p2",
         orden: 2,
-        texto: "¿Cómo prefieres acreditar tu identidad?",
+        texto: "¿Con qué documento de identidad vas a acreditarte?",
         tipo: "normal",
         opciones: [
-          { id: "cert-p2-video", texto: "Por vídeo identificación (todo online)" },
-          { id: "cert-p2-oficina", texto: "En una oficina de registro (presencial)" },
-          { id: "cert-p2-dnie", texto: "Con mi DNI electrónico y un lector" },
+          { id: "cert-p2-es", texto: "DNI español" },
+          { id: "cert-p2-ue", texto: "Soy de la UE (tengo NIE)" },
+          { id: "cert-p2-extranjero", texto: "Soy de fuera de la UE (tengo NIE)" },
+        ],
+      },
+      {
+        id: "cert-p3",
+        orden: 3,
+        texto: "¿Desde qué sistema operativo lo vas a hacer?",
+        tipo: "normal",
+        opciones: [
+          { id: "cert-p3-windows", texto: "Windows" },
+          { id: "cert-p3-mac", texto: "macOS" },
+          { id: "cert-p3-linux", texto: "GNU/Linux" },
         ],
       },
     ],
@@ -172,66 +188,109 @@ export const tramites: Tramite[] = [
       {
         id: "cert-r1",
         tipo: "tramite_previo",
-        titulo: "DNI en vigor",
+        titulo: "Un documento de identidad en vigor",
         explicacion:
-          "Sin un documento de identidad en vigor no puedes acreditarte. Si está caducado, primero toca renovarlo.",
+          "Sin él no puedes acreditar tu identidad en la oficina. Si tu DNI está caducado, primero toca renovarlo.",
         canal: "ambos",
         tramitePrevioSlug: "renovacion-dni",
+        soloSiOpciones: ["cert-p2-es"],
       },
       {
         id: "cert-r2",
         tipo: "tecnico",
-        titulo: "Ordenador con un navegador compatible",
+        titulo: "Instalar el CONFIGURADOR FNMT-RCM",
         explicacion:
-          "La solicitud se hace desde el ordenador donde luego instalarás el certificado. Consulta en la fuente oficial los navegadores admitidos.",
+          "Es el programa oficial que genera las claves. Sin él no se puede ni empezar la solicitud. Fuente: «La Fábrica Nacional de Moneda y Timbre ha desarrollado esta aplicación para solicitar las claves necesarias en la obtención de un certificado digital».",
         canal: "online",
       },
       {
         id: "cert-r3",
         tipo: "tecnico",
-        titulo: "Software de configuración de la FNMT instalado",
+        titulo: "Un navegador actualizado",
         explicacion:
-          "Un programa oficial que prepara el ordenador para generar las claves. Se descarga desde la propia web de la FNMT antes de empezar.",
+          "Fuente: «Última versión de cualquiera de los siguientes navegadores: Mozilla Firefox, Google Chrome, Microsoft EDGE, Opera, Safari».",
         canal: "online",
       },
       {
         id: "cert-r4",
-        tipo: "doc_digital",
-        titulo: "Una dirección de email a la que tengas acceso",
-        explicacion: "Ahí recibirás el código de solicitud y el aviso para descargar el certificado.",
+        tipo: "tecnico",
+        titulo: "Windows de 64 bits",
+        explicacion: "El configurador se distribuye para Windows 64 bits.",
         canal: "online",
+        soloSiOpciones: ["cert-p3-windows"],
       },
       {
         id: "cert-r5",
-        tipo: "doc_fisico",
-        titulo: "Acreditar tu identidad en una oficina de registro",
-        explicacion:
-          "Con tu código de solicitud y tu DNI, en una oficina de registro (muchas exigen cita previa).",
-        canal: "presencial",
-        soloSiOpciones: ["cert-p2-oficina"],
+        tipo: "tecnico",
+        titulo: "GNU/Linux de 64 bits (paquete DEB o RPM)",
+        explicacion: "El configurador se distribuye para GNU/Linux 64 bits en formatos DEB y RPM.",
+        canal: "online",
+        soloSiOpciones: ["cert-p3-linux"],
       },
       {
         id: "cert-r6",
         tipo: "tecnico",
-        titulo: "Móvil con cámara para la vídeo identificación",
-        explicacion: "El proceso guiado te pedirá enseñar tu DNI a la cámara.",
+        titulo: "Antivirus o proxy que no bloqueen el configurador",
+        explicacion:
+          "Fuente: «Los antivirus y proxies pueden impedir el uso de esta aplicación, por favor no utilice proxy o permita el acceso a esta aplicación en su proxy».",
         canal: "online",
-        soloSiOpciones: ["cert-p2-video"],
       },
       {
         id: "cert-r7",
         tipo: "tecnico",
-        titulo: "Lector de DNI electrónico y PIN del DNIe",
+        titulo: "El mismo ordenador y usuario de principio a fin — y no formatearlo",
         explicacion:
-          "Necesitas el lector (o un móvil con NFC) y el PIN que se activa en las máquinas de las comisarías.",
+          "El fallo más caro de este trámite. Fuente: «Se debe realizar todo el proceso de obtención desde el mismo equipo y mismo usuario» y «No formatear el ordenador, entre el proceso de solicitud y el de descarga del certificado».",
         canal: "online",
-        soloSiOpciones: ["cert-p2-dnie"],
+      },
+      {
+        id: "cert-r8",
+        tipo: "doc_digital",
+        titulo: "Una dirección de email a la que tengas acceso",
+        explicacion:
+          "Ahí llega el Código de Solicitud. Fuente: «Al finalizar el proceso de solicitud, recibirás en tu cuenta de correo electrónico un Código de Solicitud».",
+        canal: "online",
+      },
+      {
+        id: "cert-r9",
+        tipo: "doc_fisico",
+        titulo: "El código de solicitud y tu DNI, pasaporte o carné de conducir",
+        explicacion:
+          "Para la cita de acreditación. Fuente (ciudadanos españoles): «El código de solicitud que le ha sido remitido a su cuenta de correo electrónico y el Documento Nacional de Identidad (DNI), pasaporte o carné de conducir».",
+        canal: "presencial",
+        soloSiOpciones: ["cert-p2-es"],
+      },
+      {
+        id: "cert-r10",
+        tipo: "doc_fisico",
+        titulo: "El código de solicitud, tu NIE y tu pasaporte o documento de identidad",
+        explicacion:
+          "Fuente (ciudadanos de la UE): «El código de solicitud […] y Documento Nacional de Identificación de Extranjeros donde conste el NIE junto con Pasaporte o documento de identidad de país de origen».",
+        canal: "presencial",
+        soloSiOpciones: ["cert-p2-ue"],
+      },
+      {
+        id: "cert-r11",
+        tipo: "doc_fisico",
+        titulo: "El código de solicitud, tu tarjeta de extranjería y tu pasaporte",
+        explicacion:
+          "Fuente (ciudadanos extranjeros): «El código de solicitud […] y Tarjeta Roja/Verde/Blanca de Identificación de Extranjeros donde consta el NIE junto con el pasaporte».",
+        canal: "presencial",
+        soloSiOpciones: ["cert-p2-extranjero"],
+      },
+      {
+        id: "cert-r12",
+        tipo: "doc_fisico",
+        titulo: "Acudir en persona a una Oficina de Acreditación (mira si pide cita previa)",
+        explicacion:
+          "Fuente: «el solicitante y futuro titular del certificado deberá acudir personalmente a una Oficina de Acreditación de Identidad» y «En las oficinas de la AEAT, Seguridad Social y en otras oficinas se requiere de cita previa, consulte con la propia oficina».",
+        canal: "presencial",
       },
     ],
     prerequisitos: [
       {
         slug: "renovacion-dni",
-        nota: "Necesitas un DNI en vigor para acreditar tu identidad.",
+        nota: "Necesitas un documento de identidad en vigor para acreditarte en la oficina.",
       },
     ],
   },

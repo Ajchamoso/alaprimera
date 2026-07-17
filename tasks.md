@@ -39,14 +39,31 @@
 - [x] **T-020** Reportar error → cola de revisión (FR-018). *Verificado: reporte en BD como `pendiente`; la ficha no cambia hasta revisión humana.*
 - [x] **RLS auditada**: con la anon key, `checklists`, `shares`, `feedback` y `reportes` devuelven vacío. Los datos de usuario no se filtran; solo el endpoint del share (service role, server-side) los sirve por token válido.
 
-## Fase 4 — Motor de curación (semana 4)
+## Fase 4 — Motor de curación ⟶ **reenfocada el 17/07**
 
-- [ ] **T-021** `/admin` protegido por rol curadora; cola `extraction_jobs`.
-- [ ] **T-022** Extracción con Claude API: citas obligatorias por campo, fallo honesto (FR-021/023).
-- [ ] **T-023** Revisión split-view + publicar con checklist de cotejo y validación de ciclos (FR-022/026).
+**Decisión:** el motor NO se construye como feature de la app (sin API key). En su lugar, la
+extracción se hace **en sesión de Claude Code** y las fichas se vuelcan con `npm run db:seed`.
+Mismo flujo que diseñamos (IA extrae con citas → humano verifica → sello), sin pipeline que
+mantener, sin coste y más rápido hasta las 11 fichas. Ver [docs/curacion.md](docs/curacion.md).
+
+Motivo técnico: la app desplegada corre en Vercel; una suscripción de Claude Code no puede vivir
+ahí. La alternativa era una API key, que el equipo descarta.
+
+Coste asumido: la **Historia 9 de la spec** (curadora pega URL en `/admin`) sale del MVP a R2 —
+solo compensa a escala de +50 fichas. Las tablas `extraction_jobs` y el rol curadora ya existen en
+BD para cuando llegue.
+
+- [x] **T-021/022/023** ⟶ sustituidas por el flujo de curación asistida documentado. ✅ 17/07
+      *Probado con fuente real (FNMT): extracción citada correcta, y cazó una invención del seed
+      de desarrollo (la "vídeo identificación" era un proceso distinto). Cuando la fuente no
+      decía algo, respondió "No especificado en la página" en vez de inventarlo — la regla
+      "cita o vacío" (FR-021/023) se cumple.*
 
 ## Fase 5 — Contenido + pulido (semanas 3-5, paralelo, humano)
 
 - [ ] **T-024** Curar y verificar las 11 fichas contra fuente oficial (empezando por beca → certificado → DNI).
+      - [x] Certificado digital FNMT — **extraída con citas** el 17/07 · ⚠️ **pendiente de verificación humana**
+      - [ ] Renovación DNI — el contenido actual es de ejemplo, sin fuente: hay que re-extraerlo
+      - [ ] Las otras 9
 - [ ] **T-025** E2E del viaje de la demo en CI.
 - [ ] **T-026** Ensayo cronometrado de la demo (<3 min) contra producción.
