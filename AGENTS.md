@@ -121,3 +121,12 @@ Qué vigila:
 
 Al **añadir una ficha nueva** no suele hacer falta escribir tests: las invariantes ya la cubren. Si
 introduces un concepto nuevo (un tipo de requisito, un nivel territorial), añade su invariante aquí.
+
+## Documentación que se genera sola — `npm run docs`
+
+El estado del catálogo (recuento de fichas, verificadas y pendientes por hecho vital, más el detalle
+de cada ficha) NO se lleva a mano: se genera desde los datos en
+[docs/estado-catalogo.md](./docs/estado-catalogo.md) con `npm run docs`. **Si añades o curas una
+ficha, corre `npm run docs` y commitea el resultado**: `tests/docs.test.ts` falla si el fichero no
+coincide con los datos, así que la deriva se caza en `npm test` (ya nos pasó de tener "15" escrito a
+mano cuando eran 16). El generador es una función pura y sin fecha (`lib/data/estado-catalogo.ts`).

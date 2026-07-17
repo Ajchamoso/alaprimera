@@ -9,6 +9,8 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
+    "docs": "tsx scripts/generar-docs.ts",
+    "docs:check": "tsx scripts/generar-docs.ts --check",
     "db:seed": "tsx scripts/seed-db.ts",
     "buzon": "tsx scripts/buzon.ts",
     "verificar": "tsx scripts/verificar.ts"

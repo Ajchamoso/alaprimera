@@ -202,17 +202,16 @@ parecía en julio. No porque la IA no sepa leer, sino porque las sedes española
 para que no las lea nadie automáticamente. Es un argumento a favor del diseño que elegimos —
 extracción asistida + verificación humana — y en contra de prometer un scraper mágico.
 
-## Estado del catálogo: 16 fichas (12 estatales+Madrid, 4 Aragón) · 0 verificadas ❌
+## Estado del catálogo
 
-Todas están extraídas con citas y en producción marcadas "⚠️ Generada por IA — sin verificar".
-**Ninguna está verificada: esa es toda la deuda del proyecto ahora mismo.**
+El recuento vivo (cuántas fichas, cuántas verificadas, qué pendientes, por hecho vital) se genera
+desde los datos: **[docs/estado-catalogo.md](./estado-catalogo.md)** (`npm run docs`). No lo repitas
+a mano aquí: ya se nos desfasó una vez ("15" cuando ya eran 16), y por eso ahora lo lleva un script
+con un test que lo vigila.
 
-| Trámite | Extraída | Verificada |
-|---|---|---|
-| Renovación DNI · DNI primera vez · Pasaporte | ✅ | ❌ |
-| Certificado de nacimiento · Inscripción de nacimiento · Empadronamiento Madrid | ✅ | ❌ |
-| Certificado digital FNMT · Cl@ve · Apoderamiento | ✅ | ❌ |
-| Tarjeta sanitaria · Familia numerosa · Beca comedor | ✅ | ❌ |
+Lo que sí es narrativa y no cuenta: todas las fichas están extraídas con citas y salen en producción
+marcadas "⚠️ Generada por IA — sin verificar". **Ninguna está verificada por un humano: esa es toda
+la deuda del proyecto ahora mismo.**
 
 ## Inferencias nuestras a confirmar (no son citas) ⚠️
 
