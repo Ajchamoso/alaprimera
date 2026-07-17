@@ -76,10 +76,11 @@ de memoria.
 
 ### 2. Volcar
 
-La ficha se escribe en `lib/data/tramites.ts` con:
-- `verificadaEn: null` → la app muestra "⚠️ sin verificar" (correcto: aún lo está).
-- `generadaPorIa: true` si la extrajo la IA.
+La ficha se escribe en `lib/data/tramites.ts` (tipo `TramiteContenido`) con:
+- `nivel` (estatal / autonomico / local) y, si no es estatal, su `comunidad`.
 - La cita literal dentro de `explicacion`, entre comillas, precedida de "Fuente:".
+- **Nada de verificación aquí.** No estar en el registro (`verificaciones.ts`) ya hace que la app
+  la muestre "⚠️ sin verificar", que es la verdad hasta que un humano la selle.
 
 Luego: `DATABASE_URL=... npm run db:seed`
 
@@ -195,7 +196,7 @@ parecía en julio. No porque la IA no sepa leer, sino porque las sedes española
 para que no las lea nadie automáticamente. Es un argumento a favor del diseño que elegimos —
 extracción asistida + verificación humana — y en contra de prometer un scraper mágico.
 
-## Estado del catálogo: 11 de 11 extraídas ✅ · 0 verificadas ❌
+## Estado del catálogo: 15 fichas (11 estatales+Madrid, 4 Aragón) · 0 verificadas ❌
 
 Las once están extraídas con citas y en producción marcadas "⚠️ Generada por IA — sin verificar".
 **Ninguna está verificada: esa es toda la deuda del proyecto ahora mismo.**
@@ -223,8 +224,25 @@ no respalda literalmente**.
 4. **Cl@ve (vía certificado) → certificado FNMT.** Mismo caso.
 5. **Cl@ve (vía vídeo) → renovación DNI.** La fuente exige «un DNI en vigor»; enlazamos a la ficha
    de renovación como el camino para conseguirlo.
+6. **Beca comedor Aragón: identificación digital sin especificar.** La fuente dice que la solicitud
+   va «a través de la aplicación informática de gestión de becas» pero NO detalla qué identificación
+   pide (certificado, Cl@ve, usuario). Por eso la ficha NO encadena a un certificado: sería inventar.
+   Confírmalo en la app o en la orden.
+7. **Beca comedor Aragón: la lista de documentos no está en la ficha.** La fuente la remite «al
+   artículo undécimo de la orden de convocatoria». La ficha lo dice honestamente y no inventa la
+   lista. Al verificar, abrir la orden en el BOA.
 
 ## Hallazgos de contenido que merecen mirada humana
+
+**Aragón (segundo territorio, 17/07):** las 4 fichas (tarjeta sanitaria, beca, familia numerosa,
+empadronamiento Zaragoza) confirman que la geografía cambia el contenido, no solo el nombre: en
+Aragón la tarjeta sanitaria es **solo presencial** (Madrid tenía online) y el alta del padrón de
+Zaragoza es **sin cita previa** (Madrid la exigía). Dato vivo a vigilar en familia numerosa: la
+**Orden BSF/457/2026** prorrogó 6 meses la vigencia de los títulos de Huesca y Zaragoza — relevante
+para quien renueve. Las sedes de Aragón (`aragon.es`) y Zaragoza (`zaragoza.es`) responden 200 sin
+403; `aragon.es` usa acordeones Liferay con mucho JSON de config que da falsos positivos en grep
+(anclar con la frase, no con números sueltos).
+
 
 - **Volante ≠ certificado: la fuente no distingue.** La sede de Madrid **no ofrece "volante"** como
   trámite. Solo dice que el certificado vale «independientemente de que dicha Administración exija

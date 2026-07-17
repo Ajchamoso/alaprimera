@@ -1526,4 +1526,421 @@ export const tramites: TramiteContenido[] = [
       },
     ],
   },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  //  ARAGÓN — mismos conceptos que Madrid, fuente distinta. Curadas 17/07/2026,
+  //  pendientes de verificación humana. Segundo territorio: prueba el modelo.
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "tarjeta-sanitaria-aragon",
+    nivel: "autonomico",
+    comunidad: "aragon",
+    nombreOficial: "Tarjeta Sanitaria Individual (Aragón)",
+    nombreColoquial: "La tarjeta sanitaria",
+    descripcion:
+      "La tarjeta del médico en Aragón. Se pide en persona, con cita previa. Hace falta estar empadronado en algún municipio de Aragón. Ojo: aquí el trámite es solo presencial.",
+    organismo: "Servicio Aragonés de Salud (SALUD)",
+    territorio: "Aragón",
+    canales: ["presencial"],
+    urlFuente:
+      "https://www.aragon.es/tramitador/-/tramite/solicitud-tarjeta-sanitaria-emision-inicial-sucesiva",
+    urlCitaPrevia: "https://citaprevia.aragon.es",
+    alias: [
+      "tarjeta sanitaria",
+      "tarjeta del medico",
+      "salud aragon",
+      "medico de cabecera",
+      "tarjeta sanitaria aragon",
+    ],
+    preguntas: [
+      {
+        id: "san-ar-p1",
+        orden: 1,
+        texto: "¿Para quién es la tarjeta?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "san-ar-p1-yo", texto: "Para mí" },
+          { id: "san-ar-p1-menor", texto: "Para un menor a mi cargo" },
+        ],
+      },
+      {
+        id: "san-ar-p2",
+        orden: 2,
+        texto: "¿Qué nacionalidad tiene el titular?",
+        tipo: "normal",
+        opciones: [
+          { id: "san-ar-p2-es", texto: "Española" },
+          { id: "san-ar-p2-ext", texto: "Extranjera" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "san-ar-r1",
+        tipo: "tramite_previo",
+        titulo: "Estar empadronado en un municipio de Aragón",
+        explicacion:
+          "Fuente: para españoles, «Tener vecindad administrativa en alguno de los municipios de la Comunidad Autónoma de Aragón», y en la documentación se pide «Certificación de empadronamiento».",
+        canal: "presencial",
+        tramitePrevioSlug: "empadronamiento-zaragoza",
+      },
+      {
+        id: "san-ar-r2",
+        tipo: "tramite_previo",
+        titulo: "Tener reconocido el derecho a la asistencia por el INSS",
+        explicacion:
+          "Fuente (extranjeros): «Tener reconocido el derecho a la asistencia sanitaria por el Instituto Nacional de la Seguridad Social».",
+        canal: "presencial",
+        soloSiOpciones: ["san-ar-p2-ext"],
+      },
+      {
+        id: "san-ar-r3",
+        tipo: "doc_fisico",
+        titulo: "Documento de identidad (DNI, NIE o pasaporte)",
+        explicacion: "Fuente: «Documento que acredite identidad DNI/NIE/Pasaporte».",
+        canal: "presencial",
+      },
+      {
+        id: "san-ar-r4",
+        tipo: "doc_fisico",
+        titulo: "Número de usuario/a de la Seguridad Social",
+        explicacion: "Fuente (con nacionalidad española): «Número de usuario/a de Seguridad Social».",
+        canal: "presencial",
+        soloSiOpciones: ["san-ar-p2-es"],
+      },
+      {
+        id: "san-ar-r5",
+        tipo: "doc_fisico",
+        titulo: "El libro de familia (o documento que acredite el parentesco)",
+        explicacion: "Fuente: «Libro familia o documento que acredite parentesco. En caso de menores».",
+        canal: "presencial",
+        soloSiOpciones: ["san-ar-p1-menor"],
+      },
+      {
+        id: "san-ar-r6",
+        tipo: "doc_fisico",
+        titulo: "Certificación de no exportación y declaración jurada",
+        explicacion:
+          "Solo si eres extranjero sin derecho reconocido por el INSS. Fuente: «Certificación de no exportación» y «Declaración jurada de no existir terceros obligados al pago».",
+        canal: "presencial",
+        soloSiOpciones: ["san-ar-p2-ext"],
+      },
+      {
+        id: "san-ar-r7",
+        tipo: "doc_fisico",
+        titulo: "La solicitud cumplimentada, y pedir cita previa",
+        explicacion:
+          "Fuente: «Solicitud cumplimentada», y se presenta pidiendo «cita previa en una de nuestras oficinas de información y registro».",
+        canal: "presencial",
+      },
+    ],
+    prerequisitos: [
+      { slug: "empadronamiento-zaragoza", nota: "Hay que estar empadronado en un municipio de Aragón." },
+    ],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "beca-comedor-aragon",
+    nivel: "autonomico",
+    comunidad: "aragon",
+    nombreOficial: "Becas de comedor escolar (Aragón)",
+    nombreColoquial: "La beca de comedor del cole",
+    descripcion:
+      "Ayuda para el comedor escolar en Aragón, para alumnos de Infantil, Primaria y Educación Especial. Depende de la renta familiar. La lista exacta de documentos está en la orden de convocatoria de cada curso.",
+    organismo: "Departamento de Educación · Gobierno de Aragón",
+    territorio: "Aragón",
+    canales: ["online", "presencial"],
+    urlFuente:
+      "https://www.aragon.es/tramitador/-/tramite/becas-comedor-escolar-y-periodo-estival-no-lectivo",
+    plazo: {
+      inicio: "2026-06-08",
+      fin: "2026-06-19",
+      nota: "En la convocatoria 2026-2027 el plazo fue del 08/06 al 19/06. Suele abrirse a finales de curso: consulta la fuente oficial para la próxima.",
+    },
+    alias: [
+      "beca comedor",
+      "beca de comedor",
+      "comedor escolar aragon",
+      "ayuda comedor",
+      "beca del cole",
+    ],
+    preguntas: [
+      {
+        id: "beca-ar-p1",
+        orden: 1,
+        texto: "¿Para quién solicitas la beca?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "beca-ar-p1-hijo", texto: "Para un hijo o menor a mi cargo" },
+          {
+            id: "beca-ar-p1-otro",
+            texto: "Para el hijo de otra persona",
+            veredictoInviable: true,
+            textoAlternativas:
+              "La beca la piden quienes tienen la guarda del menor. Si no eres progenitor, tutor o acogedor, no puedes solicitarla tú: tiene que hacerlo quien la tenga.",
+          },
+        ],
+      },
+      {
+        id: "beca-ar-p2",
+        orden: 2,
+        texto: "¿Cómo quieres presentarla?",
+        tipo: "normal",
+        opciones: [
+          { id: "beca-ar-p2-online", texto: "Por internet" },
+          { id: "beca-ar-p2-presencial", texto: "En papel / en una oficina de registro" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "beca-ar-r1",
+        tipo: "doc_fisico",
+        titulo: "Tener el domicilio en Aragón",
+        explicacion: "Fuente: «Tener su domicilio en el territorio de la Comunidad Autónoma de Aragón».",
+        canal: "ambos",
+      },
+      {
+        id: "beca-ar-r2",
+        tipo: "doc_fisico",
+        titulo: "Renta familiar por debajo de 2 veces el IPREM",
+        explicacion:
+          "Fuente: «El máximo de renta familiar para tener acceso a las becas de comedor escolar será de dos veces el Indicador Público de Renta de Efectos Múltiples (IPREM) vigente para el periodo objeto de la convocatoria».",
+        canal: "ambos",
+      },
+      {
+        id: "beca-ar-r3",
+        tipo: "doc_fisico",
+        titulo: "Estar matriculado en una etapa que da derecho",
+        explicacion:
+          "Fuente: «Alumnado que vaya a cursar estudios del tercer curso del primer ciclo de Educación Infantil, del segundo ciclo de Educación Infantil, de Educación Primaria y de Educación Especial».",
+        canal: "ambos",
+      },
+      {
+        id: "beca-ar-r4",
+        tipo: "doc_digital",
+        titulo: "Solicitud por la aplicación de becas (online)",
+        explicacion:
+          "Fuente: «Las solicitudes serán cumplimentadas a través de la aplicación informática de gestión de becas de comedor escolar y material curricular accesible a través del enlace disponible en educa.aragon.es». La fuente no detalla qué identificación digital pide la aplicación: confírmalo antes.",
+        canal: "online",
+        soloSiOpciones: ["beca-ar-p2-online"],
+      },
+      {
+        id: "beca-ar-r5",
+        tipo: "doc_fisico",
+        titulo: "El resto de documentación de la convocatoria",
+        explicacion:
+          "Ojo: la ficha oficial no lista los documentos, los remite a la orden. Fuente: «Documentación descrita en el artículo undécimo de la orden de convocatoria». Consulta esa orden (en el BOA) para la lista exacta.",
+        canal: "ambos",
+      },
+    ],
+    prerequisitos: [],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "familia-numerosa-aragon",
+    nivel: "autonomico",
+    comunidad: "aragon",
+    nombreOficial: "Título de Familia Numerosa (Aragón)",
+    nombreColoquial: "El título de familia numerosa",
+    descripcion:
+      "El título que da descuentos y ventajas, entre ellas el DNI y el pasaporte gratis. En Aragón lo regula el Decreto 75/2023 y lo gestiona el Gobierno de Aragón. Se puede pedir todo el año.",
+    organismo: "Departamento de Bienestar Social y Familia · Gobierno de Aragón",
+    territorio: "Aragón",
+    canales: ["online", "presencial"],
+    urlFuente: "https://www.aragon.es/-/familias-numerosas",
+    urlCitaPrevia: "https://citaprevia.aragon.es",
+    alias: [
+      "familia numerosa",
+      "titulo de familia numerosa",
+      "carnet familia numerosa",
+      "familia numerosa aragon",
+    ],
+    preguntas: [
+      {
+        id: "fn-ar-p1",
+        orden: 1,
+        texto: "¿El título es para tu familia?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "fn-ar-p1-yo", texto: "Sí, soy progenitor, tutor o acogedor" },
+          {
+            id: "fn-ar-p1-otro",
+            texto: "No, es para la familia de otra persona",
+            veredictoInviable: true,
+            textoAlternativas:
+              "El título lo pide la propia unidad familiar. Si no eres progenitor, tutor o acogedor de esos menores, no puedes solicitarlo tú: tiene que hacerlo quien tenga la guarda.",
+          },
+        ],
+      },
+      {
+        id: "fn-ar-p2",
+        orden: 2,
+        texto: "¿Hay miembros extranjeros no comunitarios?",
+        tipo: "normal",
+        opciones: [
+          { id: "fn-ar-p2-no", texto: "No" },
+          { id: "fn-ar-p2-si", texto: "Sí" },
+        ],
+      },
+      {
+        id: "fn-ar-p3",
+        orden: 3,
+        texto: "¿Hay hijos de entre 21 y 25 años que estudian?",
+        tipo: "normal",
+        opciones: [
+          { id: "fn-ar-p3-no", texto: "No" },
+          { id: "fn-ar-p3-si", texto: "Sí" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "fn-ar-r1",
+        tipo: "tramite_previo",
+        titulo: "Volante de empadronamiento colectivo de toda la familia",
+        explicacion: "Fuente: «Volante de empadronamiento colectivo de todos los miembros de la familia».",
+        canal: "ambos",
+        tramitePrevioSlug: "empadronamiento-zaragoza",
+      },
+      {
+        id: "fn-ar-r2",
+        tipo: "doc_fisico",
+        titulo: "Libro de familia o acta de nacimiento",
+        explicacion: "Fuente: «Libro de familia o acta de nacimiento».",
+        canal: "ambos",
+      },
+      {
+        id: "fn-ar-r3",
+        tipo: "doc_fisico",
+        titulo: "Documento de firmas para autorizar la consulta de datos",
+        explicacion: "Fuente: «Documento de firmas para autorización de la consulta de datos».",
+        canal: "ambos",
+      },
+      {
+        id: "fn-ar-r4",
+        tipo: "doc_fisico",
+        titulo: "Certificado o matrícula de estudios de los hijos de 21 a 25 años",
+        explicacion:
+          "Fuente: «Certificado o matrícula del centro donde cursen estudios los hijos/as». Cuentan «hasta los 25 años inclusive, si cursan estudios».",
+        canal: "ambos",
+        soloSiOpciones: ["fn-ar-p3-si"],
+      },
+      {
+        id: "fn-ar-r5",
+        tipo: "doc_fisico",
+        titulo: "Tarjetas de residencia (miembros extranjeros no comunitarios)",
+        explicacion:
+          "Fuente: «residencia (solo para personas extranjeras no comunitarias): Tarjetas de residencia de miembros de la unidad familiar».",
+        canal: "ambos",
+        soloSiOpciones: ["fn-ar-p2-si"],
+      },
+      {
+        id: "fn-ar-r6",
+        tipo: "doc_fisico",
+        titulo: "Cita previa (para la vía presencial)",
+        explicacion:
+          "Fuente: se atiende «con cita previa, que puede solicitarse online en citaprevia.aragon.es» o por teléfono.",
+        canal: "presencial",
+      },
+    ],
+    prerequisitos: [
+      { slug: "empadronamiento-zaragoza", nota: "Hace falta el volante de empadronamiento colectivo." },
+    ],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "empadronamiento-zaragoza",
+    nivel: "local",
+    comunidad: "aragon",
+    nombreOficial: "Alta en el Padrón Municipal (Ayuntamiento de Zaragoza)",
+    nombreColoquial: "Empadronarse en Zaragoza",
+    descripcion:
+      "Inscribirse en el padrón del Ayuntamiento de Zaragoza. Es la base de casi todo lo demás en Aragón: la tarjeta sanitaria y la familia numerosa te lo van a pedir. El alta es siempre presencial y sin cita previa.",
+    organismo: "Gestión del Padrón · Ayuntamiento de Zaragoza",
+    territorio: "Zaragoza (municipio)",
+    canales: ["presencial"],
+    urlFuente: "https://www.zaragoza.es/sede/servicio/tramite/3317",
+    alias: [
+      "empadronamiento",
+      "empadronarme",
+      "padron",
+      "empadronarse en zaragoza",
+      "volante de empadronamiento",
+      "certificado de empadronamiento",
+    ],
+    preguntas: [
+      {
+        id: "emp-za-p1",
+        orden: 1,
+        texto: "¿Quién se empadrona?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "emp-za-p1-yo", texto: "Yo (con mi familia si procede)" },
+          { id: "emp-za-p1-menor", texto: "Un menor a mi cargo" },
+        ],
+      },
+      {
+        id: "emp-za-p2",
+        orden: 2,
+        texto: "¿Cómo puedes acreditar que vives ahí?",
+        tipo: "normal",
+        opciones: [
+          { id: "emp-za-p2-propio", texto: "Vivienda propia o de alquiler a mi nombre" },
+          { id: "emp-za-p2-ajeno", texto: "Vivo en casa de otra persona" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "emp-za-r1",
+        tipo: "doc_fisico",
+        titulo: "Documento de identidad de todos los que se empadronan",
+        explicacion:
+          "Fuente: «hay que llevar siempre los documentos de identidad de las personas que se vayan a dar de alta». Requisito de base: «vivir en Zaragoza la mayor parte del año».",
+        canal: "presencial",
+      },
+      {
+        id: "emp-za-r2",
+        tipo: "doc_fisico",
+        titulo: "Documento que acredite que la vivienda es tu residencia habitual",
+        explicacion:
+          "Fuente: «los documentos que prueben que la vivienda es su residencia habitual» — por ejemplo «contrato de alquiler, escritura de propiedad, último recibo de luz, agua, etc.».",
+        canal: "presencial",
+        soloSiOpciones: ["emp-za-p2-propio"],
+      },
+      {
+        id: "emp-za-r3",
+        tipo: "doc_fisico",
+        titulo: "Autorización del titular de la vivienda (impreso M005)",
+        explicacion:
+          "Si te empadronas en casa de otra persona. Fuente: «[M005] - Autorización para la Inscripción Padronal en el domicilio de otra persona».",
+        canal: "presencial",
+        soloSiOpciones: ["emp-za-p2-ajeno"],
+      },
+      {
+        id: "emp-za-r4",
+        tipo: "doc_fisico",
+        titulo: "Documentos que acrediten la filiación del menor",
+        explicacion:
+          "Fuente: «si se inscribe a menores de edad, deberá presentar los documentos que acrediten la filiación» (libro de familia o certificado de nacimiento).",
+        canal: "presencial",
+        soloSiOpciones: ["emp-za-p1-menor"],
+      },
+      {
+        id: "emp-za-r5",
+        tipo: "doc_fisico",
+        titulo: "Ir en persona a una Junta Municipal (sin cita previa)",
+        explicacion:
+          "El alta no se puede hacer por internet. Fuente: «En caso de ALTA el trámite es obligatoriamente presencial» y se hace «SIN CITA PREVIA. En las Juntas Municipales y Juntas Vecinales». (El volante o certificado sí se pueden pedir online después.)",
+        canal: "presencial",
+      },
+    ],
+    prerequisitos: [],
+  },
 ];

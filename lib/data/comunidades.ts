@@ -39,7 +39,8 @@ export function nombreComunidad(codigo: string | null): string | null {
   return codigo ? (porCodigo.get(codigo)?.nombre ?? null) : null;
 }
 
-/** ¿Tenemos ya fichas propias de esta comunidad? Hoy, solo Madrid. */
+/** ¿Tenemos ya fichas propias de esta comunidad? Hoy, Madrid y Aragón. */
+const CON_FICHAS = new Set(["madrid", "aragon"]);
 export function tieneFichas(codigo: string): boolean {
-  return codigo === "madrid";
+  return CON_FICHAS.has(codigo);
 }
