@@ -9,8 +9,10 @@
 - [x] **T-002** Esquema de BD como migración SQL versionada (todas las tablas del plan §4, RLS incluido). *Escrita; pendiente de aplicarla cuando exista el proyecto Supabase (T-004).* ✅ 16/07
 - [x] **T-003** Seed con 2 fichas de prueba encadenadas (Renovación DNI ← Certificado digital FNMT). *Acepta: la cadena ⛓️ es visible en la app.* ✅ 16/07 (seed local en `lib/data/`; migra a BD en Fase 2)
 - [x] **T-004a** Proyecto Supabase creado; migración aplicada vía psql y verificada (trigger anti-ciclos ✓, RLS anon ✓); seed en BD con `npm run db:seed`; la app sirve el catálogo desde BD con fallback local e ISR 5 min. ✅ 17/07
-- [ ] **T-004b** ⚠️ **Humano**: cuenta Vercel + import del repo + env vars. *Bloquea T-005 (URL pública).*
-- [ ] **T-005** Deploy a Vercel con URL pública. *Acepta: la home carga en la URL pública.*
+- [x] **T-004b** Cuenta Vercel + import del repo + env vars. ✅ 17/07
+- [x] **T-005** Deploy a Vercel con URL pública: **https://alaprimera.vercel.app** ✅ 17/07
+      *Verificado en producción: home/ficha/cuenta 200 (120 ms), catálogo desde BD, sin fugas de secretos en el HTML, viaje completo (veredicto → vuelta → checklist → marcar → preparación online) en 5,8 s, móvil 375px correcto, redirect de auth apuntando al dominio real.*
+      **Requisito del reto cumplido: la app tiene URL pública funcionando.** 🎉
 
 ## Fase 1 — Walking skeleton P1 (semanas 1-2)
 
