@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist } from "next/font/google";
+import { SyncCuenta } from "@/components/SyncCuenta";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${geistSans.variable} h-full antialiased`}>
       <body className="min-h-full bg-stone-50 font-sans text-stone-900">
+        <SyncCuenta />
         <header className="border-b border-stone-200 bg-white print:hidden">
           <div className="mx-auto flex max-w-3xl items-baseline gap-3 px-4 py-4">
             <Link href="/" className="text-xl font-bold tracking-tight">

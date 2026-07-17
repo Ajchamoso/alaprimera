@@ -74,6 +74,25 @@ function guarda(key: string, valor: unknown) {
   emite();
 }
 
+// ── Espejo remoto (Fase 2): con sesión, cada mutación se replica a la BD ─────
+
+export interface EspejoRemoto {
+  alGuardar: (checklist: ChecklistLocal) => void;
+  alBorrar: (id: string) => void;
+}
+
+let espejo: EspejoRemoto | null = null;
+
+/** Lo registra el módulo de sync al iniciar sesión; null al cerrarla. */
+export function registraEspejo(nuevo: EspejoRemoto | null) {
+  espejo = nuevo;
+}
+
+/** Sustituye el conjunto local completo (tras el merge con la cuenta). */
+export function reemplazaChecklists(todas: ChecklistLocal[]) {
+  guarda(KEY_CHECKLISTS, todas);
+}
+
 // ── Mutaciones (solo desde manejadores de eventos) ───────────────────────────
 
 export function creaChecklist(
@@ -90,6 +109,7 @@ export function creaChecklist(
     creadaEn: new Date().toISOString(),
   };
   guarda(KEY_CHECKLISTS, [...getChecklistsSnapshot(), nueva]);
+  espejo?.alGuardar(nueva);
   return nueva;
 }
 
@@ -103,6 +123,7 @@ export function actualizaChecklist(
   const copia = [...todas];
   copia[idx] = { ...todas[idx], ...cambios };
   guarda(KEY_CHECKLISTS, copia);
+  espejo?.alGuardar(copia[idx]);
 }
 
 export function borraChecklist(id: string) {
@@ -110,6 +131,7 @@ export function borraChecklist(id: string) {
     KEY_CHECKLISTS,
     getChecklistsSnapshot().filter((c) => c.id !== id)
   );
+  espejo?.alBorrar(id);
 }
 
 export function guardaBorrador(slug: string, respuestas: Record<string, string>) {

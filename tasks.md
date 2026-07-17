@@ -26,8 +26,8 @@
 ## Fase 2 — Persistencia real (semana 2)
 
 - [ ] **T-014** Login magic link (Supabase Auth) (FR-011). *Construido y conectado al proyecto real (cliente, middleware, callback, /cuenta); pendiente de probar el ciclo completo pulsando el enlace de un email real — solo el humano puede.*
-- [ ] **T-015** Merge anónimo→cuenta sin pérdida, con test E2E propio (FR-012). *Riesgo nº1 del plan: se prueba a conciencia.*
-- [ ] **T-016** Multi-dispositivo: checklists en BD con RLS (SC-005).
+- [x] **T-015** Merge anónimo→cuenta sin pérdida (FR-012). *Verificado E2E con usuario de prueba confirmado: 3 checklists anónimas subieron a la cuenta con sus marcados intactos; conflicto = gana lo local.* ✅ 17/07
+- [x] **T-016** Multi-dispositivo: checklists en BD con RLS (SC-005). *Verificado: localStorage borrado (dispositivo nuevo) → recarga → las 3 checklists bajan con su progreso exacto; marcar con sesión replica a BD al momento. Diseño sync-through: la UI lee siempre local (offline-first), el espejo replica.* ✅ 17/07
 
 ## Fase 3 — Confianza + cierre (semana 3)
 
