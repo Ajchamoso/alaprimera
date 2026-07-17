@@ -114,6 +114,56 @@ profiles            user_id, es_curadora (bool)
   cualquiera; borradores y jobs solo curadoras. El share funciona por token con una policy de
   lectura específica.
 
+## 4bis. Identidad visual: el sello *(añadida el 17/07)*
+
+> Por qué está en el plan y no en la spec: los hex y las tipografías son CÓMO. En la spec solo
+> entró lo falsable (FR-028: los iconos no dependen del sistema del usuario; FR-029: el estado se
+> distingue sin color). "Que no parezca hecho por una IA" **no es un requisito**: no es medible, y
+> la propia spec prohíbe los requisitos-deseo.
+
+**El problema.** La primera versión salió con el aspecto que llega solo: `emerald-600` sobre grises
+stone (la paleta por defecto de Tailwind, la que elige toda app generada con IA en 2026), un emoji
+✅ de logo, Geist sin tocar —la fuente que trae `create-next-app`, o sea la que nadie elige— y nueve
+emoji por pantalla haciendo de iconos. Para un producto cuyo argumento central es *"esto no se lo
+inventa una IA"*, parecer generado por una IA es un problema de credibilidad, no de gusto.
+
+**La decisión.** No cambiar el verde por otro color bonito (el crema-con-serif es igual de
+delator), sino mudarse al mundo que el producto ya habita. **Nuestro concepto central ya es un
+sello**: verificar, sellar, caducar. La identidad es la de una ventanilla.
+
+| Token | Valor | Papel |
+|---|---|---|
+| `papel` | `#EFEBE2` | fondo: expediente |
+| `hoja` | `#F7F4EE` | tarjetas |
+| `tinta` / `tinta-media` / `tinta-tenue` | `#24221F` / `#635C52` / `#A79E92` | texto |
+| `linea` | `#D8D1C4` | filetes |
+| `sello` | `#5A3A82` | violeta de sello de caucho: verificado, acento |
+| `pendiente` | `#A8342B` | rojo de "PENDIENTE": sin verificar, avisos |
+
+**Reglas que lo sostienen:**
+
+1. **Colores semánticos, nunca literales.** Se escribe `text-sello`, no `text-violet-600`. Los
+   tokens viven en `@theme` de `app/globals.css`: cambiar la paleta entera vuelve a ser tocar un
+   bloque, no 200 clases. **Nada de `emerald-*`, `stone-*` ni `amber-*` en los componentes.**
+2. **El sello es el elemento firma.** El estado de verificación no es un badge: se estampa (caja
+   girada, filete doble, condensada en caps). Ver `components/SelloVerificacion.tsx`.
+3. **Tipografía: IBM Plex en tres cortes**, elegida porque nació como voz institucional. Condensada
+   para sellos y titulares, monoespaciada para datos oficiales (fechas, tipos, importes), sans para
+   el cuerpo. Auto-alojada por `next/font`: sin CDN y sin fallback silencioso.
+4. **Iconos en SVG propios** (`components/IconoRequisito.tsx`), nunca emoji (FR-028).
+5. **Tema claro fijo.** Esta app se lee con prisa, se imprime para llevarla a una ventanilla y la
+   acaban leyendo personas mayores. La legibilidad manda sobre el modo oscuro: es una decisión, no
+   un olvido.
+
+**Copia.** Tres tics del modelo, desterrados: la raya larga (—) donde el español pide dos puntos o
+un punto, la regla de tres ("tu trámite, tu checklist, tu progreso"), y el adorno. **Las citas de
+las fuentes oficiales son intocables**, y las rayas que quedan en ellas y en nombres de organismos
+("FNMT — Fábrica Nacional de Moneda y Timbre") son legítimas.
+
+**Lo que no se toca:** los nombres coloquiales ("El primer DNI (de un niño o niña)"), el
+placeholder "lo del carnet de mi hijo", "Este trámite esconde otros trámites", las comillas latinas
+«» y el sello que admite que una ficha no está verificada. Eso ya era humano antes del rediseño.
+
 ## 5. Flujos clave (cómo se implementa cada promesa de la spec)
 
 **Wizard → checklist (determinista, FR-004..006):** las respuestas seleccionan requisitos vía

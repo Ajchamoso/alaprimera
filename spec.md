@@ -238,6 +238,10 @@ para revisión sin bloquear ni afectar a nada visible por usuarios finales.
 **Plazos** *(FR-027 añadido el 17/07: lo reveló la curación real, no el diseño)*
 - **FR-027**: Cuando un trámite solo pueda solicitarse en una ventana de fechas, el sistema DEBE mostrar el estado del plazo (abierto / aún no abierto / cerrado) antes que la checklist, y DEBE decir explícitamente que está cerrado cuando lo esté. Servir una checklist impecable de un trámite no solicitable contradice el JTBD ("que no te frene algo que no sabías") y roza el "contenido engañoso" que el reto prohíbe.
 
+**Presentación** *(FR-028/029 añadidos el 17/07 tras la revisión de diseño)*
+- **FR-028**: Los iconos y símbolos de la interfaz DEBEN renderizarse de forma idéntica en cualquier sistema operativo y navegador. En concreto, el sistema NO DEBE usar emoji del sistema para transmitir información. *(No es cosmética: usábamos ⛓️ para el encadenamiento —nuestro diferencial— y su dibujo lo decidía el equipo del usuario; en algunos navegadores se rompía.)*
+- **FR-029**: El estado de confianza de una ficha DEBE ser distinguible sin depender del color, para que funcione impreso en blanco y negro y para quien no distinga colores. *(Refuerza FR-016: el imprimible es el único canal hacia la persona mayor que nunca abre la app.)*
+
 **Generales**
 - **FR-024**: La aplicación DEBE ser plenamente utilizable en móvil y en escritorio.
 - **FR-025**: Toda la interfaz y el contenido DEBEN estar en español.

@@ -6,12 +6,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # A la Primera — contexto para Claude Code
 
-Asistente personal de trámites con la administración española. **Tu trámite, tu checklist, tu
-progreso.** Proyecto del reto Viberano (233 Academy): vibe coding puro.
+Asistente personal de trámites con la administración española. **Tu trámite, con tus papeles.**
+Proyecto del reto Viberano (233 Academy): vibe coding puro.
 
 ## Fuentes de verdad (leer antes de construir nada)
 
-- [spec.md](./spec.md) — el QUÉ. 9 historias, 27 FRs, decisiones cerradas. No se contradice.
+- [spec.md](./spec.md) — el QUÉ. 9 historias, 29 FRs, decisiones cerradas. No se contradice.
 - [plan.md](./plan.md) — el CÓMO. Stack, modelo de datos, fases. Si hay que desviarse, se actualiza
   el plan en el mismo commit y se explica por qué.
 - [tasks.md](./tasks.md) — el desglose; se marcan las tareas al completarse.
@@ -41,9 +41,30 @@ progreso.** Proyecto del reto Viberano (233 Academy): vibe coding puro.
 5. **La demo manda:** el camino usuario (catálogo → wizard → checklist → canal) no depende de
    ninguna llamada externa en vivo. Si una feature puede fallar en directo, no entra en ese camino.
 
+## Diseño: la identidad es EL SELLO (no la rompas sin querer)
+
+El aspecto por defecto de una app generada con IA es reconocible y ya lo tuvimos: verde esmeralda
+sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (plan.md §4bis). Reglas:
+
+6. **Colores solo por token semántico**: `papel`, `hoja`, `tinta`, `tinta-media`, `tinta-tenue`,
+   `linea`, `sello` (violeta), `pendiente` (rojo). Se escribe `text-sello`, nunca `text-violet-600`.
+   **Prohibido `emerald-*`, `stone-*`, `amber-*`, `green-*` en componentes.** Los tokens están en
+   `@theme` de `app/globals.css`. **No hay verde en esta app.**
+7. **Cero emoji en la UI** (FR-028): los dibuja el sistema del usuario y se rompen. Iconos SVG en
+   `components/IconoRequisito.tsx`. Si hace falta uno nuevo, se añade ahí.
+8. **Tipografía**: IBM Plex — `font-cond` para sellos y titulares, `font-mono` para datos oficiales
+   (fechas, tipos, importes), `font-sans` para el cuerpo.
+9. **Copia sin tics de modelo**: nada de rayas largas (—) en texto propio (usa dos puntos o punto),
+   nada de reglas de tres. **Las citas de fuentes oficiales no se tocan jamás**, ni su puntuación.
+
 ## Convenciones
 
-- Next.js 15 App Router + TypeScript + Tailwind + shadcn/ui · Supabase (Postgres/Auth/RLS) · Vercel.
+- Next.js 16 App Router + TypeScript + Tailwind · Supabase (Postgres/Auth/RLS) · Vercel.
+  Ojo: Next 16 deprecó `middleware.ts` → `proxy.ts` (runtime Node). Lee
+  `node_modules/next/dist/docs/` antes de tocar convenciones de fichero: esta versión tiene cambios
+  de ruptura y ya nos costó una caída de producción.
+- **`proxy.ts` no puede lanzar nunca**: corre delante de cada petición y si revienta cae la web
+  entera. Todo en try/catch, y solo en las rutas que necesitan sesión.
 - Todo el texto de UI en **español**. Lenguaje llano, nada de jerga administrativa sin explicar.
 - Móvil primero (Marta empieza en el móvil); el imprimible se revisa con `@media print`.
 - Estados derivados en lectura (p. ej. sello caducado a 90 días), no jobs que los actualicen.

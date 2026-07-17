@@ -3,7 +3,8 @@
 > Generadas desde [spec.md](./spec.md) + [plan.md](./plan.md) (Spec Kit: spec → plan → tasks →
 > implement). Una tarea = un incremento verificable. Se marcan aquí al completarse.
 
-**Estado a 17/07/2026:** Fases 0-3 completas y en producción (https://alaprimera.vercel.app).
+**Estado a 17/07/2026:** Fases 0-3 completas y en producción (https://alaprimera.vercel.app), con
+identidad visual propia (plan.md §4bis).
 Catálogo de 11 fichas extraídas con cita literal. **Deuda única: verificación humana de las 11
 fichas** (T-024) — el único paso que no puede hacer una IA. La Fase 4 (motor en la app) se reenfocó
 a extracción asistida sin API key (R2). Pendiente de humano además: probar el magic link con un
@@ -64,6 +65,25 @@ BD para cuando llegue.
       de desarrollo (la "vídeo identificación" era un proceso distinto). Cuando la fuente no
       decía algo, respondió "No especificado en la página" en vez de inventarlo — la regla
       "cita o vacío" (FR-021/023) se cumple.*
+
+## Fase 3bis — Producción y presentación *(17/07, no estaba planificado)*
+
+- [x] **Caída de producción**: 500 MIDDLEWARE_INVOCATION_FAILED en todas las rutas. El código era
+      idéntico al que funcionaba y el disparador exacto quedó sin identificar (sin acceso al log de
+      Vercel), pero la investigación destapó un fallo de diseño peor: el middleware llamaba a
+      Supabase **en cada petición**, incluidas páginas estáticas, así que cualquier hipo tumbaba la
+      web entera — contra el principio nº1 del plan. Migrado a `proxy.ts` (convención de Next 16;
+      `middleware` está deprecado ahí), envuelto para que **no pueda lanzar nunca**, y acotado a
+      `/cuenta` y `/auth/*`. *Verificado: con Supabase apuntando a un host inexistente, la web sirve
+      el catálogo con 200 en todo. Ese escenario era un 500.* ✅ 17/07
+- [x] **Rediseño: la app dejaba oler a IA.** Auditoría del sitio en vivo: la copia estaba bien, la
+      identidad visual era el default que llega solo (emerald-600 sobre stone, ✅ de logo, Geist sin
+      tocar, 9 emoji por pantalla, 4 rayas largas, 2 tricolons). Nueva identidad **el sello**: papel
+      de expediente, tinta y violeta de sello; el estado se estampa; IBM Plex en tres cortes;
+      iconos SVG propios; cero verde. Tokens semánticos en `@theme` → la próxima paleta es un
+      bloque de CSS. Ver plan.md §4bis y las reglas 6-9 de AGENTS.md. ✅ 17/07
+      - Añadidos **FR-028** (iconos sin depender del sistema: el ⛓️ se rompía) y **FR-029** (estado
+        distinguible sin color, para el imprimible en B/N).
 
 ## Fase 5 — Contenido + pulido (semanas 3-5, paralelo, humano)
 

@@ -2,7 +2,7 @@
 
 ### 🌐 https://alaprimera.vercel.app
 
-**Tu trámite, tu checklist, tu progreso.** Termina cualquier gestión con la administración española
+**Tu trámite, con tus papeles.** Termina cualquier gestión con la administración española
 a la primera, sin que te frene a mitad un requisito que no sabías que necesitabas.
 
 App del reto **Viberano** (Comunidad IÁgil de 233 Academy) — construida 100% mediante prompts con
@@ -10,8 +10,8 @@ Claude Code, sin editar una línea de código a mano.
 
 ## Documentos (este repo es la fuente de verdad de la construcción)
 
-- [spec.md](./spec.md) — especificación SDD viva (el QUÉ): historias, 27 requisitos, entidades, criterios de éxito.
-- [plan.md](./plan.md) — plan técnico (el CÓMO): stack, arquitectura, modelo de datos, fases.
+- [spec.md](./spec.md) — especificación SDD viva (el QUÉ): historias, 29 requisitos, entidades, criterios de éxito.
+- [plan.md](./plan.md) — plan técnico (el CÓMO): stack, arquitectura, modelo de datos, identidad visual, fases.
 - [tasks.md](./tasks.md) — el desglose en tareas y su estado.
 - [docs/preparar-fichas.md](./docs/preparar-fichas.md) — cómo se prepara, verifica y mantiene una ficha, y qué aprendimos preparando las 11.
 - [CLAUDE.md](./CLAUDE.md) / [AGENTS.md](./AGENTS.md) — reglas del reto y del producto para cada sesión.
@@ -29,6 +29,9 @@ Claude Code, sin editar una línea de código a mano.
 - **Aviso de plazo** cuando un trámite está fuera de fechas
 - Progreso persistente **anónimo**, con login opcional (magic link) y **sincronización multi-dispositivo**
 - **Compartir** por enlace de solo lectura · **"¿salió a la primera?"** · **reportar error**
+
+Con identidad propia: **el sello** (papel de expediente, tinta y violeta de sello de caucho, IBM
+Plex, iconos SVG). Ni rastro del aspecto por defecto con el que nació. Ver [plan.md §4bis](./plan.md).
 
 **La única deuda del proyecto:** las 11 fichas están extraídas de fuentes oficiales **con cita
 literal**, pero marcadas "⚠️ Generada por IA — sin verificar". Falta el cotejo humano contra la
