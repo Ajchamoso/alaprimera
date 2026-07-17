@@ -236,7 +236,7 @@ function Preparacion({
 
       {faltan.length > 0 && (
         <p className="mt-3 rounded-lg bg-pendiente-suave p-3 text-sm text-pendiente">
-          ⚠️ Aún te falta{faltan.length === 1 ? "" : "n"} {faltan.length}:{" "}
+          <span className="font-cond font-bold uppercase tracking-wide">Aún te falta{faltan.length === 1 ? "" : "n"} {faltan.length}:</span>{" "}
           {faltan.map((r) => r.titulo).join(" · ")}
         </p>
       )}

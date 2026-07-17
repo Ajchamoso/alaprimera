@@ -17,13 +17,18 @@ Proyecto del reto Viberano (233 Academy): vibe coding puro.
 - [tasks.md](./tasks.md) — el desglose; se marcan las tareas al completarse.
 - La documentación de discovery (hipótesis, mapa de historias) vive en el repo `Viberano`.
 
-## Skill del proyecto
+## Skills del proyecto
 
 - **`/preparar-ficha`** — prepara o revisa una ficha contra su fuente oficial. Dos modos:
   **añadir** (trámite nuevo: extraer con cita → ficha → seed → verificar en navegador) y
   **revisar** (mantenimiento: comprueba si la fuente sigue diciendo lo mismo y devuelve solo el
   diff). Úsala siempre que haya que ampliar o mantener el catálogo; lleva dentro el mapa de minas
   de las sedes españolas, las reglas anti-invención y el calendario de revisión.
+- **`/revisar-codigo`** — revisión de mantenibilidad antes de commitear. Corre la puerta automática
+  (tipos, tests, lint) y luego valida lo que una máquina no ve: la regla de oro en los caminos de
+  código, el sello del diseño, el patrón de store externo, `proxy.ts` que no lanza, secretos que no
+  llegan al cliente, accesibilidad y lógica extraída a funciones puras. Devuelve un diagnóstico por
+  severidad. Úsala tras una feature o antes de un commit grande.
 
 ## Reglas del reto (innegociables)
 

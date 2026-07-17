@@ -54,7 +54,7 @@ export function Compartir({ checklist, conSesion }: { checklist: ChecklistLocal;
             onClick={copia}
             className="rounded-lg bg-sello px-3 py-2 text-sm font-medium text-white hover:bg-tinta"
           >
-            {copiado ? "✓ Copiado" : "Copiar"}
+            {copiado ? "Copiado" : "Copiar"}
           </button>
         </div>
         <p className="mt-2 text-xs text-tinta-tenue">
