@@ -68,5 +68,9 @@ sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (plan.md
 - Todo el texto de UI en **español**. Lenguaje llano, nada de jerga administrativa sin explicar.
 - Móvil primero (Marta empieza en el móvil); el imprimible se revisa con `@media print`.
 - Estados derivados en lectura (p. ej. sello caducado a 90 días), no jobs que los actualicen.
+- **El sello lo pone una persona, con `npm run verificar <slug>`** (escribe el registro
+  `lib/data/verificaciones.ts` y vuelca a BD). Nunca con SQL: el seed borra y reinserta desde el
+  repo, así que un `update` en BD se pierde sin avisar. Y nunca lo pongas tú por tu cuenta: una
+  ficha sellada afirma que un humano la cotejó contra la fuente.
 - Migraciones de BD versionadas en el repo; RLS activado en toda tabla desde su creación.
 - Tras cada fase del plan: recorrido manual en la URL pública, no solo en local.

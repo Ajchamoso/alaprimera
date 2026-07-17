@@ -1,18 +1,21 @@
-import type { Tramite } from "@/lib/types";
+import type { TramiteContenido } from "@/lib/types";
 
 /**
  * Fichas del catálogo.
  *
  * ⚠️ REGLA DE ORO (FR-019): el contenido sale de la fuente oficial, nunca de la
- * memoria de un modelo. Cada requisito lleva su cita literal en `fuenteCita`.
- * Las fichas nacen con `verificadaEn: null` ("sin verificar") y solo una persona
- * que las coteje contra `urlFuente` puede fechar la verificación.
+ * memoria de un modelo. Cada requisito lleva su cita literal dentro de su
+ * `explicacion`, precedida de "Fuente:".
+ *
+ * Aquí solo va CONTENIDO. Quién ha verificado cada ficha y cuándo vive en el
+ * registro (`verificaciones.ts`): una ficha que no esté allí sale como "generada
+ * por IA — sin verificar", que es la verdad hasta que alguien la coteje.
  *
  * Flujo de curación: se extrae de la fuente con IA (con cita obligatoria; sin
  * cita, el campo va vacío) → se vuelca a BD con `npm run db:seed` → una persona
  * revisa y sella. Ver docs/curacion.md.
  */
-export const tramites: Tramite[] = [
+export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "renovacion-dni",
@@ -25,8 +28,6 @@ export const tramites: Tramite[] = [
     canales: ["presencial"],
     urlFuente: "https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_420&id_menu=7_8",
     urlCitaPrevia: "https://www.citapreviadnie.es/",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: ["dni", "carnet", "carné", "carnet de identidad", "documento de identidad", "renovar dni"],
     preguntas: [
       {
@@ -163,8 +164,6 @@ export const tramites: Tramite[] = [
     canales: ["presencial"],
     urlFuente: "https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_410",
     urlCitaPrevia: "https://www.citapreviadnie.es/",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: [
       "primer dni",
       "dni primera vez",
@@ -302,8 +301,6 @@ export const tramites: Tramite[] = [
     canales: ["presencial"],
     urlFuente: "https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1084",
     urlCitaPrevia: "https://www.citapreviadnie.es/",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: ["pasaporte", "renovar pasaporte", "sacar pasaporte", "pasaporte de mi hijo"],
     preguntas: [
       {
@@ -433,8 +430,6 @@ export const tramites: Tramite[] = [
     territorio: "España",
     canales: ["online", "presencial"],
     urlFuente: "https://www.mjusticia.gob.es/es/ciudadania/tramite?k=solicitud-certificado-nacimiento-presencial",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: [
       "certificado de nacimiento",
       "partida de nacimiento",
@@ -537,8 +532,6 @@ export const tramites: Tramite[] = [
     canales: ["online", "presencial"],
     urlFuente:
       "https://sede.madrid.es/portal/site/tramites/menuitem.1f3361415fda829be152e15284f1a5a0/?vgnextoid=aa17f9ca0b30b310VgnVCM1000000b205a0aRCRD",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: [
       "empadronamiento",
       "empadronarme",
@@ -694,8 +687,6 @@ export const tramites: Tramite[] = [
     territorio: "España",
     canales: ["online", "presencial"],
     urlFuente: "https://clave.gob.es/registro/como-puedo-registrarme",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: ["clave", "cl@ve", "clave pin", "clave permanente", "identidad electronica", "clave movil"],
     preguntas: [
       {
@@ -836,8 +827,6 @@ export const tramites: Tramite[] = [
     territorio: "España",
     canales: ["online", "presencial"],
     urlFuente: "https://sede.administracion.gob.es/servicios-electronicos/rea",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: [
       "apoderamiento",
       "apoderar",
@@ -949,8 +938,6 @@ export const tramites: Tramite[] = [
     territorio: "Comunidad de Madrid",
     canales: ["online", "presencial"],
     urlFuente: "https://sede.comunidad.madrid/prestacion-social/tarjeta-sanitaria",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: [
       "tarjeta sanitaria",
       "tarjeta del medico",
@@ -1073,8 +1060,6 @@ export const tramites: Tramite[] = [
     canales: ["online", "presencial"],
     urlFuente:
       "https://sede.comunidad.madrid/autorizaciones-licencias-permisos-carnes/titulo-familia-numerosa",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: [
       "familia numerosa",
       "titulo de familia numerosa",
@@ -1224,8 +1209,6 @@ export const tramites: Tramite[] = [
       fin: "2026-05-28",
       nota: "En la convocatoria 2026-2027 el plazo fue del 29/04 al 28/05. Suele abrirse en primavera: consulta la fuente oficial para la próxima.",
     },
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: [
       "beca comedor",
       "beca de comedor",
@@ -1370,8 +1353,6 @@ export const tramites: Tramite[] = [
     territorio: "España",
     canales: ["online"],
     urlFuente: "https://www.sede.fnmt.gob.es/certificados/persona-fisica/obtener-certificado-software",
-    verificadaEn: null,
-    generadaPorIa: true,
     alias: [
       "certificado digital",
       "certificado electrónico",

@@ -50,6 +50,9 @@ npm install
 npm run dev            # http://localhost:3000
 ```
 
+Comandos útiles: `npm run db:seed` (vuelca el catálogo), `npm run verificar <slug>` (sella una
+ficha cotejada), `npm run buzon` (qué te está diciendo la gente: fallos y reportes).
+
 Variables de entorno en `.env.local` (no versionado): `NEXT_PUBLIC_SUPABASE_URL`,
 `NEXT_PUBLIC_SUPABASE_ANON_KEY`, y para tareas de servidor/seed `SUPABASE_SERVICE_ROLE_KEY` y
 `DATABASE_URL`. Migraciones en `supabase/migrations/`; seed del catálogo con `npm run db:seed`.

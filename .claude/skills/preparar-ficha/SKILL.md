@@ -81,10 +81,13 @@ Si nada cambió, dilo y ya: es un resultado, no un fracaso. La ficha solo necesi
 
 ## 5. Aplica y re-sella
 
-Actualiza la ficha, `npm run db:seed`, y recuerda que **el sello lo pone un humano**:
-```sql
-update tramites set verificada_en = now() where id = 'slug';
+Actualiza la ficha y `npm run db:seed`. El sello **lo pone un humano**, nunca tú:
+```bash
+npm run verificar <slug>          # sella con fecha de hoy
+npm run verificar <slug> quitar   # retira el sello
 ```
+Escribe en el registro (`lib/data/verificaciones.ts`), que va a git: el historial es la prueba de
+quién selló qué. **Nunca con SQL**: un `update` en BD lo borra el siguiente seed, en silencio.
 
 ## Cuándo revisar: la deriva es estacional, no aleatoria
 
@@ -143,10 +146,12 @@ Qué buscar siempre:
 
 ## 3. Escribir la ficha
 
-En `lib/data/tramites.ts`, según el tipo `Tramite` de `lib/types.ts`:
+En `lib/data/tramites.ts`, según el tipo `TramiteContenido` de `lib/types.ts`:
 
 - `slug` legible y estable (es el id en BD y en la URL)
-- `verificadaEn: null` y `generadaPorIa: true` — SIEMPRE. Solo un humano sella
+- **Aquí NO se pone nada de verificación.** El estado del sello vive en el registro
+  (`lib/data/verificaciones.ts`) y una ficha que no esté allí sale sola como "sin verificar", que
+  es la verdad. Nunca la selles tú: eso afirma que una persona la cotejó
 - `nombreColoquial` como habla la gente; `alias` con lo que escribiría en el buscador
 - Preguntas: máx. 4, la primera SIEMPRE el destinatario (`tipo: "destinatario"`). Caso inviable
   → `veredictoInviable: true` + `textoAlternativas` con opciones reales
@@ -155,7 +160,7 @@ En `lib/data/tramites.ts`, según el tipo `Tramite` de `lib/types.ts`:
   `tipo`: doc_fisico / doc_digital / tecnico / tramite_previo. Trámite previo del catálogo →
   `tramitePrevioSlug` + entrada en `prerequisitos` con nota y caducidad
 - `plazo` si hay ventana de fechas, con `nota` de cuándo suele abrir
-- Cabecera: `// ── Curada desde la fuente oficial el DD/MM/AAAA (pendiente de verificación humana) ──`
+- Cabecera: `// ── Preparada desde la fuente oficial el DD/MM/AAAA (pendiente de verificación humana) ──`
 
 ## 4. Seed y verificación en navegador
 
@@ -180,6 +185,6 @@ contenedor (`section.bg-emerald-50 button`).
    **inferencias tuyas que no son citas** (sección propia), hallazgos para mirada humana. Si
    encontraste una trampa de fuente nueva, añádela al mapa de minas de aquí y de allí.
 2. Commit (Co-Authored-By; sin tocar código a mano — reglas en AGENTS.md).
-3. **Recuerda SIEMPRE la deuda**: la ficha está pendiente de verificación humana — abrir la
-   fuente al lado y cotejar. Ese paso no lo puede hacer una IA, y es lo que separa este producto
-   de publicar información falsa.
+3. **Recuerda SIEMPRE la deuda**: la ficha queda pendiente de verificación humana. Abrir la fuente
+   al lado, cotejar, y sellar con `npm run verificar <slug>`. Ese paso no lo puede hacer una IA, y
+   es lo que separa este producto de publicar información falsa.

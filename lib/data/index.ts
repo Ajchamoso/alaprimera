@@ -1,6 +1,14 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Canal, Pregunta, Requisito, TipoRequisito, Tramite } from "@/lib/types";
-import { tramites as seedLocal } from "./tramites";
+import { tramites as contenidoLocal } from "./tramites";
+import { generadaPorIa, verificadaEn } from "./verificaciones";
+
+/** Contenido + registro de verificaciones = la ficha completa. */
+const seedLocal: Tramite[] = contenidoLocal.map((t) => ({
+  ...t,
+  verificadaEn: verificadaEn(t.slug),
+  generadaPorIa: generadaPorIa(t.slug),
+}));
 
 /**
  * Capa de acceso a fichas. Lee de Supabase (contenido curado en BD, FR-019);

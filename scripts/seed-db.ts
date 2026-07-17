@@ -6,6 +6,7 @@
  */
 import { Client } from "pg";
 import { tramites } from "../lib/data/tramites";
+import { generadaPorIa, verificadaEn } from "../lib/data/verificaciones";
 
 async function main() {
   const url = process.env.DATABASE_URL;
@@ -37,8 +38,8 @@ async function main() {
           t.canales,
           t.urlFuente,
           t.urlCitaPrevia ?? null,
-          t.verificadaEn,
-          t.generadaPorIa,
+          verificadaEn(t.slug),
+          generadaPorIa(t.slug),
           t.alias,
           t.plazo?.inicio ?? null,
           t.plazo?.fin ?? null,

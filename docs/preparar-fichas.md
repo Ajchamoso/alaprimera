@@ -93,15 +93,28 @@ Con la fuente oficial abierta al lado, **requisito a requisito**:
 - [ ] ¿Los enlaces (fuente, cita previa) abren donde deben?
 - [ ] ¿Las preguntas del wizard reflejan distinciones reales de la fuente?
 
-Solo cuando todo cuadra:
+Solo cuando todo cuadra, sellas:
 
-```sql
-update tramites set verificada_en = now(), generada_por_ia = false
-where id = 'slug-del-tramite';
+```bash
+npm run verificar dni-primera-vez
 ```
 
-A partir de ahí la app muestra "✅ Verificada el DD/MM" y, a los 90 días,
-degrada sola a "puede estar desactualizada" (FR-020).
+Eso escribe en **el registro** (`lib/data/verificaciones.ts`) y vuelca a la base de datos: la app
+pasa al momento de "SIN VERIFICAR" en rojo a "VERIFICADA · DD·MM·AAAA" en violeta, y a los 90 días
+degrada sola a "puede estar desactualizada" (FR-020). Luego **commitea el registro**: su historial
+de git es la prueba de quién selló qué y cuándo.
+
+Otros usos:
+
+```bash
+npm run verificar                          # lista el catálogo y qué está sellado
+npm run verificar dni-primera-vez quitar   # retira el sello (te equivocaste, o cambió la fuente)
+```
+
+> ⚠️ **No lo hagas con SQL a mano.** Un `update tramites set verificada_en = now()` parece que
+> funciona… y el siguiente `npm run db:seed` se lo lleva por delante en silencio, porque el seed
+> borra y reinserta desde el repo. Lo comprobamos: verificar en BD y reseedear devolvía la ficha a
+> "sin verificar". Por eso la verificación vive en el registro y no en la base de datos.
 
 ## Por qué la verificación humana no es burocracia
 

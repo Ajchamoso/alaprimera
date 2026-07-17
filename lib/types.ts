@@ -64,3 +64,11 @@ export interface Tramite {
   requisitos: Requisito[];
   prerequisitos: Prerequisito[];
 }
+
+/**
+ * Lo que se escribe en `tramites.ts`: la ficha SIN su estado de verificación.
+ * Quién la selló y cuándo vive en el registro (`verificaciones.ts`), no aquí:
+ * el contenido y el aval son hechos distintos, y mezclarlos hacía que un seed
+ * borrase verificaciones sin avisar.
+ */
+export type TramiteContenido = Omit<Tramite, "verificadaEn" | "generadaPorIa">;

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "db:seed": "tsx scripts/seed-db.ts",
-    "buzon": "tsx scripts/buzon.ts"
+    "buzon": "tsx scripts/buzon.ts",
+    "verificar": "tsx scripts/verificar.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.3",
