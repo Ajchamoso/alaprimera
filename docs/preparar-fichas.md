@@ -194,6 +194,12 @@ Curar las 11 dejó un mapa de minas. Si el motor automático de R2 se construye 
   `sede.seg-social.gob.es` y `revista.seg-social.es`; `prestaciones.seg-social.es` es una SPA que
   solo entrega el `<title>`. Como `madrid.es`: solo se lee con navegador real. Bloqueó la curación
   de la prestación por nacimiento (17/07).
+- **`sede.dgt.gob.es` SÍ se deja extraer, y bien** (17/07): la página del trámite es citable, y las
+  **hojas informativas en PDF** (`.galleries/hojas-informativas/...`) son la fuente MÁS rica —
+  WebFetch no las parsea (devuelve binario), pero se descargan y se leen con `Read`. Trampas: los
+  **importes de algunas tasas se cargan de forma dinámica** y salen como `XX,XX€` en el fetch (el
+  catálogo de tasas devolvió vacío), y hay **subrutas que dan 404** (usa la ruta padre). Para
+  permisos, `www.dgt.es` es mejor que la sede; `administracion.gob.es` corrobora.
 - **Los `&nbsp;` dentro de las frases rompen los greps literales.** Y `grep` con `.` no cruza saltos
   de línea: para buscar contexto hay que aplanar el HTML a una línea antes.
 
@@ -299,6 +305,28 @@ dos últimas piden el certificado de defunción, pero **solo condicionalmente**.
 - **La lista de tipos (literal / extracto / internacional / negativo) no se pudo fijar literal** (la
   sede la carga dinámicamente en el formulario `sereci`), así que NO se metió como pregunta del wizard:
   habría sido inventar el matiz. La ficha se queda en destinatario + canal, que sí están citados.
+
+## Conducir y el coche (17/07): tres fichas de la DGT
+
+Curadas `transferencia-vehiculo`, `carnet-conducir` y `matriculacion-vehiculo`. La DGT es una fuente
+generosa: importes, plazos e impuestos previos, casi todo citado literal.
+
+- **El veredicto de inviabilidad mejor del catálogo hasta ahora.** En la transferencia, si eliges
+  "vendo el coche", la app dice lo que nadie dice: eso no lo tramitas tú, tú haces la *notificación
+  de venta* para dejar de responder por las multas. Citado: «La notificación de venta debe hacerla
+  siempre el vendedor del vehículo…» y «la responsabilidad de las posibles sanciones deja de ser del
+  vendedor… desde que se realiza la notificación». Verificado en navegador.
+- **Trámites escondidos = impuestos previos.** Transferencia: ITP (modelo 620/621) si compras a un
+  particular, factura si es a un profesional (ramificado en el wizard), y el IVTM del año anterior al
+  corriente. Matriculación: Impuesto de Matriculación (modelo 576/06/05) + IVTM. Todos citados como
+  `tramite_previo`. No se encadenan a fichas propias porque no las tenemos (son de Hacienda
+  autonómica y del ayuntamiento); van como requisito previo, no como enlace.
+- **Importes citados literal**: transferencia 55,70 € (ciclomotor 27,85 €), matriculación 99,77 €.
+- **Hueco honesto en `carnet-conducir`**: el **importe de la tasa** no se pudo citar (la sede lo
+  carga dinámico, el catálogo de tasas devolvió vacío; un snippet decía 94,05 € sin confirmar), la
+  **edad mínima (18)** tampoco aparece literal, y el **DNI/NIE** como documento no está citado. La
+  ficha va SIN importe de tasa y SIN esos datos: mejor incompleta que inventada. Al cotejar, abrir el
+  asistente de tasas de la DGT y `clases-de-permisos`.
 
 ## Hallazgos de contenido que merecen mirada humana
 

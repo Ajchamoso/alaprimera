@@ -60,4 +60,8 @@ export const hechoVitalDeFicha: Record<string, string> = {
   "certificado-defuncion": "fallecimiento",
   "ultimas-voluntades": "fallecimiento",
   "seguros-fallecimiento": "fallecimiento",
+  // Conducir y el coche
+  "transferencia-vehiculo": "coche",
+  "carnet-conducir": "coche",
+  "matriculacion-vehiculo": "coche",
 };

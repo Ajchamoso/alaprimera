@@ -50,11 +50,6 @@ const lista: Pendiente[] = [
   { slug: "paro", nombreColoquial: "Cobrar el paro", nombreOficial: "Prestación por desempleo", organismo: "SEPE", nivel: "estatal", hechoVital: "trabajo" },
   { slug: "alta-autonomo", nombreColoquial: "Darme de alta como autónomo", nombreOficial: "Alta en el RETA y en el censo de empresarios (Hacienda)", organismo: "Seguridad Social y Agencia Tributaria", nivel: "estatal", hechoVital: "trabajo" },
 
-  // ── Conducir y el coche ──
-  { slug: "carnet-conducir", nombreColoquial: "Sacarme el carnet de conducir", nombreOficial: "Obtención del permiso de conducción", organismo: "DGT", nivel: "estatal", hechoVital: "coche" },
-  { slug: "transferencia-vehiculo", nombreColoquial: "Cambiar un coche de dueño", nombreOficial: "Transferencia de titularidad de un vehículo", organismo: "DGT", nivel: "estatal", hechoVital: "coche" },
-  { slug: "matriculacion-vehiculo", nombreColoquial: "Matricular un vehículo", nombreOficial: "Matriculación de un vehículo", organismo: "DGT", nivel: "estatal", hechoVital: "coche" },
-
   // ── La renta y Hacienda ──
   { slug: "renta-irpf", nombreColoquial: "La declaración de la renta", nombreOficial: "Declaración del IRPF", organismo: "Agencia Tributaria", nivel: "estatal", hechoVital: "hacienda" },
   { slug: "certificado-tributario", nombreColoquial: "Certificado de estar al corriente con Hacienda", nombreOficial: "Certificado tributario", organismo: "Agencia Tributaria", nivel: "estatal", hechoVital: "hacienda" },

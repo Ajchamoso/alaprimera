@@ -2309,4 +2309,372 @@ export const tramites: TramiteContenido[] = [
       },
     ],
   },
+
+  // ── Preparada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "transferencia-vehiculo",
+    nivel: "estatal",
+    nombreOficial: "Transferencia o cambio de titularidad de un vehículo",
+    nombreColoquial: "Cambiar un coche de dueño",
+    descripcion:
+      "Poner a tu nombre un coche de segunda mano que compras. La haces tú, como comprador. Tienes de plazo 30 días desde la compra. Fuente: «Tras la firma del contrato de compraventa, estás obligado a realizar el cambio de titularidad del vehículo en un plazo máximo de 30 días».",
+    organismo: "DGT · Dirección General de Tráfico",
+    territorio: "España",
+    canales: ["online", "presencial"],
+    urlFuente: "https://sede.dgt.gob.es/es/vehiculos/transferencias-de-vehiculos/",
+    urlCitaPrevia: "https://sedeclave.dgt.gob.es/WEB_NCIT_CONSULTA/solicitarCita.faces",
+    alias: [
+      "transferencia de vehiculo",
+      "cambio de titularidad",
+      "cambiar coche de dueno",
+      "poner el coche a mi nombre",
+      "comprar coche de segunda mano",
+    ],
+    preguntas: [
+      {
+        id: "tv-p1",
+        orden: 1,
+        texto: "¿Qué papel tienes en la compraventa?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "tv-p1-compro", texto: "Compro el coche (soy el nuevo titular)" },
+          {
+            id: "tv-p1-vendo",
+            texto: "Vendo el coche",
+            veredictoInviable: true,
+            textoAlternativas:
+              "La transferencia la hace quien compra. Tú, como vendedor, tienes que hacer la notificación de venta para dejar de responder por las multas del coche. Fuente: «La notificación de venta debe hacerla siempre el vendedor del vehículo o cualquier persona autorizada en su nombre», y «la responsabilidad de las posibles sanciones deja de ser del vendedor del vehículo desde que se realiza la notificación». Es un trámite aparte en la DGT (tasa de 8,67 €).",
+          },
+        ],
+      },
+      {
+        id: "tv-p2",
+        orden: 2,
+        texto: "¿Cómo quieres tramitarlo?",
+        tipo: "normal",
+        opciones: [
+          { id: "tv-p2-online", texto: "Por internet" },
+          { id: "tv-p2-presencial", texto: "En persona, en una Jefatura de Tráfico" },
+        ],
+      },
+      {
+        id: "tv-p3",
+        orden: 3,
+        texto: "¿Quién te vende el coche?",
+        tipo: "normal",
+        opciones: [
+          { id: "tv-p3-particular", texto: "Un particular" },
+          { id: "tv-p3-profesional", texto: "Un profesional (concesionario, compraventa)" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "tv-r1",
+        tipo: "doc_fisico",
+        titulo: "El contrato de compraventa, firmado en todas las hojas",
+        explicacion:
+          "Fuente: el «Contrato de compraventa ha de estar firmado en cada una de las hojas que lo componen por ti, como comprador, y por el vendedor».",
+        canal: "ambos",
+      },
+      {
+        id: "tv-r2",
+        tipo: "tramite_previo",
+        titulo: "Pagar el impuesto de transmisiones (ITP) antes de la transferencia",
+        explicacion:
+          "El trámite escondido que frena a mucha gente. Fuente: «Antes de realizar el cambio de titularidad, debes justificar el pago, exención o no sujeción al Impuesto de Transmisiones Patrimoniales (modelo 620 o 621)». Se paga en tu comunidad autónoma.",
+        canal: "ambos",
+        soloSiOpciones: ["tv-p3-particular"],
+      },
+      {
+        id: "tv-r3",
+        tipo: "doc_fisico",
+        titulo: "La factura de compra",
+        explicacion:
+          "Si compras a un profesional, en vez del ITP va la factura. Fuente: se aporta el justificante del ITP «salvo que el vendedor sea un empresario en el ejercicio de su actividad, en cuyo caso se aportará factura».",
+        canal: "ambos",
+        soloSiOpciones: ["tv-p3-profesional"],
+      },
+      {
+        id: "tv-r4",
+        tipo: "tramite_previo",
+        titulo: "El impuesto de circulación (IVTM) del año anterior, al corriente",
+        explicacion:
+          "Fuente: hay que «Tener abonado el Impuesto de Circulación del año anterior». Es el impuesto municipal del coche.",
+        canal: "ambos",
+      },
+      {
+        id: "tv-r5",
+        tipo: "doc_fisico",
+        titulo: "La tasa de la DGT: 55,70 € (27,85 € si es ciclomotor)",
+        explicacion:
+          "Fuente: «tienes que adquirir la tasa 1.5 de 55,70 €»; «excepto ciclomotores 27,85€ (no se admite el pago en metálico)».",
+        canal: "ambos",
+      },
+      {
+        id: "tv-r6",
+        tipo: "doc_fisico",
+        titulo: "El documento de identidad del comprador y del vendedor",
+        explicacion:
+          "Fuente: «el comprador presentará documento oficial que acredite su identidad y domicilio (DNI, permiso de conducción español, tarjeta de residencia, pasaporte más Número de Identificación de Extranjeros)».",
+        canal: "ambos",
+      },
+      {
+        id: "tv-r7",
+        tipo: "tecnico",
+        titulo: "La ITV en vigor",
+        explicacion:
+          "Fuente: al terminar «se expedirá un nuevo permiso de circulación que únicamente será válido si posee la ITV en vigor».",
+        canal: "ambos",
+      },
+      {
+        id: "tv-r8",
+        tipo: "tecnico",
+        titulo: "Certificado digital, DNI electrónico o Cl@ve",
+        explicacion:
+          "Para hacerlo por internet. Fuente: hace falta «Tu certificado digital, DNI electrónico o tus credenciales Cl@ve para acceder al servicio».",
+        canal: "online",
+        soloSiOpciones: ["tv-p2-online"],
+      },
+      {
+        id: "tv-r9",
+        tipo: "doc_fisico",
+        titulo: "Cita previa y la solicitud en impreso oficial",
+        explicacion:
+          "Para la vía presencial. Fuente: «Debes solicitar cita previa por internet o llamando al 060», y presentar la «Solicitud en impreso oficial».",
+        canal: "presencial",
+        soloSiOpciones: ["tv-p2-presencial"],
+      },
+    ],
+    prerequisitos: [],
+  },
+
+  // ── Preparada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "carnet-conducir",
+    nivel: "estatal",
+    nombreOficial: "Obtención del permiso de conducción",
+    nombreColoquial: "Sacarse el carnet de conducir",
+    descripcion:
+      "Obtener por primera vez el permiso de conducir: hay que residir en España, pasar un reconocimiento médico y aprobar el examen teórico y el práctico. Fuente: hay que «Residir en España», «Reunir las aptitudes psicofísicas requeridas» y «Ser declarado apto por la Jefatura Provincial de Tráfico en las pruebas teóricas y prácticas», y «No estar privado por resolución judicial del derecho a conducir vehículos de motor».",
+    organismo: "DGT · Dirección General de Tráfico",
+    territorio: "España",
+    canales: ["online", "presencial"],
+    urlFuente:
+      "https://www.dgt.es/nuestros-servicios/permisos-de-conducir/obtener-un-nuevo-permiso-de-conducir/requisitos-preparacion-y-presentacion-a-examen/",
+    alias: [
+      "carnet de conducir",
+      "sacarse el carnet",
+      "permiso de conducir",
+      "obtener el carnet",
+      "carne de conducir",
+    ],
+    preguntas: [
+      {
+        id: "cc-p1",
+        orden: 1,
+        texto: "¿Para quién es el carnet?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "cc-p1-yo", texto: "Para mí" },
+          {
+            id: "cc-p1-otro",
+            texto: "Para otra persona",
+            veredictoInviable: true,
+            textoAlternativas:
+              "El carnet es personal: hay que aprobar en persona las pruebas. Fuente: «Ser declarado apto por la Jefatura Provincial de Tráfico en las pruebas teóricas y prácticas». No puedes examinarte por otra persona. Sí puedes ayudarle a reunir los papeles y a buscar autoescuela.",
+          },
+        ],
+      },
+      {
+        id: "cc-p2",
+        orden: 2,
+        texto: "¿Cómo te vas a presentar?",
+        tipo: "normal",
+        opciones: [
+          { id: "cc-p2-autoescuela", texto: "A través de una autoescuela" },
+          { id: "cc-p2-libre", texto: "Por libre" },
+        ],
+      },
+      {
+        id: "cc-p3",
+        orden: 3,
+        texto: "¿Eres estudiante extranjero de fuera de la Unión Europea?",
+        tipo: "normal",
+        opciones: [
+          { id: "cc-p3-no", texto: "No" },
+          { id: "cc-p3-si", texto: "Sí" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "cc-r1",
+        tipo: "tramite_previo",
+        titulo: "El informe de aptitud psicofísica (el psicotécnico)",
+        explicacion:
+          "Se hace en un centro de reconocimiento antes del examen. Fuente: «Informe de aptitud psicofísica, expedido por un Centro de Reconocimiento de Conductores autorizado». Ojo: «Este certificado tiene un período de validez de 90 días».",
+        canal: "presencial",
+      },
+      {
+        id: "cc-r2",
+        tipo: "doc_fisico",
+        titulo: "Una fotografía de 32×26 mm",
+        explicacion:
+          "Fuente: «Fotografía original actual (de 32 x 26 mm) en color y con fondo liso, tomada de frente con la cabeza descubierta y sin gafas de cristales oscuros o cualquier otra prenda que pueda impedir o dificultar tu identificación».",
+        canal: "ambos",
+      },
+      {
+        id: "cc-r3",
+        tipo: "tramite_previo",
+        titulo: "Aprobar el examen teórico y el práctico",
+        explicacion:
+          "Es el núcleo del trámite. Fuente: «será necesario superar un examen específico teórico y otro práctico». El aprobado de una prueba se guarda dos años: «El aprobado de una prueba se guardará durante dos años».",
+        canal: "presencial",
+      },
+      {
+        id: "cc-r4",
+        tipo: "doc_fisico",
+        titulo: "La tasa de la DGT",
+        explicacion:
+          "Fuente: «Tienes que presentar la documentación original y pagar la tasa correspondiente a cada tipo de permiso». (El importe exacto no lo fijamos aquí: la sede lo carga de forma dinámica; conviene comprobarlo al pagar.)",
+        canal: "ambos",
+      },
+      {
+        id: "cc-r5",
+        tipo: "doc_fisico",
+        titulo: "Acreditar 6 meses de estancia como estudiante",
+        explicacion:
+          "Fuente: «Si eres estudiante extranjero no perteneciente a la Unión Europea, deberás demostrar que estás en esta circunstancia durante un período mínimo continuado de seis meses».",
+        canal: "ambos",
+        soloSiOpciones: ["cc-p3-si"],
+      },
+    ],
+    prerequisitos: [],
+  },
+
+  // ── Preparada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "matriculacion-vehiculo",
+    nivel: "estatal",
+    nombreOficial: "Matriculación ordinaria de vehículos",
+    nombreColoquial: "Matricular un vehículo",
+    descripcion:
+      "Dar de alta un vehículo para poder circular con él: hace falta pagar sus impuestos, tener la ficha técnica de la ITV y pagar la tasa de la DGT. Fuente: «La matriculación de un vehículo es un requisito previo a que puedas circular con él por las vías públicas».",
+    organismo: "DGT · Dirección General de Tráfico",
+    territorio: "España",
+    canales: ["online", "presencial"],
+    urlFuente:
+      "https://sede.dgt.gob.es/es/vehiculos/matriculaciones-de-vehiculos/matriculacion-ordinaria/",
+    urlCitaPrevia: "https://sedeclave.dgt.gob.es/WEB_NCIT_CONSULTA/solicitarCita.faces",
+    alias: [
+      "matricular un vehiculo",
+      "matriculacion",
+      "matricular coche nuevo",
+      "dar de alta un coche",
+      "matricular un coche importado",
+    ],
+    preguntas: [
+      {
+        id: "mv-p1",
+        orden: 1,
+        texto: "¿A nombre de quién se matricula?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "mv-p1-particular", texto: "A mi nombre (particular)" },
+          { id: "mv-p1-empresa", texto: "A nombre de una empresa" },
+        ],
+      },
+      {
+        id: "mv-p2",
+        orden: 2,
+        texto: "¿Qué vehículo es?",
+        tipo: "normal",
+        opciones: [
+          { id: "mv-p2-nuevo", texto: "Nuevo, comprado en España o la UE" },
+          { id: "mv-p2-importado", texto: "Importado de fuera de la UE" },
+        ],
+      },
+      {
+        id: "mv-p3",
+        orden: 3,
+        texto: "¿Cómo quieres tramitarlo?",
+        tipo: "normal",
+        opciones: [
+          { id: "mv-p3-online", texto: "Por internet" },
+          { id: "mv-p3-presencial", texto: "En persona, en una Jefatura de Tráfico" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "mv-r1",
+        tipo: "tramite_previo",
+        titulo: "Pagar el impuesto de matriculación (o acreditar la exención)",
+        explicacion:
+          "Fuente: «Justificante del pago/exención/no sujeción del Impuesto de Matriculación (modelo 576, 06 o 05 de la Agencia Estatal Tributaria, www.aeat.es), excepto en el caso de remolques».",
+        canal: "ambos",
+      },
+      {
+        id: "mv-r2",
+        tipo: "tramite_previo",
+        titulo: "El impuesto de circulación (IVTM) del ayuntamiento, pagado o exento",
+        explicacion:
+          "Fuente: «Justificante del pago o exención del Impuesto de Circulación del Ayuntamiento en el que tenga su domicilio el solicitante (original o fotocopia)».",
+        canal: "ambos",
+      },
+      {
+        id: "mv-r3",
+        tipo: "tecnico",
+        titulo: "La tarjeta de la ITV (NIVE electrónica o en papel)",
+        explicacion:
+          "Fuente: «Tarjeta de ITV electrónica (NIVE) o tarjeta de ITV en formato papel con la diligencia de venta, o en su defecto factura o acta de adjudicación si procede de subasta».",
+        canal: "ambos",
+      },
+      {
+        id: "mv-r4",
+        tipo: "doc_fisico",
+        titulo: "La tasa de la DGT: 99,77 € (27,85 € si es ciclomotor)",
+        explicacion:
+          "Fuente: «Tasa por importe de 99,77 €, excepto ciclomotores 27,85 €. (No se admite el pago en metálico)».",
+        canal: "ambos",
+      },
+      {
+        id: "mv-r5",
+        tipo: "doc_fisico",
+        titulo: "El documento de identidad del titular",
+        explicacion:
+          "Fuente: «documento oficial que acredite la identidad y domicilio del titular (DNI, permiso de conducción español, tarjeta de residencia, pasaporte más Número de Identificación de Extranjeros)».",
+        canal: "ambos",
+      },
+      {
+        id: "mv-r6",
+        tipo: "doc_fisico",
+        titulo: "El DUA de la Aduana",
+        explicacion:
+          "Para vehículos de fuera de la UE. Fuente: «Documento Único Administrativo (DUA) expedido por la Aduana, salvo que en la tarjeta de ITV conste la diligencia de importación del vehículo».",
+        canal: "ambos",
+        soloSiOpciones: ["mv-p2-importado"],
+      },
+      {
+        id: "mv-r7",
+        tipo: "tecnico",
+        titulo: "Certificado digital, DNI electrónico o Cl@ve, y la ITV electrónica (NIVE)",
+        explicacion:
+          "Para la vía online. Fuente: hace falta «Certificado digital, DNI electrónico o credenciales Cl@ve» y «Tarjeta de ITV electrónica (NIVE)».",
+        canal: "online",
+        soloSiOpciones: ["mv-p3-online"],
+      },
+      {
+        id: "mv-r8",
+        tipo: "doc_fisico",
+        titulo: "Cita previa y la solicitud en impreso oficial",
+        explicacion:
+          "Para la vía presencial. Fuente: «antes de presentar el trámite en jefatura deberá solicitar cita previa», y la «Solicitud en impreso oficial».",
+        canal: "presencial",
+        soloSiOpciones: ["mv-p3-presencial"],
+      },
+    ],
+    prerequisitos: [],
+  },
 ];
