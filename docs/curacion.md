@@ -87,28 +87,72 @@ requisitos). Una URL rara vez basta, y alguna devuelve 404 — se dice, no se re
 Servir una checklist impecable de un trámite que no puedes solicitar es engañar. De ahí salió el
 campo `plazo` y el aviso en la ficha (FR-027).
 
-**La verificación humana caza inventos, y no pocos.** Cuatro solo en el seed de desarrollo escrito
-de memoria:
+**La verificación humana caza inventos.** Tres confirmados en el seed escrito de memoria:
 
 | Lo que decía el seed | Lo que dice la fuente |
 |---|---|
 | "Vídeo identificación" como forma de acreditar el certificado | Es un **proceso distinto** (Certificado con Vídeo Identificación ≠ con Acreditación Presencial) |
-| Foto "sin gafas oscuras" | No lo dice; sí dice «cabeza totalmente descubierta» y **máximo 2 años** de antigüedad |
 | "En algunas oficinas solo se paga en efectivo" | «abono en efectivo **o a través de tarjeta** de crédito/débito» |
 | Menores: "libro de familia o certificado de nacimiento" | El adulto presenta **su propio** DNI, TIE o Certificado de Registro de Ciudadano de la Unión |
 
-Todas eran plausibles. Ninguna era verdad. Ese es el trabajo.
+### ⚠️ El error que va en la otra dirección (y es peor)
 
-## Estado del catálogo
+El 17/07 dimos por invento un cuarto dato —la foto "sin gafas oscuras"— porque la extracción
+respondió "no especificado". **Era falso: la fuente sí lo dice**, literalmente: «sin gafas de
+cristales oscuros o cualquier otra prenda que pueda impedir o dificultar la identificación». La
+herramienta de extracción había *resumido* la página en vez de transcribirla, y su silencio se
+interpretó como ausencia.
+
+**Regla que sale de aquí: un "no aparece" de una extracción que resume NO es prueba de ausencia.**
+Para afirmar que la fuente no dice algo hay que mirar el HTML crudo (`curl` + quitar etiquetas +
+`grep`; ojo con `iso-8859-1` en dnielectronico.es, que corrompe los acentos si no se convierte).
+
+Los falsos negativos son más peligrosos que los falsos positivos: un invento se caza al cotejar,
+pero un requisito que descartas por creerlo inventado desaparece de la lista sin dejar rastro — y
+tu usuario se queda en la ventanilla sin él.
+
+## Dos fuentes que dan guerra (aviso de arquitectura)
+
+- **`madrid.es` bloquea el acceso automatizado**: 403 en todo el dominio, a `curl` y a fetch. Solo
+  se lee con navegador real, y sus datos viven en acordeones que no salen en el texto plano. Si el
+  motor de R2 depende de scrapear Madrid, esto no es un detalle: es un riesgo de diseño.
+- **`dnielectronico.es` tiene trampas de URL**: `REF_1084` es la página del **pasaporte**, no del
+  DNI, aunque los buscadores la devuelvan como "requisitos del DNI". La del DNI es `REF_410`
+  (primera inscripción) y `REF_420` (renovación).
+
+## Estado del catálogo (7 de 11 extraídas)
 
 | Trámite | Extraída | Verificada |
 |---|---|---|
-| Certificado digital FNMT | ✅ 17/07, con citas | ❌ **pendiente** |
-| Renovación DNI | ✅ 17/07, con citas | ❌ **pendiente** |
-| Beca comedor Madrid | ✅ 17/07, con citas | ❌ **pendiente** |
-| Los otros 8 (ver spec.md) | ❌ | ❌ |
+| Certificado digital FNMT | ✅ 17/07 | ❌ **pendiente** |
+| Renovación DNI | ✅ 17/07 | ❌ **pendiente** |
+| Beca comedor Madrid | ✅ 17/07 | ❌ **pendiente** |
+| DNI primera vez | ✅ 17/07 | ❌ **pendiente** |
+| Pasaporte | ✅ 17/07 | ❌ **pendiente** |
+| Certificado de nacimiento | ✅ 17/07 | ❌ **pendiente** |
+| Empadronamiento Madrid | ✅ 17/07 | ❌ **pendiente** |
+| Cl@ve · Tarjeta sanitaria · Familia numerosa · Apoderamiento | ❌ | ❌ |
 
-**Inferencia a confirmar en la verificación:** en la beca, el enlace ⛓️ al certificado digital.
-La fuente dice «uno de los sistemas de firma electrónica reconocidos por la Comunidad de Madrid»
-sin nombrarlos; que el certificado FNMT valga es deducción nuestra, no cita. Confirmadlo o
-matizadlo.
+## Inferencias nuestras a confirmar (no son citas)
+
+1. **Beca → certificado digital.** La fuente dice «uno de los sistemas de firma electrónica
+   reconocidos por la Comunidad de Madrid» sin nombrarlos. Que el certificado FNMT valga es
+   deducción nuestra.
+2. **DNI primera vez → empadronamiento de Madrid.** La fuente dice «del Ayuntamiento donde la
+   persona solicitante tenga su domicilio». Enlazamos al de Madrid porque es nuestro territorio de
+   MVP; para otro municipio, la ficha no aplica.
+
+## Hallazgos de contenido que merecen mirada humana
+
+- **Volante ≠ certificado: la fuente no distingue.** La sede de Madrid **no ofrece "volante"** como
+  trámite. Solo dice que el certificado vale «independientemente de que dicha Administración exija
+  al ciudadano la presentación de un certificado o de un volante». Nuestro catálogo hace bien en
+  tener una sola ficha.
+- **El DNI NO exige consentimiento de ambos progenitores; el pasaporte SÍ.** El DNI habla en
+  singular («quien tenga encomendada la patria potestad»); el pasaporte es explícito y en
+  mayúsculas: «TODAS las personas que ostenten la patria potestad o tutela, (y no únicamente la
+  guardia y custodia)». Es una diferencia real entre dos trámites de la misma comisaría, y de las
+  que arruinan una mañana.
+- **El certificado de nacimiento anterior a 1950 no tiene vía online.**
+- **Gratuidad del certificado de nacimiento: la fuente NO lo dice.** Lo es en la práctica, pero no
+  lo afirméis citando la fuente.

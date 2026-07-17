@@ -62,11 +62,15 @@ BD para cuando llegue.
 ## Fase 5 — Contenido + pulido (semanas 3-5, paralelo, humano)
 
 - [ ] **T-024** Curar y verificar las 11 fichas contra fuente oficial (empezando por beca → certificado → DNI).
-      **Cadena estrella completa y extraída con citas el 17/07 — las tres pendientes de verificación humana:**
-      - [x] Certificado digital FNMT · ⚠️ pendiente de verificar
-      - [x] Renovación DNI (re-extraída: la anterior era de memoria y tenía 3 inventos) · ⚠️ pendiente de verificar
-      - [x] Beca comedor Madrid · ⚠️ pendiente de verificar · primera ficha de doble canal y con plazo
-      - [ ] Las otras 8
+      **7 de 11 extraídas con citas el 17/07 — todas ⚠️ pendientes de verificación humana:**
+      - [x] Certificado digital FNMT
+      - [x] Renovación DNI (re-extraída: la anterior era de memoria)
+      - [x] Beca comedor Madrid · primera ficha de doble canal y con plazo
+      - [x] DNI primera vez · encadena con certificado de nacimiento (6 meses) y empadronamiento (3 meses)
+      - [x] Pasaporte · encadena con DNI en vigor (**citado literalmente**)
+      - [x] Certificado de nacimiento
+      - [x] Empadronamiento Madrid
+      - [ ] Cl@ve · Tarjeta sanitaria · Familia numerosa · Apoderamiento
       - [x] **FR-027 (plazos)**: descubierto al curar la beca — su convocatoria cerró el 28/05 y la app
             habría servido una checklist para un trámite no solicitable. Añadido campo `plazo`,
             migración `0002_plazos.sql` y aviso en la ficha.

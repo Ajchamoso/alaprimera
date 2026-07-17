@@ -84,7 +84,7 @@ export const tramites: Tramite[] = [
         tipo: "doc_fisico",
         titulo: "Una fotografía de 32×26 mm, de menos de 2 años",
         explicacion:
-          "Fuente: «32 por 26 milímetros», «con fondo uniforme blanco y liso, tomada de frente, con la cabeza totalmente descubierta», con antigüedad «máxima de 2 años» y debe «Representar fielmente la imagen de la persona interesada».",
+          "Fuente: «32 por 26 milímetros, con fondo uniforme blanco y liso, tomada de frente, con la cabeza totalmente descubierta y sin gafas de cristales oscuros o cualquier otra prenda que pueda impedir o dificultar la identificación de la persona», con antigüedad «máxima de 2 años». Se admiten prendas de cabeza por motivos religiosos o médicos si dejan descubierto el óvalo del rostro, y gafas oscuras a personas invidentes.",
         canal: "presencial",
       },
       {
@@ -125,9 +125,9 @@ export const tramites: Tramite[] = [
       {
         id: "dni-r6",
         tipo: "doc_fisico",
-        titulo: "El importe de la tasa (efectivo o tarjeta)",
+        titulo: "La tasa: 12 € (efectivo o tarjeta)",
         explicacion:
-          "Fuente: «abono en efectivo o a través de tarjeta de crédito/débito», o el justificante si ya la pagaste por internet. El importe vigente, en la fuente oficial.",
+          "Fuente: la tasa «se actualiza mediante la Ley de Presupuestos Generales del Estado, estando actualmente fijada en 12 euros, pudiéndose realizar el pago en las Unidades de Documentación en efectivo o mediante tarjeta bancaria», o por internet al pedir la cita. Es gratis si renuevas solo por cambio de datos con el DNI en vigor, o si acreditas familia numerosa.",
         canal: "presencial",
       },
       {
@@ -145,6 +145,538 @@ export const tramites: Tramite[] = [
         titulo: "Cita previa pedida",
         explicacion:
           "Fuente: «previa petición de cita previa por teléfono en el número 060, o por Internet en la página Web: www.citapreviadnie.es».",
+        canal: "presencial",
+      },
+    ],
+    prerequisitos: [],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "dni-primera-vez",
+    nombreOficial: "Primera inscripción del DNI",
+    nombreColoquial: "El primer DNI (de un niño o niña)",
+    descripcion:
+      "Sacar el DNI por primera vez. Hay que ir en persona con cita previa, y trae dos trámites escondidos: el certificado de nacimiento del Registro Civil y el empadronamiento — ambos con fecha de caducidad.",
+    organismo: "Policía Nacional (Ministerio del Interior)",
+    territorio: "España",
+    canales: ["presencial"],
+    urlFuente: "https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_410",
+    urlCitaPrevia: "https://www.citapreviadnie.es/",
+    verificadaEn: null,
+    generadaPorIa: true,
+    alias: [
+      "primer dni",
+      "dni primera vez",
+      "dni de mi hijo",
+      "sacar el dni",
+      "primera inscripcion",
+      "dni niño",
+    ],
+    preguntas: [
+      {
+        id: "dni1-p1",
+        orden: 1,
+        texto: "¿Para quién es el primer DNI?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "dni1-p1-menor", texto: "Para un menor a mi cargo" },
+          { id: "dni1-p1-yo", texto: "Para mí" },
+          {
+            id: "dni1-p1-adulto",
+            texto: "Para otra persona adulta",
+            veredictoInviable: true,
+            textoAlternativas:
+              "El DNI es personal: la fuente exige «la presencia física de la persona a quien se haya de expedir». No puedes sacarlo tú por otra persona adulta. Sí puedes pedirle la cita, prepararle la lista y acompañarla.",
+          },
+        ],
+      },
+      {
+        id: "dni1-p2",
+        orden: 2,
+        texto: "¿Dónde reside la persona?",
+        tipo: "normal",
+        opciones: [
+          { id: "dni1-p2-espana", texto: "En España" },
+          { id: "dni1-p2-extranjero", texto: "En el extranjero" },
+        ],
+      },
+      {
+        id: "dni1-p3",
+        orden: 3,
+        texto: "¿Es una primera inscripción por nacionalización?",
+        tipo: "normal",
+        opciones: [
+          { id: "dni1-p3-no", texto: "No" },
+          { id: "dni1-p3-si", texto: "Sí, tengo TIE o Certificado de Registro con NIE" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "dni1-r1",
+        tipo: "tramite_previo",
+        titulo: "Certificación literal de nacimiento (menos de 6 meses)",
+        explicacion:
+          "Ojo: tiene que pedirse expresamente para esto. Fuente: «Certificación literal de nacimiento (emitida solo a efectos de la obtención del Documento Nacional de Identidad) expedida por el Registro Civil […] con una antelación máxima de seis meses a la fecha de presentación».",
+        canal: "presencial",
+        tramitePrevioSlug: "certificado-nacimiento",
+      },
+      {
+        id: "dni1-r2",
+        tipo: "tramite_previo",
+        titulo: "Certificado o volante de empadronamiento (menos de 3 meses)",
+        explicacion:
+          "Fuente: «Certificado o volante de empadronamiento del Ayuntamiento donde la persona solicitante tenga su domicilio, expedido con una antelación máxima de tres meses a la fecha de la tramitación».",
+        canal: "presencial",
+        tramitePrevioSlug: "empadronamiento-madrid",
+        soloSiOpciones: ["dni1-p2-espana"],
+      },
+      {
+        id: "dni1-r3",
+        tipo: "doc_fisico",
+        titulo: "Certificación del consulado (si residís fuera de España)",
+        explicacion:
+          "Fuente: «Las personas con nacionalidad española residentes en el extranjero acreditarán el domicilio mediante certificación de la Representación Diplomática o Consular donde estén inscritos como residentes, expedida con una antelación máxima de tres meses».",
+        canal: "presencial",
+        soloSiOpciones: ["dni1-p2-extranjero"],
+      },
+      {
+        id: "dni1-r4",
+        tipo: "doc_fisico",
+        titulo: "Una fotografía de 32×26 mm, de menos de 2 años",
+        explicacion:
+          "Fuente: «tamaño 32 por 26 milímetros, con fondo uniforme blanco y liso, tomada de frente, con la cabeza totalmente descubierta y sin gafas de cristales oscuros», con «antigüedad máxima de 2 años». Se admiten prendas de cabeza por motivos religiosos o médicos si dejan descubierto el óvalo del rostro.",
+        canal: "presencial",
+      },
+      {
+        id: "dni1-r5",
+        tipo: "doc_fisico",
+        titulo: "El DNI de quien acompaña al menor",
+        explicacion:
+          "Fuente: se hará «en presencia de quien tenga encomendada la patria potestad o tutela […] el cual deberá aportar su DNI, Tarjeta de Identificación de Extranjero (TIE) o Certificado de Registro de Ciudadano de la Unión». Ojo: aquí la fuente habla en singular — a diferencia del pasaporte, NO exige el consentimiento de ambos progenitores.",
+        canal: "presencial",
+        soloSiOpciones: ["dni1-p1-menor"],
+      },
+      {
+        id: "dni1-r6",
+        tipo: "doc_fisico",
+        titulo: "Tu TIE o Certificado de Registro con el NIE",
+        explicacion:
+          "Fuente: en primera inscripción como nacionalizado con TIE o Certificado de Registro donde conste el NIE, «deberá aportarlo, como requisito indispensable, en el momento de la tramitación».",
+        canal: "presencial",
+        soloSiOpciones: ["dni1-p3-si"],
+      },
+      {
+        id: "dni1-r7",
+        tipo: "doc_fisico",
+        titulo: "La tasa: 12 € (efectivo o tarjeta)",
+        explicacion:
+          "Fuente: la tasa está «actualmente fijada en 12 euros, pudiéndose realizar el pago en las Unidades de Documentación en efectivo o mediante tarjeta bancaria», o por internet al pedir la cita. Gratis si acreditáis familia numerosa, y para menores de 14 años en unidad de convivencia con ingreso mínimo vital.",
+        canal: "presencial",
+      },
+      {
+        id: "dni1-r8",
+        tipo: "doc_fisico",
+        titulo: "Cita previa pedida",
+        explicacion:
+          "Fuente: «la tramitación del Documento Nacional de Identidad se realizará con la presencia física de la persona, a través de los sistemas de cita previa».",
+        canal: "presencial",
+      },
+    ],
+    prerequisitos: [
+      { slug: "certificado-nacimiento", nota: "Pídelo «a los solos efectos» del DNI: caduca a los 6 meses." },
+      { slug: "empadronamiento-madrid", nota: "El certificado caduca a los 3 meses." },
+    ],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "pasaporte",
+    nombreOficial: "Pasaporte ordinario",
+    nombreColoquial: "El pasaporte",
+    descripcion:
+      "Sacar o renovar el pasaporte. Se hace en persona con cita previa. Para menores hace falta el consentimiento de TODAS las personas con patria potestad — no solo de quien tiene la custodia.",
+    organismo: "Policía Nacional (Ministerio del Interior)",
+    territorio: "España",
+    canales: ["presencial"],
+    urlFuente: "https://www.dnielectronico.es/PortalDNIe/PRF1_Cons02.action?pag=REF_1084",
+    urlCitaPrevia: "https://www.citapreviadnie.es/",
+    verificadaEn: null,
+    generadaPorIa: true,
+    alias: ["pasaporte", "renovar pasaporte", "sacar pasaporte", "pasaporte de mi hijo"],
+    preguntas: [
+      {
+        id: "pas-p1",
+        orden: 1,
+        texto: "¿Para quién es el pasaporte?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "pas-p1-yo", texto: "Para mí" },
+          { id: "pas-p1-menor", texto: "Para un menor a mi cargo" },
+          {
+            id: "pas-p1-adulto",
+            texto: "Para otra persona adulta",
+            veredictoInviable: true,
+            textoAlternativas:
+              "Fuente: «será imprescindible la presencia física de la persona a quien se haya de expedir». No puedes sacarlo tú por otra persona adulta. Sí puedes pedirle la cita y acompañarla.",
+          },
+        ],
+      },
+      {
+        id: "pas-p2",
+        orden: 2,
+        texto: "¿El menor tiene ya DNI?",
+        tipo: "normal",
+        opciones: [
+          { id: "pas-p2-si", texto: "Sí, tiene DNI" },
+          { id: "pas-p2-no", texto: "No tiene DNI todavía" },
+        ],
+      },
+      {
+        id: "pas-p3",
+        orden: 3,
+        texto: "¿Tienes ya un pasaporte anterior?",
+        tipo: "normal",
+        opciones: [
+          { id: "pas-p3-no", texto: "No, es el primero" },
+          { id: "pas-p3-vigor", texto: "Sí, y está en vigor" },
+          { id: "pas-p3-perdido", texto: "Lo perdí o me lo robaron" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "pas-r1",
+        tipo: "tramite_previo",
+        titulo: "DNI en vigor",
+        explicacion:
+          "El encadenamiento clásico: si tu DNI está caducado, primero toca renovarlo. Fuente: «Documento Nacional de Identidad en vigor del solicitante en su versión física o digital, para comprobar los datos de este documento con los reflejados en la solicitud».",
+        canal: "presencial",
+        tramitePrevioSlug: "renovacion-dni",
+        soloSiOpciones: ["pas-p1-yo", "pas-p2-si"],
+      },
+      {
+        id: "pas-r2",
+        tipo: "tramite_previo",
+        titulo: "Certificación literal de nacimiento (menos de 6 meses)",
+        explicacion:
+          "Sustituye al DNI cuando el menor aún no lo tiene. Fuente: «deberá aportar una certificación literal de nacimiento expedida por el Registro Civil correspondiente con una antelación máxima de seis meses […] y que contengan la anotación de que se ha emitido a los solos efectos de la obtención de este documento».",
+        canal: "presencial",
+        tramitePrevioSlug: "certificado-nacimiento",
+        soloSiOpciones: ["pas-p2-no"],
+      },
+      {
+        id: "pas-r3",
+        tipo: "doc_fisico",
+        titulo: "El consentimiento de TODAS las personas con patria potestad",
+        explicacion:
+          "Aquí es donde más gente se atasca. Fuente: «El consentimiento ha de ser prestado por TODAS las personas que ostenten la patria potestad o tutela, (y no únicamente la guardia y custodia)». Pueden ir juntos o por separado, incluso a equipos de expedición distintos, o hacerlo ante notario. Si hay sentencia que priva o limita la patria potestad de uno, basta la autorización del otro.",
+        canal: "presencial",
+        soloSiOpciones: ["pas-p1-menor"],
+      },
+      {
+        id: "pas-r4",
+        tipo: "doc_fisico",
+        titulo: "DNI del progenitor o tutor, y acreditar el parentesco",
+        explicacion:
+          "Fuente: al prestar el consentimiento «deberán acreditar su identidad con el documento nacional de identidad en vigor» y «se deberá acreditar la relación de parentesco, o condición de tutor, mediante la presentación de cualquier documento oficial al efecto».",
+        canal: "presencial",
+        soloSiOpciones: ["pas-p1-menor"],
+      },
+      {
+        id: "pas-r5",
+        tipo: "doc_fisico",
+        titulo: "Una fotografía reciente de 32×26 mm",
+        explicacion:
+          "Fuente: «tamaño 32 x 26 milímetros, con fondo uniforme blanco y liso, tomada de frente y sin gafas de cristales oscuros», «de alta resolución y en papel fotográfico de buena calidad». No hace falta si has sacado o renovado el DNI el mismo día.",
+        canal: "presencial",
+      },
+      {
+        id: "pas-r6",
+        tipo: "doc_fisico",
+        titulo: "El pasaporte anterior, para anularlo",
+        explicacion:
+          "Fuente: si el pasaporte está en vigor y no se ha perdido, «deberá presentar el mismo en el equipo de expedición […] a efectos de que sea inutilizado físicamente».",
+        canal: "presencial",
+        soloSiOpciones: ["pas-p3-vigor"],
+      },
+      {
+        id: "pas-r7",
+        tipo: "doc_fisico",
+        titulo: "La tasa: 30 € (efectivo o tarjeta)",
+        explicacion:
+          "Fuente: «Primera obtención, renovación, extravío, sustracción, anticipo o deterioro: 30,00 euros, abonados bien en efectivo o a través de tarjeta de crédito/débito en la Unidad de Documentación, o utilizando el pago por vía telemática». Gratis si acreditáis familia numerosa.",
+        canal: "presencial",
+      },
+      {
+        id: "pas-r8",
+        tipo: "doc_fisico",
+        titulo: "Cita previa pedida",
+        explicacion: "Se pide en citapreviadnie.es, donde también puedes pagar la tasa.",
+        canal: "presencial",
+      },
+    ],
+    prerequisitos: [
+      { slug: "renovacion-dni", nota: "El pasaporte exige el DNI en vigor." },
+    ],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "certificado-nacimiento",
+    nombreOficial: "Certificación de nacimiento (Registro Civil)",
+    nombreColoquial: "El certificado de nacimiento",
+    descripcion:
+      "El documento del Registro Civil que acredita tu nacimiento. Hace falta para el primer DNI y para el pasaporte de un menor sin DNI. Se puede pedir por internet, en persona o por correo.",
+    organismo: "Registro Civil · Ministerio de la Presidencia, Justicia y Relaciones con las Cortes",
+    territorio: "España",
+    canales: ["online", "presencial"],
+    urlFuente: "https://www.mjusticia.gob.es/es/ciudadania/tramite?k=solicitud-certificado-nacimiento-presencial",
+    verificadaEn: null,
+    generadaPorIa: true,
+    alias: [
+      "certificado de nacimiento",
+      "partida de nacimiento",
+      "certificacion literal",
+      "registro civil",
+      "certificado nacimiento",
+    ],
+    preguntas: [
+      {
+        id: "nac-p1",
+        orden: 1,
+        texto: "¿De quién es el certificado?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "nac-p1-yo", texto: "Mío" },
+          { id: "nac-p1-hijo", texto: "De un hijo o menor a mi cargo" },
+          { id: "nac-p1-otro", texto: "De otra persona" },
+        ],
+      },
+      {
+        id: "nac-p2",
+        orden: 2,
+        texto: "¿El nacimiento fue posterior a 1950?",
+        tipo: "normal",
+        opciones: [
+          { id: "nac-p2-si", texto: "Sí" },
+          { id: "nac-p2-no", texto: "No, o no lo sé" },
+        ],
+      },
+      {
+        id: "nac-p3",
+        orden: 3,
+        texto: "¿Cómo quieres pedirlo?",
+        tipo: "normal",
+        opciones: [
+          { id: "nac-p3-online", texto: "Por internet" },
+          { id: "nac-p3-presencial", texto: "En persona o por correo" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "nac-r1",
+        tipo: "tecnico",
+        titulo: "Cl@ve o certificado digital",
+        explicacion:
+          "Fuente: «Para acceder a este trámite es necesario disponer de certificado digital o estar registrado en Clave para identificarse de forma única». Sin ellos también se puede pedir online, pero llega por correo postal.",
+        canal: "online",
+        soloSiOpciones: ["nac-p3-online"],
+      },
+      {
+        id: "nac-r2",
+        tipo: "doc_fisico",
+        titulo: "Ir al Registro Civil donde consta el nacimiento",
+        explicacion:
+          "Fuente: se presenta «En el registro civil en el que conste inscrito el nacimiento». Ojo: no vale cualquiera. Y «Para realizar presencialmente este trámite utilice el servicio de cita previa».",
+        canal: "presencial",
+        soloSiOpciones: ["nac-p3-presencial"],
+      },
+      {
+        id: "nac-r3",
+        tipo: "doc_fisico",
+        titulo: "Tu DNI y los datos de la persona",
+        explicacion:
+          "Fuente: «DNI de la persona que solicite el certificado» e «Identificación (nombre, apellidos, fecha y lugar de nacimiento) de la persona sobre la que se solicita el certificado».",
+        canal: "presencial",
+        soloSiOpciones: ["nac-p3-presencial"],
+      },
+      {
+        id: "nac-r4",
+        tipo: "doc_digital",
+        titulo: "Autorización de la persona inscrita",
+        explicacion:
+          "Fuente: «En caso de solicitar el certificado como tercero autorizado por el inscrito o por su representante […] se podrá exigir la aportación de una autorización del inscrito».",
+        canal: "ambos",
+        soloSiOpciones: ["nac-p1-otro"],
+      },
+      {
+        id: "nac-r5",
+        tipo: "doc_fisico",
+        titulo: "Pedirlo en persona: antes de 1950 no hay vía online",
+        explicacion:
+          "Fuente: «No podrán expedirse certificaciones por este procedimiento cuando los asientos se practicasen antes de 1950 o se hubieran realizado en un registro civil delegado (juzgados de paz) o en un registro consular».",
+        canal: "ambos",
+        soloSiOpciones: ["nac-p2-no"],
+      },
+    ],
+    prerequisitos: [],
+  },
+
+  // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
+  {
+    slug: "empadronamiento-madrid",
+    nombreOficial: "Padrón Municipal: alta y cambio de domicilio (Ayuntamiento de Madrid)",
+    nombreColoquial: "Empadronarse en Madrid",
+    descripcion:
+      "Inscribirse en el padrón del Ayuntamiento de Madrid, o cambiar de domicilio dentro de la ciudad. Es la base de casi todo lo demás: el DNI, la tarjeta sanitaria o el colegio te lo van a pedir.",
+    organismo: "Servicio de Padrón de Habitantes · Ayuntamiento de Madrid",
+    territorio: "Madrid (municipio)",
+    canales: ["online", "presencial"],
+    urlFuente:
+      "https://sede.madrid.es/portal/site/tramites/menuitem.1f3361415fda829be152e15284f1a5a0/?vgnextoid=aa17f9ca0b30b310VgnVCM1000000b205a0aRCRD",
+    verificadaEn: null,
+    generadaPorIa: true,
+    alias: [
+      "empadronamiento",
+      "empadronarme",
+      "padron",
+      "volante de empadronamiento",
+      "certificado de empadronamiento",
+      "cambio de domicilio",
+    ],
+    preguntas: [
+      {
+        id: "emp-p1",
+        orden: 1,
+        texto: "¿Quién se empadrona?",
+        tipo: "destinatario",
+        opciones: [
+          { id: "emp-p1-yo", texto: "Yo (con mi familia si procede)" },
+          { id: "emp-p1-menor", texto: "Un menor, conmigo o con su otro progenitor" },
+          { id: "emp-p1-otro", texto: "Otra persona, y yo hago el trámite por ella" },
+        ],
+      },
+      {
+        id: "emp-p2",
+        orden: 2,
+        texto: "¿Qué nacionalidad tiene quien se empadrona?",
+        tipo: "normal",
+        opciones: [
+          { id: "emp-p2-es", texto: "Española" },
+          { id: "emp-p2-ue", texto: "De la UE, Islandia, Liechtenstein, Noruega o Suiza" },
+          { id: "emp-p2-otra", texto: "De otro país" },
+        ],
+      },
+      {
+        id: "emp-p3",
+        orden: 3,
+        texto: "¿Cómo puedes acreditar que vives ahí?",
+        tipo: "normal",
+        opciones: [
+          { id: "emp-p3-propiedad", texto: "Soy propietario (escritura, compraventa o nota simple)" },
+          { id: "emp-p3-alquiler", texto: "Tengo contrato de alquiler" },
+          { id: "emp-p3-autorizacion", texto: "Vivo en casa de otra persona" },
+        ],
+      },
+    ],
+    requisitos: [
+      {
+        id: "emp-r1",
+        tipo: "doc_fisico",
+        titulo: "DNI o pasaporte en vigor",
+        explicacion:
+          "Fuente: «Mayores de 14 años: DNI o pasaporte en vigor (original de la persona que presenta la solicitud y original o copia de las demás personas que se empadronan)».",
+        canal: "ambos",
+        soloSiOpciones: ["emp-p2-es"],
+      },
+      {
+        id: "emp-r2",
+        tipo: "doc_fisico",
+        titulo: "NIE junto con pasaporte o documento de identidad",
+        explicacion:
+          "Fuente: «NIE (Número de Inscripción en el Registro Central de Extranjeros) en el caso de disponer de él, junto a pasaporte o a su documento nacional de identidad originales en vigor». Si tu documento no lleva firma (caso rumano, polaco u otros), hay que presentar el pasaporte o acudir en persona.",
+        canal: "ambos",
+        soloSiOpciones: ["emp-p2-ue"],
+      },
+      {
+        id: "emp-r3",
+        tipo: "doc_fisico",
+        titulo: "Permiso de residencia (o pasaporte si no lo tienes)",
+        explicacion:
+          "Fuente: «De otras nacionalidades: permiso de residencia (si no se dispone de él, se aportará el pasaporte)». Y: «El ayuntamiento puede exigir la traducción jurada oficial de los documentos expedidos por autoridades extranjeras».",
+        canal: "ambos",
+        soloSiOpciones: ["emp-p2-otra"],
+      },
+      {
+        id: "emp-r4",
+        tipo: "doc_fisico",
+        titulo: "Libro de familia o certificado de nacimiento del menor",
+        explicacion:
+          "Fuente: «Menores de 14 años: libro de familia o certificado de nacimiento originales (si tuvieran DNI o pasaporte deberán aportarlo)». Si se empadrona con un solo progenitor, hace falta además la autorización del otro. Si va con personas distintas a sus progenitores, «Es necesaria la autorización de los dos progenitores o, en casos de tutela o acogimiento, la resolución judicial o administrativa».",
+        canal: "ambos",
+        soloSiOpciones: ["emp-p1-menor"],
+      },
+      {
+        id: "emp-r5",
+        tipo: "doc_fisico",
+        titulo: "Escritura, contrato de compraventa o nota simple",
+        explicacion:
+          "Fuente: son válidos «únicamente si, desde la fecha que figura en ellos, no se ha empadronado ninguna otra persona en la vivienda». Si sí hubo empadronados que ya no residen, hace falta además una factura de suministro de menos de 3 meses.",
+        canal: "ambos",
+        soloSiOpciones: ["emp-p3-propiedad"],
+      },
+      {
+        id: "emp-r6",
+        tipo: "doc_fisico",
+        titulo: "Contrato de alquiler en vigor (mínimo 6 meses, con referencia catastral)",
+        explicacion:
+          "Fuente: «Su duración mínima será de seis meses. Incluirá el código de referencia catastral». Debe reflejar los datos del propietario y estar firmado por todos. Si está prorrogado o firmado electrónicamente, hace falta también el justificante de pago del último recibo.",
+        canal: "ambos",
+        soloSiOpciones: ["emp-p3-alquiler"],
+      },
+      {
+        id: "emp-r7",
+        tipo: "doc_fisico",
+        titulo: "Autorización de quien sí tiene la titularidad de la vivienda",
+        explicacion:
+          "Fuente: esa persona «debe autorizar el empadronamiento en su domicilio, firmará y rellenará con sus datos el apartado 'autorización de empadronamiento' de la hoja padronal, adjuntando el documento de titularidad del uso de la vivienda y su documento de identidad».",
+        canal: "ambos",
+        soloSiOpciones: ["emp-p3-autorizacion"],
+      },
+      {
+        id: "emp-r8",
+        tipo: "doc_fisico",
+        titulo: "Hoja padronal rellena y firmada a mano",
+        explicacion:
+          "Fuente: «descargue la hoja padronal disponible en el apartado Modelos de formularios. Rellénela con letra mayúscula […] Todas las personas mayores de edad deben firmar, y la firma debe ser manuscrita».",
+        canal: "presencial",
+      },
+      {
+        id: "emp-r9",
+        tipo: "doc_fisico",
+        titulo: "Autorización de la persona a la que empadronas",
+        explicacion:
+          "Fuente: si no figuras en la hoja padronal, necesitas «una autorización para el empadronamiento de, al menos, una de las personas que van a ser empadronadas», más tu documento de identidad original y el del representado.",
+        canal: "ambos",
+        soloSiOpciones: ["emp-p1-otro"],
+      },
+      {
+        id: "emp-r10",
+        tipo: "tecnico",
+        titulo: "Identificación electrónica",
+        explicacion:
+          "Fuente: «Tramitación en línea: a través del enlace que se encuentra disponible en el apartado Tramitar - En línea (requiere identificación electrónica)». La fuente no especifica cuáles admite: consúltalo en la sede.",
+        canal: "online",
+      },
+      {
+        id: "emp-r11",
+        tipo: "doc_fisico",
+        titulo: "Cita previa (obligatoria para el presencial)",
+        explicacion:
+          "Fuente: «Tramitación presencial con cita previa obligatoria en las Oficinas de Atención a la Ciudadanía». Ojo: «En ningún caso podrá utilizarse la tramitación en línea y la tramitación de forma presencial […] de manera simultánea».",
         canal: "presencial",
       },
     ],
