@@ -11,11 +11,18 @@ progreso.** Proyecto del reto Viberano (233 Academy): vibe coding puro.
 
 ## Fuentes de verdad (leer antes de construir nada)
 
-- [spec.md](./spec.md) — el QUÉ. 9 historias, 26 FRs, decisiones cerradas. No se contradice.
+- [spec.md](./spec.md) — el QUÉ. 9 historias, 27 FRs, decisiones cerradas. No se contradice.
 - [plan.md](./plan.md) — el CÓMO. Stack, modelo de datos, fases. Si hay que desviarse, se actualiza
   el plan en el mismo commit y se explica por qué.
 - [tasks.md](./tasks.md) — el desglose; se marcan las tareas al completarse.
 - La documentación de discovery (hipótesis, mapa de historias) vive en el repo `Viberano`.
+
+## Skill del proyecto
+
+- **`/curar-tramite`** — investiga un trámite en su fuente oficial y lo añade al catálogo
+  (extracción con cita literal → ficha → seed → verificación en navegador → documentar).
+  Úsala siempre que haya que ampliar o re-extraer el catálogo; lleva dentro el mapa de minas
+  de las sedes españolas y las reglas anti-invención.
 
 ## Reglas del reto (innegociables)
 

@@ -3,6 +3,11 @@
 > El cuello de botella real del proyecto. La IA acelera la extracción; **la
 > verificación no la puede hacer una IA** — es lo que separa esto de publicar
 > información falsa sobre trámites oficiales.
+>
+> **⚡ Este flujo está empaquetado como skill:** en una sesión de Claude Code sobre este repo,
+> `/curar-tramite añade el trámite X` ejecuta todo el proceso (investigar fuente → extraer con
+> citas → ficha → seed → verificar en navegador → documentar). La skill vive en
+> `.claude/skills/curar-tramite/` e incluye el mapa de minas de las sedes.
 
 ## La regla que no se negocia
 
