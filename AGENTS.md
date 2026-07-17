@@ -85,3 +85,27 @@ sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (plan.md
   (sería síntesis, contra la regla de oro).
 - Migraciones de BD versionadas en el repo; RLS activado en toda tabla desde su creación.
 - Tras cada fase del plan: recorrido manual en la URL pública, no solo en local.
+
+## Red de seguridad (tests) — corre `npm test` antes de cada commit
+
+Como se construye 100% por prompts, hay una suite (Vitest, en `tests/`) que blinda las invariantes
+que dan confianza al producto. **Corre `npm test` (y `npx tsc --noEmit`) antes de commitear**; si
+tocas fichas, pendientes o el modelo territorial, es donde se caza una regresión antes que un humano.
+Qué vigila:
+
+- **Regla de oro (FR-019)**: ninguna ficha real está enteramente sin citar (cada una ancla a su
+  `urlFuente` https y tiene ≥1 requisito con «Fuente:»). Los **pendientes** no publican requisitos,
+  descripción ni fuente, y nunca salen verificados — el candado de que no pueden engañar.
+- **Estructura del wizard**: la primera pregunta es siempre `destinatario`; ids de opción/requisito
+  únicos; cada `soloSiOpciones` apunta a una opción que existe; un caso inviable trae alternativas.
+- **Integridad referencial**: cada `tramitePrevioSlug` y cada prerequisito existe en el catálogo, sin
+  autorreferencias; `getCadena` resuelve sin duplicar ni colgarse.
+- **Aislamiento territorial** (`visibleEnZona`): un usuario de una comunidad nunca ve la ficha de
+  otra; las estatales las ve todo el mundo.
+- **Sello (FR-020)**: la degradación a 90 días vive en `lib/sello.ts` (función pura), probada en los
+  bordes. Si tocas el umbral, ese test tiene que seguir cuadrando.
+- **Taxonomía**: cada ficha real y cada pendiente cuelgan de un hecho vital que existe; `tieneFichas`
+  cuadra con lo curado.
+
+Al **añadir una ficha nueva** no suele hacer falta escribir tests: las invariantes ya la cubren. Si
+introduces un concepto nuevo (un tipo de requisito, un nivel territorial), añade su invariante aquí.

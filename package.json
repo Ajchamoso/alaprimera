@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "db:seed": "tsx scripts/seed-db.ts",
     "buzon": "tsx scripts/buzon.ts",
     "verificar": "tsx scripts/verificar.ts"
@@ -29,6 +31,7 @@
     "pg": "^8.22.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.10"
   }
 }

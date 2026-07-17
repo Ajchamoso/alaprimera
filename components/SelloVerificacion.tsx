@@ -1,8 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-
-const DIAS_VIGENCIA = 90;
+import { selloCaducado, formateaFechaEs } from "@/lib/sello";
 
 // "Ahora" como store externo de valor único: estable durante el render (el sello
 // no necesita un reloj vivo, solo el momento de la lectura). En SSR devuelve 0 →
@@ -27,10 +26,7 @@ export function SelloVerificacion({
   generadaPorIa: boolean;
 }) {
   const ahora = useSyncExternalStore(suscribeNada, getAhora, getAhoraServidor);
-  const caducada =
-    ahora > 0 &&
-    verificadaEn !== null &&
-    ahora - new Date(verificadaEn).getTime() > DIAS_VIGENCIA * 24 * 60 * 60 * 1000;
+  const caducada = selloCaducado(verificadaEn, ahora);
 
   if (verificadaEn === null) {
     return (
@@ -84,11 +80,4 @@ function Estampa({
       <span className="block text-[10.5px] font-semibold tracking-wide opacity-80">{children}</span>
     </span>
   );
-}
-
-/** "2026-07-16" (o ISO completo) → "16 · 07 · 2026", con aire de sello. */
-function formateaFechaEs(iso: string): string {
-  const [fecha] = iso.split("T");
-  const [anio, mes, dia] = fecha.split("-");
-  return `${dia} · ${mes} · ${anio}`;
 }
