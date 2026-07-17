@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import type { Tramite } from "@/lib/types";
 import { buscaTramites } from "@/lib/data";
@@ -10,16 +10,34 @@ import { getZona, getZonaServidor, suscribeZona, visibleEnZona } from "@/lib/zon
 import { SelectorZona } from "@/components/SelectorZona";
 
 /**
- * Búsqueda coloquial (FR-002) y catálogo agrupado por hecho vital.
+ * Búsqueda coloquial (FR-002) y catálogo por hecho vital, en DOS niveles para
+ * que la página no vaya cargada: primero el índice de temas, entras en uno y ves
+ * su lista. Escribir en el buscador salta el menú y da resultados planos.
  *
  * Filtra por "tu zona": estatales para todos; autonómicos y locales solo para su
- * comunidad. Sin búsqueda, el catálogo se agrupa por hecho vital (la taxonomía).
- * Con búsqueda, resultados planos, porque quien busca ya sabe lo que quiere.
+ * comunidad. La búsqueda es determinista, sin IA en runtime.
  */
 export function Buscador({ tramites }: { tramites: Tramite[] }) {
   const [consulta, setConsulta] = useState("");
+  const [tema, setTema] = useState<string | null>(null);
   const buscando = consulta.trim().length > 0;
   const zona = useSyncExternalStore(suscribeZona, getZona, getZonaServidor);
+
+  // El botón de atrás del navegador vuelve al índice en vez de salir del sitio.
+  useEffect(() => {
+    const alVolver = (e: PopStateEvent) => setTema((e.state?.tema as string) ?? null);
+    window.addEventListener("popstate", alVolver);
+    return () => window.removeEventListener("popstate", alVolver);
+  }, []);
+
+  function entraEnTema(codigo: string) {
+    setTema(codigo);
+    window.history.pushState({ tema: codigo }, "");
+  }
+  function volveAlIndice() {
+    setTema(null);
+    window.history.pushState({ tema: null }, "");
+  }
 
   const deMiZona = useMemo(() => tramites.filter((t) => visibleEnZona(t, zona)), [tramites, zona]);
   const resultados = useMemo(() => buscaTramites(consulta, deMiZona), [consulta, deMiZona]);
@@ -32,6 +50,7 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
     [deMiZona]
   );
 
+  const grupoActivo = grupos.find((g) => g.hv.codigo === tema);
   const zonaSinFichas = zona !== null && !tieneFichas(zona);
 
   return (
@@ -69,6 +88,7 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
       )}
 
       {buscando ? (
+        // ── Buscando: resultados planos, se salta el menú ──
         resultados.length === 0 ? (
           <div className="rounded-xl border border-pendiente bg-pendiente-suave p-5 text-tinta-media">
             <p className="font-medium text-tinta">Aún no tenemos ese trámite.</p>
@@ -80,13 +100,47 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
         ) : (
           <Lista tramites={resultados} />
         )
+      ) : grupoActivo ? (
+        // ── Dentro de un tema: su lista, con vuelta al índice ──
+        <div className="space-y-4">
+          <button
+            onClick={volveAlIndice}
+            className="font-mono text-xs uppercase tracking-widest text-sello hover:underline"
+          >
+            ← Todos los temas
+          </button>
+          <Rotulo>{grupoActivo.hv.etiqueta}</Rotulo>
+          <Lista tramites={grupoActivo.items} />
+        </div>
       ) : (
-        grupos.map(({ hv, items }) => (
-          <div key={hv.codigo} className="space-y-3">
-            <Rotulo>{hv.etiqueta}</Rotulo>
-            <Lista tramites={items} />
-          </div>
-        ))
+        // ── El índice de temas ──
+        <div className="space-y-3">
+          <p className="text-sm text-tinta-media">
+            ¿Qué te trae por aquí? Entra en el momento que estás viviendo:
+          </p>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {grupos.map(({ hv, items }) => {
+              const listos = items.filter((t) => !t.pendiente).length;
+              return (
+                <li key={hv.codigo}>
+                  <button
+                    onClick={() => entraEnTema(hv.codigo)}
+                    className="flex w-full items-center justify-between gap-3 rounded-lg border border-linea bg-hoja px-4 py-3 text-left transition hover:border-sello hover:shadow-sm"
+                  >
+                    <span className="font-cond text-lg font-bold uppercase tracking-wide">
+                      {hv.etiqueta}
+                    </span>
+                    <span className="shrink-0 font-mono text-xs text-tinta-tenue">
+                      {listos > 0 ? `${listos} listo${listos === 1 ? "" : "s"}` : ""}
+                      {listos > 0 && items.length > listos ? " · " : ""}
+                      {items.length > listos ? `${items.length - listos} en camino` : ""}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </section>
   );
