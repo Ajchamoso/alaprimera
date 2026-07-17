@@ -122,7 +122,8 @@ datos viven en las subpáginas.
 | `administracion.gob.es` | Devuelve **HTTP 200 con páginas de error** | Mirar el `<title>`; el REA real está en `sede.administracion.gob.es/servicios-electronicos/rea` |
 | `dnielectronico.es` | `REF_1084` es el PASAPORTE aunque los buscadores la den como "requisitos del DNI"; charset `iso-8859-1` | DNI: `REF_410` (primera) y `REF_420` (renovación); `iconv` |
 | `sede.comunidad.madrid` | Documentación en acordeones de pestañas: al desetiquetar, títulos y contenidos se separan | Mapear pestañas por posición en el DOM, no "a ojo" |
-| `sede.mjusticia.gob.es` | Es fachada: los requisitos viven en `www.mjusticia.gob.es/es/ciudadania/tramite?k=...` | Ir al dominio bueno |
+| `sede.mjusticia.gob.es` | Es fachada: los requisitos viven en `www.mjusticia.gob.es/es/ciudadania/tramite?k=...`. Pero `www` da el "qué es", no los plazos ni la documentación | Plazos y docs, en `administracion.gob.es` (Punto de Acceso General) y sus PDFs |
+| `seg-social.es` | 403 a curl/fetch en todo el dominio (`www`, `sede`, `revista`); `prestaciones.seg-social.es` es SPA y solo da el `<title>` | Navegador real y lectura del DOM, como `madrid.es` |
 | Todas | `&nbsp;` rompe los greps; `grep` con `.` no cruza saltos de línea | Aplanar antes (ver comando arriba) |
 
 ## 2. Extraer con cita obligatoria

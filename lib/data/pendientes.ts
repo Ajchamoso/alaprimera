@@ -26,7 +26,6 @@ interface Pendiente {
 
 const lista: Pendiente[] = [
   // ── Nace un hijo ──
-  { slug: "inscripcion-nacimiento", nombreColoquial: "Inscribir el nacimiento", nombreOficial: "Inscripción de nacimiento en el Registro Civil", organismo: "Registro Civil · Ministerio de Justicia", nivel: "estatal", hechoVital: "nacimiento" },
   { slug: "prestacion-nacimiento", nombreColoquial: "La baja por nacimiento (maternidad y paternidad)", nombreOficial: "Prestación por nacimiento y cuidado de menor", organismo: "Seguridad Social (INSS)", nivel: "estatal", hechoVital: "nacimiento" },
 
   // ── Empieza el cole ──

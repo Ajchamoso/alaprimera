@@ -46,6 +46,7 @@ export const hechoVitalDeFicha: Record<string, string> = {
   "empadronamiento-zaragoza": "cimientos",
   // Nace un hijo
   "certificado-nacimiento": "nacimiento",
+  "inscripcion-nacimiento": "nacimiento",
   "familia-numerosa-madrid": "nacimiento",
   "familia-numerosa-aragon": "nacimiento",
   // Empieza el cole

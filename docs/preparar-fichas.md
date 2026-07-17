@@ -187,7 +187,13 @@ Curar las 11 dejó un mapa de minas. Si el motor automático de R2 se construye 
   los 10 títulos salen apelotonados y separados de sus contenidos: emparejarlos "a ojo" produce
   atribuciones falsas. Hay que mapearlos por posición en el DOM.
 - **`sede.mjusticia.gob.es` es una fachada**: los requisitos reales viven en `www.mjusticia.gob.es`,
-  otro dominio y otro CMS.
+  otro dominio y otro CMS. Y ojo: `www.mjusticia.gob.es` define el trámite pero **no da plazos ni
+  documentación**; esos datos duros están en el Punto de Acceso General (`administracion.gob.es`) y
+  en sus PDFs de requisitos. Una fuente para el "qué es", otra para el "qué llevar".
+- **`seg-social.es` bloquea la extracción entera**: 403 a curl/fetch en `www.seg-social.es`,
+  `sede.seg-social.gob.es` y `revista.seg-social.es`; `prestaciones.seg-social.es` es una SPA que
+  solo entrega el `<title>`. Como `madrid.es`: solo se lee con navegador real. Bloqueó la curación
+  de la prestación por nacimiento (17/07).
 - **Los `&nbsp;` dentro de las frases rompen los greps literales.** Y `grep` con `.` no cruza saltos
   de línea: para buscar contexto hay que aplanar el HTML a una línea antes.
 
@@ -196,15 +202,15 @@ parecía en julio. No porque la IA no sepa leer, sino porque las sedes española
 para que no las lea nadie automáticamente. Es un argumento a favor del diseño que elegimos —
 extracción asistida + verificación humana — y en contra de prometer un scraper mágico.
 
-## Estado del catálogo: 15 fichas (11 estatales+Madrid, 4 Aragón) · 0 verificadas ❌
+## Estado del catálogo: 16 fichas (12 estatales+Madrid, 4 Aragón) · 0 verificadas ❌
 
-Las once están extraídas con citas y en producción marcadas "⚠️ Generada por IA — sin verificar".
+Todas están extraídas con citas y en producción marcadas "⚠️ Generada por IA — sin verificar".
 **Ninguna está verificada: esa es toda la deuda del proyecto ahora mismo.**
 
 | Trámite | Extraída | Verificada |
 |---|---|---|
 | Renovación DNI · DNI primera vez · Pasaporte | ✅ | ❌ |
-| Certificado de nacimiento · Empadronamiento Madrid | ✅ | ❌ |
+| Certificado de nacimiento · Inscripción de nacimiento · Empadronamiento Madrid | ✅ | ❌ |
 | Certificado digital FNMT · Cl@ve · Apoderamiento | ✅ | ❌ |
 | Tarjeta sanitaria · Familia numerosa · Beca comedor | ✅ | ❌ |
 
@@ -231,6 +237,43 @@ no respalda literalmente**.
 7. **Beca comedor Aragón: la lista de documentos no está en la ficha.** La fuente la remite «al
    artículo undécimo de la orden de convocatoria». La ficha lo dice honestamente y no inventa la
    lista. Al verificar, abrir la orden en el BOA.
+
+## Inscripción de nacimiento (17/07): dónde vive la verdad, y qué se quedó fuera
+
+- **Los plazos NO están en `www.mjusticia.gob.es`.** La página del trámite en mjusticia define
+  qué es la inscripción pero no da plazos ni documentación. Los plazos citados en la ficha («72
+  horas» vía hospital, «diez días» vía Registro, «podría llegar a los 30 días cuando se acredite
+  justa causa») salen del **Punto de Acceso General** (`administracion.gob.es`), que sí es fuente
+  oficial. Al verificar, cotejad ahí, no solo en mjusticia.
+- **Los 3 requisitos condicionales son de un caso concreto citado en el PDF de mjusticia**
+  («1292427702809-Requisitos_de_la_inscripcion.PDF»): inscribir en el municipio de domicilio de los
+  padres en vez de en el del hospital. Fuera de ese caso, solo van los 2 generales.
+- **Libro de familia y certificado de matrimonio: la fuente NO los pide para inscribir.** Es lo
+  que todo el mundo asume, pero en las páginas oficiales del trámite no aparecen citados. Por eso
+  NO están en la ficha. Otro caso de "no lo inventes aunque suene obvio".
+- **La cadena inscripción → certificado de nacimiento → DNI la NO wireamos.** Es real en el mundo
+  (no puedes pedir el certificado de un nacimiento aún no inscrito), pero **ninguna fuente oficial
+  lo dice literalmente**, así que no metimos el borde `prerequisitos`. Si algún día una fuente lo
+  cita, se añade; hasta entonces, sería estructura inventada.
+
+## Prestación por nacimiento (la baja): APLAZADA, no curada
+
+Se intentó el 17/07 y se dejó pendiente **a propósito**, por dos razones que se refuerzan:
+
+1. **`seg-social.es` bloquea la extracción.** Devuelve HTTP 403 a curl/fetch en todo el dominio, y
+   su sede (`prestaciones.seg-social.es`) es una SPA que solo entrega el `<title>`. Sin navegador
+   conectado no se pudo leer el literal: lo único que se obtuvo fueron resúmenes de buscador, que
+   **no valen como cita** (regla de oro). Para curarla hará falta abrirla con el navegador y leer el
+   DOM. → **Añadido al mapa de minas.**
+2. **El permiso está en plena reforma.** El RD-ley 9/2025 (BOE-A-2025-15741, en vigor 31/07/2025)
+   lo sube a **19 semanas** por progenitor (32 en familias monoparentales), con fechas de efecto
+   escalonadas (hechos causantes desde 02/08/2024; semanas nuevas solicitables desde 01/01/2026).
+   Es un dato móvil y confuso: curarlo mal deja a un padre con una cifra equivocada. Mejor pendiente
+   y honesto que publicado y falso.
+
+Lo único con cita literal directa del BOE hoy: las 19/32 semanas y que «Seis semanas ininterrumpidas
+inmediatamente posteriores al parto serán obligatorias y habrán de disfrutarse a jornada completa».
+El resto (cotización por tramos de edad, documentación, veredicto de terceros) está sin cita fiable.
 
 ## Hallazgos de contenido que merecen mirada humana
 
