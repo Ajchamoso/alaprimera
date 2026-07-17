@@ -1,13 +1,18 @@
 -- A la Primera — esquema inicial (plan.md §4)
 -- Aplica limpio sobre un proyecto Supabase vacío.
+--
+-- Nota de diseño: el contenido curado (tramites, preguntas, opciones,
+-- requisitos) usa ids de TEXTO (slugs legibles, p. ej. 'renovacion-dni',
+-- 'dni-p1-yo'). Así los ids son estables entre el seed local y la BD, las
+-- checklists guardadas en navegadores no se invalidan, y las fichas del motor
+-- pueden generar ids legibles. Lo que crea el usuario (checklists) usa uuid.
 
 create extension if not exists "pgcrypto";
 
 -- ── Fichas ──────────────────────────────────────────────────────────────────
 
 create table tramites (
-  id              uuid primary key default gen_random_uuid(),
-  slug            text not null unique,
+  id              text primary key, -- el slug: 'renovacion-dni'
   nombre_oficial  text not null,
   nombre_coloquial text not null,
   descripcion     text not null,
@@ -24,16 +29,16 @@ create table tramites (
 );
 
 create table prerequisitos (
-  tramite_id          uuid not null references tramites(id) on delete cascade,
-  requiere_tramite_id uuid not null references tramites(id) on delete cascade,
+  tramite_id          text not null references tramites(id) on delete cascade,
+  requiere_tramite_id text not null references tramites(id) on delete cascade,
   nota                text,
   primary key (tramite_id, requiere_tramite_id),
   check (tramite_id <> requiere_tramite_id)
 );
 
 create table preguntas (
-  id         uuid primary key default gen_random_uuid(),
-  tramite_id uuid not null references tramites(id) on delete cascade,
+  id         text primary key,
+  tramite_id text not null references tramites(id) on delete cascade,
   orden      smallint not null check (orden between 1 and 4),
   texto      text not null,
   tipo       text not null default 'normal' check (tipo in ('destinatario','normal')),
@@ -41,27 +46,28 @@ create table preguntas (
 );
 
 create table opciones (
-  id                 uuid primary key default gen_random_uuid(),
-  pregunta_id        uuid not null references preguntas(id) on delete cascade,
+  id                 text primary key,
+  pregunta_id        text not null references preguntas(id) on delete cascade,
   texto              text not null,
   veredicto_inviable boolean not null default false,
   texto_alternativas text
 );
 
 create table requisitos (
-  id          uuid primary key default gen_random_uuid(),
-  tramite_id  uuid not null references tramites(id) on delete cascade,
-  tipo        text not null check (tipo in ('doc_fisico','doc_digital','tecnico','tramite_previo')),
-  titulo      text not null,
-  explicacion text not null,
-  canal       text not null default 'ambos' check (canal in ('online','presencial','ambos')),
-  orden       smallint not null default 0
+  id                 text primary key,
+  tramite_id         text not null references tramites(id) on delete cascade,
+  tipo               text not null check (tipo in ('doc_fisico','doc_digital','tecnico','tramite_previo')),
+  titulo             text not null,
+  explicacion        text not null,
+  canal              text not null default 'ambos' check (canal in ('online','presencial','ambos')),
+  tramite_previo_id  text references tramites(id) on delete set null,
+  orden              smallint not null default 0
 );
 
 -- El requisito aplica si el usuario eligió alguna de estas opciones (sin filas = aplica siempre)
 create table requisito_condiciones (
-  requisito_id uuid not null references requisitos(id) on delete cascade,
-  opcion_id    uuid not null references opciones(id) on delete cascade,
+  requisito_id text not null references requisitos(id) on delete cascade,
+  opcion_id    text not null references opciones(id) on delete cascade,
   primary key (requisito_id, opcion_id)
 );
 
@@ -75,19 +81,13 @@ create table profiles (
 create table checklists (
   id            uuid primary key default gen_random_uuid(),
   user_id       uuid references auth.users(id) on delete cascade,
-  tramite_id    uuid not null references tramites(id) on delete cascade,
+  tramite_id    text not null references tramites(id) on delete cascade,
   nombre        text not null,
   respuestas    jsonb not null default '{}',
+  marcados      jsonb not null default '{}', -- requisitoId → bool (espejo del modelo local para merge directo)
   canal_elegido text check (canal_elegido in ('online','presencial')),
-  creada_en     timestamptz not null default now()
-);
-
-create table checklist_items (
-  checklist_id uuid not null references checklists(id) on delete cascade,
-  requisito_id uuid not null references requisitos(id) on delete cascade,
-  marcado      boolean not null default false,
-  marcado_en   timestamptz,
-  primary key (checklist_id, requisito_id)
+  creada_en     timestamptz not null default now(),
+  actualizada_en timestamptz not null default now()
 );
 
 create table shares (
@@ -107,7 +107,7 @@ create table feedback (
 
 create table reportes (
   id          uuid primary key default gen_random_uuid(),
-  tramite_id  uuid not null references tramites(id) on delete cascade,
+  tramite_id  text not null references tramites(id) on delete cascade,
   descripcion text not null,
   estado      text not null default 'pendiente' check (estado in ('pendiente','revisado')),
   creado_en   timestamptz not null default now()
@@ -138,7 +138,6 @@ alter table requisitos enable row level security;
 alter table requisito_condiciones enable row level security;
 alter table profiles enable row level security;
 alter table checklists enable row level security;
-alter table checklist_items enable row level security;
 alter table shares enable row level security;
 alter table feedback enable row level security;
 alter table reportes enable row level security;
@@ -169,9 +168,6 @@ create policy profiles_propio on profiles for select using (user_id = auth.uid()
 -- Checklists: solo el dueño (el acceso por share va por endpoint con service role)
 create policy checklists_dueno on checklists for all
   using (user_id = auth.uid()) with check (user_id = auth.uid());
-create policy items_dueno on checklist_items for all
-  using (exists (select 1 from checklists c where c.id = checklist_id and c.user_id = auth.uid()))
-  with check (exists (select 1 from checklists c where c.id = checklist_id and c.user_id = auth.uid()));
 
 create policy shares_dueno on shares for all
   using (exists (select 1 from checklists c where c.id = checklist_id and c.user_id = auth.uid()))

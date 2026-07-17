@@ -1,8 +1,12 @@
 import { getTramites } from "@/lib/data";
 import { Buscador } from "@/components/Buscador";
 
-export default function Home() {
-  const tramites = getTramites();
+// El catálogo se sirve desde BD con caché: los cambios de curación aparecen
+// sin redespliegue, y una BD caída nunca tumba la página ya generada.
+export const revalidate = 300;
+
+export default async function Home() {
+  const tramites = await getTramites();
 
   return (
     <div className="space-y-8">

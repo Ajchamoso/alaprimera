@@ -67,25 +67,31 @@ Usuario ──► Next.js (Vercel)
 
 El encadenamiento es el modelo de datos (decisión de producto). Tablas principales:
 
+> **Revisión 17/07 (aplicada en `0001_schema.sql`):** (1) el contenido curado usa **ids de texto**
+> (slugs legibles: `renovacion-dni`, `dni-p1-yo`) en vez de uuid — estables entre seed local y BD,
+> no invalidan checklists guardadas en navegadores, y el motor puede generar ids legibles; el
+> usuario (checklists) sigue en uuid. (2) `checklist_items` se sustituye por **`marcados` jsonb**
+> dentro de `checklists`: espejo exacto del modelo localStorage → el merge anónimo→cuenta (FR-012)
+> es un upsert directo, sin traducción por filas.
+
 ```
-tramites            id, slug, nombre_oficial, nombre_coloquial, descripcion,
+tramites            id (text, el slug), nombre_oficial, nombre_coloquial, descripcion,
                     organismo, territorio, canales[], url_fuente, url_cita_previa,
                     estado ('publicada'|'borrador'), verificada_en (timestamp),
                     generada_por_ia (bool), alias[] (búsqueda)
 
 prerequisitos       tramite_id → requiere_tramite_id  (+ nota)
-                    ⛔ constraint + validación de ciclos al publicar (FR-026)
+                    ⛔ trigger recursivo que rechaza ciclos (FR-026) — verificado
 
-preguntas           tramite_id, orden (1..4), texto, tipo ('destinatario' fija como orden 1)
-opciones            pregunta_id, texto, veredicto_inviable (bool), texto_alternativas
+preguntas           id (text), tramite_id, orden (1..4), texto, tipo ('destinatario'|'normal')
+opciones            id (text), pregunta_id, texto, veredicto_inviable (bool), texto_alternativas
 
-requisitos          tramite_id, tipo ('doc_fisico'|'doc_digital'|'tecnico'|'tramite_previo'),
-                    titulo, explicacion_llana, canal ('online'|'presencial'|'ambos')
+requisitos          id (text), tramite_id, tipo ('doc_fisico'|'doc_digital'|'tecnico'|'tramite_previo'),
+                    titulo, explicacion, canal ('online'|'presencial'|'ambos'), tramite_previo_id
 requisito_condiciones  requisito_id ↔ opcion_id  (el requisito aplica si el usuario eligió esa opción)
 
-checklists          id, user_id (nullable→anónimas migradas), tramite_id, nombre ("DNI Hugo"),
-                    respuestas (jsonb), canal_elegido, creada_en
-checklist_items     checklist_id, requisito_id, marcado (bool), marcado_en
+checklists          id (uuid), user_id, tramite_id, nombre ("DNI Hugo"),
+                    respuestas (jsonb), marcados (jsonb), canal_elegido, creada_en, actualizada_en
 
 shares              checklist_id, token (url-safe), creado_en          — solo lectura (FR-014)
 feedback            checklist_id, salio_a_la_primera (bool), comentario, que_fallo   — FR-017

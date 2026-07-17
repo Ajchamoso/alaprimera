@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCadena, getTramiteBySlug, getTramites } from "@/lib/data";
+import { getCadena, getTramites } from "@/lib/data";
 import { SelloVerificacion } from "@/components/SelloVerificacion";
 import { Asistente } from "@/components/Asistente";
 
-export function generateStaticParams() {
-  return getTramites().map((t) => ({ slug: t.slug }));
+export const revalidate = 300;
+
+export async function generateStaticParams() {
+  return (await getTramites()).map((t) => ({ slug: t.slug }));
 }
 
 export default async function PaginaTramite({
@@ -14,10 +16,11 @@ export default async function PaginaTramite({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const tramite = getTramiteBySlug(slug);
+  const catalogo = await getTramites();
+  const tramite = catalogo.find((t) => t.slug === slug);
   if (!tramite) notFound();
 
-  const cadena = getCadena(tramite);
+  const cadena = getCadena(tramite, catalogo);
 
   return (
     <article className="space-y-8">

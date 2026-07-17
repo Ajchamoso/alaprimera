@@ -8,7 +8,8 @@
 - [x] **T-001** Scaffold Next.js 15 + TypeScript + Tailwind, corriendo en local. *Acepta: `npm run dev` sirve la home.* ✅ 16/07
 - [x] **T-002** Esquema de BD como migración SQL versionada (todas las tablas del plan §4, RLS incluido). *Escrita; pendiente de aplicarla cuando exista el proyecto Supabase (T-004).* ✅ 16/07
 - [x] **T-003** Seed con 2 fichas de prueba encadenadas (Renovación DNI ← Certificado digital FNMT). *Acepta: la cadena ⛓️ es visible en la app.* ✅ 16/07 (seed local en `lib/data/`; migra a BD en Fase 2)
-- [ ] **T-004** ⚠️ **Humano**: crear cuentas Supabase y Vercel, proyecto y variables de entorno. *Bloquea T-014 y el deploy.*
+- [x] **T-004a** Proyecto Supabase creado; migración aplicada vía psql y verificada (trigger anti-ciclos ✓, RLS anon ✓); seed en BD con `npm run db:seed`; la app sirve el catálogo desde BD con fallback local e ISR 5 min. ✅ 17/07
+- [ ] **T-004b** ⚠️ **Humano**: cuenta Vercel + import del repo + env vars. *Bloquea T-005 (URL pública).*
 - [ ] **T-005** Deploy a Vercel con URL pública. *Acepta: la home carga en la URL pública.*
 
 ## Fase 1 — Walking skeleton P1 (semanas 1-2)
