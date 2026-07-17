@@ -72,6 +72,11 @@ sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (plan.md
   `lib/data/verificaciones.ts` y vuelca a BD). Nunca con SQL: el seed borra y reinserta desde el
   repo, así que un `update` en BD se pierde sin avisar. Y nunca lo pongas tú por tu cuenta: una
   ficha sellada afirma que un humano la cotejó contra la fuente.
+- **Pendientes** (`lib/data/pendientes.ts`): entradas del catálogo SIN ficha, visibles y agrupadas
+  por hecho vital para dar masa a la taxonomía, pero que NO muestran requisitos: solo "en
+  preparación". No violan la regla de oro porque no publican contenido. Al curar uno, se mueve a
+  `tramites.ts` y deja de ser pendiente. El catálogo se agrupa por **hecho vital**
+  (`lib/data/hechos-vitales.ts`), no por organismo.
 - **Modelo territorial**: cada trámite tiene `nivel` (estatal | autonomico | local). Estatal = una
   ficha para toda España; autonomico/local = una ficha por comunidad (con `comunidad`). "Tu zona"
   (lib/zona.ts, recordada en el navegador) filtra el catálogo, y si el usuario elige una comunidad

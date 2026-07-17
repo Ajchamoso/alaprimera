@@ -2,6 +2,8 @@ import { createClient } from "@supabase/supabase-js";
 import type { Canal, Pregunta, Requisito, TipoRequisito, Tramite } from "@/lib/types";
 import { tramites as contenidoLocal } from "./tramites";
 import { generadaPorIa, verificadaEn } from "./verificaciones";
+import { hechoVitalDeFicha } from "./hechos-vitales";
+import { pendientes } from "./pendientes";
 
 /** Contenido + registro de verificaciones = la ficha completa. */
 const seedLocal: Tramite[] = contenidoLocal.map((t) => ({
@@ -9,6 +11,16 @@ const seedLocal: Tramite[] = contenidoLocal.map((t) => ({
   verificadaEn: verificadaEn(t.slug),
   generadaPorIa: generadaPorIa(t.slug),
 }));
+
+/**
+ * Ensambla el catálogo que ve la app: las fichas reales con su hecho vital
+ * adjunto, más los pendientes (el backlog visible pero sin contenido). Un solo
+ * sitio para que ambos caminos —BD y fallback local— salgan iguales.
+ */
+function ensambla(reales: Tramite[]): Tramite[] {
+  const conHecho = reales.map((t) => ({ ...t, hechoVital: hechoVitalDeFicha[t.slug] }));
+  return [...conHecho, ...pendientes];
+}
 
 /**
  * Capa de acceso a fichas. Lee de Supabase (contenido curado en BD, FR-019);
@@ -90,7 +102,7 @@ function mapeaTramite(fila: any): Tramite {
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 export async function getTramites(): Promise<Tramite[]> {
-  if (!configurado()) return seedLocal;
+  if (!configurado()) return ensambla(seedLocal);
 
   const { data, error } = await clienteAnon()
     .from("tramites")
@@ -109,9 +121,9 @@ export async function getTramites(): Promise<Tramite[]> {
 
   if (error || !data) {
     console.error("No se pudo leer el catálogo de la BD; sirviendo seed local.", error?.message);
-    return seedLocal;
+    return ensambla(seedLocal);
   }
-  return data.map(mapeaTramite);
+  return ensambla(data.map(mapeaTramite));
 }
 
 export async function getTramiteBySlug(slug: string): Promise<Tramite | undefined> {

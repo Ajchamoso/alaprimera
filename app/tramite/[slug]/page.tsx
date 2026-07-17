@@ -23,6 +23,34 @@ export default async function PaginaTramite({
   const tramite = catalogo.find((t) => t.slug === slug);
   if (!tramite) notFound();
 
+  // Un pendiente aún no tiene ficha: no promete requisitos, solo dice que está en camino.
+  if (tramite.pendiente) {
+    return (
+      <article className="space-y-6">
+        <nav className="text-sm">
+          <Link href="/" className="text-sello hover:underline">
+            ← Todos los trámites
+          </Link>
+        </nav>
+        <header className="space-y-3">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{tramite.nombreColoquial}</h1>
+          <p className="text-tinta-tenue">
+            {tramite.nombreOficial} · {tramite.organismo} · {tramite.territorio}
+          </p>
+          <span className="inline-block rounded-sm border-[2.5px] border-tinta-tenue px-3 py-1.5 font-cond font-bold uppercase tracking-widest text-tinta-tenue">
+            En preparación
+          </span>
+        </header>
+        <p className="max-w-prose text-tinta-media">
+          Este trámite está en el catálogo, pero aún no le hemos hecho la ficha. Cuando la tengamos
+          extraída de la fuente oficial y verificada, aquí tendrás tu checklist personalizada: los
+          papeles, los requisitos técnicos y los trámites escondidos de tu caso. No la publicamos
+          antes de tenerla verificada, para no darte información sin comprobar.
+        </p>
+      </article>
+    );
+  }
+
   const cadena = getCadena(tramite, catalogo);
 
   return (

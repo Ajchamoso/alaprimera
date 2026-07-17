@@ -64,6 +64,14 @@ export interface Tramite {
   nivel: NivelTerritorial;
   /** Código de CCAA (ver comunidades.ts). Ausente en los estatales. */
   comunidad?: string;
+  /** Hecho vital al que pertenece, para la agrupación del catálogo (ver hechos-vitales.ts). */
+  hechoVital?: string;
+  /**
+   * Un pendiente es una entrada del catálogo SIN ficha todavía: aparece agrupada
+   * por su hecho vital para validar la taxonomía, pero no muestra requisitos —
+   * solo "en preparación". No puede engañar: no publica contenido sin verificar.
+   */
+  pendiente?: boolean;
   territorio: string;
   canales: Canal[];
   urlFuente: string;
