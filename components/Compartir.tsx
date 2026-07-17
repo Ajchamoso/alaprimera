@@ -41,23 +41,23 @@ export function Compartir({ checklist, conSesion }: { checklist: ChecklistLocal;
 
   if (estado === "creado") {
     return (
-      <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 print:hidden">
+      <div className="rounded-lg border border-linea bg-papel p-4 print:hidden">
         <p className="text-sm font-medium">Enlace listo para tu familia</p>
         <div className="mt-2 flex flex-wrap gap-2">
           <input
             readOnly
             value={url}
             onFocus={(e) => e.currentTarget.select()}
-            className="min-w-0 flex-1 rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm"
+            className="min-w-0 flex-1 rounded-lg border border-linea bg-hoja px-3 py-2 text-sm"
           />
           <button
             onClick={copia}
-            className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+            className="rounded-lg bg-sello px-3 py-2 text-sm font-medium text-white hover:bg-tinta"
           >
             {copiado ? "✓ Copiado" : "Copiar"}
           </button>
         </div>
-        <p className="mt-2 text-xs text-stone-500">
+        <p className="mt-2 text-xs text-tinta-tenue">
           Quien lo abra verá la lista y tu progreso, pero no podrá modificarlos.{" "}
           {conSesion
             ? "Se mantiene al día solo."
@@ -72,12 +72,12 @@ export function Compartir({ checklist, conSesion }: { checklist: ChecklistLocal;
       <button
         onClick={comparte}
         disabled={estado === "creando"}
-        className="rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-700 hover:border-emerald-500 hover:text-emerald-700 disabled:opacity-50"
+        className="rounded-lg border border-linea bg-hoja px-4 py-2 text-sm font-medium text-tinta-media hover:border-sello hover:text-sello disabled:opacity-50"
       >
-        {estado === "creando" ? "Creando enlace…" : "🔗 Compartir con mi familia"}
+        {estado === "creando" ? "Creando enlace…" : "Compartir con mi familia"}
       </button>
       {estado === "error" && (
-        <p className="mt-2 text-sm text-red-700">No se pudo crear el enlace. Inténtalo de nuevo.</p>
+        <p className="mt-2 text-sm text-pendiente">No se pudo crear el enlace. Inténtalo de nuevo.</p>
       )}
     </div>
   );

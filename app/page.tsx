@@ -11,13 +11,12 @@ export default async function Home() {
   return (
     <div className="space-y-8">
       <section className="space-y-3">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Termina tu trámite <span className="text-emerald-700">a la primera</span>
+        <h1 className="font-cond text-4xl font-bold uppercase tracking-wide">
+          Termina tu trámite <span className="text-sello">a la primera</span>
         </h1>
-        <p className="max-w-prose text-lg text-stone-600">
-          Dinos qué necesitas hacer, responde unas pocas preguntas sobre tu caso y llévate una
-          checklist con todo lo que te puede frenar: papeles, requisitos técnicos y los trámites
-          escondidos dentro de tu trámite.
+        <p className="max-w-prose text-lg text-tinta-media">
+          Dinos qué necesitas hacer y te damos la lista exacta de lo que te van a pedir. Incluidos
+          los trámites escondidos dentro de tu trámite.
         </p>
       </section>
 

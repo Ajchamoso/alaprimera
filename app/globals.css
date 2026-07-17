@@ -1,14 +1,40 @@
 @import "tailwindcss";
 
-@theme inline {
-  --font-sans: var(--font-geist-sans);
+/**
+ * Identidad: EL SELLO.
+ *
+ * El producto ya vivía en este mundo — verificar, sellar, caducar — y lo
+ * estábamos vistiendo del verde por defecto de Tailwind. La paleta es la de una
+ * ventanilla: papel de expediente, tinta, y el violeta del sello de caucho.
+ * El rojo es el de "PENDIENTE". No hay verde en ninguna parte.
+ *
+ * Los colores son semánticos a propósito: se dice `text-sello`, no `text-violet-600`.
+ * Cambiar la paleta entera vuelve a ser tocar este bloque.
+ */
+@theme {
+  --color-papel: #efebe2; /* fondo: expediente */
+  --color-hoja: #f7f4ee; /* tarjetas: la hoja encima del expediente */
+  --color-tinta: #24221f; /* texto principal */
+  --color-tinta-media: #635c52; /* texto secundario */
+  --color-tinta-tenue: #a79e92; /* texto terciario, deshabilitado */
+  --color-linea: #d8d1c4; /* filetes y bordes */
+  --color-sello: #5a3a82; /* violeta de sello: verificado, acento */
+  --color-sello-suave: #ede6f3; /* fondo del acento */
+  --color-pendiente: #a8342b; /* rojo de sello: sin verificar, aviso */
+  --color-pendiente-suave: #f7e7e4;
+
+  --font-sans: var(--fuente-cuerpo);
+  --font-mono: var(--fuente-datos);
+  --font-cond: var(--fuente-sello);
 }
 
-/* MVP en tema claro fijo: la legibilidad (mayores, impresión) manda sobre el modo oscuro. */
+/* Tema claro fijo: esta app se lee a menudo con prisa, se imprime para llevarla a
+   una ventanilla y la acaban leyendo personas mayores. La legibilidad manda sobre
+   el modo oscuro. Es una decisión, no un olvido. */
 
 @media print {
   body {
-    background: #ffffff;
+    background: #fff;
     font-size: 14pt;
   }
   a {

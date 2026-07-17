@@ -5,6 +5,7 @@ import { SelloVerificacion } from "@/components/SelloVerificacion";
 import { Asistente } from "@/components/Asistente";
 import { ReportarError } from "@/components/ReportarError";
 import { AvisoPlazo } from "@/components/AvisoPlazo";
+import { IconoRequisito, NOMBRE_TIPO } from "@/components/IconoRequisito";
 
 export const revalidate = 300;
 
@@ -27,7 +28,7 @@ export default async function PaginaTramite({
   return (
     <article className="space-y-8">
       <nav className="text-sm print:hidden">
-        <Link href="/" className="text-emerald-700 hover:underline">
+        <Link href="/" className="text-sello hover:underline">
           ← Todos los trámites
         </Link>
       </nav>
@@ -36,28 +37,28 @@ export default async function PaginaTramite({
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
           {tramite.nombreColoquial}
         </h1>
-        <p className="text-stone-500">
+        <p className="text-tinta-tenue">
           {tramite.nombreOficial} · {tramite.organismo} · {tramite.territorio}
         </p>
         <SelloVerificacion verificadaEn={tramite.verificadaEn} generadaPorIa={tramite.generadaPorIa} />
-        <p className="max-w-prose text-stone-600">{tramite.descripcion}</p>
+        <p className="max-w-prose text-tinta-media">{tramite.descripcion}</p>
         <AvisoPlazo plazo={tramite.plazo} />
         <p>
           <a
             href={tramite.urlFuente}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-emerald-700 underline underline-offset-2"
+            className="font-medium text-sello underline underline-offset-2"
           >
-            📖 Fuente oficial del trámite
+            Fuente oficial del trámite →
           </a>
         </p>
       </header>
 
       {cadena.length > 0 && (
-        <section className="rounded-xl border border-stone-300 bg-white p-5">
-          <h2 className="font-semibold">⛓️ Este trámite esconde otros trámites</h2>
-          <p className="mt-1 text-sm text-stone-600">
+        <section className="rounded-xl border border-linea bg-hoja p-5">
+          <h2 className="font-cond text-lg font-bold uppercase tracking-wide">Este trámite esconde otros trámites</h2>
+          <p className="mt-1 text-sm text-tinta-media">
             Antes de empezar, asegúrate de tener resueltos estos. Descubrirlo ahora es lo que evita
             el atasco a mitad.
           </p>
@@ -66,11 +67,11 @@ export default async function PaginaTramite({
               <li key={previo.slug} className="flex flex-wrap items-baseline gap-2">
                 <Link
                   href={`/tramite/${previo.slug}`}
-                  className="font-medium text-emerald-700 hover:underline"
+                  className="font-medium text-sello hover:underline"
                 >
                   {previo.nombreColoquial} →
                 </Link>
-                {nota && <span className="text-sm text-stone-500">{nota}</span>}
+                {nota && <span className="text-sm text-tinta-tenue">{nota}</span>}
               </li>
             ))}
           </ul>
@@ -79,20 +80,26 @@ export default async function PaginaTramite({
 
       <Asistente tramite={tramite} />
 
-      <details className="rounded-xl border border-stone-200 bg-white p-5">
-        <summary className="cursor-pointer font-medium text-stone-600">
+      <details className="rounded-xl border border-linea bg-hoja p-5">
+        <summary className="cursor-pointer font-medium text-tinta-media">
           Ver todos los requisitos posibles (sin personalizar)
         </summary>
         <ul className="mt-3 space-y-2">
           {tramite.requisitos.map((r) => (
-            <li key={r.id} className="rounded-lg border border-stone-200 bg-white p-4">
-              <p className="font-medium">
-                {etiquetaTipo[r.tipo]} {r.titulo}
+            <li key={r.id} className="rounded-lg border border-linea bg-hoja p-4">
+              <p className="flex items-center gap-2 font-medium">
+                <span className={r.tipo === "tramite_previo" ? "text-sello" : "text-tinta-tenue"}>
+                  <IconoRequisito tipo={r.tipo} />
+                </span>
+                {r.titulo}
+                <span className="ml-auto shrink-0 rounded-xs border border-linea px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-wider text-tinta-tenue">
+                  {NOMBRE_TIPO[r.tipo]}
+                </span>
               </p>
-              <p className="mt-1 text-sm text-stone-600">{r.explicacion}</p>
+              <p className="mt-1 text-sm text-tinta-media">{r.explicacion}</p>
               {r.soloSiOpciones && (
-                <p className="mt-1 text-xs text-stone-400">
-                  Solo en algunos casos — el asistente te dice si te aplica.
+                <p className="mt-1 text-xs text-tinta-tenue">
+                  Solo en algunos casos. El asistente te dice si te aplica.
                 </p>
               )}
             </li>
@@ -105,9 +112,3 @@ export default async function PaginaTramite({
   );
 }
 
-const etiquetaTipo: Record<string, string> = {
-  doc_fisico: "📄",
-  doc_digital: "💻",
-  tecnico: "⚙️",
-  tramite_previo: "⛓️",
-};

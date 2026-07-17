@@ -88,8 +88,8 @@ export function Asistente({ tramite }: { tramite: Tramite }) {
 
   if (!montado) {
     return (
-      <section className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 print:hidden">
-        <p className="text-sm text-emerald-900/70">Cargando tu caso…</p>
+      <section className="rounded-xl border border-linea bg-sello-suave p-5 print:hidden">
+        <p className="text-sm text-sello/70">Cargando tu caso…</p>
       </section>
     );
   }
@@ -106,8 +106,8 @@ export function Asistente({ tramite }: { tramite: Tramite }) {
           }}
           className={`rounded-full px-3 py-1 text-sm font-medium transition ${
             !enWizard && activa?.id === c.id
-              ? "bg-emerald-600 text-white"
-              : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+              ? "bg-sello text-white"
+              : "bg-papel text-tinta-media hover:bg-linea"
           }`}
         >
           {c.nombre}
@@ -119,7 +119,7 @@ export function Asistente({ tramite }: { tramite: Tramite }) {
           setCreandoNueva(true);
         }}
         className={`rounded-full px-3 py-1 text-sm font-medium transition ${
-          enWizard ? "bg-emerald-600 text-white" : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+          enWizard ? "bg-sello text-white" : "bg-papel text-tinta-media hover:bg-linea"
         }`}
         title="Prepara el mismo trámite para otra persona"
       >
@@ -128,7 +128,7 @@ export function Asistente({ tramite }: { tramite: Tramite }) {
       {!enWizard && activa && (
         <button
           onClick={borraActiva}
-          className="ml-auto text-xs text-stone-400 underline hover:text-stone-600"
+          className="ml-auto text-xs text-tinta-tenue underline hover:text-tinta-media"
         >
           borrar esta checklist
         </button>
@@ -141,15 +141,15 @@ export function Asistente({ tramite }: { tramite: Tramite }) {
     return (
       <div className="space-y-3">
         {selector}
-        <section className="rounded-xl border border-amber-300 bg-amber-50 p-5">
-          <h2 className="font-semibold text-amber-950">
-            Esta vía no está disponible para tu caso — y te lo decimos antes de que pierdas la tarde
+        <section className="rounded-xl border border-pendiente bg-pendiente-suave p-5">
+          <h2 className="font-semibold text-tinta">
+            Esta vía no está disponible para tu caso, y te lo decimos antes de que pierdas la tarde
           </h2>
-          <p className="mt-3 max-w-prose text-amber-950/90">{veredicto.opcion.textoAlternativas}</p>
+          <p className="mt-3 max-w-prose text-tinta/90">{veredicto.opcion.textoAlternativas}</p>
           <div className="mt-4 flex flex-wrap gap-3">
             <button
               onClick={() => cambiaRespuesta(veredicto.pregunta.id)}
-              className="rounded-lg border border-amber-400 bg-white px-4 py-2 text-sm font-medium text-amber-900 hover:bg-amber-100"
+              className="rounded-lg border border-pendiente bg-hoja px-4 py-2 text-sm font-medium text-pendiente hover:bg-pendiente-suave"
             >
               ← Cambiar mi respuesta
             </button>
@@ -157,7 +157,7 @@ export function Asistente({ tramite }: { tramite: Tramite }) {
               href={tramite.urlFuente}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-amber-900 underline underline-offset-2"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-pendiente underline underline-offset-2"
             >
               Ver la fuente oficial
             </a>
@@ -173,24 +173,24 @@ export function Asistente({ tramite }: { tramite: Tramite }) {
     return (
       <div className="space-y-3">
         {selector}
-        <section className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-          <p className="text-xs font-medium uppercase tracking-wide text-emerald-800/70">
+        <section className="rounded-xl border border-linea bg-sello-suave p-5">
+          <p className="text-xs font-medium uppercase tracking-wide text-sello/70">
             Prepara TU caso · pregunta {numActual} de {preguntas.length}
           </p>
-          <h2 className="mt-2 text-lg font-semibold text-emerald-950">{preguntaActual.texto}</h2>
+          <h2 className="mt-2 text-lg font-semibold text-tinta">{preguntaActual.texto}</h2>
           <div className="mt-4 grid gap-2">
             {preguntaActual.opciones.map((o) => (
               <button
                 key={o.id}
                 onClick={() => eligeOpcion(preguntaActual.id, o.id)}
-                className="rounded-lg border border-emerald-300 bg-white px-4 py-3 text-left font-medium text-stone-800 transition hover:border-emerald-600 hover:bg-emerald-100"
+                className="rounded-lg border border-sello bg-hoja px-4 py-3 text-left font-medium text-tinta transition hover:border-sello hover:bg-sello-suave"
               >
                 {o.texto}
               </button>
             ))}
           </div>
           {Object.keys(respuestas).length > 0 && (
-            <p className="mt-3 text-xs text-emerald-900/60">
+            <p className="mt-3 text-xs text-sello/60">
               Tus respuestas anteriores están guardadas: si te vas, retomas donde lo dejaste.
             </p>
           )}
@@ -204,11 +204,11 @@ export function Asistente({ tramite }: { tramite: Tramite }) {
     return (
       <div className="space-y-3">
         {selector}
-        <section className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-          <p className="text-emerald-950">Tenemos todas tus respuestas guardadas.</p>
+        <section className="rounded-xl border border-linea bg-sello-suave p-5">
+          <p className="text-tinta">Tenemos todas tus respuestas guardadas.</p>
           <button
             onClick={() => generaChecklist(respuestas)}
-            className="mt-3 rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700"
+            className="mt-3 rounded-lg bg-sello px-4 py-2 font-medium text-white hover:bg-tinta"
           >
             Generar mi checklist
           </button>

@@ -17,8 +17,8 @@ export function ReportarError({ tramiteSlug }: { tramiteSlug: string }) {
 
   if (estado === "enviado") {
     return (
-      <p className="text-sm text-stone-500 print:hidden">
-        ✅ Gracias, lo revisaremos contra la fuente oficial. Hasta entonces la ficha no cambia.
+      <p className="text-sm text-tinta-tenue print:hidden">
+        Gracias, lo revisaremos contra la fuente oficial. Hasta entonces la ficha no cambia.
       </p>
     );
   }
@@ -27,7 +27,7 @@ export function ReportarError({ tramiteSlug }: { tramiteSlug: string }) {
     return (
       <button
         onClick={() => setAbierto(true)}
-        className="text-sm text-stone-400 underline hover:text-stone-600 print:hidden"
+        className="text-sm text-tinta-tenue underline hover:text-tinta-media print:hidden"
       >
         ¿Ves algo mal en esta ficha? Repórtalo
       </button>
@@ -35,32 +35,32 @@ export function ReportarError({ tramiteSlug }: { tramiteSlug: string }) {
   }
 
   return (
-    <div className="rounded-lg border border-stone-200 bg-white p-4 print:hidden">
+    <div className="rounded-lg border border-linea bg-hoja p-4 print:hidden">
       <label className="block text-sm font-medium">¿Qué está mal?</label>
       <textarea
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
         rows={3}
         placeholder="La tasa ya no es ese importe / falta un documento / el enlace no funciona…"
-        className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-emerald-600"
+        className="mt-1 w-full rounded-lg border border-linea px-3 py-2 text-sm outline-none focus:border-sello"
       />
       <div className="mt-2 flex gap-2">
         <button
           onClick={envia}
           disabled={texto.trim().length < 5 || estado === "enviando"}
-          className="rounded-lg bg-stone-800 px-4 py-2 text-sm font-medium text-white hover:bg-stone-900 disabled:opacity-40"
+          className="rounded-lg bg-tinta px-4 py-2 text-sm font-medium text-white hover:bg-sello disabled:opacity-40"
         >
           {estado === "enviando" ? "Enviando…" : "Enviar reporte"}
         </button>
         <button
           onClick={() => setAbierto(false)}
-          className="rounded-lg px-4 py-2 text-sm font-medium text-stone-500 hover:bg-stone-50"
+          className="rounded-lg px-4 py-2 text-sm font-medium text-tinta-tenue hover:bg-papel"
         >
           Cancelar
         </button>
       </div>
       {estado === "error" && (
-        <p className="mt-2 text-sm text-red-700">No se pudo enviar. Inténtalo de nuevo.</p>
+        <p className="mt-2 text-sm text-pendiente">No se pudo enviar. Inténtalo de nuevo.</p>
       )}
     </div>
   );

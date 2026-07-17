@@ -157,7 +157,7 @@ export const tramites: Tramite[] = [
     nombreOficial: "Primera inscripción del DNI",
     nombreColoquial: "El primer DNI (de un niño o niña)",
     descripcion:
-      "Sacar el DNI por primera vez. Hay que ir en persona con cita previa, y trae dos trámites escondidos: el certificado de nacimiento del Registro Civil y el empadronamiento — ambos con fecha de caducidad.",
+      "Sacar el DNI por primera vez. Hay que ir en persona con cita previa, y trae dos trámites escondidos: el certificado de nacimiento del Registro Civil y el empadronamiento. Los dos caducan.",
     organismo: "Policía Nacional (Ministerio del Interior)",
     territorio: "España",
     canales: ["presencial"],
@@ -254,7 +254,7 @@ export const tramites: Tramite[] = [
         tipo: "doc_fisico",
         titulo: "El DNI de quien acompaña al menor",
         explicacion:
-          "Fuente: se hará «en presencia de quien tenga encomendada la patria potestad o tutela […] el cual deberá aportar su DNI, Tarjeta de Identificación de Extranjero (TIE) o Certificado de Registro de Ciudadano de la Unión». Ojo: aquí la fuente habla en singular — a diferencia del pasaporte, NO exige el consentimiento de ambos progenitores.",
+          "Fuente: se hará «en presencia de quien tenga encomendada la patria potestad o tutela […] el cual deberá aportar su DNI, Tarjeta de Identificación de Extranjero (TIE) o Certificado de Registro de Ciudadano de la Unión». Ojo: aquí la fuente habla en singular. A diferencia del pasaporte, NO exige el consentimiento de ambos progenitores.",
         canal: "presencial",
         soloSiOpciones: ["dni1-p1-menor"],
       },
@@ -296,7 +296,7 @@ export const tramites: Tramite[] = [
     nombreOficial: "Pasaporte ordinario",
     nombreColoquial: "El pasaporte",
     descripcion:
-      "Sacar o renovar el pasaporte. Se hace en persona con cita previa. Para menores hace falta el consentimiento de TODAS las personas con patria potestad — no solo de quien tiene la custodia.",
+      "Sacar o renovar el pasaporte. Se hace en persona con cita previa. Para menores hace falta el consentimiento de TODAS las personas con patria potestad, no solo de quien tiene la custodia.",
     organismo: "Policía Nacional (Ministerio del Interior)",
     territorio: "España",
     canales: ["presencial"],
@@ -710,7 +710,7 @@ export const tramites: Tramite[] = [
             texto: "Para otra persona (mi madre, mi padre…)",
             veredictoInviable: true,
             textoAlternativas:
-              "Aquí la fuente es tajante y ni siquiera vale un apoderamiento: «Para el registro en Cl@ve de forma presencial es imprescindible la presencia física de la persona que se va a registrar, así como que acuda con su DNI. Por tanto, no cabe instar registros en CL@VE mediante representación por parte de un tercero o apoderado». Tus opciones reales: (1) sentaros juntos y que se registre ella —por vídeo desde su móvil es lo más cómodo—; (2) acompañarla a una oficina de registro con su DNI.",
+              "Aquí la fuente es tajante y ni siquiera vale un apoderamiento: «Para el registro en Cl@ve de forma presencial es imprescindible la presencia física de la persona que se va a registrar, así como que acuda con su DNI. Por tanto, no cabe instar registros en CL@VE mediante representación por parte de un tercero o apoderado». Tus opciones reales: (1) sentaros juntos y que se registre ella (por vídeo desde su móvil es lo más cómodo); (2) acompañarla a una oficina de registro con su DNI.",
           },
         ],
       },
@@ -789,7 +789,7 @@ export const tramites: Tramite[] = [
         tipo: "doc_fisico",
         titulo: "La carta de invitación con su código de 16 caracteres",
         explicacion:
-          "Llega por correo postal a tu domicilio fiscal — el que conste en Hacienda, ojo. Fuente: «Localiza el Código Seguro de Verificación (CSV) en la carta. Es un código de 16 números y letras en mayúsculas».",
+          "Llega por correo postal a tu domicilio fiscal, el que conste en Hacienda (ojo con eso). Fuente: «Localiza el Código Seguro de Verificación (CSV) en la carta. Es un código de 16 números y letras en mayúsculas».",
         canal: "ambos",
         soloSiOpciones: ["clv-p2-carta"],
       },
@@ -831,7 +831,7 @@ export const tramites: Tramite[] = [
     nombreOficial: "Registro Electrónico de Apoderamientos (REA) de la AGE",
     nombreColoquial: "Poder actuar en nombre de otra persona",
     descripcion:
-      "La vía oficial para que alguien pueda hacer trámites en tu nombre ante la Administración del Estado — o para que tú los hagas por un familiar. No sirve para todo: solo para los trámites que estén marcados como apoderables.",
+      "La vía oficial para que alguien pueda hacer trámites en tu nombre ante la Administración del Estado, o para que tú los hagas por un familiar. No sirve para todo: solo para los trámites que estén marcados como apoderables.",
     organismo: "Administración General del Estado · Punto de Acceso General",
     territorio: "España",
     canales: ["online", "presencial"],
@@ -929,7 +929,7 @@ export const tramites: Tramite[] = [
         tipo: "doc_fisico",
         titulo: "Decidir el tipo de poder y su fecha de fin",
         explicacion:
-          "Fuente: hay tres tipos — «Tipo a: apoderamiento general para cualquier actuación administrativa ante cualquier Administración Pública. Tipo b: […] para una Administración y sus Organismos Públicos […]. Tipo c: apoderamiento para determinados trámites». Y: «El plazo máximo de vigencia no podrá ser superior a los 5 años».",
+          "Fuente: hay tres tipos. «Tipo a: apoderamiento general para cualquier actuación administrativa ante cualquier Administración Pública. Tipo b: […] para una Administración y sus Organismos Públicos […]. Tipo c: apoderamiento para determinados trámites». Y: «El plazo máximo de vigencia no podrá ser superior a los 5 años».",
         canal: "ambos",
       },
     ],
@@ -1006,7 +1006,7 @@ export const tramites: Tramite[] = [
         tipo: "tramite_previo",
         titulo: "Tener reconocido el derecho a la asistencia por el INSS",
         explicacion:
-          "Fuente: «Tener derecho a la asistencia sanitaria por el Instituto Nacional de la Seguridad Social (INSS)». Ojo: es tener el derecho reconocido, no aportar el documento de afiliación — la fuente no lo pide.",
+          "Fuente: «Tener derecho a la asistencia sanitaria por el Instituto Nacional de la Seguridad Social (INSS)». Ojo: es tener el derecho reconocido, no aportar el documento de afiliación: la fuente no lo pide.",
         canal: "ambos",
         soloSiOpciones: ["san-p2-primera"],
       },
@@ -1067,7 +1067,7 @@ export const tramites: Tramite[] = [
     nombreOficial: "Título de Familia Numerosa (Comunidad de Madrid)",
     nombreColoquial: "El título de familia numerosa",
     descripcion:
-      "El título que da descuentos y ventajas — entre ellas, el DNI y el pasaporte gratis. Ya no es un papel: es una tarjeta digital. Se puede pedir todo el año.",
+      "El título que da descuentos y ventajas, entre ellas el DNI y el pasaporte gratis. Ya no es un papel: es una tarjeta digital. Se puede pedir todo el año.",
     organismo: "Dirección General de Infancia, Familia y Fomento de la Natalidad · Comunidad de Madrid",
     territorio: "Comunidad de Madrid",
     canales: ["online", "presencial"],
@@ -1288,7 +1288,7 @@ export const tramites: Tramite[] = [
         tipo: "tramite_previo",
         titulo: "Un sistema de firma electrónica reconocido",
         explicacion:
-          "Fuente: «Para realizar este trámite por medios electrónicos necesitas uno de los sistemas de firma electrónica reconocidos por la Comunidad de Madrid». El certificado digital de la FNMT es uno de los habituales — confirma en la fuente cuáles admite tu convocatoria.",
+          "Fuente: «Para realizar este trámite por medios electrónicos necesitas uno de los sistemas de firma electrónica reconocidos por la Comunidad de Madrid». El certificado digital de la FNMT es uno de los habituales; confirma en la fuente cuáles admite tu convocatoria.",
         canal: "online",
         tramitePrevioSlug: "certificado-digital-fnmt",
         soloSiOpciones: ["beca-p2-online"],
@@ -1474,7 +1474,7 @@ export const tramites: Tramite[] = [
       {
         id: "cert-r7",
         tipo: "tecnico",
-        titulo: "El mismo ordenador y usuario de principio a fin — y no formatearlo",
+        titulo: "El mismo ordenador y usuario de principio a fin, y no formatearlo",
         explicacion:
           "El fallo más caro de este trámite. Fuente: «Se debe realizar todo el proceso de obtención desde el mismo equipo y mismo usuario» y «No formatear el ordenador, entre el proceso de solicitud y el de descarga del certificado».",
         canal: "online",

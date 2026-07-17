@@ -38,8 +38,8 @@ export function AvisoPlazo({ plazo }: { plazo: Plazo | undefined }) {
   if (!plazo || estado === "desconocido" || estado === "abierto") {
     if (estado === "abierto" && plazo) {
       return (
-        <p className="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
-          🟢 <strong>Plazo abierto</strong> hasta el {formatea(plazo.fin)}.
+        <p className="rounded-lg bg-sello-suave px-4 py-3 text-sm text-sello">
+          <strong>Plazo abierto</strong> hasta el {formatea(plazo.fin)}.
         </p>
       );
     }
@@ -48,21 +48,21 @@ export function AvisoPlazo({ plazo }: { plazo: Plazo | undefined }) {
 
   if (estado === "aun-no") {
     return (
-      <p className="rounded-lg bg-stone-100 px-4 py-3 text-sm text-stone-700">
-        🕓 <strong>El plazo aún no ha abierto.</strong> Va del {formatea(plazo.inicio)} al{" "}
+      <p className="rounded-lg bg-papel px-4 py-3 text-sm text-tinta-media">
+        <strong>El plazo aún no ha abierto.</strong> Va del {formatea(plazo.inicio)} al{" "}
         {formatea(plazo.fin)}. Puedes ir reuniendo los papeles.
       </p>
     );
   }
 
   return (
-    <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+    <div className="rounded-lg border border-pendiente bg-pendiente-suave px-4 py-3 text-sm text-tinta">
       <p>
-        🔴 <strong>El plazo ya se ha cerrado</strong> (terminó el {formatea(plazo.fin)}). Ahora mismo
+        <strong>El plazo ya se ha cerrado</strong> (terminó el {formatea(plazo.fin)}). Ahora mismo
         no se puede presentar la solicitud.
       </p>
-      {plazo.nota && <p className="mt-1 text-amber-900/80">{plazo.nota}</p>}
-      <p className="mt-1 text-amber-900/80">
+      {plazo.nota && <p className="mt-1 text-pendiente/80">{plazo.nota}</p>}
+      <p className="mt-1 text-pendiente/80">
         Te dejamos igualmente la lista: si preparas los papeles ahora, la próxima convocatoria te
         pilla listo.
       </p>

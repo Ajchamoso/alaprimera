@@ -4,6 +4,7 @@ import { getTramites } from "@/lib/data";
 import { requisitosAplicablesDe } from "@/lib/personaliza";
 import { adminConfigurado, supabaseAdmin } from "@/lib/supabase/admin";
 import { SelloVerificacion } from "@/components/SelloVerificacion";
+import { IconoRequisito, NOMBRE_TIPO } from "@/components/IconoRequisito";
 
 export const dynamic = "force-dynamic";
 
@@ -12,12 +13,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false }, // enlaces privados: fuera de buscadores
 };
 
-const ETIQUETA_TIPO: Record<string, string> = {
-  tramite_previo: "⛓️",
-  doc_fisico: "📄",
-  doc_digital: "💻",
-  tecnico: "⚙️",
-};
 
 /** Vista de solo lectura de una checklist compartida (H7, FR-014). Sin sesión. */
 export default async function PaginaCompartida({
@@ -56,11 +51,11 @@ export default async function PaginaCompartida({
   return (
     <article className="space-y-6">
       <header className="space-y-2">
-        <p className="text-sm text-stone-500">Checklist compartida contigo · solo lectura</p>
+        <p className="text-sm text-tinta-tenue">Checklist compartida contigo · solo lectura</p>
         <h1 className="text-2xl font-bold tracking-tight">
-          {tramite.nombreColoquial} <span className="text-stone-400">· {checklist.nombre}</span>
+          {tramite.nombreColoquial} <span className="text-tinta-tenue">· {checklist.nombre}</span>
         </h1>
-        <p className="text-stone-500">
+        <p className="text-tinta-tenue">
           {tramite.nombreOficial} · {tramite.organismo}
         </p>
         <SelloVerificacion
@@ -69,13 +64,13 @@ export default async function PaginaCompartida({
         />
       </header>
 
-      <section className="rounded-xl border border-stone-200 bg-white p-5">
-        <p className="text-sm font-medium text-emerald-800">
+      <section className="rounded-xl border border-linea bg-hoja p-5">
+        <p className="text-sm font-medium text-sello">
           {conseguidos} de {aplicables.length} listo{conseguidos === 1 ? "" : "s"}
         </p>
-        <div className="mt-2 h-2 overflow-hidden rounded-full bg-stone-100">
+        <div className="mt-2 h-2 overflow-hidden rounded-full bg-papel">
           <div
-            className="h-full rounded-full bg-emerald-500"
+            className="h-full rounded-full bg-sello"
             style={{
               width: `${aplicables.length === 0 ? 0 : Math.round((conseguidos / aplicables.length) * 100)}%`,
             }}
@@ -85,15 +80,28 @@ export default async function PaginaCompartida({
           {aplicables.map((r) => {
             const marcado = !!checklist.marcados?.[r.id];
             return (
-              <li key={r.id} className="flex items-start gap-3 rounded-lg border border-stone-200 p-4">
-                <span aria-hidden className="text-lg leading-none">
-                  {marcado ? "☑" : "☐"}
+              <li key={r.id} className="flex items-start gap-3 rounded-lg border border-linea p-4">
+                <span
+                  aria-hidden
+                  className={`mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-xs border-2 ${
+                    marcado ? "border-sello bg-sello text-hoja" : "border-tinta-tenue"
+                  }`}
+                >
+                  {marcado && (
+                    <svg viewBox="0 0 24 24" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth={4} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+                  )}
                 </span>
                 <span>
-                  <span className={`font-medium ${marcado ? "text-stone-400 line-through" : ""}`}>
-                    {ETIQUETA_TIPO[r.tipo]} {r.titulo}
+                  <span className={`flex items-center gap-2 font-medium ${marcado ? "text-tinta-tenue line-through" : ""}`}>
+                    <span className={r.tipo === "tramite_previo" ? "text-sello" : "text-tinta-tenue"}>
+                      <IconoRequisito tipo={r.tipo} />
+                    </span>
+                    {r.titulo}
+                    <span className="ml-auto shrink-0 rounded-xs border border-linea px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-wider text-tinta-tenue no-underline">
+                      {NOMBRE_TIPO[r.tipo]}
+                    </span>
                   </span>
-                  <span className="mt-0.5 block text-sm text-stone-600">{r.explicacion}</span>
+                  <span className="mt-0.5 block text-sm text-tinta-media">{r.explicacion}</span>
                 </span>
               </li>
             );
@@ -107,14 +115,14 @@ export default async function PaginaCompartida({
             href={tramite.urlFuente}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-emerald-700 underline underline-offset-2"
+            className="font-medium text-sello underline underline-offset-2"
           >
-            📖 Fuente oficial del trámite
+            Fuente oficial del trámite →
           </a>
         </p>
-        <p className="rounded-lg bg-stone-100 p-4 text-stone-600">
+        <p className="rounded-lg bg-papel p-4 text-tinta-media">
           Esta es una copia de solo lectura: marcarla no es posible desde aquí.{" "}
-          <Link href={`/tramite/${tramite.slug}`} className="font-medium text-emerald-700 underline">
+          <Link href={`/tramite/${tramite.slug}`} className="font-medium text-sello underline">
             Prepara tu propia checklist de este trámite →
           </Link>
         </p>
@@ -127,10 +135,10 @@ function NoDisponible() {
   return (
     <div className="space-y-3">
       <h1 className="text-2xl font-bold tracking-tight">Esta checklist ya no existe</h1>
-      <p className="text-stone-600">
+      <p className="text-tinta-media">
         El enlace no es válido o quien lo compartió la ha borrado.
       </p>
-      <Link href="/" className="inline-block font-medium text-emerald-700 underline">
+      <Link href="/" className="inline-block font-medium text-sello underline">
         Ver todos los trámites →
       </Link>
     </div>

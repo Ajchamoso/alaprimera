@@ -4,18 +4,20 @@ import { useSyncExternalStore } from "react";
 
 const DIAS_VIGENCIA = 90;
 
-// "Ahora" como store externo de valor único: estable durante la sesión de
-// render (el sello no necesita un reloj vivo, solo el momento de la lectura).
-// En SSR devuelve 0 → la caducidad solo se evalúa en el navegador.
+// "Ahora" como store externo de valor único: estable durante el render (el sello
+// no necesita un reloj vivo, solo el momento de la lectura). En SSR devuelve 0 →
+// la caducidad solo se evalúa en el navegador.
 const suscribeNada = () => () => {};
 let ahoraCache = 0;
 const getAhora = () => (ahoraCache ||= Date.now());
 const getAhoraServidor = () => 0;
 
 /**
- * Estado de confianza de una ficha (FR-020). La caducidad se deriva en el
- * momento de la lectura: sin jobs que actualicen estados y sin congelar la
- * fecha en el build estático.
+ * El estado de confianza de una ficha, estampado (FR-020).
+ *
+ * No es un badge: es un sello. Caja girada, filete doble, condensada en caps —
+ * el idioma visual de cualquier ventanilla. La caducidad se deriva en el momento
+ * de la lectura: sin trabajos programados que se desincronicen.
  */
 export function SelloVerificacion({
   verificadaEn,
@@ -32,10 +34,9 @@ export function SelloVerificacion({
 
   if (verificadaEn === null) {
     return (
-      <p className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-900">
-        ⚠️ {generadaPorIa ? "Generada por IA — sin verificar" : "Ficha sin verificar"} · confirma en
-        la fuente oficial
-      </p>
+      <Estampa color="pendiente" doble titulo="Sin verificar">
+        {generadaPorIa ? "generada por IA · confirma en la fuente" : "confirma en la fuente oficial"}
+      </Estampa>
     );
   }
 
@@ -43,22 +44,51 @@ export function SelloVerificacion({
 
   if (caducada) {
     return (
-      <p className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-900">
-        ⚠️ Puede estar desactualizada (verificada el {fechaLegible}) · confirma en la fuente oficial
-      </p>
+      <Estampa color="tenue" titulo="Puede estar desactualizada">
+        verificada el {fechaLegible} · confirma en la fuente
+      </Estampa>
     );
   }
 
   return (
-    <p className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-1 text-sm font-medium text-emerald-900">
-      ✅ Verificada el {fechaLegible}
-    </p>
+    <Estampa color="sello" titulo="Verificada">
+      {fechaLegible}
+    </Estampa>
   );
 }
 
-/** "2026-07-16" (o ISO completo) → "16/07/2026", sin depender del locale del sistema. */
+function Estampa({
+  color,
+  doble,
+  titulo,
+  children,
+}: {
+  color: "sello" | "pendiente" | "tenue";
+  doble?: boolean;
+  titulo: string;
+  children: React.ReactNode;
+}) {
+  const tinte = {
+    sello: "text-sello",
+    pendiente: "text-pendiente",
+    tenue: "text-tinta-tenue",
+  }[color];
+
+  return (
+    <span
+      className={`inline-block -rotate-2 rounded-sm border-current px-3 py-1.5 font-cond font-bold uppercase tracking-widest ${tinte} ${
+        doble ? "border-4 border-double" : "border-[2.5px]"
+      }`}
+    >
+      <span className="block text-[13px] leading-tight">{titulo}</span>
+      <span className="block text-[10.5px] font-semibold tracking-wide opacity-80">{children}</span>
+    </span>
+  );
+}
+
+/** "2026-07-16" (o ISO completo) → "16 · 07 · 2026", con aire de sello. */
 function formateaFechaEs(iso: string): string {
   const [fecha] = iso.split("T");
   const [anio, mes, dia] = fecha.split("-");
-  return `${dia}/${mes}/${anio}`;
+  return `${dia} · ${mes} · ${anio}`;
 }
