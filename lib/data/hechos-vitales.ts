@@ -56,4 +56,8 @@ export const hechoVitalDeFicha: Record<string, string> = {
   "tarjeta-sanitaria-madrid": "mayores",
   "tarjeta-sanitaria-aragon": "mayores",
   "apoderamiento": "mayores",
+  // Fallece un familiar
+  "certificado-defuncion": "fallecimiento",
+  "ultimas-voluntades": "fallecimiento",
+  "seguros-fallecimiento": "fallecimiento",
 };

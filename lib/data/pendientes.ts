@@ -60,9 +60,6 @@ const lista: Pendiente[] = [
   { slug: "certificado-tributario", nombreColoquial: "Certificado de estar al corriente con Hacienda", nombreOficial: "Certificado tributario", organismo: "Agencia Tributaria", nivel: "estatal", hechoVital: "hacienda" },
 
   // ── Fallece un familiar ──
-  { slug: "certificado-defuncion", nombreColoquial: "El certificado de defunción", nombreOficial: "Certificación de defunción", organismo: "Registro Civil · Ministerio de Justicia", nivel: "estatal", hechoVital: "fallecimiento" },
-  { slug: "ultimas-voluntades", nombreColoquial: "El certificado de últimas voluntades", nombreOficial: "Certificado de actos de última voluntad", organismo: "Ministerio de Justicia", nivel: "estatal", hechoVital: "fallecimiento" },
-  { slug: "seguros-fallecimiento", nombreColoquial: "Saber qué seguros de vida tenía", nombreOficial: "Certificado de contratos de seguros de cobertura de fallecimiento", organismo: "Ministerio de Justicia", nivel: "estatal", hechoVital: "fallecimiento" },
   { slug: "pension-viudedad", nombreColoquial: "La pensión de viudedad", nombreOficial: "Pensión de viudedad", organismo: "Seguridad Social (INSS)", nivel: "estatal", hechoVital: "fallecimiento" },
 
   // ── Me caso ──

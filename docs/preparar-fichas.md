@@ -274,6 +274,32 @@ Lo único con cita literal directa del BOE hoy: las 19/32 semanas y que «Seis s
 inmediatamente posteriores al parto serán obligatorias y habrán de disfrutarse a jornada completa».
 El resto (cotización por tramos de edad, documentación, veredicto de terceros) está sin cita fiable.
 
+## Fallece un familiar (17/07): tres fichas del Registro Civil / Justicia
+
+Curadas `certificado-defuncion`, `ultimas-voluntades` y `seguros-fallecimiento`. Se encadenan: las
+dos últimas piden el certificado de defunción, pero **solo condicionalmente**.
+
+- **La condición del 2 de abril de 2009, citada literal.** Para últimas voluntades y seguros: «SI LA
+  FECHA DEL FALLECIMIENTO ES POSTERIOR AL 2 DE ABRIL DE 2009 Y LA DEFUNCIÓN NO ESTÁ INSCRITA EN UN
+  TRIBUNAL DE INSTANCIA NO ES NECESARIO PRESENTAR EL CERTIFICADO DE DEFUNCIÓN». Por eso la cadena a
+  `certificado-defuncion` va en `prerequisitos` con **nota condicional**, y el requisito solo aparece
+  en la rama "antes de 2009 / Juzgado de Paz" (verificado en navegador: post-2009 no lo pide).
+- **Se piden juntos, mismo modelo 790 y tasa 006.** El importe, **3,86 €**, está citado literal pero
+  NO en la sede (que solo nombra la «tasa 006»): sale de `ojm.justicia.es` (Oficina de Justicia en el
+  Municipio, oficial). Atribuido así en la ficha. Al verificar, confirmar que sigue siendo 3,86 €.
+- **El plazo de 15 días hábiles es de últimas voluntades y seguros, NO del certificado de defunción.**
+  Mina evitada: la cifra aparece por todas partes asociada al "fallecimiento" y es fácil colgarla del
+  trámite equivocado. El certificado de defunción no tiene ese plazo de espera citado.
+- **⚠️ El certificado de defunción quedó más flojo de cita.** `www.mjusticia.gob.es` da el "qué es" y
+  los canales, pero los datos a aportar (nombre/fecha/lugar del fallecido) y el detalle postal salen
+  de la ficha del **Punto de Acceso General** (`administracion.gob.es`), que **devolvió 404/redirección
+  y `tramites.administracion.gob.es` no resuelve DNS** — se obtuvieron por *snippet* oficial, no por
+  HTML fetcheado. En la ficha van atribuidos "(Punto de Acceso General)". **Al cotejar, reabrir esa
+  ficha del PAG cuando vuelva a responder**; es lo más importante a verificar de las tres.
+- **La lista de tipos (literal / extracto / internacional / negativo) no se pudo fijar literal** (la
+  sede la carga dinámicamente en el formulario `sereci`), así que NO se metió como pregunta del wizard:
+  habría sido inventar el matiz. La ficha se queda en destinatario + canal, que sí están citados.
+
 ## Hallazgos de contenido que merecen mirada humana
 
 **Aragón (segundo territorio, 17/07):** las 4 fichas (tarjeta sanitaria, beca, familia numerosa,
