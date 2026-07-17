@@ -72,5 +72,11 @@ sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (plan.md
   `lib/data/verificaciones.ts` y vuelca a BD). Nunca con SQL: el seed borra y reinserta desde el
   repo, así que un `update` en BD se pierde sin avisar. Y nunca lo pongas tú por tu cuenta: una
   ficha sellada afirma que un humano la cotejó contra la fuente.
+- **Modelo territorial**: cada trámite tiene `nivel` (estatal | autonomico | local). Estatal = una
+  ficha para toda España; autonomico/local = una ficha por comunidad (con `comunidad`). "Tu zona"
+  (lib/zona.ts, recordada en el navegador) filtra el catálogo, y si el usuario elige una comunidad
+  sin fichas, se le dice con honestidad — nunca se le enseña la de otra comunidad como si fuera la
+  suya. Un autonómico nuevo se cura POR comunidad; no se comparte "un esqueleto con variantes"
+  (sería síntesis, contra la regla de oro).
 - Migraciones de BD versionadas en el repo; RLS activado en toda tabla desde su creación.
 - Tras cada fase del plan: recorrido manual en la URL pública, no solo en local.

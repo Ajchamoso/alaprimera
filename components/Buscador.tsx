@@ -1,35 +1,59 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import type { Tramite } from "@/lib/types";
 import { buscaTramites } from "@/lib/data";
 import { destacados } from "@/lib/data/destacados";
+import { nombreComunidad, tieneFichas } from "@/lib/data/comunidades";
+import { getZona, getZonaServidor, suscribeZona, visibleEnZona } from "@/lib/zona";
+import { SelectorZona } from "@/components/SelectorZona";
 
 /**
  * Búsqueda coloquial (FR-002) y punto de entrada al catálogo.
  *
- * Sin búsqueda: primero unos pocos trámites como puerta de entrada (los cimientos,
- * ver destacados.ts), después el catálogo entero. Con búsqueda: solo resultados,
- * porque quien busca ya sabe lo que quiere.
+ * Filtra por "tu zona": los estatales para todos; los autonómicos y locales solo
+ * para quien es de esa comunidad. Sin búsqueda: primero unos pocos trámites como
+ * puerta de entrada (los cimientos), después el resto. Con búsqueda: solo
+ * resultados, porque quien busca ya sabe lo que quiere.
  *
  * La búsqueda es determinista: delega en buscaTramites, sin IA en runtime.
  */
 export function Buscador({ tramites }: { tramites: Tramite[] }) {
   const [consulta, setConsulta] = useState("");
   const buscando = consulta.trim().length > 0;
+  const zona = useSyncExternalStore(suscribeZona, getZona, getZonaServidor);
 
-  const resultados = useMemo(() => buscaTramites(consulta, tramites), [consulta, tramites]);
+  // El catálogo que ve este usuario, ya filtrado por su zona.
+  const deMiZona = useMemo(
+    () => tramites.filter((t) => visibleEnZona(t, zona)),
+    [tramites, zona]
+  );
+
+  const resultados = useMemo(() => buscaTramites(consulta, deMiZona), [consulta, deMiZona]);
 
   const { puertaDeEntrada, resto } = useMemo(() => {
-    const porSlug = new Map(tramites.map((t) => [t.slug, t]));
+    const porSlug = new Map(deMiZona.map((t) => [t.slug, t]));
     const puerta = destacados.map((s) => porSlug.get(s)).filter((t): t is Tramite => Boolean(t));
     const enPuerta = new Set(puerta.map((t) => t.slug));
-    return { puertaDeEntrada: puerta, resto: tramites.filter((t) => !enPuerta.has(t.slug)) };
-  }, [tramites]);
+    return { puertaDeEntrada: puerta, resto: deMiZona.filter((t) => !enPuerta.has(t.slug)) };
+  }, [deMiZona]);
+
+  // Aviso honesto: eligió una comunidad de la que aún no tenemos fichas propias.
+  const zonaSinFichas = zona !== null && !tieneFichas(zona);
 
   return (
     <section className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <SelectorZona />
+        {zona === null && (
+          <span className="font-mono text-xs text-tinta-tenue">
+            elígela para ver solo lo tuyo
+          </span>
+        )}
+      </div>
+
       <label className="block">
         <span className="sr-only">Busca tu trámite</span>
         <input
@@ -41,6 +65,19 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
           autoComplete="off"
         />
       </label>
+
+      {zonaSinFichas && (
+        <div className="rounded-xl border border-pendiente bg-pendiente-suave p-5 text-tinta-media">
+          <p className="font-medium text-tinta">
+            De {nombreComunidad(zona)} aún no tenemos trámites propios.
+          </p>
+          <p className="mt-1 text-sm">
+            Por ahora solo hemos preparado los de la Comunidad de Madrid. Abajo tienes los trámites
+            estatales, que son iguales en toda España. Los de tu comunidad y tu ayuntamiento
+            llegarán; no queremos enseñártelos hasta tenerlos verificados contra la fuente.
+          </p>
+        </div>
+      )}
 
       {buscando ? (
         resultados.length === 0 ? (

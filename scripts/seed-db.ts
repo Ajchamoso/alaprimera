@@ -25,15 +25,17 @@ async function main() {
     for (const t of tramites) {
       await db.query(
         `insert into tramites (id, nombre_oficial, nombre_coloquial, descripcion, organismo,
-           territorio, canales, url_fuente, url_cita_previa, estado, verificada_en,
-           generada_por_ia, alias, plazo_inicio, plazo_fin, plazo_nota)
-         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,'publicada',$10,$11,$12,$13,$14,$15)`,
+           nivel, comunidad, territorio, canales, url_fuente, url_cita_previa, estado,
+           verificada_en, generada_por_ia, alias, plazo_inicio, plazo_fin, plazo_nota)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'publicada',$12,$13,$14,$15,$16,$17)`,
         [
           t.slug,
           t.nombreOficial,
           t.nombreColoquial,
           t.descripcion,
           t.organismo,
+          t.nivel,
+          t.comunidad ?? null,
           t.territorio,
           t.canales,
           t.urlFuente,

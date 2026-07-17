@@ -19,6 +19,7 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "renovacion-dni",
+    nivel: "estatal",
     nombreOficial: "Renovación del DNI",
     nombreColoquial: "Renovar el carnet de identidad",
     descripcion:
@@ -155,6 +156,7 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "dni-primera-vez",
+    nivel: "estatal",
     nombreOficial: "Primera inscripción del DNI",
     nombreColoquial: "El primer DNI (de un niño o niña)",
     descripcion:
@@ -292,6 +294,7 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "pasaporte",
+    nivel: "estatal",
     nombreOficial: "Pasaporte ordinario",
     nombreColoquial: "El pasaporte",
     descripcion:
@@ -422,6 +425,7 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "certificado-nacimiento",
+    nivel: "estatal",
     nombreOficial: "Certificación de nacimiento (Registro Civil)",
     nombreColoquial: "El certificado de nacimiento",
     descripcion:
@@ -523,6 +527,8 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "empadronamiento-madrid",
+    nivel: "local",
+    comunidad: "madrid",
     nombreOficial: "Padrón Municipal: alta y cambio de domicilio (Ayuntamiento de Madrid)",
     nombreColoquial: "Empadronarse en Madrid",
     descripcion:
@@ -679,6 +685,7 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "clave",
+    nivel: "estatal",
     nombreOficial: "Registro en el sistema Cl@ve",
     nombreColoquial: "Cl@ve, la identidad electrónica del Estado",
     descripcion:
@@ -819,6 +826,7 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "apoderamiento",
+    nivel: "estatal",
     nombreOficial: "Registro Electrónico de Apoderamientos (REA) de la AGE",
     nombreColoquial: "Poder actuar en nombre de otra persona",
     descripcion:
@@ -930,6 +938,8 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "tarjeta-sanitaria-madrid",
+    nivel: "autonomico",
+    comunidad: "madrid",
     nombreOficial: "Tarjeta Sanitaria Individual (Comunidad de Madrid)",
     nombreColoquial: "La tarjeta sanitaria",
     descripcion:
@@ -1051,6 +1061,8 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "familia-numerosa-madrid",
+    nivel: "autonomico",
+    comunidad: "madrid",
     nombreOficial: "Título de Familia Numerosa (Comunidad de Madrid)",
     nombreColoquial: "El título de familia numerosa",
     descripcion:
@@ -1195,6 +1207,8 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "beca-comedor-madrid",
+    nivel: "autonomico",
+    comunidad: "madrid",
     nombreOficial: "Becas de comedor escolar 2026-2027 (Comunidad de Madrid)",
     nombreColoquial: "La beca de comedor del cole",
     descripcion:
@@ -1345,6 +1359,7 @@ export const tramites: TramiteContenido[] = [
   // ── Curada desde la fuente oficial el 17/07/2026 (pendiente de verificación humana) ──
   {
     slug: "certificado-digital-fnmt",
+    nivel: "estatal",
     nombreOficial: "Certificado digital de persona física (software) — acreditación presencial",
     nombreColoquial: "El certificado para hacer trámites por internet",
     descripcion:

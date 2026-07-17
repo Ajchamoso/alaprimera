@@ -45,12 +45,25 @@ export interface Plazo {
   nota?: string; // p. ej. cuándo suele abrir el siguiente
 }
 
+/**
+ * Los tres niveles de la administración española. Determinan si una ficha sirve
+ * a todo el país o solo a una zona:
+ * - `estatal`: un organismo, igual en toda España. Una ficha vale para todos.
+ * - `autonomico`: cada CCAA distinto. Una ficha POR comunidad (lleva `comunidad`).
+ * - `local`: cada ayuntamiento distinto. Una ficha por municipio (lleva `comunidad`
+ *   y el municipio va en `territorio`).
+ */
+export type NivelTerritorial = "estatal" | "autonomico" | "local";
+
 export interface Tramite {
   slug: string;
   nombreOficial: string;
   nombreColoquial: string;
   descripcion: string;
   organismo: string;
+  nivel: NivelTerritorial;
+  /** Código de CCAA (ver comunidades.ts). Ausente en los estatales. */
+  comunidad?: string;
   territorio: string;
   canales: Canal[];
   urlFuente: string;

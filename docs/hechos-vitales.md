@@ -23,6 +23,16 @@ Lo decidimos con datos, no por gusto ([nota completa en el commit de los destaca
   enterraría nuestro diferencial —cruzar organismos—: media taxonomía de tramites.pro (Hacienda,
   Seguridad Social, Tráfico) es el organigrama del Estado, no un hecho vital.
 
+## El modelo territorial ya está (17/07)
+
+Primer paso construido, antes que la navegación: cada trámite tiene `nivel`
+(estatal / autonomico / local) y, si no es estatal, su `comunidad`. **"Tu zona"** se pregunta una
+vez y se recuerda en el navegador; el catálogo filtra por ella y, si eliges una comunidad de la que
+aún no tenemos fichas, lo dice con honestidad en vez de darte la de Madrid. Así un mismo concepto
+("beca de comedor") admite una ficha por comunidad sin mezclarlas — cada una con su fuente y su
+cita, nunca un esqueleto sintetizado. Falta: la navegación por hechos vitales (cuando haya masa) y
+curar comunidades más allá de Madrid.
+
 ## Los cimientos (transversales a todo)
 
 No son un hecho vital: son los documentos base de los que cuelga casi todo lo demás. Viven aparte
