@@ -9,6 +9,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Y a mano, con el botón "Run workflow" de la pestaña Actions, sin tener que
+  # inventarse un commit para relanzarlo.
+  workflow_dispatch:
 
 jobs:
   verificar:
