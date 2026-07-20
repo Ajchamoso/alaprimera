@@ -11,11 +11,15 @@ Proyecto del reto Viberano (233 Academy): vibe coding puro.
 
 ## Fuentes de verdad (leer antes de construir nada)
 
-- [spec.md](./spec.md) — el QUÉ. 9 historias, 29 FRs, decisiones cerradas. No se contradice.
-- [plan.md](./plan.md) — el CÓMO. Stack, modelo de datos, fases. Si hay que desviarse, se actualiza
-  el plan en el mismo commit y se explica por qué.
-- [tasks.md](./tasks.md) — el desglose; se marcan las tareas al completarse.
-- La documentación de discovery (hipótesis, mapa de historias) vive en el repo `Viberano`.
+**Toda la documentación vive en `docs/`.** En el raíz solo quedan `README.md` y este fichero.
+
+- [docs/spec.md](./docs/spec.md) — el QUÉ. 9 historias, 29 FRs, decisiones cerradas. No se contradice.
+- [docs/plan.md](./docs/plan.md) — el CÓMO. Stack, modelo de datos, fases. Si hay que desviarse, se
+  actualiza el plan en el mismo commit y se explica por qué.
+- [docs/tasks.md](./docs/tasks.md) — el desglose; se marcan las tareas al completarse.
+- [docs/discovery/](./docs/discovery/README.md) — el discovery congelado (hipótesis, mapa de
+  historias, ideas descartadas), copiado del repo `Viberano`. Es contexto histórico, no fuente de
+  verdad: si choca con el spec, manda el spec. No se actualiza.
 
 ## Skills del proyecto
 
@@ -49,7 +53,7 @@ Proyecto del reto Viberano (233 Academy): vibe coding puro.
 ## Diseño: la identidad es EL SELLO (no la rompas sin querer)
 
 El aspecto por defecto de una app generada con IA es reconocible y ya lo tuvimos: verde esmeralda
-sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (plan.md §4bis). Reglas:
+sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (docs/plan.md §4bis). Reglas:
 
 6. **Colores solo por token semántico**: `papel`, `hoja`, `tinta`, `tinta-media`, `tinta-tenue`,
    `linea`, `sello` (violeta), `pendiente` (rojo). Se escribe `text-sello`, nunca `text-violet-600`.

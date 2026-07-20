@@ -29,7 +29,7 @@ si una decisión resulta mala en agosto, se cambia el plan, no la spec.
 | UI | **Tailwind CSS + shadcn/ui** | Componentes accesibles de serie; velocidad de prompt-a-pantalla |
 | BD + Auth | **Supabase** (Postgres, Auth magic link, RLS) | Cubre FR-011/012 (login sin contraseña) y estado persistente sin construir backend propio |
 | Hosting | **Vercel** (plan free) | URL pública en minutos (requisito del reto), deploy = git push, previews por rama |
-| Motor IA | ~~Claude API desde función serverless~~ → **extracción en sesión de Claude Code** (17/07) | Sin API key: el equipo la descarta y una suscripción de Claude Code no puede vivir en Vercel. El diseño ya decía que el motor es curación offline que el usuario nunca ve, así que la herramienta cambia y el flujo no: IA extrae con citas → humano verifica → sello. Ver [docs/preparar-fichas.md](docs/preparar-fichas.md) |
+| Motor IA | ~~Claude API desde función serverless~~ → **extracción en sesión de Claude Code** (17/07) | Sin API key: el equipo la descarta y una suscripción de Claude Code no puede vivir en Vercel. El diseño ya decía que el motor es curación offline que el usuario nunca ve, así que la herramienta cambia y el flujo no: IA extrae con citas → humano verifica → sello. Ver [docs/preparar-fichas.md](./preparar-fichas.md) |
 | Impresión | CSS `@media print` nativo | El imprimible (FR-016) sin dependencias: HTML bien hecho |
 
 **Descartado a propósito:**

@@ -51,7 +51,7 @@ email real (T-014) y las 4 fichas de la CM confirmar el enlace "firma electróni
 **Decisión:** el motor NO se construye como feature de la app (sin API key). En su lugar, la
 extracción se hace **en sesión de Claude Code** y las fichas se vuelcan con `npm run db:seed`.
 Mismo flujo que diseñamos (IA extrae con citas → humano verifica → sello), sin pipeline que
-mantener, sin coste y más rápido hasta las 11 fichas. Ver [docs/preparar-fichas.md](docs/preparar-fichas.md).
+mantener, sin coste y más rápido hasta las 11 fichas. Ver [docs/preparar-fichas.md](./preparar-fichas.md).
 
 Motivo técnico: la app desplegada corre en Vercel; una suscripción de Claude Code no puede vivir
 ahí. La alternativa era una API key, que el equipo descarta.

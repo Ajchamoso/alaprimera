@@ -10,15 +10,16 @@ Claude Code, sin editar una línea de código a mano.
 
 ## Documentos (este repo es la fuente de verdad de la construcción)
 
-- [spec.md](./spec.md) — especificación SDD viva (el QUÉ): historias, 29 requisitos, entidades, criterios de éxito.
-- [plan.md](./plan.md) — plan técnico (el CÓMO): stack, arquitectura, modelo de datos, identidad visual, fases.
-- [tasks.md](./tasks.md) — el desglose en tareas y su estado.
+Toda la documentación está en [`docs/`](./docs).
+
+- [docs/spec.md](./docs/spec.md) — especificación SDD viva (el QUÉ): historias, 29 requisitos, entidades, criterios de éxito.
+- [docs/plan.md](./docs/plan.md) — plan técnico (el CÓMO): stack, arquitectura, modelo de datos, identidad visual, fases.
+- [docs/tasks.md](./docs/tasks.md) — el desglose en tareas y su estado.
 - [docs/preparar-fichas.md](./docs/preparar-fichas.md) — cómo se prepara, verifica y mantiene una ficha, y qué aprendimos curándolas.
 - [docs/estado-catalogo.md](./docs/estado-catalogo.md) — **recuento vivo del catálogo** (fichas, verificadas y pendientes por hecho vital), generado desde los datos con `npm run docs`.
 - [docs/hechos-vitales.md](./docs/hechos-vitales.md) — el backlog del catálogo (~55 trámites) y el diseño de la futura navegación por hechos vitales.
+- [docs/discovery/](./docs/discovery/README.md) — el *discovery* congelado: cómo se llegó a la idea (hipótesis, mapa de historias, ideas descartadas, el pivote desde SpecLens). Copiado del repo `Viberano` de la propuesta; son snapshots de julio de 2026 y no se actualizan.
 - [CLAUDE.md](./CLAUDE.md) / [AGENTS.md](./AGENTS.md) — reglas del reto y del producto para cada sesión, con las skills `/preparar-ficha` y `/revisar-codigo` y la red de seguridad de tests.
-- El *discovery* (hipótesis, mapa de historias, análisis competitivo, el pivote desde SpecLens) vive
-  en el repo `Viberano` de la propuesta.
 
 ## Estado (17/07/2026)
 
@@ -35,7 +36,7 @@ Claude Code, sin editar una línea de código a mano.
 - **Compartir** por enlace de solo lectura · **"¿salió a la primera?"** · **reportar error**
 
 Con identidad propia: **el sello** (papel de expediente, tinta y violeta de sello de caucho, IBM
-Plex, iconos SVG). Ni rastro del aspecto por defecto con el que nació. Ver [plan.md §4bis](./plan.md).
+Plex, iconos SVG). Ni rastro del aspecto por defecto con el que nació. Ver [plan.md §4bis](./docs/plan.md).
 
 **La única deuda del proyecto:** las fichas están extraídas de fuentes oficiales **con cita
 literal**, pero marcadas "⚠️ Generada por IA — sin verificar". Falta el cotejo humano contra la
