@@ -113,6 +113,13 @@ profiles            user_id, es_curadora (bool)
 - **RLS en todo**: checklists/feedback solo del dueño; `tramites` publicadas legibles por
   cualquiera; borradores y jobs solo curadoras. El share funciona por token con una policy de
   lectura específica.
+- **`anon` solo lee el catálogo** *(migración 0004, 20/07)*: el rol anónimo tiene `select` sobre las
+  seis tablas del catálogo y nada más. Toda escritura del producto (reportes, feedback, shares) va
+  por server action con la service role, que nunca llega al navegador. Dos motivos para no confiar
+  solo en RLS: la anon key viaja en el JavaScript de la web, y **RLS no se aplica a `TRUNCATE`**, que
+  Supabase concede por defecto a `anon` sobre todo el esquema. Las tablas nuevas nacen sin permisos
+  para `anon` (`alter default privileges`), igual que nacen con RLS por el event trigger
+  `rls_auto_enable`.
 
 ## 4bis. Identidad visual: el sello *(añadida el 17/07)*
 

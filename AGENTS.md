@@ -93,6 +93,10 @@ sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (docs/pl
   suya. Un autonómico nuevo se cura POR comunidad; no se comparte "un esqueleto con variantes"
   (sería síntesis, contra la regla de oro).
 - Migraciones de BD versionadas en el repo; RLS activado en toda tabla desde su creación.
+- **El rol `anon` solo lee el catálogo** (migración 0004). Si una feature nueva necesita escribir en
+  BD, la escritura va en una **server action con la service role**, no ampliando permisos de `anon`:
+  su clave viaja en el JavaScript del navegador, y el repo es público, así que el esquema se conoce.
+  Y no basta con escribir una policy: `TRUNCATE` ignora RLS, así que los permisos de tabla mandan.
 - Tras cada fase del plan: recorrido manual en la URL pública, no solo en local.
 
 ## Red de seguridad (tests) — corre `npm test` antes de cada commit

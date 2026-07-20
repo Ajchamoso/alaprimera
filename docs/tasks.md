@@ -120,3 +120,16 @@ Como todo se construye por prompts, se montó una red que caza regresiones antes
       con test anti-deriva.
 - [x] **T-032** Ficha de inscripción de nacimiento curada con cita (arranque de la cadena "nace un
       hijo"). La prestación por nacimiento queda aplazada (seg-social bloquea la extracción).
+
+## Apertura del repo *(20/07)*
+
+- [x] **T-033** Toda la documentación reunida en `docs/`, con el discovery de Viberano congelado en
+      `docs/discovery/`. En el raíz solo quedan README y AGENTS.
+- [x] **T-034** Licencia MIT y autoría de Alberto Chamoso y Mónica González, con el crédito de la
+      red de seguridad de calidad donde corresponde.
+- [x] **T-035** Auditoría previa a publicar: sin secretos en el árbol ni en el historial, sin datos
+      personales, RLS en las 12 tablas. Se reescribió el correo del autor de los 42 commits al
+      `noreply` de GitHub para no publicar una dirección real; queda dicho en el README.
+- [x] **T-036** Migración `0004_permisos_anon`: cerrada la política de alta pública de `reportes`
+      (la app escribe con service role), acotados sus textos, y `anon` reducido a `select` sobre el
+      catálogo. Quita el `TRUNCATE` que Supabase concede por defecto y que RLS no frena.
