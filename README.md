@@ -59,7 +59,13 @@ sin API key, y queda como R2.
 
 ## Red de seguridad (calidad)
 
-Como se construye 100% por prompts, hay una red que evita que un cambio rompa lo que funcionaba:
+Como se construye 100% por prompts, hay una red que evita que un cambio rompa lo que funcionaba.
+
+> Esta sección entera existe porque **Mónica González** la pidió: tests automáticos que validen que
+> una funcionalidad nueva no rompe lo que ya funcionaba, una skill que valide que el código es
+> mantenible y sigue patrones que faciliten evolucionar la plataforma, documentación generada de
+> forma automática y validaciones de accesibilidad. El listado de abajo es esa petición,
+> implementada.
 
 - **Tests (Vitest, `npm test`)** — blindan las invariantes que dan confianza: la regla de oro
   (fichas ancladas a su fuente; pendientes que no publican contenido), la estructura del wizard, la
@@ -92,6 +98,13 @@ Variables de entorno en `.env.local` (no versionado): `NEXT_PUBLIC_SUPABASE_URL`
 
 Proyecto de **Alberto Chamoso y Mónica González** para el Viberano de la Comunidad IÁgil de
 233 Academy.
+
+De Mónica salen dos cosas que dan forma al proyecto: la **visión inicial del producto** (una web
+donde ver requisitos y procedimientos de las gestiones con organismos oficiales, ver
+[docs/discovery/ideas.md](./docs/discovery/ideas.md)) y toda la **[red de seguridad de
+calidad](#red-de-seguridad-calidad)**: los tests de regresión, la skill que valida mantenibilidad,
+la documentación generada sola y las validaciones de accesibilidad. En una app escrita por prompts,
+eso no es un extra: es lo que permite seguir cambiándola sin miedo.
 
 El historial de git sale a nombre de una sola persona porque los commits se lanzaron desde una
 máquina: en este reto el historial es la evidencia de que todo el código se escribió con Claude
