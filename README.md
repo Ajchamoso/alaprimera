@@ -107,8 +107,14 @@ la documentación generada sola y las validaciones de accesibilidad. En una app 
 eso no es un extra: es lo que permite seguir cambiándola sin miedo.
 
 El historial de git sale a nombre de una sola persona porque los commits se lanzaron desde una
-máquina: en este reto el historial es la evidencia de que todo el código se escribió con Claude
-Code, así que no se reescribe. La autoría del proyecto es de las dos personas.
+máquina. En este reto el historial es la evidencia de que todo el código se escribió con Claude
+Code, así que su contenido no se toca. La autoría del proyecto es de las dos personas.
+
+Con una excepción, dicha aquí para que nadie la descubra por su cuenta: antes de abrir el repo se
+reescribió la **dirección de correo del autor** en los 42 commits que existían, cambiando una
+dirección personal por la de tipo `noreply` de GitHub, para no publicarla. Solo cambió la firma. Los
+mensajes, las fechas, el orden y el contenido de cada commit son los mismos, y se comprobó que el
+árbol de ficheros resultante es idéntico al anterior.
 
 Código bajo licencia [MIT](./LICENSE): úsalo, cópialo y adáptalo. Ojo con el aviso del principio si
 lo que te llevas son las fichas de trámites y no el código.
