@@ -8,6 +8,15 @@ a la primera, sin que te frene a mitad un requisito que no sabías que necesitab
 App del reto **Viberano** (Comunidad IÁgil de 233 Academy) — construida 100% mediante prompts con
 Claude Code, sin editar una línea de código a mano.
 
+Proyecto de **Alberto Chamoso y Mónica González**.
+
+> ⚠️ **Si vas a reutilizar esto, lee primero:** las fichas de trámites del catálogo están extraídas
+> de fuentes oficiales con cita literal, pero **la mayoría siguen sin cotejo humano** y así se
+> marcan en la app. No las publiques como información oficial ni las copies a otro producto sin
+> verificarlas contra la fuente: una ficha con requisitos desfasados hace que alguien pierda una
+> mañana en una ventanilla. El detalle del proceso está en
+> [docs/preparar-fichas.md](./docs/preparar-fichas.md).
+
 ## Documentos (este repo es la fuente de verdad de la construcción)
 
 Toda la documentación está en [`docs/`](./docs).
@@ -78,3 +87,15 @@ ficha cotejada), `npm run buzon` (qué te está diciendo la gente: fallos y repo
 Variables de entorno en `.env.local` (no versionado): `NEXT_PUBLIC_SUPABASE_URL`,
 `NEXT_PUBLIC_SUPABASE_ANON_KEY`, y para tareas de servidor/seed `SUPABASE_SERVICE_ROLE_KEY` y
 `DATABASE_URL`. Migraciones en `supabase/migrations/`; seed del catálogo con `npm run db:seed`.
+
+## Autoría y licencia
+
+Proyecto de **Alberto Chamoso y Mónica González** para el Viberano de la Comunidad IÁgil de
+233 Academy.
+
+El historial de git sale a nombre de una sola persona porque los commits se lanzaron desde una
+máquina: en este reto el historial es la evidencia de que todo el código se escribió con Claude
+Code, así que no se reescribe. La autoría del proyecto es de las dos personas.
+
+Código bajo licencia [MIT](./LICENSE): úsalo, cópialo y adáptalo. Ojo con el aviso del principio si
+lo que te llevas son las fichas de trámites y no el código.
