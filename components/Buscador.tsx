@@ -200,7 +200,7 @@ function TarjetaFicha({ t, compacto = false }: { t: Tramite; compacto?: boolean 
         <h3 className={compacto ? "font-semibold" : "text-lg font-semibold"}>{t.nombreColoquial}</h3>
         {t.verificadaEn === null && (
           <span className="rounded-xs border border-pendiente px-1.5 py-0.5 font-cond text-[10px] font-bold uppercase tracking-widest text-pendiente">
-            Sin verificar
+            Por verificar
           </span>
         )}
         {t.prerequisitos.length > 0 && (

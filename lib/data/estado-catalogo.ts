@@ -31,7 +31,7 @@ export function generaEstadoCatalogo(): string {
   // ── Resumen ──
   L.push("## Resumen");
   L.push("");
-  L.push(`- **Fichas**: ${reales.length} (${verificadas.length} verificadas, ${reales.length - verificadas.length} sin verificar)`);
+  L.push(`- **Fichas**: ${reales.length} (${verificadas.length} verificadas, ${reales.length - verificadas.length} por verificar)`);
   L.push(`- **Pendientes** (backlog sin ficha): ${pendientes.length}`);
   L.push(`- **Total de entradas del catálogo**: ${reales.length + pendientes.length}`);
   L.push("");
@@ -59,7 +59,7 @@ export function generaEstadoCatalogo(): string {
   L.push("|---|---|---|---|---|");
   for (const t of reales) {
     const fecha = verificadaEn(t.slug);
-    const sello = fecha ?? "— sin verificar";
+    const sello = fecha ?? "— por verificar";
     L.push(`| \`${t.slug}\` | ${t.nombreColoquial} | ${t.nivel} | ${zonaDe(t.nivel, t.comunidad)} | ${sello} |`);
   }
   L.push("");

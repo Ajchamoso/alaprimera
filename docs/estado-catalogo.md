@@ -6,7 +6,7 @@
 
 ## Resumen
 
-- **Fichas**: 22 (0 verificadas, 22 sin verificar)
+- **Fichas**: 22 (0 verificadas, 22 por verificar)
 - **Pendientes** (backlog sin ficha): 22
 - **Total de entradas del catálogo**: 44
 
@@ -31,28 +31,28 @@
 
 | Slug | Trámite | Nivel | Zona | Verificada |
 |---|---|---|---|---|
-| `apoderamiento` | Poder actuar en nombre de otra persona | estatal | España | — sin verificar |
-| `beca-comedor-aragon` | La beca de comedor del cole | autonomico | Aragón | — sin verificar |
-| `beca-comedor-madrid` | La beca de comedor del cole | autonomico | Comunidad de Madrid | — sin verificar |
-| `carnet-conducir` | Sacarse el carnet de conducir | estatal | España | — sin verificar |
-| `certificado-defuncion` | El certificado de defunción | estatal | España | — sin verificar |
-| `certificado-digital-fnmt` | El certificado para hacer trámites por internet | estatal | España | — sin verificar |
-| `certificado-nacimiento` | El certificado de nacimiento | estatal | España | — sin verificar |
-| `clave` | Cl@ve, la identidad electrónica del Estado | estatal | España | — sin verificar |
-| `dni-primera-vez` | El primer DNI (de un niño o niña) | estatal | España | — sin verificar |
-| `empadronamiento-madrid` | Empadronarse en Madrid | local | Comunidad de Madrid | — sin verificar |
-| `empadronamiento-zaragoza` | Empadronarse en Zaragoza | local | Aragón | — sin verificar |
-| `familia-numerosa-aragon` | El título de familia numerosa | autonomico | Aragón | — sin verificar |
-| `familia-numerosa-madrid` | El título de familia numerosa | autonomico | Comunidad de Madrid | — sin verificar |
-| `inscripcion-nacimiento` | Inscribir al recién nacido | estatal | España | — sin verificar |
-| `matriculacion-vehiculo` | Matricular un vehículo | estatal | España | — sin verificar |
-| `pasaporte` | El pasaporte | estatal | España | — sin verificar |
-| `renovacion-dni` | Renovar el carnet de identidad | estatal | España | — sin verificar |
-| `seguros-fallecimiento` | Saber qué seguros de vida tenía | estatal | España | — sin verificar |
-| `tarjeta-sanitaria-aragon` | La tarjeta sanitaria | autonomico | Aragón | — sin verificar |
-| `tarjeta-sanitaria-madrid` | La tarjeta sanitaria | autonomico | Comunidad de Madrid | — sin verificar |
-| `transferencia-vehiculo` | Cambiar un coche de dueño | estatal | España | — sin verificar |
-| `ultimas-voluntades` | El certificado de últimas voluntades | estatal | España | — sin verificar |
+| `apoderamiento` | Poder actuar en nombre de otra persona | estatal | España | — por verificar |
+| `beca-comedor-aragon` | La beca de comedor del cole | autonomico | Aragón | — por verificar |
+| `beca-comedor-madrid` | La beca de comedor del cole | autonomico | Comunidad de Madrid | — por verificar |
+| `carnet-conducir` | Sacarse el carnet de conducir | estatal | España | — por verificar |
+| `certificado-defuncion` | El certificado de defunción | estatal | España | — por verificar |
+| `certificado-digital-fnmt` | El certificado para hacer trámites por internet | estatal | España | — por verificar |
+| `certificado-nacimiento` | El certificado de nacimiento | estatal | España | — por verificar |
+| `clave` | Cl@ve, la identidad electrónica del Estado | estatal | España | — por verificar |
+| `dni-primera-vez` | El primer DNI (de un niño o niña) | estatal | España | — por verificar |
+| `empadronamiento-madrid` | Empadronarse en Madrid | local | Comunidad de Madrid | — por verificar |
+| `empadronamiento-zaragoza` | Empadronarse en Zaragoza | local | Aragón | — por verificar |
+| `familia-numerosa-aragon` | El título de familia numerosa | autonomico | Aragón | — por verificar |
+| `familia-numerosa-madrid` | El título de familia numerosa | autonomico | Comunidad de Madrid | — por verificar |
+| `inscripcion-nacimiento` | Inscribir al recién nacido | estatal | España | — por verificar |
+| `matriculacion-vehiculo` | Matricular un vehículo | estatal | España | — por verificar |
+| `pasaporte` | El pasaporte | estatal | España | — por verificar |
+| `renovacion-dni` | Renovar el carnet de identidad | estatal | España | — por verificar |
+| `seguros-fallecimiento` | Saber qué seguros de vida tenía | estatal | España | — por verificar |
+| `tarjeta-sanitaria-aragon` | La tarjeta sanitaria | autonomico | Aragón | — por verificar |
+| `tarjeta-sanitaria-madrid` | La tarjeta sanitaria | autonomico | Comunidad de Madrid | — por verificar |
+| `transferencia-vehiculo` | Cambiar un coche de dueño | estatal | España | — por verificar |
+| `ultimas-voluntades` | El certificado de últimas voluntades | estatal | España | — por verificar |
 
 ## Pendientes (backlog)
 

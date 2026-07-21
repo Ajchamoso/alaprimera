@@ -10,12 +10,9 @@ Claude Code, sin editar una línea de código a mano.
 
 Proyecto de **Alberto Chamoso y Mónica González**.
 
-> ⚠️ **Si vas a reutilizar esto, lee primero:** las fichas de trámites del catálogo están extraídas
-> de fuentes oficiales con cita literal, pero **la mayoría siguen sin cotejo humano** y así se
-> marcan en la app. No las publiques como información oficial ni las copies a otro producto sin
-> verificarlas contra la fuente: una ficha con requisitos desfasados hace que alguien pierda una
-> mañana en una ventanilla. El detalle del proceso está en
-> [docs/preparar-fichas.md](./docs/preparar-fichas.md).
+Las fichas del catálogo se extraen de sus fuentes oficiales con cita literal, y la app distingue
+las cotejadas por el equipo (sello con fecha) de las que están por verificar. Si reutilizas el
+catálogo, contrasta cada ficha con su fuente.
 
 ## Documentos (este repo es la fuente de verdad de la construcción)
 
@@ -47,9 +44,10 @@ Toda la documentación está en [`docs/`](./docs).
 Con identidad propia: **el sello** (papel de expediente, tinta y violeta de sello de caucho, IBM
 Plex, iconos SVG). Ni rastro del aspecto por defecto con el que nació. Ver [plan.md §4bis](./docs/plan.md).
 
-**La única deuda del proyecto:** las fichas están extraídas de fuentes oficiales **con cita
-literal**, pero marcadas "⚠️ Generada por IA — sin verificar". Falta el cotejo humano contra la
-fuente — el único paso que ninguna IA puede hacer. Ver [docs/preparar-fichas.md](./docs/preparar-fichas.md).
+**Verificación del catálogo:** cada ficha nace extraída de su fuente oficial con cita literal y
+marcada "por verificar"; cuando el equipo la coteja contra la fuente, recibe el sello con fecha
+(`npm run verificar <slug>`). El proceso está en [docs/preparar-fichas.md](./docs/preparar-fichas.md)
+y el recuento vivo en [docs/estado-catalogo.md](./docs/estado-catalogo.md).
 
 **Fases del plan:** 0 (esqueleto), 1 (walking skeleton), 2 (cuentas y sync) y 3 (confianza y cierre)
 completas. El motor de curación automático (Historia 9 de la spec) se reenfocó a extracción asistida
@@ -59,7 +57,7 @@ sin API key, y queda como R2.
 
 ## Red de seguridad (calidad)
 
-Como se construye 100% por prompts, hay una red que evita que un cambio rompa lo que funcionaba.
+Una red automática evita que un cambio rompa lo que ya funcionaba.
 
 > Esta sección entera existe porque **Mónica González** la pidió: tests automáticos que validen que
 > una funcionalidad nueva no rompe lo que ya funcionaba, una skill que valide que el código es
@@ -103,8 +101,8 @@ De Mónica salen dos cosas que dan forma al proyecto: la **visión inicial del p
 donde ver requisitos y procedimientos de las gestiones con organismos oficiales, ver
 [docs/discovery/ideas.md](./docs/discovery/ideas.md)) y toda la **[red de seguridad de
 calidad](#red-de-seguridad-calidad)**: los tests de regresión, la skill que valida mantenibilidad,
-la documentación generada sola y las validaciones de accesibilidad. En una app escrita por prompts,
-eso no es un extra: es lo que permite seguir cambiándola sin miedo.
+la documentación generada sola y las validaciones de accesibilidad. Es lo que permite seguir
+cambiando la app sin miedo.
 
 El historial de git sale a nombre de una sola persona porque los commits se lanzaron desde una
 máquina. En este reto el historial es la evidencia de que todo el código se escribió con Claude
@@ -116,5 +114,5 @@ dirección personal por la de tipo `noreply` de GitHub, para no publicarla. Solo
 mensajes, las fechas, el orden y el contenido de cada commit son los mismos, y se comprobó que el
 árbol de ficheros resultante es idéntico al anterior.
 
-Código bajo licencia [MIT](./LICENSE): úsalo, cópialo y adáptalo. Ojo con el aviso del principio si
-lo que te llevas son las fichas de trámites y no el código.
+Código bajo licencia [MIT](./LICENSE): úsalo, cópialo y adáptalo. Si lo que te llevas son las
+fichas de trámites y no el código, contrasta cada una con su fuente oficial.

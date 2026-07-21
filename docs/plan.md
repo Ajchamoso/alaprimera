@@ -145,7 +145,7 @@ sello**: verificar, sellar, caducar. La identidad es la de una ventanilla.
 | `tinta` / `tinta-media` / `tinta-tenue` | `#24221F` / `#635C52` / `#A79E92` | texto |
 | `linea` | `#D8D1C4` | filetes |
 | `sello` | `#5A3A82` | violeta de sello de caucho: verificado, acento |
-| `pendiente` | `#A8342B` | rojo de "PENDIENTE": sin verificar, avisos |
+| `pendiente` | `#A8342B` | rojo de "PENDIENTE": por verificar, avisos |
 
 **Reglas que lo sostienen:**
 

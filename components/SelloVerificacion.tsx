@@ -30,8 +30,8 @@ export function SelloVerificacion({
 
   if (verificadaEn === null) {
     return (
-      <Estampa color="pendiente" doble titulo="Sin verificar">
-        {generadaPorIa ? "generada por IA · confirma en la fuente" : "confirma en la fuente oficial"}
+      <Estampa color="pendiente" doble titulo="Por verificar">
+        {generadaPorIa ? "obtenida con IA · confirma en la fuente" : "confirma en la fuente oficial"}
       </Estampa>
     );
   }

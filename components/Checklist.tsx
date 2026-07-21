@@ -292,7 +292,7 @@ function Preparacion({
         )}
         <p className="text-tinta-tenue">
           Fuente oficial: {tramite.urlFuente}
-          {tramite.verificadaEn === null && " · ficha sin verificar, confirma antes de ir"}
+          {tramite.verificadaEn === null && " · ficha por verificar, confirma antes de ir"}
         </p>
       </div>
 

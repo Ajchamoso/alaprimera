@@ -44,8 +44,7 @@ export default async function PaginaTramite({
         <p className="max-w-prose text-tinta-media">
           Este trámite está en el catálogo, pero aún no le hemos hecho la ficha. Cuando la tengamos
           extraída de la fuente oficial y verificada, aquí tendrás tu checklist personalizada: los
-          papeles, los requisitos técnicos y los trámites escondidos de tu caso. No la publicamos
-          antes de tenerla verificada, para no darte información sin comprobar.
+          papeles, los requisitos técnicos y los trámites escondidos de tu caso.
         </p>
       </article>
     );
