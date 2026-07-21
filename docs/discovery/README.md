@@ -14,6 +14,3 @@
 | [hipotesis.md](./hipotesis.md) | La apuesta escrita para poder ser invalidada: a quién duele, qué se asume, qué la tumbaría. |
 | [mapa-historias.md](./mapa-historias.md) | El mapa de historias v3: el recorrido del usuario y el recorte a "funcionalmente completo, volumen reducido". |
 | [guion-duelo.md](./guion-duelo.md) | Operativa del experimento de validación (opcional, nunca fue puerta de entrada). |
-
-El `spec.md` y el `README.md` de aquel repo no se copiaron a propósito: el spec de Viberano es una
-foto anterior al spec vigente y tener dos fuentes de verdad invita al error.
