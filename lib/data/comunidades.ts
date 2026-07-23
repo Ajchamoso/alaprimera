@@ -12,7 +12,6 @@ export interface Comunidad {
 }
 
 export const comunidades: Comunidad[] = [
-  { codigo: "madrid", nombre: "Comunidad de Madrid" },
   { codigo: "andalucia", nombre: "Andalucía" },
   { codigo: "aragon", nombre: "Aragón" },
   { codigo: "asturias", nombre: "Principado de Asturias" },
@@ -22,15 +21,16 @@ export const comunidades: Comunidad[] = [
   { codigo: "castilla-la-mancha", nombre: "Castilla-La Mancha" },
   { codigo: "castilla-leon", nombre: "Castilla y León" },
   { codigo: "cataluna", nombre: "Cataluña" },
-  { codigo: "valencia", nombre: "Comunitat Valenciana" },
+  { codigo: "ceuta", nombre: "Ceuta" },
   { codigo: "extremadura", nombre: "Extremadura" },
   { codigo: "galicia", nombre: "Galicia" },
+  { codigo: "la-rioja", nombre: "La Rioja" },
+  { codigo: "madrid", nombre: "Comunidad de Madrid" },
+  { codigo: "melilla", nombre: "Melilla" },
   { codigo: "murcia", nombre: "Región de Murcia" },
   { codigo: "navarra", nombre: "Comunidad Foral de Navarra" },
   { codigo: "pais-vasco", nombre: "País Vasco" },
-  { codigo: "la-rioja", nombre: "La Rioja" },
-  { codigo: "ceuta", nombre: "Ceuta" },
-  { codigo: "melilla", nombre: "Melilla" },
+  { codigo: "valencia", nombre: "Comunitat Valenciana" },
 ];
 
 const porCodigo = new Map(comunidades.map((c) => [c.codigo, c]));
