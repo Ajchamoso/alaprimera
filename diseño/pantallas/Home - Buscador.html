@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A la Primera — Catálogo de Trámites</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <title>A la Primera · Catálogo de trámites</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -13,373 +13,356 @@
     }
 
     :root {
-      /* Brand & Accent */
-      --primary: #9fe870;
-      --primary-active: #cdffad;
-      --primary-neutral: #c5edab;
-      --primary-pale: #e2f6d5;
+      /* Identidad: EL SELLO. Tokens de app/globals.css */
+      --papel: #efebe2;
+      --hoja: #f7f4ee;
+      --tinta: #24221f;
+      --tinta-media: #635c52;
+      --tinta-tenue: #726957;
+      --linea: #d8d1c4;
+      --sello: #5a3a82;
+      --sello-suave: #ede6f3;
+      --pendiente: #a8342b;
+      --pendiente-suave: #f7e7e4;
 
-      /* Surface */
-      --canvas: #ffffff;
-      --canvas-soft: #e8ebe6;
+      --sans: "IBM Plex Sans", -apple-system, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --cond: "IBM Plex Sans Condensed", sans-serif;
 
-      /* Text */
-      --ink: #0e0f0c;
-      --ink-deep: #163300;
-      --body: #454745;
-      --mute: #868685;
-
-      /* Semantic */
-      --positive: #2ead4b;
-      --positive-deep: #054d28;
-      --warning: #ffd11a;
-      --warning-deep: #b86700;
-      --negative: #d03238;
-      --negative-deep: #a72027;
-
-      /* Spacing */
-      --spacing-xs: 4px;
-      --spacing-sm: 8px;
-      --spacing-md: 12px;
-      --spacing-lg: 16px;
-      --spacing-xl: 24px;
-      --spacing-2xl: 32px;
-      --spacing-3xl: 48px;
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 12px;
+      --sp-lg: 16px;
+      --sp-xl: 24px;
+      --sp-2xl: 32px;
+      --sp-3xl: 48px;
     }
 
     html, body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--canvas-soft);
-      color: var(--ink);
+      font-family: var(--sans);
+      background-color: var(--papel);
+      color: var(--tinta);
       line-height: 1.5;
       min-height: 100vh;
     }
 
-    /* Mobile viewport: 375px width */
+    /* Maqueta en viewport móvil de 375px */
     .container {
       width: 375px;
       margin: 0 auto;
-      background: var(--canvas-soft);
+      background: var(--papel);
       overflow-x: hidden;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+      min-height: 100vh;
+      border-left: 1px solid var(--linea);
+      border-right: 1px solid var(--linea);
     }
 
-    /* ── NAV BAR ── */
-    .nav-bar {
+    /* ── BARRA SUPERIOR ── */
+    .barra-superior {
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: var(--canvas);
-      border-bottom: 1px solid #f0f0f0;
-      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--papel);
+      border-bottom: 1px solid var(--linea);
+      padding: var(--sp-md) var(--sp-lg);
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 56px;
     }
 
-    .nav-logo {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
-      font-family: Inter, sans-serif;
-      white-space: nowrap;
+    .logo {
+      font-family: var(--cond);
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tinta);
     }
 
-    .nav-logo .primary-text {
-      color: var(--primary);
-      font-weight: 900;
+    .logo .acento {
+      color: var(--sello);
     }
 
-    .hamburger {
-      width: 24px;
-      height: 24px;
+    .hamburguesa {
+      width: 48px;
+      height: 48px;
+      margin-right: -12px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       gap: 4px;
       cursor: pointer;
       background: none;
       border: none;
-      color: var(--ink);
     }
 
-    .hamburger span {
+    .hamburguesa span {
       width: 20px;
       height: 2px;
-      background-color: var(--ink);
-      border-radius: 1px;
+      background-color: var(--tinta);
     }
 
-    /* ── HERO BAND ── */
-    .hero-band {
-      background-color: var(--canvas-soft);
-      padding: var(--spacing-3xl) var(--spacing-lg);
+    /* ── PORTADA ── */
+    .portada {
+      padding: var(--sp-3xl) var(--sp-lg) var(--sp-xl);
       text-align: center;
     }
 
-    .hero-headline {
-      font-size: 47px;
-      font-weight: 900;
-      font-family: Inter, sans-serif;
-      line-height: 1.2;
-      margin-bottom: var(--spacing-md);
-      color: var(--ink);
-      letter-spacing: -1.08px;
+    .portada h1 {
+      font-family: var(--cond);
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.15;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: var(--sp-sm);
     }
 
-    .hero-subheadline {
+    .portada .lema {
       font-size: 18px;
-      font-weight: 400;
-      color: var(--body);
-      margin-bottom: var(--spacing-lg);
-      line-height: 1.4;
+      color: var(--tinta-media);
     }
 
-    /* ── SEARCH CONTAINER ── */
-    .search-band {
-      background-color: var(--canvas-soft);
-      padding: 0 var(--spacing-lg) var(--spacing-xl);
+    /* El sello de la portada: el elemento firma, estampado y girado */
+    .sello-portada {
+      display: inline-block;
+      margin-top: var(--sp-lg);
+      padding: var(--sp-xs) var(--sp-md);
+      border: 2px solid var(--sello);
+      outline: 1px solid var(--sello);
+      outline-offset: 2px;
+      transform: rotate(-2deg);
+      font-family: var(--cond);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--sello);
     }
 
-    .search-wrapper {
+    /* ── BUSCADOR ── */
+    .banda-buscador {
+      padding: var(--sp-lg) var(--sp-lg) var(--sp-2xl);
+    }
+
+    .buscador {
       display: flex;
-      gap: var(--spacing-sm);
+      gap: var(--sp-sm);
     }
 
-    .search-input {
+    .buscador input {
       flex: 1;
-      padding: var(--spacing-md) var(--spacing-lg);
+      min-width: 0;
+      padding: var(--sp-md) var(--sp-lg);
       font-size: 16px;
-      font-weight: 400;
-      font-family: Inter, sans-serif;
-      border: 1px solid var(--ink);
-      border-radius: 12px;
-      background-color: var(--canvas);
-      color: var(--ink);
+      font-family: var(--sans);
+      border: 1px solid var(--tinta-media);
+      border-radius: 8px;
+      background-color: var(--hoja);
+      color: var(--tinta);
       height: 48px;
     }
 
-    .search-input::placeholder {
-      color: var(--mute);
+    .buscador input::placeholder {
+      color: var(--tinta-tenue);
     }
 
-    .search-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1);
+    .buscador input:focus {
+      outline: 2px solid var(--sello);
+      outline-offset: 1px;
+      border-color: var(--sello);
     }
 
-    .btn-search {
-      padding: var(--spacing-md) var(--spacing-xl);
-      background-color: var(--primary);
-      color: var(--ink);
+    .boton-buscar {
+      padding: var(--sp-md) var(--sp-lg);
+      background-color: var(--sello);
+      color: #fff;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
-      font-family: Inter, sans-serif;
+      font-family: var(--sans);
       cursor: pointer;
       height: 48px;
-      min-width: 48px;
-      transition: background-color 0.2s ease;
+      min-width: 56px;
     }
 
-    .btn-search:hover {
-      background-color: var(--primary-active);
+    .boton-buscar:focus-visible {
+      outline: 2px solid var(--tinta);
+      outline-offset: 2px;
     }
 
-    .btn-search:active {
-      background-color: var(--positive-deep);
+    /* ── CATÁLOGO ── */
+    .catalogo {
+      background-color: var(--hoja);
+      border-top: 1px solid var(--linea);
+      padding: var(--sp-2xl) var(--sp-lg) var(--sp-3xl);
     }
 
-    .btn-search:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    .titulo-seccion {
+      font-family: var(--cond);
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--sp-xl);
     }
 
-    /* ── CONTENT BAND ── */
-    .content-band {
-      background-color: var(--canvas);
-      padding: var(--spacing-3xl) var(--spacing-lg);
-    }
-
-    .section-headline {
-      font-size: 32px;
-      font-weight: 900;
-      font-family: Inter, sans-serif;
-      margin-bottom: var(--spacing-2xl);
-      color: var(--ink);
-      letter-spacing: -0.96px;
-    }
-
-    /* ── HECHO VITAL CARD ── */
-    .hecho-vital-grid {
+    .lista-hechos {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--spacing-lg);
+      gap: var(--sp-md);
     }
 
-    .hecho-vital-card {
-      background-color: var(--primary-pale);
-      padding: var(--spacing-xl);
-      border-radius: 24px;
+    .hecho-vital {
+      background-color: var(--papel);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
       cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
+      text-align: left;
+      width: 100%;
+      font-family: var(--sans);
     }
 
-    .hecho-vital-card:hover {
-      background-color: var(--primary-neutral);
-      transform: translateY(-2px);
+    .hecho-vital:focus-visible {
+      outline: 2px solid var(--sello);
+      outline-offset: 2px;
     }
 
-    .hecho-vital-card.empty {
-      background-color: var(--canvas-soft);
-      color: var(--mute);
-    }
-
-    .hecho-vital-card.empty:hover {
-      background-color: #f5f5f3;
-    }
-
-    .hecho-vital-header {
+    .hecho-cabecera {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: var(--spacing-md);
+      gap: var(--sp-sm);
+      margin-bottom: var(--sp-xs);
     }
 
-    .hecho-vital-title {
-      font-size: 18px;
+    .hecho-titulo {
+      font-size: 17px;
       font-weight: 600;
-      color: var(--ink);
+      color: var(--tinta);
     }
 
-    .hecho-vital-count {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--primary-pale);
-      background-color: var(--positive-deep);
-      padding: 4px 12px;
-      border-radius: 12px;
+    .hecho-cuenta {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--sello);
+      background-color: var(--sello-suave);
+      padding: 2px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
     }
 
-    .hecho-vital-count.empty {
-      color: var(--mute);
+    .hecho-cuenta.preparacion {
+      color: var(--tinta-tenue);
       background-color: transparent;
+      border: 1px dashed var(--linea);
     }
 
-    .hecho-vital-description {
+    .hecho-descripcion {
       font-size: 14px;
-      color: var(--body);
-      line-height: 1.5;
+      color: var(--tinta-media);
     }
 
-    /* ── TRAMITES LIST (expandible) ── */
-    .tramites-list {
+    .hecho-vital.preparacion .hecho-titulo {
+      color: var(--tinta-media);
+    }
+
+    /* ── LISTA DE TRÁMITES (expandible) ── */
+    .lista-tramites {
       display: none;
-      margin-top: var(--spacing-lg);
-      padding-top: var(--spacing-lg);
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      margin-top: var(--sp-lg);
+      padding-top: var(--sp-sm);
+      border-top: 1px solid var(--linea);
     }
 
-    .tramites-list.active {
+    .lista-tramites.abierta {
       display: block;
     }
 
-    .tramite-row {
-      padding: var(--spacing-md) 0;
-      font-size: 14px;
-      color: var(--body);
+    .fila-tramite {
+      padding: var(--sp-md) 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      gap: var(--sp-sm);
+      border-bottom: 1px solid var(--linea);
     }
 
-    .tramite-row:last-child {
+    .fila-tramite:last-child {
       border-bottom: none;
     }
 
-    .tramite-name {
+    .nombre-tramite {
       flex: 1;
-      color: var(--ink-deep);
+      font-size: 15px;
       font-weight: 500;
+      color: var(--tinta);
     }
 
-    .tramite-badge {
-      font-size: 11px;
-      font-weight: 600;
-      background-color: var(--primary);
-      color: var(--ink);
-      padding: 2px 8px;
-      border-radius: 12px;
-      margin-left: var(--spacing-sm);
-      text-transform: capitalize;
-    }
-
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      padding: var(--spacing-3xl) var(--spacing-lg);
-      text-align: center;
-    }
-
-    .empty-state-icon {
-      font-size: 48px;
-      margin-bottom: var(--spacing-lg);
-      opacity: 0.5;
-    }
-
-    .empty-state-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .empty-state-text {
-      font-size: 14px;
-      color: var(--body);
-      line-height: 1.6;
-      margin-bottom: var(--spacing-xl);
-    }
-
-    /* ── FOOTER ── */
-    .footer {
-      background-color: var(--ink);
-      color: var(--canvas-soft);
-      padding: var(--spacing-3xl) var(--spacing-lg);
+    .nivel-tramite {
+      font-family: var(--mono);
       font-size: 12px;
+      color: var(--tinta-tenue);
+      white-space: nowrap;
+    }
+
+    /* ── ESTADO VACÍO ── */
+    .estado-vacio {
+      padding: var(--sp-2xl) var(--sp-lg);
+      text-align: center;
+    }
+
+    .estado-vacio svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--tinta-tenue);
+      margin-bottom: var(--sp-lg);
+    }
+
+    .estado-vacio-titulo {
+      font-family: var(--cond);
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--sp-sm);
+    }
+
+    .estado-vacio-texto {
+      font-size: 14px;
+      color: var(--tinta-media);
+      line-height: 1.6;
+    }
+
+    /* ── PIE ── */
+    .pie {
+      background-color: var(--papel);
+      border-top: 1px solid var(--linea);
+      color: var(--tinta-media);
+      padding: var(--sp-xl) var(--sp-lg);
+      font-size: 12px;
+      font-family: var(--mono);
       text-align: center;
       line-height: 1.6;
     }
 
-    .footer a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
+    .pie a {
+      color: var(--sello);
+      text-decoration: underline;
     }
 
-    /* ── UTILITIES ── */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
-    }
-
+    /* ── UTILIDADES ── */
     .skiplink {
       position: absolute;
       top: -40px;
       left: 0;
-      background-color: var(--primary);
-      color: var(--ink);
+      background-color: var(--sello);
+      color: #fff;
       padding: 8px 16px;
       text-decoration: none;
       z-index: 101;
@@ -393,188 +376,194 @@
   </style>
 </head>
 <body>
-  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+  <a href="#contenido" class="skiplink">Saltar al contenido principal</a>
   <div class="container">
-    <!-- NAV BAR -->
-    <nav class="nav-bar">
-      <div class="nav-logo">A <span class="primary-text">la</span> Primera</div>
-      <button class="hamburger" aria-label="Menú">
+    <!-- BARRA SUPERIOR -->
+    <nav class="barra-superior">
+      <div class="logo">A <span class="acento">la</span> Primera</div>
+      <button class="hamburguesa" aria-label="Menú">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </nav>
 
-    <!-- HERO BAND -->
-    <section class="hero-band">
-      <h1 class="hero-headline">Tu trámite</h1>
-      <p class="hero-subheadline">Con tus papeles, sin sorpresas</p>
-    </section>
+    <!-- PORTADA -->
+    <header class="portada">
+      <h1>Tu trámite</h1>
+      <p class="lema">Con tus papeles, sin sorpresas</p>
+      <div class="sello-portada" aria-hidden="true">Verificado contra la fuente</div>
+    </header>
 
-    <!-- SEARCH BAND -->
-    <div class="search-band">
-      <div class="search-wrapper">
+    <!-- BUSCADOR -->
+    <div class="banda-buscador">
+      <div class="buscador">
         <input
           type="text"
-          class="search-input"
-          id="searchInput"
+          id="buscador"
           placeholder="Lo del carnet de mi hijo…"
           aria-label="Busca tu trámite"
         >
-        <button class="btn-search" aria-label="Buscar">Ir</button>
+        <button class="boton-buscar" aria-label="Buscar">Ir</button>
       </div>
     </div>
 
-    <!-- CONTENT BAND -->
-    <main class="content-band" id="main-content">
-      <h2 class="section-headline">Según lo que estés viviendo</h2>
+    <!-- CATÁLOGO POR HECHO VITAL -->
+    <main class="catalogo" id="contenido">
+      <h2 class="titulo-seccion">Según lo que estés viviendo</h2>
 
-      <div class="hecho-vital-grid" id="hechosList">
+      <div class="lista-hechos" id="listaHechos">
         <!-- Documentos base -->
-        <div class="hecho-vital-card" onclick="toggleTramites(this)">
-          <div class="hecho-vital-header">
-            <h3 class="hecho-vital-title">Documentos base</h3>
-            <span class="hecho-vital-count">7</span>
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Documentos base</h3>
+            <span class="hecho-cuenta">7 fichas</span>
           </div>
-          <p class="hecho-vital-description">DNI, pasaporte, certificados</p>
-          <div class="tramites-list">
-            <div class="tramite-row">
-              <span class="tramite-name">Renovar el carnet de identidad</span>
-              <span class="tramite-badge">Estatal</span>
+          <p class="hecho-descripcion">DNI, pasaporte, certificados</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Renovar el carnet de identidad</span>
+              <span class="nivel-tramite">estatal</span>
             </div>
-            <div class="tramite-row">
-              <span class="tramite-name">El pasaporte</span>
-              <span class="tramite-badge">Estatal</span>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">El pasaporte</span>
+              <span class="nivel-tramite">estatal</span>
             </div>
-            <div class="tramite-row">
-              <span class="tramite-name">El primer DNI (de un niño)</span>
-              <span class="tramite-badge">Estatal</span>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">El primer DNI (de un niño o niña)</span>
+              <span class="nivel-tramite">estatal</span>
             </div>
           </div>
-        </div>
+        </button>
 
         <!-- Nace un hijo -->
-        <div class="hecho-vital-card" onclick="toggleTramites(this)">
-          <div class="hecho-vital-header">
-            <h3 class="hecho-vital-title">Nace un hijo</h3>
-            <span class="hecho-vital-count">4</span>
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Nace un hijo</h3>
+            <span class="hecho-cuenta">4 fichas</span>
           </div>
-          <p class="hecho-vital-description">Inscripción, certificados, prestaciones</p>
-          <div class="tramites-list">
-            <div class="tramite-row">
-              <span class="tramite-name">Inscribir al recién nacido</span>
-              <span class="tramite-badge">Estatal</span>
+          <p class="hecho-descripcion">Inscripción, certificados, prestaciones</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Inscribir al recién nacido</span>
+              <span class="nivel-tramite">estatal</span>
             </div>
-            <div class="tramite-row">
-              <span class="tramite-name">El certificado de nacimiento</span>
-              <span class="tramite-badge">Estatal</span>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">El certificado de nacimiento</span>
+              <span class="nivel-tramite">estatal</span>
             </div>
           </div>
-        </div>
+        </button>
 
         <!-- Empieza el cole -->
-        <div class="hecho-vital-card" onclick="toggleTramites(this)">
-          <div class="hecho-vital-header">
-            <h3 class="hecho-vital-title">Empieza el cole</h3>
-            <span class="hecho-vital-count">2</span>
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Empieza el cole</h3>
+            <span class="hecho-cuenta">2 fichas</span>
           </div>
-          <p class="hecho-vital-description">Admisión, becas, documentación</p>
-          <div class="tramites-list">
-            <div class="tramite-row">
-              <span class="tramite-name">Beca de comedor (Madrid)</span>
-              <span class="tramite-badge">Madrid</span>
+          <p class="hecho-descripcion">Admisión, becas, documentación</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Beca de comedor</span>
+              <span class="nivel-tramite">Madrid</span>
             </div>
-            <div class="tramite-row">
-              <span class="tramite-name">Beca de comedor (Aragón)</span>
-              <span class="tramite-badge">Aragón</span>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Beca de comedor</span>
+              <span class="nivel-tramite">Aragón</span>
             </div>
           </div>
-        </div>
+        </button>
 
-        <!-- Conducir -->
-        <div class="hecho-vital-card" onclick="toggleTramites(this)">
-          <div class="hecho-vital-header">
-            <h3 class="hecho-vital-title">Conducir y el coche</h3>
-            <span class="hecho-vital-count">3</span>
+        <!-- Conducir y el coche -->
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Conducir y el coche</h3>
+            <span class="hecho-cuenta">3 fichas</span>
           </div>
-          <p class="hecho-vital-description">Carnet de conducir, matriculación</p>
-          <div class="tramites-list">
-            <div class="tramite-row">
-              <span class="tramite-name">Sacarse el carnet de conducir</span>
-              <span class="tramite-badge">Estatal</span>
+          <p class="hecho-descripcion">Carnet de conducir, matriculación</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Sacarse el carnet de conducir</span>
+              <span class="nivel-tramite">estatal</span>
             </div>
-            <div class="tramite-row">
-              <span class="tramite-name">Matricular un vehículo</span>
-              <span class="tramite-badge">Estatal</span>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Matricular un vehículo</span>
+              <span class="nivel-tramite">estatal</span>
             </div>
           </div>
-        </div>
+        </button>
 
         <!-- Fallece un familiar -->
-        <div class="hecho-vital-card" onclick="toggleTramites(this)">
-          <div class="hecho-vital-header">
-            <h3 class="hecho-vital-title">Fallece un familiar</h3>
-            <span class="hecho-vital-count">3</span>
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Fallece un familiar</h3>
+            <span class="hecho-cuenta">3 fichas</span>
           </div>
-          <p class="hecho-vital-description">Certificados, seguros, pensiones</p>
-          <div class="tramites-list">
-            <div class="tramite-row">
-              <span class="tramite-name">Certificado de defunción</span>
-              <span class="tramite-badge">Estatal</span>
+          <p class="hecho-descripcion">Certificados, seguros, pensiones</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Certificado de defunción</span>
+              <span class="nivel-tramite">estatal</span>
             </div>
-            <div class="tramite-row">
-              <span class="tramite-name">Saber qué seguros tenía</span>
-              <span class="tramite-badge">Estatal</span>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Saber qué seguros tenía</span>
+              <span class="nivel-tramite">estatal</span>
             </div>
           </div>
-        </div>
+        </button>
 
         <!-- Cuido de un mayor (sin fichas aún) -->
-        <div class="hecho-vital-card empty">
-          <div class="hecho-vital-header">
-            <h3 class="hecho-vital-title">Cuido de un mayor</h3>
-            <span class="hecho-vital-count empty">Próximamente</span>
+        <div class="hecho-vital preparacion">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Cuido de un mayor</h3>
+            <span class="hecho-cuenta preparacion">en preparación</span>
           </div>
-          <p class="hecho-vital-description">Dependencia, tarjeta sanitaria</p>
+          <p class="hecho-descripcion">Dependencia, tarjeta sanitaria</p>
         </div>
 
         <!-- Empiezo a trabajar (sin fichas aún) -->
-        <div class="hecho-vital-card empty">
-          <div class="hecho-vital-header">
-            <h3 class="hecho-vital-title">Empiezo a trabajar</h3>
-            <span class="hecho-vital-count empty">Próximamente</span>
+        <div class="hecho-vital preparacion">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Empiezo a trabajar</h3>
+            <span class="hecho-cuenta preparacion">en preparación</span>
           </div>
-          <p class="hecho-vital-description">Seguridad Social, Hacienda</p>
+          <p class="hecho-descripcion">Seguridad Social, Hacienda</p>
         </div>
       </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      © 2026 A la Primera · <a href="#">Privacidad</a> · <a href="#">Sobre nosotros</a>
+    <!-- PIE -->
+    <footer class="pie">
+      © 2026 A la Primera · <a href="#">Privacidad</a> · <a href="#">Sobre el proyecto</a>
     </footer>
   </div>
 
   <script>
-    function toggleTramites(card) {
-      const list = card.querySelector('.tramites-list');
-      if (list) {
-        list.classList.toggle('active');
+    function alternarTramites(tarjeta) {
+      const lista = tarjeta.querySelector('.lista-tramites');
+      if (lista) {
+        const abierta = lista.classList.toggle('abierta');
+        tarjeta.setAttribute('aria-expanded', abierta);
       }
     }
 
-    // Búsqueda en tiempo real
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase();
-      if (query.length > 0) {
-        document.querySelector('.content-band').innerHTML = `
-          <h2 class="section-headline">Resultados para "<span style="color: var(--primary);">${query}</span>"</h2>
-          <div class="empty-state">
-            <div class="empty-state-icon">🔍</div>
-            <div class="empty-state-title">Aún no lo tenemos</div>
-            <div class="empty-state-text">
-              Preferimos decirte claro antes que inventar. Estamos ampliando el catálogo poco a poco, siempre verificando cada ficha contra la fuente oficial.
-            </div>
+    // Búsqueda: la maqueta enseña el estado honesto de "sin resultados"
+    document.getElementById('buscador').addEventListener('input', (e) => {
+      const consulta = e.target.value.trim();
+      const catalogo = document.querySelector('.catalogo');
+      if (consulta.length > 0) {
+        catalogo.innerHTML = `
+          <h2 class="titulo-seccion">Resultados para «${consulta}»</h2>
+          <div class="estado-vacio">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+            </svg>
+            <div class="estado-vacio-titulo">Aún no lo tenemos</div>
+            <p class="estado-vacio-texto">
+              Preferimos decírtelo claro antes que inventar. Estamos ampliando el catálogo
+              poco a poco, verificando cada ficha contra su fuente oficial.
+            </p>
           </div>
         `;
       }

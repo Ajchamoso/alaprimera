@@ -1,253 +1,254 @@
-## Overview
+# DESIGN.md: A la Primera
 
-Wise — the global money-transfer brand — wears its identity in a single signature pairing: a vivid lime-green `{colors.primary}` (`#9fe870`) used as the CTA pill and brand accent, set against a pale sage-tinted canvas `{colors.canvas-soft}` (`#e8ebe6`) that runs across the hero band, and a near-black ink `{colors.ink}` (`#0e0f0c`) with a hint of warmth from the brand's underlying olive cast. The brand reads more like a calm Scandinavian magazine than a bank — generous whitespace, large rounded cards, and an unusually heavy display sans set at weight 900 carrying every hero headline.
+> Contrapropuesta al DESIGN.md derivado de Wise (rama `feat/design`). Misma estructura de
+> documento y mismas 5 pantallas; la identidad visual es la que ya está decidida y en producción
+> en `app/globals.css` y `docs/plan.md` §4bis. Nombre y colores quedan fijados aquí para el resto
+> del reto, como pide el Sprint 2.
 
-Display typography is the second decisive voice. The proprietary `Wise Sans` family carries hero displays at weight 900 in scales from 64 px up to 126 px on the largest hero. The brand pairs Wise Sans 900 with Inter at weight 600 for sub-displays — the contrast between the chunky proprietary face and Inter's neutrality creates a particular hierarchy: Wise Sans for the brand moment, Inter for everything else.
+## La idea
 
-Cards are universally pill-rounded — `{rounded.xl}` 24 px is the brand's signature card radius. Buttons take the same 24 px pill-rectangle shape. The brand never uses sharp corners on UI elements; the visual softness is part of the friendly fintech voice.
+A la Primera es un asistente de trámites con la administración española. Su concepto central ya
+es un objeto físico: **el sello**. Verificar, sellar, caducar. La identidad visual es la de una
+ventanilla: papel de expediente, tinta, y el violeta del sello de caucho. El rojo es el de
+"PENDIENTE".
 
-**Key Characteristics:**
-- A single lime-green CTA accent `{colors.primary}` (`#9fe870`) — the brand's universal primary action color. No second accent.
-- Two-face display typography — Wise Sans (proprietary, weight 900, hero scale) + Inter (weight 600, sub-display scale). The contrast is the brand's typographic story.
-- `{rounded.xl}` 24 px is the canonical card and button radius. Generous, friendly.
-- Sage-tinted canvas `{colors.canvas-soft}` (`#e8ebe6`) is the brand's hero surface; white `{colors.canvas}` is reserved for cards within the sage band.
-- A full semantic palette: positive green family, warning yellow family, negative red family — each documented with content / hover / active variants for in-product use.
-- Currency-converter card on the hero — the brand's signature interactive component, hosting from/to amount inputs.
+Esto es una decisión de credibilidad, no de gusto. El argumento del producto es "esto no se lo
+inventa una IA", así que no puede tener el aspecto que las IA generan por defecto (verde sobre
+grises, emoji de iconos, la fuente que trae el framework). **No hay verde en esta app.** Tampoco
+modo oscuro: la app se lee con prisa, se imprime para llevarla a una ventanilla y la leen
+personas mayores. Tema claro fijo, es una decisión y no un olvido.
 
-## Colors
+**Rasgos clave:**
 
-### Brand & Accent
-- **Wise Green** (`{colors.primary}` — `#9fe870`): The brand's universal CTA color. Every primary button, every "Send money" pill, the brand's logo accent.
-- **Wise Green Hover** (`{colors.primary-active}` — `#cdffad`): The lighter green for active state.
-- **Wise Green Neutral** (`{colors.primary-neutral}` — `#c5edab`): A mid-saturation green used as a neutral active fill.
-- **Wise Green Pale** (`{colors.primary-pale}` — `#e2f6d5`): The lightest green for soft surface tints / badge backgrounds.
+- Un solo acento: el violeta de sello `{colors.sello}` (`#5a3a82`). Verificado, enlaces, acción
+  principal. Sin segundo acento de marca.
+- El rojo `{colors.pendiente}` (`#a8342b`) no es decoración: significa "sin verificar" o aviso.
+- Fondo papel `{colors.papel}` con tarjetas hoja `{colors.hoja}`: el contraste entre las dos
+  superficies es la elevación, casi sin sombras.
+- Tres cortes de IBM Plex con roles estrictos: condensada para sellos y titulares, monoespaciada
+  para datos oficiales, sans para el cuerpo.
+- El elemento firma es el **sello estampado**: caja ligeramente girada, filete doble, condensada
+  en mayúsculas. El estado de verificación se estampa, no se pone en un badge.
+- Cero emoji en la interfaz (FR-028). Iconos SVG propios de trazo simple.
 
-### Surface
-- **Canvas** (`{colors.canvas}` — `#ffffff`): Pure white for card interiors.
-- **Canvas Soft** (`{colors.canvas-soft}` — `#e8ebe6`): The sage-tinted page background. Defining mood of the brand.
+## Colores
 
-### Text
-- **Ink** (`{colors.ink}` — `#0e0f0c`): Near-black with a hint of olive warmth — the brand's default text and headings color.
-- **Ink Deep** (`{colors.ink-deep}` — `#163300`): A deep forest-green ink used on positive-state surfaces.
-- **Body** (`{colors.body}` — `#454745`): Secondary body text.
-- **Mute** (`{colors.mute}` — `#868685`): Lowest-priority text — captions, placeholder, fine print.
+Los tokens son semánticos a propósito: se escribe `text-sello`, nunca `text-violet-600`.
+Prohibido `emerald-*`, `stone-*`, `amber-*` y `green-*`.
 
-### Semantic
-- **Positive** (`{colors.positive}` — `#2ead4b`): Success indicator.
-- **Positive Deep** (`{colors.positive-deep}` — `#054d28`): Pressed positive state.
-- **Warning** (`{colors.warning}` — `#ffd11a`): Caution indicator.
-- **Warning Deep** (`{colors.warning-deep}` — `#b86700`): Pressed warning.
-- **Warning Content** (`{colors.warning-content}` — `#4a3b1c`): Text on warning surfaces.
-- **Negative** (`{colors.negative}` — `#d03238`): Destructive / error red.
-- **Negative Deep** (`{colors.negative-deep}` — `#a72027`): Pressed destructive.
-- **Negative Darkest** (`{colors.negative-darkest}` — `#a7000d`): Highest-emphasis destructive text.
-- **Negative Bg** (`{colors.negative-bg}` — `#320707`): Dark maroon for destructive callout backgrounds.
+### Superficies
 
-### Brand Accent — Tertiary
-- **Accent Orange** (`{colors.accent-orange}` — `#ffc091`): Bright peach used inside illustrative content / pricing cards.
-- **Accent Cyan** (`{colors.accent-cyan}` — `#38c8ff`): Bright sky-blue used as a tertiary illustration accent.
+- **Papel** (`{colors.papel}`, `#efebe2`): fondo de página. El expediente.
+- **Hoja** (`{colors.hoja}`, `#f7f4ee`): tarjetas y paneles. La hoja encima del expediente.
+- **Línea** (`{colors.linea}`, `#d8d1c4`): filetes, bordes y separadores.
 
-## Typography
+### Texto
 
-### Font Family
-Two faces ladder the system:
-1. **Wise Sans** — proprietary geometric sans with an unusually heavy weight 900 used for all hero displays. The face is the brand's typographic signature. Always at weight 900, never lighter on the marketing surface.
-2. **Inter** — used for sub-displays (weight 600), all body, and form labels. Loaded with `font-feature-settings: "calt"` for contextual alternates.
+- **Tinta** (`{colors.tinta}`, `#24221f`): texto principal y titulares.
+- **Tinta media** (`{colors.tinta-media}`, `#635c52`): texto secundario.
+- **Tinta tenue** (`{colors.tinta-tenue}`, `#726957`): texto terciario. Oscurecido a propósito
+  para pasar WCAG AA (4.5:1) porque lleva información real (subtítulos, notas de caducidad), no
+  solo decoración. Cualquier color de texto nuevo tiene que pasar AA: lo vigila
+  `tests/contraste.test.ts`.
 
-### Hierarchy
+### Acento y estado
 
-| Token | Size | Weight | Line Height | Letter Spacing | Use |
-|---|---|---|---|---|---|
-| `{typography.display-mega}` | 126px | 900 | 107.1px | 0 | Hero stencil at maximum scale. |
-| `{typography.display-xxl}` | 96px | 900 | 81.6px | 0 | Sub-hero scale. |
-| `{typography.display-xl}` | 64px | 900 | 54.4px | 0 | Standard hero headline. |
-| `{typography.display-lg}` | 47px | 400 | 70.5px | -0.108px | Lighter sub-display. |
-| `{typography.display-md}` | 40px | 900 | 34px | 0 | Section / card headlines. |
-| `{typography.display-sm}` | 32px | 600 | 38.4px | -0.96px | Inter-rendered section headings. |
-| `{typography.display-xs}` | 24px | 600 | 31.2px | -0.48px | Sub-section displays. |
-| `{typography.body-lg}` | 20px | 400 | 30px | 0 | Lead paragraphs. |
-| `{typography.body-md}` | 16px | 400 | 24px | 0 | Default body. |
-| `{typography.body-md-strong}` | 16px | 600 | 24px | 0 | Bold inline body. |
-| `{typography.body-sm}` | 14px | 400 | 20px | 0 | Secondary body. |
-| `{typography.body-sm-strong}` | 14px | 600 | 20px | 0 | Bold caption / nav-link. |
-| `{typography.caption}` | 12px | 400 | 16px | 0 | Fine print. |
-| `{typography.button-md}` | 16px | 600 | 24px | 0 | Button label. |
+- **Sello** (`{colors.sello}`, `#5a3a82`): violeta de sello de caucho. Verificado, acción
+  principal, enlaces, foco.
+- **Sello suave** (`{colors.sello-suave}`, `#ede6f3`): fondo tintado para superficies de acento.
+- **Pendiente** (`{colors.pendiente}`, `#a8342b`): rojo de sello. Sin verificar, avisos,
+  obligatorio.
+- **Pendiente suave** (`{colors.pendiente-suave}`, `#f7e7e4`): fondo tintado para avisos.
 
-### Principles
-- **Weight 900 for hero, weight 600 for everything else.** The brand's display ceiling is full-black weight; everything below is semibold.
-- **Wise Sans for the brand voice, Inter for utility.** Strict role separation.
+El estado nunca se comunica solo con color (FR-029): siempre va acompañado de texto o forma
+(el sello dice "VERIFICADO" o "SIN VERIFICAR", no solo cambia de tinta).
 
-### Note on Font Substitutes
-Wise Sans is proprietary. Open-source substitutes:
-- **Display** — *Inter* at weight 900 or *Manrope* at weight 800 / 900 captures the geometric heaviness. *Geist* weight 800 is a passable second choice.
-- **Sub-display + body** — *Inter* is the brand's actual second face.
+## Tipografía
 
-## Layout
+### Familias
 
-### Spacing System
-- **Base unit**: 4 px.
-- **Tokens**: `{spacing.xxs}` 2 px · `{spacing.xs}` 4 px · `{spacing.sm}` 8 px · `{spacing.md}` 12 px · `{spacing.lg}` 16 px · `{spacing.xl}` 24 px · `{spacing.2xl}` 32 px · `{spacing.3xl}` 48 px.
-- **Section padding**: bands use `{spacing.3xl}` 48 px top/bottom on desktop.
-- **Card interior**: cards at `{spacing.xl}` 24 px.
+IBM Plex en tres cortes, elegida porque nació como voz institucional y tiene el aire de
+formulario oficial que este producto habita. Roles estrictos:
 
-### Grid & Container
-- Marketing container centres at ~1200 px.
-- Hero: split layout (headline left, currency-converter card right) at desktop; stacked at mobile.
-- Feature grids: 2-up / 3-up at desktop.
+1. **IBM Plex Sans Condensed** (`{font.cond}`, pesos 600 y 700): sellos y titulares. Es la voz
+   del tampón: condensada, en mayúsculas cuando estampa.
+2. **IBM Plex Mono** (`{font.mono}`, pesos 400 a 600): datos oficiales. Fechas, plazos, tasas,
+   importes, códigos, nombres de organismo. Si un dato viene de una fuente oficial, va en mono.
+3. **IBM Plex Sans** (`{font.sans}`, pesos 400 a 700): cuerpo, opciones del wizard, botones.
 
-### Responsive Strategy
+### Escala (móvil primero)
 
-#### Breakpoints
+| Token | Tamaño | Fuente y peso | Uso |
+|---|---|---|---|
+| `{typography.titular-xl}` | 32px | Cond 700 | Titular de portada. |
+| `{typography.titular-lg}` | 26px | Cond 700 | Título de pantalla (nombre del trámite). |
+| `{typography.titular-md}` | 20px | Cond 700, caps | Título de sección. |
+| `{typography.sello}` | 14px | Cond 700, caps, tracking amplio | Texto dentro de sellos y etiquetas estampadas. |
+| `{typography.cuerpo-lg}` | 18px | Sans 400 | Entradilla, pregunta del wizard. |
+| `{typography.cuerpo}` | 16px | Sans 400 | Cuerpo por defecto. |
+| `{typography.cuerpo-strong}` | 16px | Sans 600 | Nombre de requisito, opción elegida. |
+| `{typography.dato}` | 14px | Mono 500 | Dato oficial: fecha, plazo, tasa, canal. |
+| `{typography.nota}` | 14px | Sans 400 | Notas y texto de apoyo. |
+| `{typography.boton}` | 16px | Sans 600 | Etiqueta de botón. |
 
-| Name | Width | Key Changes |
+Cuerpo nunca por debajo de 14px: el público incluye personas mayores y el imprimible llega a una
+persona de 74 años.
+
+## Maquetación
+
+### Espaciado
+
+- Unidad base 4px. Escala: 4 · 8 · 12 · 16 · 24 · 32 · 48.
+- Interior de tarjeta: 16px en móvil, 24px en pantallas anchas.
+- Separación entre secciones: 32px.
+
+### Rejilla y contenedor
+
+- **Móvil primero, en vertical, para usar con el dedo.** Todo a una columna en móvil; el
+  contenido centra a un máximo de ~640px en pantallas grandes (la app es lectura y formulario,
+  no un dashboard).
+- Objetivos táctiles de 48px mínimo. Opciones de wizard y elementos de checklist son la tarjeta
+  entera, no solo el texto.
+
+### Impresión
+
+La preparación se imprime (FR-016): legible en blanco y negro, letra amplia, sin fondos de
+color. El `@media print` ya existe en `globals.css` y cualquier pantalla nueva con imprimible lo
+respeta.
+
+## Elevación y profundidad
+
+| Nivel | Tratamiento | Uso |
 |---|---|---|
-| Mobile | < 768px | Hero stacks; converter card full-width below headline; grids 1-up. |
-| Tablet | 768–1023px | Grids 2-up. |
-| Desktop | ≥ 1024px | Hero split; full grids. |
+| 0, plano | Fondo papel, sin borde. | Página. |
+| 1, hoja | Fondo hoja + filete `{colors.linea}` de 1px. El contraste papel/hoja es la elevación. | Tarjetas, paneles. |
+| 2, estampado | Borde doble (filete exterior e interior) en el color del estado, caja girada ~-2°. | Solo el sello de verificación. |
 
-#### Touch Targets
-Buttons render ~48 px tall (12 vertical padding + 24 line). WCAG AAA at all widths.
+Sin sombras difusas de app genérica: como mucho una sombra mínima en elementos que flotan de
+verdad (barra inferior fija).
 
-#### Image Behavior
-Photography is sparse; the brand prefers illustrative SVGs and product mockups inside cards. Country flag thumbnails appear inside currency rows.
+## Formas
 
-## Elevation & Depth
-
-| Level | Treatment | Use |
+| Token | Valor | Uso |
 |---|---|---|
-| Level 0 — Flat | No shadow, no border. | Default. |
-| Level 1 — Hairline on Dark | 1 px solid `{colors.ink}` border. | Tertiary outline buttons, form inputs. |
-| Level 2 — Soft Card | Implicit Level 0 white card sitting on sage canvas — the surface contrast IS the elevation. | Cards on the sage hero band. |
+| `{rounded.sm}` | 4px | Etiquetas pequeñas, casillas. |
+| `{rounded.md}` | 8px | Tarjetas, botones, inputs. |
+| `{rounded.none}` | 0 | El sello estampado (un tampón no tiene esquinas redondas). |
 
-The brand uses surface contrast (`{colors.canvas-soft}` background vs `{colors.canvas}` cards) as the primary elevation cue.
+Nada de pastillas de 24px ni pills: la redondez generosa es el lenguaje de las fintech, no el de
+un expediente. Aquí las esquinas son discretas.
 
-## Shapes
+## Componentes
 
-### Border Radius Scale
+### Botones
 
-| Token | Value | Use |
-|---|---|---|
-| `{rounded.none}` | 0px | Full-bleed bands. |
-| `{rounded.sm}` | 8px | Inline pills, small badges. |
-| `{rounded.md}` | 12px | Form inputs, smaller chrome. |
-| `{rounded.lg}` | 16px | Mid-size cards. |
-| `{rounded.xl}` | 24px | The brand's canonical button + card radius. |
-| `{rounded.pill}` | 9999px | Status pills and full-radius accents. |
-| `{rounded.full}` | 9999px | Circular icon containers. |
+**`boton-principal`**: fondo `{colors.sello}`, texto blanco, `{typography.boton}`, padding
+12px 24px, `{rounded.md}`, alto mínimo 48px.
 
-## Components
+**`boton-secundario`**: fondo `{colors.hoja}`, texto `{colors.tinta}`, filete `{colors.linea}`,
+misma métrica.
 
-### Buttons
+**`boton-fantasma`**: sin fondo, texto `{colors.sello}` subrayado. Para "volver" y acciones
+menores.
 
-**`button-primary`** — the lime-green CTA pill.
-- Background `{colors.primary}`, text `{colors.on-primary}`, label `{typography.button-md}`, padding `{spacing.md} {spacing.xl}`, shape `{rounded.xl}` 24 px.
+### Tarjetas
 
-**`button-secondary`** — the sage-tinted secondary.
-- Background `{colors.canvas-soft}`, text `{colors.ink}`, same typography / padding / shape.
+**`tarjeta`**: fondo `{colors.hoja}`, filete `{colors.linea}` 1px, `{rounded.md}`, padding 16px.
+La tarjeta base de todo: hechos vitales, requisitos, resumen.
 
-**`button-tertiary`** — the white outline tertiary.
-- Background `{colors.canvas}`, text `{colors.ink}`, 1 px solid `{colors.ink}` border, same typography / padding / shape.
+**`tarjeta-aviso`**: fondo `{colors.pendiente-suave}`, filete `{colors.pendiente}`, texto
+`{colors.tinta}` con título en `{typography.sello}` color `{colors.pendiente}`. Para "requiere
+cita previa", "presencial obligatorio".
 
-**`button-icon-circular`** — the circular icon button.
-- Background `{colors.canvas}`, ink icon, shape `{rounded.full}`.
+**`tarjeta-acento`**: fondo `{colors.sello-suave}`, filete `{colors.sello}`. Para el resultado
+del wizard y momentos de acento.
 
-### Cards & Containers
+### El sello de verificación (componente firma)
 
-**`card-content`** — the default white card.
-- Background `{colors.canvas}`, text `{colors.ink}`, padding `{spacing.xl}`, shape `{rounded.xl}`. No border, sits on sage canvas.
+**`sello-verificacion`**: caja sin redondeo, borde doble, girada ~-2°, texto
+`{typography.sello}` en mayúsculas.
 
-**`card-feature-sage`** — the sage-tinted feature card.
-- Background `{colors.canvas-soft}`, text `{colors.ink}`, padding `{spacing.xl}`, shape `{rounded.xl}`.
+- **Verificado**: borde y texto `{colors.sello}`. Dos líneas: "VERIFICADO" y la fecha del cotejo
+  en `{typography.dato}`.
+- **Sin verificar**: borde y texto `{colors.pendiente}`. "SIN VERIFICAR · GENERADA POR IA".
+- **Caducado** (a los 90 días): borde `{colors.tinta-tenue}`, "REVISIÓN PENDIENTE".
 
-**`card-feature-green`** — the soft-green feature card.
-- Background `{colors.primary-pale}`, text `{colors.ink}`, padding `{spacing.xl}`, shape `{rounded.xl}`.
+El sello afirma que un humano cotejó la ficha contra la fuente: nunca se estampa "verificado"
+sin ese cotejo detrás.
 
-**`card-feature-dark`** — the polarity-flipped dark card with green text.
-- Background `{colors.ink}`, text `{colors.primary}` (Wise green!), padding `{spacing.xl}`, shape `{rounded.xl}`. Used for promotional moments.
+### Wizard
 
-**`currency-converter-card`** — the brand's signature interactive widget.
-- Background `{colors.canvas}`, text `{colors.ink}`, 1 px solid `{colors.ink}` border, padding `{spacing.xl}`, shape `{rounded.xl}`. Hosts from/to amount inputs + currency selectors.
+**`opcion-wizard`**: tarjeta seleccionable de ancho completo, icono SVG a la izquierda, nombre
+en `{typography.cuerpo-strong}` y aclaración en `{typography.nota}` color
+`{colors.tinta-media}`. Seleccionada: filete `{colors.sello}` de 2px y fondo
+`{colors.sello-suave}`. Radio accesible: la tarjeta entera es el control.
 
-### Inputs & Forms
+**`progreso-wizard`**: barra fina superior color `{colors.sello}` sobre `{colors.linea}`, con
+"Pregunta N de M" en `{typography.dato}`.
 
-**`text-input`** — the canonical text input.
-- Background `{colors.canvas}`, text `{colors.ink}`, 1 px solid `{colors.ink}` border, body in `{typography.body-md}`, padding `{spacing.md} {spacing.lg}`, shape `{rounded.md}`.
+### Checklist
 
-### Navigation
+**`item-checklist`**: casilla cuadrada `{rounded.sm}` con filete `{colors.tinta-media}`; al
+marcar, fondo `{colors.sello}` con aspa blanca y el texto pasa a `{colors.tinta-media}`
+tachado. Nombre en `{typography.cuerpo-strong}`, detalle en `{typography.nota}`, y cualquier
+dato oficial (formato, importe, plazo) en `{typography.dato}`.
 
-**`nav-bar`** — the sticky top nav.
-- Background `{colors.canvas}`, text `{colors.ink}`, padding `{spacing.md} {spacing.xl}`.
+**`cita-fuente`**: la cita literal de la fuente oficial, entre comillas latinas «», en
+`{typography.nota}` con filete izquierdo `{colors.linea}`. Las citas no se tocan jamás, ni su
+puntuación.
 
-**`nav-link`** — link items inside nav.
-- Text `{colors.ink}`, set in `{typography.body-sm-strong}`.
+### Ficha de trámite
 
-**`footer`** — the dark footer band.
-- Background `{colors.ink}`, text `{colors.canvas-soft}`, padding `{spacing.3xl} {spacing.xl}`. Body in `{typography.body-sm}`.
+**`ficha-datos`**: tabla de pares clave/valor. Claves en `{typography.sello}` color
+`{colors.tinta-tenue}`; valores en `{typography.dato}`. Nivel, canales, plazo, tasa, fuente
+oficial.
 
-### Signature Components
+**`etiqueta-hecho-vital`**: etiqueta pequeña `{rounded.sm}`, fondo `{colors.sello-suave}`,
+texto `{typography.sello}` color `{colors.sello}`.
 
-**`hero-band`** — the sage-canvas hero band.
-- Background `{colors.canvas-soft}`, text `{colors.ink}`, padding `{spacing.3xl} {spacing.xl}`. Headline in `{typography.display-mega}` (Wise Sans weight 900).
+### Navegación
 
-**`hero-band-dark`** — the polarity-flipped dark hero.
-- Background `{colors.ink}`, text `{colors.primary}` (Wise green headline on near-black!), same padding / scale.
+**`barra-superior`**: fondo `{colors.papel}`, título de pantalla en `{typography.titular-md}`,
+flecha de volver como SVG. Sin sombra: un filete `{colors.linea}` inferior.
 
-**`content-band`** — the white content band that follows hero.
-- Background `{colors.canvas}`, text `{colors.ink}`, padding `{spacing.3xl} {spacing.xl}`. Section headline in `{typography.display-md}`.
+**`barra-inferior-fija`**: para la acción principal de la pantalla (continuar, imprimir). Fondo
+`{colors.papel}` con filete superior, botón principal a ancho completo.
 
-**`badge-positive`** — the positive status pill.
-- Background `{colors.primary-pale}`, text `{colors.positive-deep}`, body in `{typography.body-sm-strong}`, padding `{spacing.xs} {spacing.md}`, shape `{rounded.pill}`.
+### Iconos
 
-**`badge-negative`** — the negative status pill.
-- Background `{colors.negative-bg}`, text white, body in `{typography.body-sm-strong}`, padding `{spacing.xs} {spacing.md}`, shape `{rounded.pill}`.
+SVG propios de trazo simple (`components/IconoRequisito.tsx`), stroke 1.5px, color heredado del
+texto. **Nunca emoji** (FR-028): los dibuja el sistema del usuario y se rompen. Si hace falta un
+icono nuevo, se añade al catálogo de SVG.
 
-### Examples (illustrative)
+## La copia
 
-> Auto-derived kit-mirror demonstration surfaces (`scripts/derive-examples-block.mjs`). Each `ex-*` entry references brand-native primitives so downstream consumers (`/preview-design`, `/generate-kit`) re-skin the same 10 surfaces consistently. `TO_FILL` markers indicate missing primitives — resolve in the LLM judgment pass.
+- Español llano, sin jerga administrativa sin explicar. Se escribe para la persona que hace el
+  trámite, no para la administración.
+- Sin tics de modelo: nada de rayas largas (se usa dos puntos o punto), nada de reglas de tres,
+  nada de adorno.
+- Los nombres coloquiales se conservan: "Lo del carnet de mi hijo...", "Este trámite esconde
+  otros trámites".
+- Las citas de fuentes oficiales son intocables, con su puntuación original. Comillas latinas «».
+- Honestidad ante todo: si una comunidad no tiene ficha, se dice; si una ficha no está
+  verificada, se estampa "SIN VERIFICAR". Vacío y honesto antes que completo y falso.
 
-**`ex-pricing-tier`** — Default Pricing tier card. Re-uses feature-card chrome with brand canvas-soft surface.
-- Properties: `backgroundColor`, `textColor`, `borderColor`, `rounded`, `padding`
+## Sí y no
 
-**`ex-pricing-tier-featured`** — Featured/highlighted tier — polarity-flipped surface (dark fill + light text in light mode, light fill + dark text in dark mode).
-- Properties: `backgroundColor`, `textColor`, `rounded`, `padding`
+### Sí
 
-**`ex-product-selector`** — What's Included summary card — re-purposed for SaaS / B2B verticals (NOT a literal product gallery).
-- Properties: `backgroundColor`, `rounded`, `padding`
+- Reservar el violeta `{colors.sello}` para verificado, acción principal y foco. Es el único
+  acento.
+- Estampar el estado de verificación con el sello girado de borde doble. Es el elemento firma.
+- Datos oficiales siempre en `{typography.dato}` (mono): una fecha en monoespaciada dice "esto
+  viene de un documento".
+- Elevación por contraste papel/hoja y filetes, no por sombras.
+- Objetivos táctiles de 48px y cuerpo de 16px: el público incluye personas mayores.
 
-**`ex-cart-drawer`** — Subscription summary — re-purposed for SaaS / B2B (line items per add-on, not literal cart).
-- Properties: `backgroundColor`, `rounded`, `padding`, `item-divider`
+### No
 
-**`ex-app-shell-row`** — Sidebar nav row inside the App Shell example. Active state uses brand primary as the indicator.
-- Properties: `backgroundColor`, `activeIndicator`, `rounded`, `padding`
-
-**`ex-data-table-cell`** — Default data-table th + td chrome. Header uses mono-caps eyebrow typography; body uses body-sm.
-- Properties: `headerBackground`, `headerTypography`, `bodyTypography`, `cellPadding`, `rowBorder`
-
-**`ex-auth-form-card`** — Sign-in / sign-up card. Re-uses feature-card chrome with text-input primitives inside.
-- Properties: `backgroundColor`, `rounded`, `padding`
-
-**`ex-modal-card`** — Modal dialog surface — same chrome as feature-card with elevated shadow.
-- Properties: `backgroundColor`, `rounded`, `padding`
-
-**`ex-empty-state-card`** — Empty-state illustration frame.
-- Properties: `backgroundColor`, `rounded`, `padding`, `captionTypography`
-
-**`ex-toast`** — Toast notification surface — feature-card shape + medium shadow.
-- Properties: `backgroundColor`, `rounded`, `padding`, `typography`
-
-
-## Do's and Don'ts
-
-### Do
-- Reserve `{colors.primary}` Wise green for every primary CTA. The lime-green pill IS the brand's conversion signature.
-- Set hero headlines in `{typography.display-mega}` / `{typography.display-xl}` Wise Sans weight 900. Never lighter.
-- Use `{rounded.xl}` 24 px for buttons and cards. The generous radius is the brand's friendliness signature.
-- Cycle page surfaces in `{colors.canvas-soft}` sage canvas → `{colors.canvas}` white cards. Surface contrast carries elevation.
-- Use the full semantic palette (positive / warning / negative) for in-product status — never repurpose Wise green as success indicator since it IS the brand CTA.
-
-### Don't
-- Don't introduce a second brand accent. Wise green is the sole identity colour.
-- Don't render the hero in weight 700 or lighter. The brand's display weight is 900.
-- Don't render CTAs as sharp rectangles. The 24 px pill geometry is non-negotiable.
-- Don't pair the green CTA with a green background. The brand always sits Wise green on neutral surfaces (sage / white / ink).
-- Don't replace Wise Sans with a generic geometric sans for hero typography — the proprietary face IS the brand's voice.
+- Ni un verde en la interfaz. Tampoco `emerald-*`, `stone-*` ni `amber-*` por clase literal.
+- Ni un emoji: iconos SVG propios (FR-028).
+- Sin modo oscuro: tema claro fijo, por legibilidad e impresión.
+- Sin pastillas de 24px ni tipografía de peso 900: la voz es institucional, no fintech.
+- El estado nunca se comunica solo con color (FR-029): siempre texto o forma además del color.
+- "Verificado" no se estampa nunca sin cotejo humano detrás.

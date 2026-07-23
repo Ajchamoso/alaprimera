@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Renovar el carnet de identidad — A la Primera</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <title>Renovar el carnet de identidad · A la Primera</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -13,398 +13,375 @@
     }
 
     :root {
-      /* Brand & Accent */
-      --primary: #9fe870;
-      --primary-active: #cdffad;
-      --primary-neutral: #c5edab;
-      --primary-pale: #e2f6d5;
+      /* Identidad: EL SELLO. Tokens de app/globals.css */
+      --papel: #efebe2;
+      --hoja: #f7f4ee;
+      --tinta: #24221f;
+      --tinta-media: #635c52;
+      --tinta-tenue: #726957;
+      --linea: #d8d1c4;
+      --sello: #5a3a82;
+      --sello-suave: #ede6f3;
+      --pendiente: #a8342b;
+      --pendiente-suave: #f7e7e4;
 
-      /* Surface */
-      --canvas: #ffffff;
-      --canvas-soft: #e8ebe6;
+      --sans: "IBM Plex Sans", -apple-system, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --cond: "IBM Plex Sans Condensed", sans-serif;
 
-      /* Text */
-      --ink: #0e0f0c;
-      --ink-deep: #163300;
-      --body: #454745;
-      --mute: #868685;
-
-      /* Semantic */
-      --positive: #2ead4b;
-      --positive-deep: #054d28;
-      --warning: #ffd11a;
-      --warning-deep: #b86700;
-      --warning-content: #4a3b1c;
-      --negative: #d03238;
-
-      /* Spacing */
-      --spacing-xs: 4px;
-      --spacing-sm: 8px;
-      --spacing-md: 12px;
-      --spacing-lg: 16px;
-      --spacing-xl: 24px;
-      --spacing-2xl: 32px;
-      --spacing-3xl: 48px;
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 12px;
+      --sp-lg: 16px;
+      --sp-xl: 24px;
+      --sp-2xl: 32px;
+      --sp-3xl: 48px;
     }
 
     html, body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--canvas-soft);
-      color: var(--ink);
+      font-family: var(--sans);
+      background-color: var(--papel);
+      color: var(--tinta);
       line-height: 1.5;
       min-height: 100vh;
     }
 
-    /* Mobile viewport: 375px width */
+    /* Maqueta en viewport móvil de 375px */
     .container {
       width: 375px;
       margin: 0 auto;
-      background: var(--canvas-soft);
+      background: var(--papel);
       overflow-x: hidden;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+      min-height: 100vh;
+      border-left: 1px solid var(--linea);
+      border-right: 1px solid var(--linea);
     }
 
-    /* ── NAV BAR ── */
-    .nav-bar {
+    /* ── BARRA SUPERIOR ── */
+    .barra-superior {
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: var(--canvas);
-      border-bottom: 1px solid #f0f0f0;
-      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--papel);
+      border-bottom: 1px solid var(--linea);
+      padding: var(--sp-md) var(--sp-lg);
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 56px;
     }
 
-    .nav-back {
+    .volver {
       background: none;
       border: none;
-      font-size: 20px;
       cursor: pointer;
-      color: var(--ink);
+      color: var(--tinta);
       width: 44px;
       height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-left: -12px;
     }
 
-    .nav-title {
+    .volver svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    .titulo-pantalla {
       flex: 1;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
+      font-family: var(--cond);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       text-align: center;
-      margin: 0 var(--spacing-md);
+      margin: 0 var(--sp-md);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .nav-spacer {
+    .hueco {
       width: 44px;
     }
 
-    /* ── HERO BAND ── */
-    .hero-band {
-      background: linear-gradient(135deg, var(--primary-pale) 0%, #f0f9e6 100%);
-      padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-2xl);
+    /* ── CABECERA ── */
+    .cabecera {
+      padding: var(--sp-xl) var(--sp-lg);
+      border-bottom: 1px solid var(--linea);
     }
 
-    .hecho-vital-badge {
+    .etiqueta-hecho {
       display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--primary-pale);
-      background-color: var(--positive-deep);
-      padding: 4px 12px;
-      border-radius: 12px;
-      margin-bottom: var(--spacing-md);
+      font-family: var(--cond);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--sello);
+      background-color: var(--sello-suave);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: var(--sp-md);
     }
 
-    .tramite-nombre-coloquial {
+    .nombre-coloquial {
+      font-family: var(--cond);
       font-size: 28px;
-      font-weight: 900;
-      font-family: Inter, sans-serif;
-      line-height: 1.2;
-      margin-bottom: var(--spacing-sm);
-      color: var(--ink);
-      letter-spacing: -0.6px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: var(--sp-xs);
     }
 
-    .tramite-nombre-oficial {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--body);
+    .nombre-oficial {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--tinta-tenue);
+    }
+
+    /* ── EL SELLO DE VERIFICACIÓN (elemento firma) ── */
+    .zona-sello {
+      display: flex;
+      justify-content: center;
+      padding: var(--sp-xl) var(--sp-lg) var(--sp-sm);
+    }
+
+    .sello-verificacion {
+      display: inline-block;
+      padding: var(--sp-sm) var(--sp-lg);
+      border: 2px solid var(--sello);
+      outline: 1px solid var(--sello);
+      outline-offset: 2px;
+      transform: rotate(-2deg);
+      text-align: center;
+      color: var(--sello);
+    }
+
+    .sello-verificacion .palabra {
+      font-family: var(--cond);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .sello-verificacion .fecha {
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .nota-sello {
+      text-align: center;
+      font-size: 13px;
+      color: var(--tinta-media);
+      padding: var(--sp-sm) var(--sp-xl) var(--sp-lg);
       line-height: 1.5;
     }
 
-    /* ── CONTENT BAND ── */
-    .content-band {
-      background-color: var(--canvas);
-      padding: var(--spacing-3xl) var(--spacing-lg);
+    .nota-sello a {
+      color: var(--sello);
+      text-decoration: underline;
     }
 
-    /* ── CARD ── */
-    .card {
-      background-color: var(--canvas);
-      padding: var(--spacing-xl);
-      border-radius: 24px;
-      margin-bottom: var(--spacing-2xl);
-      border: 1px solid #f0f0f0;
+    /* ── CONTENIDO ── */
+    .contenido {
+      padding: var(--sp-lg) var(--sp-lg) var(--sp-2xl);
     }
 
-    .card-headline {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: var(--spacing-lg);
+    /* ── TARJETAS ── */
+    .tarjeta {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+      margin-bottom: var(--sp-lg);
     }
 
-    .card-content {
-      font-size: 14px;
-      color: var(--body);
-      line-height: 1.6;
-    }
-
-    /* ── DESCRIPTION CARD ── */
-    .description-card {
-      background-color: var(--primary-pale);
-      padding: var(--spacing-xl);
-      border-radius: 24px;
-      margin-bottom: var(--spacing-2xl);
-    }
-
-    .description-text {
+    .tarjeta-titulo {
+      font-family: var(--cond);
       font-size: 15px;
-      color: var(--ink);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--sp-md);
+    }
+
+    .descripcion {
+      font-size: 15px;
       line-height: 1.6;
     }
 
-    /* ── INFO ROW ── */
-    .info-row {
+    /* ── FICHA DE DATOS ── */
+    .fila-dato {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      padding: var(--spacing-lg) 0;
-      border-bottom: 1px solid #f0f0f0;
+      align-items: baseline;
+      gap: var(--sp-md);
+      padding: var(--sp-md) 0;
+      border-bottom: 1px solid var(--linea);
     }
 
-    .info-row:last-child {
+    .fila-dato:last-child {
       border-bottom: none;
+      padding-bottom: 0;
     }
 
-    .info-label {
+    .dato-clave {
+      font-family: var(--cond);
       font-size: 12px;
-      font-weight: 600;
-      color: var(--mute);
+      font-weight: 700;
+      color: var(--tinta-tenue);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      flex: 0 0 40%;
-    }
-
-    .info-value {
-      font-size: 14px;
-      color: var(--ink);
-      flex: 1;
-      text-align: right;
-    }
-
-    .info-value.link {
-      color: #163300;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* ── VERIFICATION BADGE ── */
-    .verification-badge {
-      background-color: var(--primary-pale);
-      padding: var(--spacing-lg);
-      border-radius: 24px;
-      margin-bottom: var(--spacing-2xl);
-      display: flex;
-      gap: var(--spacing-md);
-      align-items: flex-start;
-    }
-
-    .verification-icon {
-      font-size: 20px;
+      letter-spacing: 0.08em;
       flex-shrink: 0;
     }
 
-    .verification-content {
-      flex: 1;
-    }
-
-    .verification-title {
+    .dato-valor {
+      font-family: var(--mono);
       font-size: 14px;
-      font-weight: 600;
-      color: var(--positive-deep);
-      margin-bottom: 4px;
+      color: var(--tinta);
+      text-align: right;
     }
 
-    .verification-text {
-      font-size: 12px;
-      color: var(--body);
+    .dato-valor a {
+      color: var(--sello);
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    /* ── AVISO ── */
+    .aviso {
+      background-color: var(--pendiente-suave);
+      border: 1px solid var(--pendiente);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+      margin-bottom: var(--sp-lg);
+    }
+
+    .aviso-titulo {
+      font-family: var(--cond);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--pendiente);
+      margin-bottom: var(--sp-xs);
+    }
+
+    .aviso-texto {
+      font-size: 14px;
+      color: var(--tinta);
       line-height: 1.5;
     }
 
-    .verification-link {
-      color: #163300;
-      text-decoration: none;
-      font-weight: 600;
+    /* ── CANALES ── */
+    .canales {
+      margin-bottom: var(--sp-lg);
     }
 
-    /* ── CHANNELS ── */
-    .channels-section {
-      margin-bottom: var(--spacing-2xl);
+    .canales-intro {
+      font-size: 14px;
+      color: var(--tinta-media);
+      margin-bottom: var(--sp-md);
+      line-height: 1.5;
     }
 
-    .channel-grid {
+    .rejilla-canales {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--spacing-lg);
-      margin-bottom: var(--spacing-lg);
+      gap: var(--sp-md);
     }
 
-    .channel-card {
-      background-color: var(--canvas);
-      padding: var(--spacing-lg);
-      border-radius: 24px;
+    .canal {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
       text-align: center;
-      border: 1px solid var(--ink);
       cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: Inter, sans-serif;
+      font-family: var(--sans);
       font-size: 14px;
       font-weight: 600;
-      color: var(--ink);
+      color: var(--tinta);
       min-height: 80px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: var(--sp-sm);
     }
 
-    .channel-card:hover {
-      background-color: var(--primary-pale);
-      border-color: var(--primary);
+    .canal svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      color: var(--tinta-media);
     }
 
-    .channel-card:active {
-      background-color: var(--primary);
-      color: var(--ink);
+    .canal.elegido {
+      border: 2px solid var(--sello);
+      background-color: var(--sello-suave);
+      padding: calc(var(--sp-lg) - 1px);
     }
 
-    .channel-card:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    .canal.elegido svg {
+      color: var(--sello);
     }
 
-    .channel-icon {
-      font-size: 28px;
-      margin-bottom: var(--spacing-sm);
-      line-height: 1;
+    .canal:focus-visible {
+      outline: 2px solid var(--sello);
+      outline-offset: 2px;
     }
 
-    .channel-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: inherit;
-    }
-
-    /* ── CTA SECTION ── */
-    .cta-section {
-      margin-bottom: var(--spacing-2xl);
-    }
-
-    .btn-start {
+    /* ── BOTÓN PRINCIPAL ── */
+    .boton-principal {
       width: 100%;
-      padding: var(--spacing-md) var(--spacing-xl);
-      background-color: var(--primary);
-      color: var(--ink);
+      padding: var(--sp-md) var(--sp-xl);
+      background-color: var(--sello);
+      color: #fff;
       border: none;
-      border-radius: 24px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
-      font-family: Inter, sans-serif;
+      font-family: var(--sans);
       cursor: pointer;
       height: 48px;
-      transition: background-color 0.2s ease;
+      margin-bottom: var(--sp-lg);
     }
 
-    .btn-start:hover {
-      background-color: var(--primary-active);
+    .boton-principal:focus-visible {
+      outline: 2px solid var(--tinta);
+      outline-offset: 2px;
     }
 
-    .btn-start:active {
-      background-color: var(--positive-deep);
-    }
-
-    .btn-start:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
-    }
-
-    /* ── WARNING BANNER ── */
-    .warning-banner {
-      background-color: rgba(255, 209, 26, 0.25);
-      padding: var(--spacing-lg);
-      border-radius: 24px;
-      margin-bottom: var(--spacing-2xl);
-      border: 1px solid rgba(255, 209, 26, 0.5);
-    }
-
-    .warning-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--warning-content);
-      margin-bottom: 4px;
-    }
-
-    .warning-text {
+    /* ── PIE ── */
+    .pie {
+      background-color: var(--papel);
+      border-top: 1px solid var(--linea);
+      color: var(--tinta-media);
+      padding: var(--sp-xl) var(--sp-lg);
       font-size: 12px;
-      color: var(--warning-content);
-      line-height: 1.5;
-    }
-
-    /* ── FOOTER ── */
-    .footer {
-      background-color: var(--ink);
-      color: var(--canvas-soft);
-      padding: var(--spacing-3xl) var(--spacing-lg);
-      font-size: 12px;
+      font-family: var(--mono);
       text-align: center;
       line-height: 1.6;
     }
 
-    .footer a {
-      color: #9fe870;
-      text-decoration: none;
-      font-weight: 600;
+    .pie a {
+      color: var(--sello);
+      text-decoration: underline;
     }
 
-    /* ── UTILITIES ── */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
-    }
-
+    /* ── UTILIDADES ── */
     .skiplink {
       position: absolute;
       top: -40px;
       left: 0;
-      background-color: var(--primary);
-      color: var(--ink);
+      background-color: var(--sello);
+      color: #fff;
       padding: 8px 16px;
       text-decoration: none;
       z-index: 101;
@@ -418,124 +395,141 @@
   </style>
 </head>
 <body>
-  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+  <a href="#contenido" class="skiplink">Saltar al contenido principal</a>
+
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <g id="icono-volver" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 5 8 12l6.5 7"/>
+      </g>
+      <g id="icono-ordenador" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <rect x="4" y="5" width="16" height="11" rx="1"/>
+        <path d="M8 20h8M12 16v4"/>
+      </g>
+      <g id="icono-edificio" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20h16M5 20V9h14v11M3 9h18M12 4 4.5 9h15L12 4z"/>
+        <path d="M8 20v-7M12 20v-7M16 20v-7"/>
+      </g>
+    </defs>
+  </svg>
 
   <div class="container">
-    <!-- NAV BAR -->
-    <nav class="nav-bar">
-      <button class="nav-back" aria-label="Volver">‹</button>
-      <div class="nav-title">Renovación de DNI</div>
-      <div class="nav-spacer"></div>
+    <!-- BARRA SUPERIOR -->
+    <nav class="barra-superior">
+      <button class="volver" aria-label="Volver al catálogo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-volver"/></svg>
+      </button>
+      <div class="titulo-pantalla">Ficha del trámite</div>
+      <div class="hueco"></div>
     </nav>
 
-    <!-- HERO BAND -->
-    <section class="hero-band">
-      <span class="hecho-vital-badge">Documentos base</span>
-      <h1 class="tramite-nombre-coloquial">Renovar el carnet de identidad</h1>
-      <p class="tramite-nombre-oficial">Renovación del DNI · Policía Nacional</p>
-    </section>
+    <!-- CABECERA -->
+    <header class="cabecera">
+      <span class="etiqueta-hecho">Documentos base</span>
+      <h1 class="nombre-coloquial">Renovar el carnet de identidad</h1>
+      <p class="nombre-oficial">Renovación del DNI · Policía Nacional</p>
+    </header>
 
-    <!-- CONTENT BAND -->
-    <main class="content-band" id="main-content">
+    <!-- EL SELLO: el estado de verificación se estampa, no es un badge -->
+    <div class="zona-sello">
+      <div class="sello-verificacion" role="status" aria-label="Ficha verificada el 17 de julio de 2026">
+        <div class="palabra">Verificado</div>
+        <div class="fecha">17/07/2026</div>
+      </div>
+    </div>
+    <p class="nota-sello">
+      Una persona cotejó esta ficha contra la
+      <a href="#">fuente oficial</a>. Nada de lo que ves lo ha generado una IA.
+    </p>
+
+    <!-- CONTENIDO -->
+    <main class="contenido" id="contenido">
       <!-- DESCRIPCIÓN -->
-      <div class="card">
-        <p class="card-content">
-          Renovar el DNI cuando está caducado, a punto de caducar, se ha deteriorado o has perdido el anterior. Hay que ir en persona y con cita previa a una oficina de expedición.
+      <div class="tarjeta">
+        <p class="descripcion">
+          Renovar el DNI cuando está caducado, a punto de caducar, se ha deteriorado
+          o has perdido el anterior. Hay que ir en persona y con cita previa a una
+          oficina de expedición.
         </p>
       </div>
 
-      <!-- INFORMACIÓN GENERAL -->
-      <div class="card" style="background-color: var(--primary-pale);">
-        <h2 class="card-headline">Información</h2>
-        <div class="info-row">
-          <span class="info-label">Nivel</span>
-          <span class="info-value">Estatal</span>
+      <!-- FICHA DE DATOS -->
+      <div class="tarjeta">
+        <h2 class="tarjeta-titulo">La ficha</h2>
+        <div class="fila-dato">
+          <span class="dato-clave">Nivel</span>
+          <span class="dato-valor">estatal</span>
         </div>
-        <div class="info-row">
-          <span class="info-label">Canales</span>
-          <span class="info-value">Online · Presencial</span>
+        <div class="fila-dato">
+          <span class="dato-clave">Canales</span>
+          <span class="dato-valor">online · presencial</span>
         </div>
-        <div class="info-row">
-          <span class="info-label">Plazo</span>
-          <span class="info-value">Todo el año</span>
+        <div class="fila-dato">
+          <span class="dato-clave">Plazo</span>
+          <span class="dato-valor">todo el año</span>
         </div>
-        <div class="info-row">
-          <span class="info-label">Fuente oficial</span>
-          <a href="#" class="info-value link" aria-label="Abrir dnielectronico.es">dnielectronico.es</a>
+        <div class="fila-dato">
+          <span class="dato-clave">Tasa</span>
+          <span class="dato-valor">12,00 €</span>
         </div>
-      </div>
-
-      <!-- CTA SECTION -->
-      <div class="cta-section">
-        <button class="btn-start" aria-label="Empezar mi checklist para renovar el DNI">Empezar mi checklist</button>
-      </div>
-
-      <!-- VERIFICACIÓN -->
-      <div class="verification-badge" style="background-color: var(--canvas-soft);">
-        <div class="verification-icon">✓</div>
-        <div class="verification-content">
-          <div class="verification-title">Verificada el 17/07/2026</div>
-          <div class="verification-text">
-            Esta ficha fue cotejada contra la <a href="#" class="verification-link">fuente oficial</a> por un humano. No se pierde al actualizarse.
-          </div>
+        <div class="fila-dato">
+          <span class="dato-clave">Fuente oficial</span>
+          <span class="dato-valor"><a href="#" aria-label="Abrir dnielectronico.es">dnielectronico.es</a></span>
         </div>
       </div>
 
       <!-- CANALES -->
-      <div class="channels-section">
-        <h2 class="card-headline" style="margin-bottom: var(--spacing-lg);">¿Cómo lo harás?</h2>
-        <p style="font-size: 14px; color: var(--body); margin-bottom: var(--spacing-lg); line-height: 1.5;">
-          Elige tu canal para ver exactamente qué necesitas llevar o hacer.
+      <div class="canales">
+        <h2 class="tarjeta-titulo">¿Cómo lo vas a hacer?</h2>
+        <p class="canales-intro">
+          Elige el canal y verás exactamente qué llevar o qué preparar.
         </p>
-        <div class="channel-grid">
-          <button class="channel-card" aria-label="Elegir En persona">
-            <div class="channel-icon">👤</div>
-            <div class="channel-name">En persona</div>
+        <div class="rejilla-canales">
+          <button class="canal" aria-label="Elegir hacerlo online" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-ordenador"/></svg>
+            <span>Online</span>
           </button>
-          <button class="channel-card" aria-label="Elegir Cita previa">
-            <div class="channel-icon">💻</div>
-            <div class="channel-name">Cita previa</div>
+          <button class="canal" aria-label="Elegir hacerlo en persona" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-edificio"/></svg>
+            <span>En persona</span>
           </button>
         </div>
       </div>
 
-      <!-- ADVERTENCIA -->
-      <div class="warning-banner">
-        <div class="warning-title">⚠️ Requisito técnico</div>
-        <div class="warning-text">
-          Este trámite requiere presencia física en una oficina. No se puede completar íntegramente online.
+      <!-- AVISO -->
+      <div class="aviso">
+        <div class="aviso-titulo">Hay que ir en persona</div>
+        <div class="aviso-texto">
+          La entrega de documentos y la toma de huellas se hacen en la oficina: este
+          trámite no se puede completar entero por internet.
         </div>
       </div>
+
+      <!-- ACCIÓN PRINCIPAL -->
+      <button class="boton-principal" aria-label="Empezar a preparar este trámite">
+        Preparar este trámite
+      </button>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      © 2026 A la Primera · <a href="#">Privacidad</a> · <a href="#">Reportar error</a>
+    <!-- PIE -->
+    <footer class="pie">
+      © 2026 A la Primera · <a href="#">Privacidad</a> · <a href="#">Avisar de un error</a>
     </footer>
   </div>
 
   <script>
-    // Back button
-    document.querySelector('.nav-back').addEventListener('click', () => {
-      window.history.back();
-    });
+    document.querySelector('.volver').addEventListener('click', () => window.history.back());
 
-    // Channel selection (para next step)
-    document.querySelectorAll('.channel-card').forEach(card => {
-      card.addEventListener('click', () => {
-        card.parentElement.querySelectorAll('.channel-card').forEach(c => {
-          c.style.borderColor = '#f0f0f0';
-          c.style.backgroundColor = 'var(--canvas-soft)';
+    // Selección de canal: el estado no es solo color (borde + fondo + aria-pressed)
+    document.querySelectorAll('.canal').forEach(boton => {
+      boton.addEventListener('click', () => {
+        document.querySelectorAll('.canal').forEach(c => {
+          c.classList.remove('elegido');
+          c.setAttribute('aria-pressed', 'false');
         });
-        card.style.borderColor = 'var(--primary)';
-        card.style.backgroundColor = 'var(--primary-pale)';
+        boton.classList.add('elegido');
+        boton.setAttribute('aria-pressed', 'true');
       });
-    });
-
-    // CTA Button
-    document.querySelector('.btn-start').addEventListener('click', () => {
-      console.log('Iniciar wizard para este trámite');
-      // En una app real, navegar al wizard
     });
   </script>
 </body>

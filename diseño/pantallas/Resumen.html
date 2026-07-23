@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Preparación — A la Primera</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <title>Preparación · A la Primera</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -13,357 +13,366 @@
     }
 
     :root {
-      /* Brand & Accent */
-      --primary: #9fe870;
-      --primary-active: #cdffad;
-      --primary-neutral: #c5edab;
-      --primary-pale: #e2f6d5;
+      /* Identidad: EL SELLO. Tokens de app/globals.css */
+      --papel: #efebe2;
+      --hoja: #f7f4ee;
+      --tinta: #24221f;
+      --tinta-media: #635c52;
+      --tinta-tenue: #726957;
+      --linea: #d8d1c4;
+      --sello: #5a3a82;
+      --sello-suave: #ede6f3;
+      --pendiente: #a8342b;
+      --pendiente-suave: #f7e7e4;
 
-      /* Surface */
-      --canvas: #ffffff;
-      --canvas-soft: #e8ebe6;
+      --sans: "IBM Plex Sans", -apple-system, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --cond: "IBM Plex Sans Condensed", sans-serif;
 
-      /* Text */
-      --ink: #0e0f0c;
-      --ink-deep: #163300;
-      --body: #454745;
-      --mute: #868685;
-
-      /* Semantic */
-      --positive: #2ead4b;
-      --positive-deep: #054d28;
-      --warning: #ffd11a;
-      --warning-deep: #b86700;
-      --warning-content: #4a3b1c;
-      --negative: #d03238;
-
-      /* Spacing */
-      --spacing-xs: 4px;
-      --spacing-sm: 8px;
-      --spacing-md: 12px;
-      --spacing-lg: 16px;
-      --spacing-xl: 24px;
-      --spacing-2xl: 32px;
-      --spacing-3xl: 48px;
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 12px;
+      --sp-lg: 16px;
+      --sp-xl: 24px;
+      --sp-2xl: 32px;
+      --sp-3xl: 48px;
     }
 
     html, body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--canvas-soft);
-      color: var(--ink);
+      font-family: var(--sans);
+      background-color: var(--papel);
+      color: var(--tinta);
       line-height: 1.5;
       min-height: 100vh;
     }
 
-    /* Mobile viewport: 375px width */
+    /* Maqueta en viewport móvil de 375px */
     .container {
       width: 375px;
       margin: 0 auto;
-      background: var(--canvas-soft);
+      background: var(--papel);
       overflow-x: hidden;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--linea);
+      border-right: 1px solid var(--linea);
     }
 
-    /* ── NAV BAR ── */
-    .nav-bar {
+    /* ── BARRA SUPERIOR ── */
+    .barra-superior {
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: var(--canvas);
-      border-bottom: 1px solid #f0f0f0;
-      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--papel);
+      border-bottom: 1px solid var(--linea);
+      padding: var(--sp-md) var(--sp-lg);
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 56px;
     }
 
-    .nav-back {
+    .volver {
       background: none;
       border: none;
-      font-size: 20px;
       cursor: pointer;
-      color: var(--ink);
+      color: var(--tinta);
       width: 44px;
       height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-left: -12px;
     }
 
-    .nav-title {
+    .volver svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    .titulo-pantalla {
       flex: 1;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
+      font-family: var(--cond);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       text-align: center;
-      margin: 0 var(--spacing-md);
+      margin: 0 var(--sp-md);
     }
 
-    .nav-spacer {
+    .hueco {
       width: 44px;
     }
 
-    /* ── HERO BAND ── */
-    .hero-band {
-      background: linear-gradient(135deg, var(--primary-pale) 0%, #f0f9e6 100%);
-      padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-2xl);
+    /* ── CABECERA ── */
+    .cabecera {
+      padding: var(--sp-xl) var(--sp-lg);
+      border-bottom: 1px solid var(--linea);
     }
 
-    .hero-headline {
-      font-size: 28px;
-      font-weight: 900;
-      font-family: Inter, sans-serif;
-      line-height: 1.2;
-      color: var(--ink);
-      letter-spacing: -0.6px;
-      margin-bottom: var(--spacing-md);
+    .cabecera h1 {
+      font-family: var(--cond);
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: var(--sp-xs);
     }
 
-    .hero-subheadline {
-      font-size: 14px;
-      color: var(--body);
-      line-height: 1.5;
+    .cabecera p {
+      font-size: 15px;
+      color: var(--tinta-media);
     }
 
-    /* ── CONTENT BAND ── */
-    .content-band {
-      background-color: var(--canvas);
-      padding: var(--spacing-3xl) var(--spacing-lg);
+    /* ── CONTENIDO ── */
+    .contenido {
+      flex: 1;
+      padding: var(--sp-xl) var(--sp-lg) var(--sp-2xl);
     }
 
-    /* ── SECTION TITLE ── */
-    .section-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: var(--spacing-xl);
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
+    .titulo-seccion {
+      font-family: var(--cond);
+      font-size: 15px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--sp-md);
+      padding-bottom: var(--sp-xs);
+      border-bottom: 1px solid var(--linea);
     }
 
-    .section-icon {
-      font-size: 16px;
-    }
-
-    /* ── CHANNEL GRID ── */
-    .channel-grid {
+    /* ── CANALES ── */
+    .rejilla-canales {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--spacing-lg);
-      margin-bottom: var(--spacing-3xl);
+      gap: var(--sp-md);
+      margin-bottom: var(--sp-xl);
     }
 
-    .channel-card {
-      background-color: var(--canvas);
-      padding: var(--spacing-lg);
-      border-radius: 24px;
+    .canal {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
       text-align: center;
-      border: 1px solid var(--ink);
       cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: Inter, sans-serif;
-      min-height: 100px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--tinta);
+      min-height: 96px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: var(--sp-sm);
     }
 
-    .channel-card:hover {
-      background-color: var(--primary-pale);
-      border-color: var(--primary);
+    .canal svg {
+      width: 28px;
+      height: 28px;
+      stroke: currentColor;
+      color: var(--tinta-media);
     }
 
-    .channel-card:active {
-      background-color: var(--primary);
-      color: var(--ink);
+    .canal.elegido {
+      border: 2px solid var(--sello);
+      background-color: var(--sello-suave);
+      padding: calc(var(--sp-lg) - 1px);
     }
 
-    .channel-card.selected {
-      background-color: var(--primary);
-      border-color: var(--primary);
-      color: var(--ink);
+    .canal.elegido svg {
+      color: var(--sello);
     }
 
-    .channel-card:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    .canal:focus-visible {
+      outline: 2px solid var(--sello);
+      outline-offset: 2px;
     }
 
-    .channel-icon {
-      font-size: 28px;
-      margin-bottom: var(--spacing-sm);
-      line-height: 1;
-    }
-
-    .channel-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: inherit;
-    }
-
-    /* ── PREPARATION SECTION ── */
-    .prep-section {
+    /* ── PREPARACIÓN ── */
+    .preparacion {
       display: none;
-      margin-bottom: var(--spacing-3xl);
     }
 
-    .prep-section.active {
+    .preparacion.activa {
       display: block;
+      animation: aparecer 0.3s ease;
     }
 
-    .prep-headline {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: var(--spacing-lg);
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* ── CARD LIST ── */
-    .card-list {
+    .lista-preparacion {
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-md);
+      gap: var(--sp-md);
+      margin-bottom: var(--sp-lg);
     }
 
-    .prep-card {
-      background-color: var(--primary-pale);
-      border-radius: 16px;
-      padding: var(--spacing-lg);
+    .tarjeta-prep {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
       display: flex;
-      gap: var(--spacing-lg);
+      gap: var(--sp-md);
       align-items: flex-start;
     }
 
-    .prep-icon {
-      font-size: 24px;
+    .prep-icono {
       flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      color: var(--tinta-media);
+      margin-top: 1px;
     }
 
-    .prep-content {
+    .prep-icono svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+    }
+
+    .prep-cuerpo {
       flex: 1;
     }
 
-    .prep-label {
+    .prep-nombre {
       font-size: 15px;
       font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
-    .prep-description {
+    .prep-detalle {
       font-size: 13px;
-      color: var(--body);
+      color: var(--tinta-media);
       line-height: 1.4;
     }
 
-    /* ── WARNING BANNER ── */
-    .info-banner {
-      background-color: rgba(255, 209, 26, 0.25);
-      padding: var(--spacing-lg);
-      border-radius: 24px;
-      margin-bottom: var(--spacing-3xl);
-      border: 1px solid rgba(255, 209, 26, 0.5);
+    .prep-dato {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--tinta);
+      margin-top: 2px;
     }
 
-    .info-banner-title {
+    /* ── AVISO ── */
+    .aviso {
+      background-color: var(--pendiente-suave);
+      border: 1px solid var(--pendiente);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+    }
+
+    .aviso-titulo {
+      font-family: var(--cond);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--pendiente);
+      margin-bottom: var(--sp-xs);
+    }
+
+    .aviso-texto {
       font-size: 14px;
-      font-weight: 600;
-      color: var(--warning-content);
-      margin-bottom: 4px;
-    }
-
-    .info-banner-text {
-      font-size: 12px;
-      color: var(--warning-content);
+      color: var(--tinta);
       line-height: 1.5;
     }
 
-    /* ── CTA SECTION ── */
-    .cta-section {
-      background-color: var(--canvas-soft);
-      padding: var(--spacing-2xl) var(--spacing-lg);
+    /* Nota neutra (consejo): hoja con filete, sin alarma */
+    .nota {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-left: 3px solid var(--sello);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+    }
+
+    .nota-titulo {
+      font-family: var(--cond);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sello);
+      margin-bottom: var(--sp-xs);
+    }
+
+    .nota-texto {
+      font-size: 14px;
+      color: var(--tinta);
+      line-height: 1.5;
+    }
+
+    /* ── BOTONERA INFERIOR ── */
+    .botonera {
+      background-color: var(--papel);
+      border-top: 1px solid var(--linea);
+      padding: var(--sp-lg);
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-md);
+      gap: var(--sp-md);
     }
 
-    .btn-primary {
+    .boton-principal {
       width: 100%;
-      padding: var(--spacing-md) var(--spacing-xl);
-      background-color: var(--primary);
-      color: var(--ink);
+      padding: var(--sp-md) var(--sp-xl);
+      background-color: var(--sello);
+      color: #fff;
       border: none;
-      border-radius: 24px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
-      font-family: Inter, sans-serif;
+      font-family: var(--sans);
       cursor: pointer;
       height: 48px;
-      transition: background-color 0.2s ease;
     }
 
-    .btn-primary:hover {
-      background-color: var(--primary-active);
+    .boton-principal:disabled {
+      background-color: var(--linea);
+      color: var(--tinta-tenue);
+      cursor: not-allowed;
     }
 
-    .btn-primary:active {
-      background-color: var(--positive-deep);
-    }
-
-    .btn-primary:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
-    }
-
-    .btn-secondary {
+    .boton-secundario {
       width: 100%;
-      padding: var(--spacing-md) var(--spacing-xl);
-      background-color: var(--canvas);
-      color: var(--ink);
-      border: 1px solid var(--mute);
-      border-radius: 24px;
-      font-size: 14px;
+      padding: var(--sp-md) var(--sp-xl);
+      background-color: var(--hoja);
+      color: var(--tinta);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      font-size: 16px;
       font-weight: 600;
-      font-family: Inter, sans-serif;
+      font-family: var(--sans);
       cursor: pointer;
       height: 48px;
-      transition: all 0.2s ease;
     }
 
-    .btn-secondary:hover {
-      border-color: var(--primary);
-      background-color: var(--primary-pale);
+    .boton-principal:focus-visible,
+    .boton-secundario:focus-visible {
+      outline: 2px solid var(--tinta);
+      outline-offset: 2px;
     }
 
-    .btn-secondary:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1), inset 0 0 0 2px var(--ink);
-    }
-
-    /* ── UTILITIES ── */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
-    }
-
+    /* ── UTILIDADES ── */
     .skiplink {
       position: absolute;
       top: -40px;
       left: 0;
-      background-color: var(--primary);
-      color: var(--ink);
+      background-color: var(--sello);
+      color: #fff;
       padding: 8px 16px;
       text-decoration: none;
       z-index: 101;
@@ -377,192 +386,196 @@
   </style>
 </head>
 <body>
-  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+  <a href="#contenido" class="skiplink">Saltar al contenido principal</a>
+
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <g id="icono-volver" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 5 8 12l6.5 7"/>
+      </g>
+      <g id="icono-ordenador" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <rect x="4" y="5" width="16" height="11" rx="1"/>
+        <path d="M8 20h8M12 16v4"/>
+      </g>
+      <g id="icono-edificio" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20h16M5 20V9h14v11M3 9h18M12 4 4.5 9h15L12 4z"/>
+        <path d="M8 20v-7M12 20v-7M16 20v-7"/>
+      </g>
+      <g id="icono-movil" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <rect x="7" y="3" width="10" height="18" rx="1.5"/>
+        <path d="M11 17.5h2"/>
+      </g>
+      <g id="icono-documento" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 3h8l4 4v14H6V3z"/>
+        <path d="M14 3v4h4M9 12h6M9 15.5h6"/>
+      </g>
+      <g id="icono-reloj" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="12" cy="12" r="8.5"/>
+        <path d="M12 7.5V12l3 2"/>
+      </g>
+      <g id="icono-carnet" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <rect x="3" y="6" width="18" height="13" rx="1"/>
+        <circle cx="8.5" cy="11.5" r="1.8"/>
+        <path d="M6 16c.4-1.3 1.4-2 2.5-2s2.1.7 2.5 2M14 10.5h4M14 13.5h4"/>
+      </g>
+      <g id="icono-lugar" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 0 1 13 0c0 4.6-6.5 10-6.5 10z"/>
+        <circle cx="12" cy="10.5" r="2.2"/>
+      </g>
+      <g id="icono-impresora" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 8V4h10v4M5 8h14a1 1 0 0 1 1 1v7h-4M4 9v7h4"/>
+        <rect x="8" y="13" width="8" height="7"/>
+      </g>
+    </defs>
+  </svg>
 
   <div class="container">
-    <!-- NAV BAR -->
-    <nav class="nav-bar">
-      <button class="nav-back" aria-label="Volver">‹</button>
-      <div class="nav-title">Preparación</div>
-      <div class="nav-spacer"></div>
+    <!-- BARRA SUPERIOR -->
+    <nav class="barra-superior">
+      <button class="volver" aria-label="Volver">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-volver"/></svg>
+      </button>
+      <div class="titulo-pantalla">Preparación</div>
+      <div class="hueco"></div>
     </nav>
 
-    <!-- HERO BAND -->
-    <section class="hero-band">
-      <h1 class="hero-headline">Antes de empezar</h1>
-      <p class="hero-subheadline">Elige cómo vas a hacerlo para ver qué necesitas</p>
-    </section>
+    <!-- CABECERA -->
+    <header class="cabecera">
+      <h1>Antes de empezar</h1>
+      <p>Elige cómo vas a hacerlo y verás qué necesitas</p>
+    </header>
 
-    <!-- CONTENT BAND -->
-    <main class="content-band" id="main-content">
-      <!-- CHANNEL SELECTION -->
-      <div class="section-title">
-        <span class="section-icon">🎯</span>
-        <span>¿Cómo prefieres hacerlo?</span>
-      </div>
+    <!-- CONTENIDO -->
+    <main class="contenido" id="contenido">
+      <h2 class="titulo-seccion">¿Cómo prefieres hacerlo?</h2>
 
-      <div class="channel-grid">
-        <button class="channel-card" id="btn-online" aria-label="Elegir Online">
-          <div class="channel-icon">💻</div>
-          <div class="channel-name">Online</div>
+      <div class="rejilla-canales">
+        <button class="canal" id="canal-online" aria-label="Elegir hacerlo online" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-ordenador"/></svg>
+          <span>Online</span>
         </button>
-        <button class="channel-card" id="btn-presencial" aria-label="Elegir Presencial">
-          <div class="channel-icon">🏛️</div>
-          <div class="channel-name">Presencial</div>
+        <button class="canal" id="canal-presencial" aria-label="Elegir hacerlo en persona" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-edificio"/></svg>
+          <span>En persona</span>
         </button>
       </div>
 
-      <!-- ONLINE PREPARATION -->
-      <div class="prep-section" id="prep-online">
-        <h2 class="prep-headline">Qué necesitas para empezar</h2>
-        <div class="card-list">
-          <div class="prep-card">
-            <div class="prep-icon">📱</div>
-            <div class="prep-content">
-              <div class="prep-label">Un dispositivo con internet</div>
-              <div class="prep-description">Ordenador, tablet o móvil con conexión estable</div>
+      <!-- PREPARACIÓN ONLINE -->
+      <div class="preparacion" id="prep-online">
+        <h2 class="titulo-seccion">Qué necesitas para empezar</h2>
+        <div class="lista-preparacion">
+          <div class="tarjeta-prep">
+            <div class="prep-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-movil"/></svg></div>
+            <div class="prep-cuerpo">
+              <div class="prep-nombre">Un dispositivo con internet</div>
+              <div class="prep-detalle">Ordenador, tableta o móvil con conexión estable</div>
             </div>
           </div>
-          <div class="prep-card">
-            <div class="prep-icon">📄</div>
-            <div class="prep-content">
-              <div class="prep-label">Documentos digitales</div>
-              <div class="prep-description">Ten a mano copias escaneadas de tus papeles</div>
+          <div class="tarjeta-prep">
+            <div class="prep-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-documento"/></svg></div>
+            <div class="prep-cuerpo">
+              <div class="prep-nombre">Tus papeles en digital</div>
+              <div class="prep-detalle">Ten a mano copias escaneadas de tus documentos</div>
             </div>
           </div>
-          <div class="prep-card">
-            <div class="prep-icon">⏱️</div>
-            <div class="prep-content">
-              <div class="prep-label">30-45 minutos</div>
-              <div class="prep-description">Tiempo estimado para completar el trámite</div>
+          <div class="tarjeta-prep">
+            <div class="prep-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-reloj"/></svg></div>
+            <div class="prep-cuerpo">
+              <div class="prep-nombre">Un rato sin interrupciones</div>
+              <div class="prep-dato">30 a 45 min</div>
             </div>
           </div>
         </div>
 
-        <!-- INFO BANNER -->
-        <div class="info-banner" style="margin-top: var(--spacing-2xl); margin-bottom: 0;">
-          <div class="info-banner-title">💡 Consejo</div>
-          <div class="info-banner-text">
-            Abre el navegador en pestaña privada. Algunos trámites requieren una sesión limpia.
+        <div class="nota">
+          <div class="nota-titulo">Un consejo</div>
+          <div class="nota-texto">
+            Abre el navegador en una pestaña privada: algunas sedes piden una sesión limpia.
           </div>
         </div>
       </div>
 
-      <!-- PRESENCIAL PREPARATION -->
-      <div class="prep-section" id="prep-presencial">
-        <h2 class="prep-headline">Qué llevar</h2>
-        <div class="card-list">
-          <div class="prep-card">
-            <div class="prep-icon">🆔</div>
-            <div class="prep-content">
-              <div class="prep-label">Documentación original</div>
-              <div class="prep-description">DNI, pasaporte o documento válido que te identifique</div>
+      <!-- PREPARACIÓN EN PERSONA -->
+      <div class="preparacion" id="prep-presencial">
+        <h2 class="titulo-seccion">Qué llevar</h2>
+        <div class="lista-preparacion">
+          <div class="tarjeta-prep">
+            <div class="prep-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-carnet"/></svg></div>
+            <div class="prep-cuerpo">
+              <div class="prep-nombre">Tu documentación original</div>
+              <div class="prep-detalle">DNI, pasaporte u otro documento que te identifique</div>
             </div>
           </div>
-          <div class="prep-card">
-            <div class="prep-icon">📋</div>
-            <div class="prep-content">
-              <div class="prep-label">Formularios impresos</div>
-              <div class="prep-description">Descarga e imprime los formularios necesarios</div>
+          <div class="tarjeta-prep">
+            <div class="prep-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-impresora"/></svg></div>
+            <div class="prep-cuerpo">
+              <div class="prep-nombre">Los formularios impresos</div>
+              <div class="prep-detalle">Descárgalos e imprímelos antes de ir</div>
             </div>
           </div>
-          <div class="prep-card">
-            <div class="prep-icon">📍</div>
-            <div class="prep-content">
-              <div class="prep-label">La dirección de la oficina</div>
-              <div class="prep-description">Anota bien dónde tienes que ir y a qué hora</div>
+          <div class="tarjeta-prep">
+            <div class="prep-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-lugar"/></svg></div>
+            <div class="prep-cuerpo">
+              <div class="prep-nombre">La dirección de la oficina</div>
+              <div class="prep-detalle">Apunta bien dónde vas y a qué hora</div>
             </div>
           </div>
-          <div class="prep-card">
-            <div class="prep-icon">⏱️</div>
-            <div class="prep-content">
-              <div class="prep-label">15-20 minutos antes</div>
-              <div class="prep-description">Llega con tiempo para completar la gestión</div>
+          <div class="tarjeta-prep">
+            <div class="prep-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-reloj"/></svg></div>
+            <div class="prep-cuerpo">
+              <div class="prep-nombre">Llegar con margen</div>
+              <div class="prep-dato">15 a 20 min antes</div>
             </div>
           </div>
         </div>
 
-        <!-- INFO BANNER -->
-        <div class="info-banner" style="margin-top: var(--spacing-2xl); margin-bottom: 0;">
-          <div class="info-banner-title">⚠️ Importante</div>
-          <div class="info-banner-text">
-            Algunos organismos cierran a la hora de comer. Verifica el horario antes de ir.
+        <div class="aviso">
+          <div class="aviso-titulo">Ojo con el horario</div>
+          <div class="aviso-texto">
+            Algunas oficinas cierran a mediodía. Comprueba el horario antes de salir de casa.
           </div>
         </div>
       </div>
     </main>
 
-    <!-- CTA SECTION -->
-    <div class="cta-section">
-      <button class="btn-primary" id="btn-continue" aria-label="Continuar">
+    <!-- BOTONERA -->
+    <div class="botonera">
+      <button class="boton-principal" id="continuar" aria-label="Continuar" disabled>
         Continuar
       </button>
-      <button class="btn-secondary" id="btn-back-alt" aria-label="Volver">
+      <button class="boton-secundario" id="volver-abajo" aria-label="Volver">
         Volver
       </button>
     </div>
   </div>
 
   <script>
-    const btnOnline = document.getElementById('btn-online');
-    const btnPresencial = document.getElementById('btn-presencial');
+    const canalOnline = document.getElementById('canal-online');
+    const canalPresencial = document.getElementById('canal-presencial');
     const prepOnline = document.getElementById('prep-online');
     const prepPresencial = document.getElementById('prep-presencial');
-    const btnContinue = document.getElementById('btn-continue');
-    let selectedChannel = null;
+    const continuar = document.getElementById('continuar');
+    let canalElegido = null;
 
-    // Channel selection
-    btnOnline.addEventListener('click', () => {
-      selectedChannel = 'online';
-      updateChannelSelection();
-      showPreparation('online');
-    });
+    function elegirCanal(canal) {
+      canalElegido = canal;
 
-    btnPresencial.addEventListener('click', () => {
-      selectedChannel = 'presencial';
-      updateChannelSelection();
-      showPreparation('presencial');
-    });
+      canalOnline.classList.toggle('elegido', canal === 'online');
+      canalOnline.setAttribute('aria-pressed', canal === 'online');
+      canalPresencial.classList.toggle('elegido', canal === 'presencial');
+      canalPresencial.setAttribute('aria-pressed', canal === 'presencial');
 
-    function updateChannelSelection() {
-      btnOnline.classList.remove('selected');
-      btnPresencial.classList.remove('selected');
+      prepOnline.classList.toggle('activa', canal === 'online');
+      prepPresencial.classList.toggle('activa', canal === 'presencial');
 
-      if (selectedChannel === 'online') {
-        btnOnline.classList.add('selected');
-      } else if (selectedChannel === 'presencial') {
-        btnPresencial.classList.add('selected');
-      }
+      continuar.disabled = false;
     }
 
-    function showPreparation(channel) {
-      prepOnline.classList.remove('active');
-      prepPresencial.classList.remove('active');
+    canalOnline.addEventListener('click', () => elegirCanal('online'));
+    canalPresencial.addEventListener('click', () => elegirCanal('presencial'));
 
-      if (channel === 'online') {
-        prepOnline.classList.add('active');
-      } else if (channel === 'presencial') {
-        prepPresencial.classList.add('active');
-      }
-    }
-
-    // Back button
-    document.querySelector('.nav-back').addEventListener('click', () => {
-      window.history.back();
-    });
-
-    // Continue button
-    btnContinue.addEventListener('click', () => {
-      if (selectedChannel) {
-        console.log('Continuar con canal:', selectedChannel);
-        // En una app real, navegar al siguiente paso
-      }
-    });
-
-    // Back button alternative
-    document.getElementById('btn-back-alt').addEventListener('click', () => {
-      window.history.back();
-    });
+    document.querySelector('.volver').addEventListener('click', () => window.history.back());
+    document.getElementById('volver-abajo').addEventListener('click', () => window.history.back());
   </script>
 </body>
 </html>

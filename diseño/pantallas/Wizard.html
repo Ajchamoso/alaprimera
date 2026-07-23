@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wizard de personalización — A la Primera</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <title>Wizard de personalización · A la Primera</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -13,154 +13,151 @@
     }
 
     :root {
-      /* Brand & Accent */
-      --primary: #9fe870;
-      --primary-active: #cdffad;
-      --primary-neutral: #c5edab;
-      --primary-pale: #e2f6d5;
+      /* Identidad: EL SELLO. Tokens de app/globals.css */
+      --papel: #efebe2;
+      --hoja: #f7f4ee;
+      --tinta: #24221f;
+      --tinta-media: #635c52;
+      --tinta-tenue: #726957;
+      --linea: #d8d1c4;
+      --sello: #5a3a82;
+      --sello-suave: #ede6f3;
+      --pendiente: #a8342b;
+      --pendiente-suave: #f7e7e4;
 
-      /* Surface */
-      --canvas: #ffffff;
-      --canvas-soft: #e8ebe6;
+      --sans: "IBM Plex Sans", -apple-system, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --cond: "IBM Plex Sans Condensed", sans-serif;
 
-      /* Text */
-      --ink: #0e0f0c;
-      --ink-deep: #163300;
-      --body: #454745;
-      --mute: #868685;
-
-      /* Semantic */
-      --positive: #2ead4b;
-      --positive-deep: #054d28;
-      --warning: #ffd11a;
-      --warning-deep: #b86700;
-      --warning-content: #4a3b1c;
-      --negative: #d03238;
-
-      /* Spacing */
-      --spacing-xs: 4px;
-      --spacing-sm: 8px;
-      --spacing-md: 12px;
-      --spacing-lg: 16px;
-      --spacing-xl: 24px;
-      --spacing-2xl: 32px;
-      --spacing-3xl: 48px;
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 12px;
+      --sp-lg: 16px;
+      --sp-xl: 24px;
+      --sp-2xl: 32px;
+      --sp-3xl: 48px;
     }
 
     html, body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--canvas-soft);
-      color: var(--ink);
+      font-family: var(--sans);
+      background-color: var(--papel);
+      color: var(--tinta);
       line-height: 1.5;
       min-height: 100vh;
     }
 
-    /* Mobile viewport: 375px width */
+    /* Maqueta en viewport móvil de 375px */
     .container {
       width: 375px;
       margin: 0 auto;
-      background: var(--canvas-soft);
+      background: var(--papel);
       overflow-x: hidden;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      border-left: 1px solid var(--linea);
+      border-right: 1px solid var(--linea);
     }
 
-    /* ── NAV BAR ── */
-    .nav-bar {
+    /* ── BARRA SUPERIOR ── */
+    .barra-superior {
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: var(--canvas);
-      border-bottom: 1px solid #f0f0f0;
-      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--papel);
+      border-bottom: 1px solid var(--linea);
+      padding: var(--sp-md) var(--sp-lg);
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 56px;
     }
 
-    .nav-back {
+    .volver {
       background: none;
       border: none;
-      font-size: 20px;
       cursor: pointer;
-      color: var(--ink);
+      color: var(--tinta);
       width: 44px;
       height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-left: -12px;
     }
 
-    .nav-title {
+    .volver svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    .titulo-pantalla {
       flex: 1;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
+      font-family: var(--cond);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       text-align: center;
-      margin: 0 var(--spacing-md);
+      margin: 0 var(--sp-md);
     }
 
-    .nav-spacer {
+    .hueco {
       width: 44px;
     }
 
-    /* ── PROGRESS BAR ── */
-    .progress-container {
-      background-color: var(--canvas);
-      padding: var(--spacing-lg) var(--spacing-lg);
-      border-bottom: 1px solid #f0f0f0;
+    /* ── PROGRESO ── */
+    .progreso {
+      background-color: var(--papel);
+      padding: var(--sp-lg);
+      border-bottom: 1px solid var(--linea);
     }
 
-    .progress-bar {
+    .progreso-barra {
       height: 4px;
-      background-color: #f0f0f0;
-      border-radius: 2px;
+      background-color: var(--linea);
       overflow: hidden;
-      margin-bottom: var(--spacing-md);
+      margin-bottom: var(--sp-md);
     }
 
-    .progress-fill {
+    .progreso-relleno {
       height: 100%;
-      background-color: var(--primary);
+      background-color: var(--sello);
       transition: width 0.3s ease;
-      border-radius: 2px;
     }
 
-    .progress-text {
+    .progreso-texto {
+      font-family: var(--mono);
       font-size: 12px;
-      color: var(--mute);
-      font-weight: 600;
+      font-weight: 500;
+      color: var(--tinta-tenue);
       text-align: right;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.08em;
     }
 
-    /* ── CONTENT BAND ── */
-    .content-band {
+    /* ── CONTENIDO ── */
+    .contenido {
       flex: 1;
-      background-color: var(--canvas-soft);
-      padding: var(--spacing-3xl) var(--spacing-lg);
+      padding: var(--sp-2xl) var(--sp-lg);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    /* ── QUESTION SECTION ── */
-    .question-section {
+    .pregunta {
       display: none;
     }
 
-    .question-section.active {
+    .pregunta.activa {
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-xl);
-      animation: fadeIn 0.3s ease;
+      gap: var(--sp-xl);
+      animation: aparecer 0.3s ease;
     }
 
-    @keyframes fadeIn {
+    @keyframes aparecer {
       from {
         opacity: 0;
         transform: translateY(10px);
@@ -171,247 +168,219 @@
       }
     }
 
-    .question-headline {
-      font-size: 28px;
-      font-weight: 900;
-      font-family: Inter, sans-serif;
+    .pregunta-titular {
+      font-family: var(--cond);
+      font-size: 26px;
+      font-weight: 700;
       line-height: 1.2;
-      color: var(--ink);
-      letter-spacing: -0.6px;
     }
 
-    .question-subheadline {
-      font-size: 14px;
-      color: var(--body);
-      line-height: 1.5;
+    .pregunta-apoyo {
+      font-size: 15px;
+      color: var(--tinta-media);
+      margin-top: var(--sp-xs);
     }
 
-    /* ── OPTIONS CONTAINER ── */
-    .options-container {
+    /* ── OPCIONES ── */
+    .opciones {
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-md);
+      gap: var(--sp-md);
     }
 
-    .option-button {
-      background-color: var(--canvas);
-      border: 2px solid transparent;
-      border-radius: 24px;
-      padding: var(--spacing-lg) var(--spacing-xl);
-      font-size: 16px;
-      font-weight: 600;
-      font-family: Inter, sans-serif;
-      color: var(--ink);
+    .opcion {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+      font-family: var(--sans);
+      color: var(--tinta);
       cursor: pointer;
-      transition: all 0.2s ease;
       text-align: left;
       min-height: 60px;
       display: flex;
       align-items: center;
+      gap: var(--sp-lg);
     }
 
-    .option-button:hover {
-      background-color: var(--primary-pale);
-      border-color: var(--primary);
-      transform: translateY(-2px);
+    .opcion:focus-visible {
+      outline: 2px solid var(--sello);
+      outline-offset: 2px;
     }
 
-    .option-button:active {
-      background-color: var(--primary-neutral);
-      border-color: var(--primary);
+    /* Seleccionada: filete violeta de 2px y fondo suave. El estado no es solo
+       color: aparece el aspa de sello a la derecha. */
+    .opcion.elegida {
+      border: 2px solid var(--sello);
+      background-color: var(--sello-suave);
+      padding: calc(var(--sp-lg) - 1px);
     }
 
-    .option-button.selected {
-      background-color: var(--primary);
-      color: var(--ink);
-      border-color: var(--primary);
-    }
-
-    .option-button:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
-    }
-
-    .option-icon {
-      font-size: 20px;
-      margin-right: var(--spacing-lg);
+    .opcion-icono {
       flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      color: var(--tinta-media);
     }
 
-    .option-text {
+    .opcion.elegida .opcion-icono {
+      color: var(--sello);
+    }
+
+    .opcion-icono svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+    }
+
+    .opcion-texto {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
+      flex: 1;
     }
 
-    .option-label {
+    .opcion-nombre {
       font-size: 16px;
       font-weight: 600;
-      color: inherit;
     }
 
-    .option-description {
-      font-size: 12px;
-      color: var(--body);
-      font-weight: 400;
+    .opcion-detalle {
+      font-size: 13px;
+      color: var(--tinta-media);
     }
 
-    .option-button.selected .option-description {
-      color: var(--ink);
+    .opcion-marca {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      color: var(--sello);
+      visibility: hidden;
     }
 
-    /* ── CTA SECTION ── */
-    .cta-section {
+    .opcion.elegida .opcion-marca {
+      visibility: visible;
+    }
+
+    .opcion-marca svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+    }
+
+    /* ── BOTONERA ── */
+    .botonera {
       display: flex;
-      gap: var(--spacing-md);
-      margin-top: var(--spacing-xl);
+      gap: var(--sp-md);
+      margin-top: var(--sp-xl);
     }
 
-    .btn-back {
+    .boton-atras {
       flex: 1;
-      padding: var(--spacing-md) var(--spacing-lg);
-      background-color: var(--canvas);
-      color: var(--ink);
-      border: 1px solid var(--ink);
-      border-radius: 24px;
+      padding: var(--sp-md) var(--sp-lg);
+      background-color: var(--hoja);
+      color: var(--tinta);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
-      font-family: Inter, sans-serif;
+      font-family: var(--sans);
       cursor: pointer;
       height: 48px;
-      transition: all 0.2s ease;
     }
 
-    .btn-back:hover {
-      background-color: var(--canvas-soft);
-      border-color: var(--mute);
-    }
-
-    .btn-back:active {
-      background-color: #f0f0f0;
-    }
-
-    .btn-back:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1), inset 0 0 0 2px var(--ink);
-    }
-
-    .btn-next {
+    .boton-siguiente {
       flex: 1;
-      padding: var(--spacing-md) var(--spacing-lg);
-      background-color: var(--primary);
-      color: var(--ink);
+      padding: var(--sp-md) var(--sp-lg);
+      background-color: var(--sello);
+      color: #fff;
       border: none;
-      border-radius: 24px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
-      font-family: Inter, sans-serif;
+      font-family: var(--sans);
       cursor: pointer;
       height: 48px;
-      transition: background-color 0.2s ease;
     }
 
-    .btn-next:hover:not(:disabled) {
-      background-color: var(--primary-active);
+    .boton-atras:focus-visible,
+    .boton-siguiente:focus-visible {
+      outline: 2px solid var(--tinta);
+      outline-offset: 2px;
     }
 
-    .btn-next:active:not(:disabled) {
-      background-color: var(--positive-deep);
-    }
-
-    .btn-next:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
-    }
-
-    .btn-next:disabled {
-      background-color: var(--canvas-soft);
-      color: var(--mute);
+    .boton-siguiente:disabled {
+      background-color: var(--linea);
+      color: var(--tinta-tenue);
       cursor: not-allowed;
     }
 
-    /* ── COMPLETION STATE ── */
-    .completion-section {
+    /* ── CIERRE ── */
+    .cierre {
       display: none;
       flex-direction: column;
-      gap: var(--spacing-xl);
+      gap: var(--sp-lg);
       text-align: center;
       justify-content: center;
+      align-items: center;
     }
 
-    .completion-section.active {
+    .cierre.activa {
       display: flex;
     }
 
-    .completion-icon {
-      font-size: 64px;
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .completion-headline {
-      font-size: 28px;
-      font-weight: 900;
-      font-family: Inter, sans-serif;
-      line-height: 1.2;
-      color: var(--ink);
-      letter-spacing: -0.6px;
-      margin-bottom: var(--spacing-md);
-    }
-
-    .completion-text {
+    /* El resultado se estampa, como todo lo que esta app afirma */
+    .sello-cierre {
+      display: inline-block;
+      padding: var(--sp-sm) var(--sp-lg);
+      border: 2px solid var(--sello);
+      outline: 1px solid var(--sello);
+      outline-offset: 2px;
+      transform: rotate(-2deg);
+      font-family: var(--cond);
       font-size: 16px;
-      color: var(--body);
-      line-height: 1.6;
-      margin-bottom: var(--spacing-xl);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sello);
+      margin-bottom: var(--sp-md);
     }
 
-    .btn-start-checklist {
+    .cierre-titular {
+      font-family: var(--cond);
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .cierre-texto {
+      font-size: 16px;
+      color: var(--tinta-media);
+      line-height: 1.6;
+    }
+
+    .boton-checklist {
       width: 100%;
-      padding: var(--spacing-md) var(--spacing-xl);
-      background-color: var(--primary);
-      color: var(--ink);
+      padding: var(--sp-md) var(--sp-xl);
+      background-color: var(--sello);
+      color: #fff;
       border: none;
-      border-radius: 24px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
-      font-family: Inter, sans-serif;
+      font-family: var(--sans);
       cursor: pointer;
       height: 48px;
-      transition: background-color 0.2s ease;
+      margin-top: var(--sp-md);
     }
 
-    .btn-start-checklist:hover {
-      background-color: var(--primary-active);
-    }
-
-    .btn-start-checklist:active {
-      background-color: var(--positive-deep);
-    }
-
-    .btn-start-checklist:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
-    }
-
-    /* ── UTILITIES ── */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
-    }
-
+    /* ── UTILIDADES ── */
     .skiplink {
       position: absolute;
       top: -40px;
       left: 0;
-      background-color: var(--primary);
-      color: var(--ink);
+      background-color: var(--sello);
+      color: #fff;
       padding: 8px 16px;
       text-decoration: none;
       z-index: 101;
@@ -425,309 +394,352 @@
   </style>
 </head>
 <body>
-  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+  <a href="#contenido" class="skiplink">Saltar al contenido principal</a>
+
+  <!-- Iconos SVG de trazo simple: en la app real viven en components/IconoRequisito.tsx.
+       Nunca emoji (FR-028). -->
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <g id="icono-persona" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="12" cy="8" r="3.5"/>
+        <path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>
+      </g>
+      <g id="icono-menor" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="12" cy="9" r="4.5"/>
+        <path d="M7 20c0-2.5 2.2-4 5-4s5 1.5 5 4"/>
+        <path d="M10.5 8h.01M13.5 8h.01"/>
+        <path d="M10.5 10.5c.5.5 2.5.5 3 0"/>
+      </g>
+      <g id="icono-pareja" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="9" cy="8" r="3"/>
+        <circle cx="16" cy="9" r="2.5"/>
+        <path d="M3.5 20c0-3 2.4-5 5.5-5s5.5 2 5.5 5"/>
+        <path d="M15.5 15.2c2.9.2 5 2.1 5 4.8"/>
+      </g>
+      <g id="icono-otra-persona" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="10" cy="8" r="3.5"/>
+        <path d="M3 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>
+        <path d="M17.5 7.5v5M15 10h5"/>
+      </g>
+      <g id="icono-urgente" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 3 5 13h5l-1 8 8-10h-5l1-8z"/>
+      </g>
+      <g id="icono-calendario" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <rect x="4" y="5" width="16" height="15" rx="1"/>
+        <path d="M4 9.5h16M8.5 3v4M15.5 3v4"/>
+      </g>
+      <g id="icono-calendario-mes" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <rect x="4" y="5" width="16" height="15" rx="1"/>
+        <path d="M4 9.5h16M8.5 3v4M15.5 3v4M8 13h2M14 13h2M8 16.5h2M14 16.5h2"/>
+      </g>
+      <g id="icono-reloj" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="12" cy="12" r="8.5"/>
+        <path d="M12 7.5V12l3 2"/>
+      </g>
+      <g id="icono-ordenador" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <rect x="4" y="5" width="16" height="11" rx="1"/>
+        <path d="M8 20h8M12 16v4"/>
+      </g>
+      <g id="icono-edificio" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20h16M5 20V9h14v11M3 9h18M12 4 4.5 9h15L12 4z"/>
+        <path d="M8 20v-7M12 20v-7M16 20v-7"/>
+      </g>
+      <g id="icono-flechas" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 8h13m0 0-3-3m3 3-3 3M17 16H4m0 0 3-3m-3 3 3 3"/>
+      </g>
+      <g id="icono-gestor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 12.5 4 16l2 3 4-2.5M16 12.5 20 16l-2 3-4-2.5"/>
+        <circle cx="12" cy="7" r="3.5"/>
+        <path d="M9 13.5c.8 1.8 5.2 1.8 6 0"/>
+      </g>
+      <g id="icono-solo" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="12" cy="8" r="3.5"/>
+        <path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>
+        <path d="M12 14v3.5"/>
+      </g>
+      <g id="icono-pregunta" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <circle cx="12" cy="12" r="8.5"/>
+        <path d="M9.5 9.5A2.5 2.5 0 1 1 12 12.5v1"/>
+        <path d="M12 16.5h.01"/>
+      </g>
+      <g id="icono-marca" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m5 12.5 4.5 4.5L19 7.5"/>
+      </g>
+      <g id="icono-volver" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 5 8 12l6.5 7"/>
+      </g>
+    </defs>
+  </svg>
 
   <div class="container">
-    <!-- NAV BAR -->
-    <nav class="nav-bar">
-      <button class="nav-back" aria-label="Volver">‹</button>
-      <div class="nav-title">Mi personalización</div>
-      <div class="nav-spacer"></div>
+    <!-- BARRA SUPERIOR -->
+    <nav class="barra-superior">
+      <button class="volver" aria-label="Volver">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-volver"/></svg>
+      </button>
+      <div class="titulo-pantalla">Tu caso</div>
+      <div class="hueco"></div>
     </nav>
 
-    <!-- PROGRESS BAR -->
-    <div class="progress-container">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
+    <!-- PROGRESO -->
+    <div class="progreso">
+      <div class="progreso-barra">
+        <div class="progreso-relleno" id="progresoRelleno"></div>
       </div>
-      <div class="progress-text" id="progressText">Pregunta 1 de 4</div>
+      <div class="progreso-texto" id="progresoTexto">Pregunta 1 de 4</div>
     </div>
 
-    <!-- CONTENT BAND -->
-    <main class="content-band" id="main-content">
-      <!-- QUESTION 1: ¿Para quién? -->
-      <div class="question-section active" id="question-1">
+    <!-- CONTENIDO -->
+    <main class="contenido" id="contenido">
+      <!-- PREGUNTA 1: destinatario (siempre la primera, como manda el spec) -->
+      <div class="pregunta activa" id="pregunta-1">
         <div>
-          <h1 class="question-headline">¿Para quién es?</h1>
-          <p class="question-subheadline">Esto nos ayuda a personalizar los requisitos</p>
+          <h1 class="pregunta-titular">¿Para quién es?</h1>
+          <p class="pregunta-apoyo">Así ajustamos los requisitos a tu caso</p>
         </div>
 
-        <div class="options-container" id="options-1">
-          <button class="option-button" data-option="yo-mismo">
-            <span class="option-icon">👤</span>
-            <span class="option-text">
-              <span class="option-label">Para mí</span>
-              <span class="option-description">Yo soy quien lo solicita</span>
+        <div class="opciones" id="opciones-1">
+          <button class="opcion" data-opcion="yo-mismo">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-persona"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Para mí</span>
+              <span class="opcion-detalle">Yo soy quien lo solicita</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="hijo">
-            <span class="option-icon">👶</span>
-            <span class="option-text">
-              <span class="option-label">Para mi hijo/a</span>
-              <span class="option-description">Es un menor a cargo</span>
+          <button class="opcion" data-opcion="hijo">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-menor"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Para mi hijo o hija</span>
+              <span class="opcion-detalle">Es un menor a mi cargo</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="pareja">
-            <span class="option-icon">👥</span>
-            <span class="option-text">
-              <span class="option-label">Para mi pareja</span>
-              <span class="option-description">Mi cónyuge o conviviente</span>
+          <button class="opcion" data-opcion="pareja">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-pareja"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Para mi pareja</span>
+              <span class="opcion-detalle">Mi cónyuge o conviviente</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="otro">
-            <span class="option-icon">🔗</span>
-            <span class="option-text">
-              <span class="option-label">Para otra persona</span>
-              <span class="option-description">Familiar u otro</span>
+          <button class="opcion" data-opcion="otro">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-otra-persona"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Para otra persona</span>
+              <span class="opcion-detalle">Un familiar u otra persona</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
         </div>
       </div>
 
-      <!-- QUESTION 2: ¿Cuándo? -->
-      <div class="question-section" id="question-2">
+      <!-- PREGUNTA 2: plazo -->
+      <div class="pregunta" id="pregunta-2">
         <div>
-          <h1 class="question-headline">¿Cuándo lo necesitas?</h1>
-          <p class="question-subheadline">Así priorizamos los trámites más rápidos</p>
+          <h1 class="pregunta-titular">¿Cuándo lo necesitas?</h1>
+          <p class="pregunta-apoyo">Para avisarte de plazos y citas con margen</p>
         </div>
 
-        <div class="options-container" id="options-2">
-          <button class="option-button" data-option="urgente">
-            <span class="option-icon">⚡</span>
-            <span class="option-text">
-              <span class="option-label">Urgente</span>
-              <span class="option-description">Esta semana o antes</span>
+        <div class="opciones" id="opciones-2">
+          <button class="opcion" data-opcion="urgente">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-urgente"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Urgente</span>
+              <span class="opcion-detalle">Esta semana o antes</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="proximas-semanas">
-            <span class="option-icon">📅</span>
-            <span class="option-text">
-              <span class="option-label">Próximas semanas</span>
-              <span class="option-description">Dentro de este mes</span>
+          <button class="opcion" data-opcion="proximas-semanas">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-calendario"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Próximas semanas</span>
+              <span class="opcion-detalle">Dentro de este mes</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="mes-proximo">
-            <span class="option-icon">📆</span>
-            <span class="option-text">
-              <span class="option-label">Mes que viene</span>
-              <span class="option-description">En los próximos 2 meses</span>
+          <button class="opcion" data-opcion="mes-proximo">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-calendario-mes"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">El mes que viene</span>
+              <span class="opcion-detalle">En los próximos dos meses</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="sin-prisa">
-            <span class="option-icon">☕</span>
-            <span class="option-text">
-              <span class="option-label">Sin prisa</span>
-              <span class="option-description">Cuando me venga bien</span>
+          <button class="opcion" data-opcion="sin-prisa">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-reloj"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Sin prisa</span>
+              <span class="opcion-detalle">Cuando me venga bien</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
         </div>
       </div>
 
-      <!-- QUESTION 3: ¿Dónde? -->
-      <div class="question-section" id="question-3">
+      <!-- PREGUNTA 3: canal -->
+      <div class="pregunta" id="pregunta-3">
         <div>
-          <h1 class="question-headline">¿Dónde prefieres?</h1>
-          <p class="question-subheadline">Online o presencial, tú tienes la palabra</p>
+          <h1 class="pregunta-titular">¿Cómo prefieres hacerlo?</h1>
+          <p class="pregunta-apoyo">Online o en una oficina: tú decides</p>
         </div>
 
-        <div class="options-container" id="options-3">
-          <button class="option-button" data-option="internet">
-            <span class="option-icon">💻</span>
-            <span class="option-text">
-              <span class="option-label">Desde casa (online)</span>
-              <span class="option-description">Por internet, sin salir</span>
+        <div class="opciones" id="opciones-3">
+          <button class="opcion" data-opcion="internet">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-ordenador"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Desde casa</span>
+              <span class="opcion-detalle">Por internet, sin desplazarte</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="presencial">
-            <span class="option-icon">🏛️</span>
-            <span class="option-text">
-              <span class="option-label">En una oficina</span>
-              <span class="option-description">Ir en persona a una sede</span>
+          <button class="opcion" data-opcion="presencial">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-edificio"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">En una oficina</span>
+              <span class="opcion-detalle">Ir en persona a una sede</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="indiferente">
-            <span class="option-icon">↔️</span>
-            <span class="option-text">
-              <span class="option-label">Me da igual</span>
-              <span class="option-description">Cualquier forma me vale</span>
+          <button class="opcion" data-opcion="indiferente">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-flechas"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Me da igual</span>
+              <span class="opcion-detalle">Cualquier forma me vale</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
         </div>
       </div>
 
-      <!-- QUESTION 4: ¿Algo más? -->
-      <div class="question-section" id="question-4">
+      <!-- PREGUNTA 4: acompañamiento -->
+      <div class="pregunta" id="pregunta-4">
         <div>
-          <h1 class="question-headline">¿Algo más que sepamos?</h1>
-          <p class="question-subheadline">Adaptamos el checklist a tu situación</p>
+          <h1 class="pregunta-titular">¿Vas a hacerlo con ayuda?</h1>
+          <p class="pregunta-apoyo">Adaptamos la lista a tu situación</p>
         </div>
 
-        <div class="options-container" id="options-4">
-          <button class="option-button" data-option="tengo-ayuda">
-            <span class="option-icon">🤝</span>
-            <span class="option-text">
-              <span class="option-label">Voy a pedir ayuda</span>
-              <span class="option-description">Con un gestor o asesor</span>
+        <div class="opciones" id="opciones-4">
+          <button class="opcion" data-opcion="tengo-ayuda">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-gestor"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Con un gestor</span>
+              <span class="opcion-detalle">Un gestor o asesor me lo lleva</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="voy-solo">
-            <span class="option-icon">💪</span>
-            <span class="option-text">
-              <span class="option-label">Voy solo</span>
-              <span class="option-description">Me defiendo por mi cuenta</span>
+          <button class="opcion" data-opcion="voy-solo">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-solo"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Por mi cuenta</span>
+              <span class="opcion-detalle">Me defiendo sin ayuda</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
-          <button class="option-button" data-option="necesito-asesoramiento">
-            <span class="option-icon">❓</span>
-            <span class="option-text">
-              <span class="option-label">Necesito asesoramiento</span>
-              <span class="option-description">Quiero que alguien me oriente</span>
+          <button class="opcion" data-opcion="necesito-asesoramiento">
+            <span class="opcion-icono"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-pregunta"/></svg></span>
+            <span class="opcion-texto">
+              <span class="opcion-nombre">Todavía no lo sé</span>
+              <span class="opcion-detalle">Quiero que alguien me oriente</span>
             </span>
+            <span class="opcion-marca"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></span>
           </button>
         </div>
       </div>
 
-      <!-- COMPLETION STATE -->
-      <div class="completion-section" id="completion">
-        <div class="completion-icon">✓</div>
-        <h1 class="completion-headline">¡Listo!</h1>
-        <p class="completion-text">
-          Ya tenemos tu perfil. Ahora te mostraremos solo lo que necesitas para tu situación.
+      <!-- CIERRE -->
+      <div class="cierre" id="cierre">
+        <div class="sello-cierre" aria-hidden="true">Tu caso, anotado</div>
+        <h1 class="cierre-titular">Listo</h1>
+        <p class="cierre-texto">
+          Ya conocemos tu caso. Ahora verás solo lo que necesitas: tus papeles, tus
+          plazos y los pasos en orden.
         </p>
-        <button class="btn-start-checklist" aria-label="Empezar mi checklist personalizado">
-          Empezar mi checklist
+        <button class="boton-checklist" aria-label="Ver mi lista de papeles">
+          Ver mi lista de papeles
         </button>
       </div>
 
-      <!-- NAVIGATION BUTTONS -->
-      <div class="cta-section" id="nav-buttons">
-        <button class="btn-back" id="btnBack" aria-label="Pregunta anterior">Atrás</button>
-        <button class="btn-next" id="btnNext" aria-label="Siguiente pregunta" disabled>Siguiente</button>
+      <!-- BOTONERA -->
+      <div class="botonera" id="botonera">
+        <button class="boton-atras" id="botonAtras" aria-label="Pregunta anterior">Atrás</button>
+        <button class="boton-siguiente" id="botonSiguiente" aria-label="Siguiente pregunta" disabled>Siguiente</button>
       </div>
     </main>
   </div>
 
   <script>
-    const totalQuestions = 4;
-    let currentQuestion = 1;
-    const answers = {};
+    const totalPreguntas = 4;
+    let preguntaActual = 1;
+    const respuestas = {};
 
-    // Update progress bar
-    function updateProgress() {
-      const progress = (currentQuestion - 1) / totalQuestions * 100;
-      document.getElementById('progressFill').style.width = progress + '%';
-      document.getElementById('progressText').textContent = `Pregunta ${currentQuestion} de ${totalQuestions}`;
+    function actualizarProgreso() {
+      const progreso = (preguntaActual - 1) / totalPreguntas * 100;
+      document.getElementById('progresoRelleno').style.width = progreso + '%';
+      document.getElementById('progresoTexto').textContent = `Pregunta ${preguntaActual} de ${totalPreguntas}`;
     }
 
-    // Show question
-    function showQuestion(number) {
-      // Hide all questions
-      document.querySelectorAll('.question-section').forEach(q => {
-        q.classList.remove('active');
-      });
+    function mostrarPregunta(numero) {
+      document.querySelectorAll('.pregunta').forEach(p => p.classList.remove('activa'));
+      document.getElementById(`pregunta-${numero}`).classList.add('activa');
 
-      // Show current question
-      document.getElementById(`question-${number}`).classList.add('active');
+      document.getElementById('botonAtras').style.display = numero === 1 ? 'none' : 'block';
+      document.getElementById('botonSiguiente').textContent =
+        numero === totalPreguntas ? 'Terminar' : 'Siguiente';
 
-      // Update buttons
-      document.getElementById('btnBack').style.display = number === 1 ? 'none' : 'block';
-
-      if (number === totalQuestions) {
-        document.getElementById('btnNext').textContent = 'Finalizar';
-      } else {
-        document.getElementById('btnNext').textContent = 'Siguiente';
-      }
-
-      // Disable/enable next button
-      updateNextButtonState();
-
-      // Update selected option visual
-      updateSelectedOptions(number);
-
-      updateProgress();
+      actualizarEstadoSiguiente();
+      actualizarSeleccion(numero);
+      actualizarProgreso();
     }
 
-    // Update next button state
-    function updateNextButtonState() {
-      const selected = document.querySelector(
-        `#options-${currentQuestion} .option-button.selected`
-      );
-      document.getElementById('btnNext').disabled = !selected;
+    function actualizarEstadoSiguiente() {
+      const elegida = document.querySelector(`#opciones-${preguntaActual} .opcion.elegida`);
+      document.getElementById('botonSiguiente').disabled = !elegida;
     }
 
-    // Update selected options visual
-    function updateSelectedOptions(number) {
-      const options = document.querySelectorAll(`#options-${number} .option-button`);
-      options.forEach(btn => {
-        btn.classList.remove('selected');
-        if (answers[`q${number}`] === btn.dataset.option) {
-          btn.classList.add('selected');
-        }
+    function actualizarSeleccion(numero) {
+      document.querySelectorAll(`#opciones-${numero} .opcion`).forEach(boton => {
+        boton.classList.toggle('elegida', respuestas[`p${numero}`] === boton.dataset.opcion);
       });
     }
 
-    // Handle option selection
     document.addEventListener('click', (e) => {
-      if (e.target.closest('.option-button')) {
-        const btn = e.target.closest('.option-button');
-        const questionId = `q${currentQuestion}`;
-
-        // Remove previous selection from this question
-        btn.parentElement.querySelectorAll('.option-button').forEach(b => {
-          b.classList.remove('selected');
-        });
-
-        // Select this option
-        btn.classList.add('selected');
-        answers[questionId] = btn.dataset.option;
-
-        updateNextButtonState();
-      }
+      const boton = e.target.closest('.opcion');
+      if (!boton) return;
+      boton.parentElement.querySelectorAll('.opcion').forEach(b => b.classList.remove('elegida'));
+      boton.classList.add('elegida');
+      respuestas[`p${preguntaActual}`] = boton.dataset.opcion;
+      actualizarEstadoSiguiente();
     });
 
-    // Navigation
-    document.getElementById('btnBack').addEventListener('click', () => {
-      if (currentQuestion > 1) {
-        currentQuestion--;
-        showQuestion(currentQuestion);
+    document.getElementById('botonAtras').addEventListener('click', () => {
+      if (preguntaActual > 1) {
+        preguntaActual--;
+        mostrarPregunta(preguntaActual);
         window.scrollTo(0, 0);
       }
     });
 
-    document.getElementById('btnNext').addEventListener('click', () => {
-      if (currentQuestion < totalQuestions) {
-        currentQuestion++;
-        showQuestion(currentQuestion);
+    document.getElementById('botonSiguiente').addEventListener('click', () => {
+      if (preguntaActual < totalPreguntas) {
+        preguntaActual++;
+        mostrarPregunta(preguntaActual);
         window.scrollTo(0, 0);
       } else {
-        // Complete wizard
-        showCompletion();
+        mostrarCierre();
       }
     });
 
-    function showCompletion() {
-      document.querySelectorAll('.question-section').forEach(q => {
-        q.classList.remove('active');
-      });
-      document.getElementById('completion').classList.add('active');
-      document.getElementById('nav-buttons').style.display = 'none';
-
-      console.log('Respuestas del usuario:', answers);
+    function mostrarCierre() {
+      document.querySelectorAll('.pregunta').forEach(p => p.classList.remove('activa'));
+      document.getElementById('cierre').classList.add('activa');
+      document.getElementById('botonera').style.display = 'none';
     }
 
-    // Back button
-    document.querySelector('.nav-back').addEventListener('click', () => {
-      window.history.back();
-    });
+    document.querySelector('.volver').addEventListener('click', () => window.history.back());
 
-    // Start checklist button
-    document.querySelector('.btn-start-checklist').addEventListener('click', () => {
-      console.log('Iniciar checklist con personalización:', answers);
-      // En una app real, navegar al checklist
-    });
-
-    // Initialize
-    updateProgress();
+    document.getElementById('botonAtras').style.display = 'none';
+    actualizarProgreso();
   </script>
 </body>
 </html>

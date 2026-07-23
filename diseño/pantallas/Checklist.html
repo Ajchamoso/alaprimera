@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi checklist — A la Primera</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <title>Mi lista de papeles · A la Primera</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -13,422 +13,401 @@
     }
 
     :root {
-      /* Brand & Accent */
-      --primary: #9fe870;
-      --primary-active: #cdffad;
-      --primary-neutral: #c5edab;
-      --primary-pale: #e2f6d5;
+      /* Identidad: EL SELLO. Tokens de app/globals.css */
+      --papel: #efebe2;
+      --hoja: #f7f4ee;
+      --tinta: #24221f;
+      --tinta-media: #635c52;
+      --tinta-tenue: #726957;
+      --linea: #d8d1c4;
+      --sello: #5a3a82;
+      --sello-suave: #ede6f3;
+      --pendiente: #a8342b;
+      --pendiente-suave: #f7e7e4;
 
-      /* Surface */
-      --canvas: #ffffff;
-      --canvas-soft: #e8ebe6;
+      --sans: "IBM Plex Sans", -apple-system, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --cond: "IBM Plex Sans Condensed", sans-serif;
 
-      /* Text */
-      --ink: #0e0f0c;
-      --ink-deep: #163300;
-      --body: #454745;
-      --mute: #868685;
-
-      /* Semantic */
-      --positive: #2ead4b;
-      --positive-deep: #054d28;
-      --warning: #ffd11a;
-      --warning-deep: #b86700;
-      --warning-content: #4a3b1c;
-      --negative: #d03238;
-
-      /* Spacing */
-      --spacing-xs: 4px;
-      --spacing-sm: 8px;
-      --spacing-md: 12px;
-      --spacing-lg: 16px;
-      --spacing-xl: 24px;
-      --spacing-2xl: 32px;
-      --spacing-3xl: 48px;
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 12px;
+      --sp-lg: 16px;
+      --sp-xl: 24px;
+      --sp-2xl: 32px;
+      --sp-3xl: 48px;
     }
 
     html, body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--canvas-soft);
-      color: var(--ink);
+      font-family: var(--sans);
+      background-color: var(--papel);
+      color: var(--tinta);
       line-height: 1.5;
       min-height: 100vh;
     }
 
-    /* Mobile viewport: 375px width */
+    /* Maqueta en viewport móvil de 375px */
     .container {
       width: 375px;
       margin: 0 auto;
-      background: var(--canvas-soft);
+      background: var(--papel);
       overflow-x: hidden;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+      min-height: 100vh;
+      border-left: 1px solid var(--linea);
+      border-right: 1px solid var(--linea);
     }
 
-    /* ── NAV BAR ── */
-    .nav-bar {
+    /* ── BARRA SUPERIOR ── */
+    .barra-superior {
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: var(--canvas);
-      border-bottom: 1px solid #f0f0f0;
-      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--papel);
+      border-bottom: 1px solid var(--linea);
+      padding: var(--sp-md) var(--sp-lg);
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 56px;
     }
 
-    .nav-back {
+    .volver {
       background: none;
       border: none;
-      font-size: 20px;
       cursor: pointer;
-      color: var(--ink);
+      color: var(--tinta);
       width: 44px;
       height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-left: -12px;
     }
 
-    .nav-title {
+    .volver svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    .titulo-pantalla {
       flex: 1;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
+      font-family: var(--cond);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       text-align: center;
-      margin: 0 var(--spacing-md);
+      margin: 0 var(--sp-md);
     }
 
-    .nav-spacer {
+    .hueco {
       width: 44px;
     }
 
-    /* ── HERO BAND ── */
-    .hero-band {
-      background: linear-gradient(135deg, var(--primary-pale) 0%, #f0f9e6 100%);
-      padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-2xl);
+    /* ── CABECERA DEL TRÁMITE ── */
+    .cabecera {
+      padding: var(--sp-xl) var(--sp-lg);
+      border-bottom: 1px solid var(--linea);
     }
 
     .tramite-titulo {
-      font-size: 24px;
-      font-weight: 900;
-      font-family: Inter, sans-serif;
-      line-height: 1.2;
-      margin-bottom: var(--spacing-md);
-      color: var(--ink);
-      letter-spacing: -0.5px;
+      font-family: var(--cond);
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: var(--sp-xs);
     }
 
-    .tramite-subtitulo {
+    .tramite-datos {
+      font-family: var(--mono);
       font-size: 13px;
-      color: var(--body);
-      margin-bottom: var(--spacing-lg);
+      color: var(--tinta-tenue);
     }
 
-    /* ── PROGRESS SECTION ── */
-    .progress-section {
-      background-color: var(--canvas);
-      padding: var(--spacing-lg) var(--spacing-lg);
-      border-bottom: 1px solid #f0f0f0;
+    /* ── PROGRESO ── */
+    .progreso {
+      background-color: var(--hoja);
+      padding: var(--sp-lg);
+      border-bottom: 1px solid var(--linea);
     }
 
-    .progress-bar {
-      height: 8px;
-      background-color: #f0f0f0;
-      border-radius: 4px;
+    .progreso-barra {
+      height: 6px;
+      background-color: var(--linea);
       overflow: hidden;
-      margin-bottom: var(--spacing-md);
+      margin-bottom: var(--sp-md);
     }
 
-    .progress-fill {
+    .progreso-relleno {
       height: 100%;
-      background-color: var(--positive-deep);
+      background-color: var(--sello);
       transition: width 0.3s ease;
-      border-radius: 4px;
     }
 
-    .progress-text {
-      font-size: 13px;
-      color: var(--body);
-      font-weight: 600;
+    .progreso-texto {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .progress-label {
-      color: var(--mute);
-    }
-
-    /* ── CONTENT BAND ── */
-    .content-band {
-      background-color: var(--canvas);
-      padding: var(--spacing-2xl) var(--spacing-lg);
-    }
-
-    /* ── SECTION ── */
-    .checklist-section {
-      margin-bottom: var(--spacing-2xl);
-    }
-
-    .section-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: var(--spacing-md);
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .section-icon {
-      font-size: 16px;
-    }
-
-    /* ── CHECKLIST ITEM ── */
-    .checklist-item {
-      background-color: var(--primary-pale);
-      border-radius: 16px;
-      padding: var(--spacing-lg);
-      margin-bottom: var(--spacing-md);
-      display: flex;
-      gap: var(--spacing-lg);
-      align-items: flex-start;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-    }
-
-    .checklist-item:hover {
-      background-color: var(--primary-neutral);
-    }
-
-    .checklist-item.completed {
-      background-color: var(--primary-pale);
-      border-color: transparent;
-    }
-
-    .checklist-item.completed .item-text-label {
-      text-decoration: line-through;
-      color: var(--mute);
-    }
-
-    input[type="checkbox"] {
-      display: none;
-    }
-
-    .checkbox {
-      width: 24px;
-      height: 24px;
-      border: 2px solid var(--mute);
-      border-radius: 6px;
-      flex-shrink: 0;
-      margin-top: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-      background-color: var(--canvas);
-    }
-
-    .checklist-item:hover .checkbox {
-      border-color: var(--primary);
-    }
-
-    .checklist-item.completed .checkbox {
-      background-color: var(--positive-deep);
-      border-color: var(--positive-deep);
-      color: var(--primary-pale);
       font-size: 14px;
-      font-weight: 600;
+      color: var(--tinta-media);
     }
 
-    .item-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+    .progreso-cifra {
+      font-family: var(--mono);
+      font-weight: 500;
+      color: var(--tinta);
     }
 
-    .item-text-label {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ink);
-      line-height: 1.4;
+    /* ── CONTENIDO ── */
+    .contenido {
+      padding: var(--sp-xl) var(--sp-lg) var(--sp-2xl);
     }
 
-    .item-text-description {
+    /* ── AVISO ── */
+    .aviso {
+      background-color: var(--pendiente-suave);
+      border: 1px solid var(--pendiente);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+      margin-bottom: var(--sp-xl);
+    }
+
+    .aviso-titulo {
+      font-family: var(--cond);
       font-size: 13px;
-      color: var(--body);
-      line-height: 1.4;
-    }
-
-    .item-optional {
-      font-size: 11px;
-      color: var(--mute);
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.3px;
-      margin-top: 4px;
+      letter-spacing: 0.1em;
+      color: var(--pendiente);
+      margin-bottom: var(--sp-xs);
     }
 
-    /* ── EXPANDIBLE DETAIL ── */
-    .item-detail {
-      display: none;
-      margin-top: var(--spacing-md);
-      padding: var(--spacing-md);
-      background-color: rgba(255, 255, 255, 0.5);
-      border-radius: 12px;
-      border-left: 3px solid var(--primary);
-      font-size: 13px;
-      color: var(--body);
-      line-height: 1.6;
-    }
-
-    .checklist-item.expanded .item-detail {
-      display: block;
-    }
-
-    /* ── WARNING BANNER ── */
-    .info-banner {
-      background-color: rgba(255, 209, 26, 0.25);
-      padding: var(--spacing-lg);
-      border-radius: 24px;
-      margin-bottom: var(--spacing-2xl);
-      border: 1px solid rgba(255, 209, 26, 0.5);
-    }
-
-    .info-banner-title {
+    .aviso-texto {
       font-size: 14px;
-      font-weight: 600;
-      color: var(--warning-content);
-      margin-bottom: 4px;
-    }
-
-    .info-banner-text {
-      font-size: 12px;
-      color: var(--warning-content);
+      color: var(--tinta);
       line-height: 1.5;
     }
 
-    /* ── CTA SECTION ── */
-    .cta-section {
-      background-color: var(--canvas-soft);
-      padding: var(--spacing-2xl) var(--spacing-lg);
+    /* ── SECCIONES ── */
+    .seccion {
+      margin-bottom: var(--sp-xl);
+    }
+
+    .seccion-titulo {
+      font-family: var(--cond);
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--sp-md);
+      padding-bottom: var(--sp-xs);
+      border-bottom: 1px solid var(--linea);
+    }
+
+    /* ── ELEMENTO DE LA LISTA ── */
+    .item {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+      margin-bottom: var(--sp-md);
       display: flex;
-      flex-direction: column;
-      gap: var(--spacing-md);
-    }
-
-    .btn-download {
-      width: 100%;
-      padding: var(--spacing-md) var(--spacing-xl);
-      background-color: var(--primary);
-      color: var(--ink);
-      border: none;
-      border-radius: 24px;
-      font-size: 16px;
-      font-weight: 600;
-      font-family: Inter, sans-serif;
+      gap: var(--sp-md);
+      align-items: flex-start;
       cursor: pointer;
-      height: 48px;
-      transition: background-color 0.2s ease;
     }
 
-    .btn-download:hover {
-      background-color: var(--primary-active);
-    }
-
-    .btn-download:active {
-      background-color: var(--positive-deep);
-    }
-
-    .btn-download:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
-    }
-
-    .btn-secondary {
-      width: 100%;
-      padding: var(--spacing-md) var(--spacing-xl);
-      background-color: var(--canvas);
-      color: var(--ink);
-      border: 1px solid var(--mute);
-      border-radius: 24px;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: Inter, sans-serif;
-      cursor: pointer;
-      height: 48px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--primary);
-      background-color: var(--primary-pale);
-    }
-
-    .btn-secondary:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1), inset 0 0 0 2px var(--ink);
-    }
-
-    /* ── COMPLETION STATE ── */
-    .completion-state {
-      display: none;
-      text-align: center;
-      padding: var(--spacing-3xl) var(--spacing-lg);
-    }
-
-    .completion-state.active {
+    .casilla {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--tinta-media);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
       display: flex;
-      flex-direction: column;
-      gap: var(--spacing-xl);
       align-items: center;
       justify-content: center;
-      min-height: 400px;
+      background-color: var(--hoja);
+      color: transparent;
     }
 
-    .completion-icon {
-      font-size: 64px;
+    .casilla svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
     }
 
-    .completion-headline {
-      font-size: 28px;
-      font-weight: 900;
-      font-family: Inter, sans-serif;
-      color: var(--ink);
-      letter-spacing: -0.6px;
+    .item.hecho .casilla {
+      background-color: var(--sello);
+      border-color: var(--sello);
+      color: #fff;
     }
 
-    .completion-text {
+    .item-cuerpo {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .item-nombre {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .item.hecho .item-nombre {
+      text-decoration: line-through;
+      color: var(--tinta-media);
+    }
+
+    .item-detalle {
+      font-size: 13px;
+      color: var(--tinta-media);
+      line-height: 1.4;
+    }
+
+    .item-dato {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--tinta);
+      margin-top: 2px;
+    }
+
+    .item-opcional {
+      font-family: var(--cond);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--tinta-tenue);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    /* La cita literal de la fuente oficial: intocable, entre comillas latinas */
+    .cita-fuente {
+      margin-top: var(--sp-sm);
+      padding: var(--sp-sm) var(--sp-md);
+      border-left: 2px solid var(--linea);
+      font-size: 13px;
+      color: var(--tinta-media);
+      line-height: 1.5;
+    }
+
+    .cita-fuente .origen {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--tinta-tenue);
+      margin-top: 2px;
+    }
+
+    /* ── CIERRE ── */
+    .cierre {
+      display: none;
+      text-align: center;
+      padding: var(--sp-3xl) var(--sp-lg);
+    }
+
+    .cierre.activo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-lg);
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+    }
+
+    .sello-cierre {
+      display: inline-block;
+      padding: var(--sp-sm) var(--sp-lg);
+      border: 2px solid var(--sello);
+      outline: 1px solid var(--sello);
+      outline-offset: 2px;
+      transform: rotate(-2deg);
+      font-family: var(--cond);
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sello);
+    }
+
+    .cierre-titular {
+      font-family: var(--cond);
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .cierre-texto {
       font-size: 16px;
-      color: var(--body);
+      color: var(--tinta-media);
       line-height: 1.6;
       max-width: 300px;
     }
 
-    /* ── UTILITIES ── */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
+    /* ── BOTONERA INFERIOR ── */
+    .botonera {
+      background-color: var(--papel);
+      border-top: 1px solid var(--linea);
+      padding: var(--sp-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-md);
     }
 
+    .boton-principal {
+      width: 100%;
+      padding: var(--sp-md) var(--sp-xl);
+      background-color: var(--sello);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: var(--sans);
+      cursor: pointer;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-sm);
+    }
+
+    .boton-principal svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+    }
+
+    .boton-secundario {
+      width: 100%;
+      padding: var(--sp-md) var(--sp-xl);
+      background-color: var(--hoja);
+      color: var(--tinta);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: var(--sans);
+      cursor: pointer;
+      height: 48px;
+    }
+
+    .boton-principal:focus-visible,
+    .boton-secundario:focus-visible {
+      outline: 2px solid var(--tinta);
+      outline-offset: 2px;
+    }
+
+    /* ── UTILIDADES ── */
     .skiplink {
       position: absolute;
       top: -40px;
       left: 0;
-      background-color: var(--primary);
-      color: var(--ink);
+      background-color: var(--sello);
+      color: #fff;
       padding: 8px 16px;
       text-decoration: none;
       z-index: 101;
@@ -442,227 +421,199 @@
   </style>
 </head>
 <body>
-  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+  <a href="#contenido" class="skiplink">Saltar al contenido principal</a>
+
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <g id="icono-volver" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 5 8 12l6.5 7"/>
+      </g>
+      <g id="icono-marca" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m5 12.5 4.5 4.5L19 7.5"/>
+      </g>
+      <g id="icono-impresora" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 8V4h10v4M5 8h14a1 1 0 0 1 1 1v7h-4M4 9v7h4"/>
+        <rect x="8" y="13" width="8" height="7"/>
+      </g>
+    </defs>
+  </svg>
 
   <div class="container">
-    <!-- NAV BAR -->
-    <nav class="nav-bar">
-      <button class="nav-back" aria-label="Volver">‹</button>
-      <div class="nav-title">Mi checklist</div>
-      <div class="nav-spacer"></div>
+    <!-- BARRA SUPERIOR -->
+    <nav class="barra-superior">
+      <button class="volver" aria-label="Volver">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-volver"/></svg>
+      </button>
+      <div class="titulo-pantalla">Mi lista de papeles</div>
+      <div class="hueco"></div>
     </nav>
 
-    <!-- HERO BAND -->
-    <section class="hero-band">
+    <!-- CABECERA DEL TRÁMITE -->
+    <header class="cabecera">
       <h1 class="tramite-titulo">Renovar el carnet de identidad</h1>
-      <p class="tramite-subtitulo">Policía Nacional · Estatal</p>
-    </section>
+      <p class="tramite-datos">Policía Nacional · estatal</p>
+    </header>
 
-    <!-- PROGRESS SECTION -->
-    <div class="progress-section">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    <!-- PROGRESO -->
+    <div class="progreso">
+      <div class="progreso-barra">
+        <div class="progreso-relleno" id="progresoRelleno" style="width: 0%"></div>
       </div>
-      <div class="progress-text">
-        <span><strong id="completedCount">0</strong> de <strong id="totalCount">8</strong> completados</span>
-        <span class="progress-label" id="progressPercent">0%</span>
+      <div class="progreso-texto">
+        <span><span class="progreso-cifra" id="cuentaHechos">0 de 8</span> preparados</span>
+        <span class="progreso-cifra" id="porcentaje">0%</span>
       </div>
     </div>
 
-    <!-- CONTENT BAND -->
-    <main class="content-band" id="main-content">
-      <!-- INFO BANNER -->
-      <div class="info-banner">
-        <div class="info-banner-title">⚠️ Nota importante</div>
-        <div class="info-banner-text">
-          Este trámite requiere tu presencia física. No se puede completar entirely online.
+    <!-- CONTENIDO -->
+    <main class="contenido" id="contenido">
+      <!-- AVISO -->
+      <div class="aviso">
+        <div class="aviso-titulo">Hay que ir en persona</div>
+        <div class="aviso-texto">
+          Este trámite no se puede hacer entero por internet: pide cita y acude a una
+          oficina de expedición.
         </div>
       </div>
 
-      <!-- SECTION: DOCUMENTOS -->
-      <div class="checklist-section">
-        <div class="section-title">
-          <span class="section-icon">📄</span>
-          <span>Documentos a recopilar</span>
-        </div>
+      <!-- SECCIÓN: DOCUMENTOS -->
+      <section class="seccion">
+        <h2 class="seccion-titulo">Documentos que necesitas</h2>
 
-        <div class="checklist-item" data-item-id="doc-1">
-          <div class="checkbox"></div>
-          <div class="item-content">
-            <div class="item-text-label">DNI actual o pasaporte</div>
-            <div class="item-text-description">Original o copia autenticada</div>
+        <div class="item" data-item="doc-1">
+          <div class="casilla"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></div>
+          <div class="item-cuerpo">
+            <div class="item-nombre">DNI actual o pasaporte</div>
+            <div class="item-detalle">Original o copia autenticada</div>
           </div>
         </div>
 
-        <div class="checklist-item" data-item-id="doc-2">
-          <div class="checkbox"></div>
-          <div class="item-content">
-            <div class="item-text-label">Libro de familia (si procede)</div>
-            <div class="item-text-description">Para menores o cambios de estado civil</div>
-            <div class="item-optional">Opcional según tu caso</div>
+        <div class="item" data-item="doc-2">
+          <div class="casilla"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></div>
+          <div class="item-cuerpo">
+            <div class="item-nombre">Libro de familia</div>
+            <div class="item-detalle">Para menores o cambios de estado civil</div>
+            <div class="item-opcional">Solo en algunos casos</div>
           </div>
         </div>
 
-        <div class="checklist-item" data-item-id="doc-3">
-          <div class="checkbox"></div>
-          <div class="item-content">
-            <div class="item-text-label">Fotografía de carnet (4x3 cm)</div>
-            <div class="item-text-description">Fondo blanco, sin gafas ni accesorios</div>
+        <div class="item" data-item="doc-3">
+          <div class="casilla"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></div>
+          <div class="item-cuerpo">
+            <div class="item-nombre">Fotografía de carnet</div>
+            <div class="item-detalle">Fondo blanco, sin gafas ni accesorios</div>
+            <div class="item-dato">32 × 26 mm</div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- SECTION: PASOS -->
-      <div class="checklist-section">
-        <div class="section-title">
-          <span class="section-icon">🎯</span>
-          <span>Pasos a seguir</span>
+      <!-- SECCIÓN: PASOS -->
+      <section class="seccion">
+        <h2 class="seccion-titulo">Pasos, en orden</h2>
+
+        <div class="item" data-item="paso-1">
+          <div class="casilla"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></div>
+          <div class="item-cuerpo">
+            <div class="item-nombre">Pedir cita previa</div>
+            <div class="item-detalle">Por internet o por teléfono</div>
+            <div class="item-dato">citapreviadnie.es · 060</div>
+          </div>
         </div>
 
-        <div class="checklist-item" data-item-id="paso-1">
-          <div class="checkbox"></div>
-          <div class="item-content">
-            <div class="item-text-label">Pedir cita previa</div>
-            <div class="item-text-description">En dnielectronico.es o por teléfono</div>
-            <div class="item-detail">
-              Llamar al 062 (Policía Nacional) o reservar online. Tienes que ir a la oficina que te asignen.
+        <div class="item" data-item="paso-2">
+          <div class="casilla"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></div>
+          <div class="item-cuerpo">
+            <div class="item-nombre">Ir a la oficina el día de la cita</div>
+            <div class="item-detalle">Con todos los documentos originales</div>
+          </div>
+        </div>
+
+        <div class="item" data-item="paso-3">
+          <div class="casilla"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></div>
+          <div class="item-cuerpo">
+            <div class="item-nombre">Recoger el DNI nuevo</div>
+            <div class="item-detalle">Se entrega en el momento, en la misma oficina</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN: COSTE -->
+      <section class="seccion">
+        <h2 class="seccion-titulo">Lo que cuesta</h2>
+
+        <div class="item" data-item="coste-1">
+          <div class="casilla"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></div>
+          <div class="item-cuerpo">
+            <div class="item-nombre">Tasa de expedición</div>
+            <div class="item-dato">12,00 €</div>
+            <div class="cita-fuente">
+              La cita literal de la fuente oficial iría aquí, entre comillas latinas «».
+              <span class="origen">Fuente: dnielectronico.es</span>
             </div>
           </div>
         </div>
 
-        <div class="checklist-item" data-item-id="paso-2">
-          <div class="checkbox"></div>
-          <div class="item-content">
-            <div class="item-text-label">Ir a la oficina en la fecha asignada</div>
-            <div class="item-text-description">Lleva todos los documentos originales</div>
-            <div class="item-detail">
-              Llega con 15 minutos de anticipación. El trámite dura unos 15-20 minutos.
-            </div>
+        <div class="item" data-item="coste-2">
+          <div class="casilla"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-marca"/></svg></div>
+          <div class="item-cuerpo">
+            <div class="item-nombre">Comprobar si estás exento de pagar</div>
+            <div class="item-detalle">Hay casos con expedición gratuita</div>
           </div>
         </div>
-
-        <div class="checklist-item" data-item-id="paso-3">
-          <div class="checkbox"></div>
-          <div class="item-content">
-            <div class="item-text-label">Recoger el DNI nuevo</div>
-            <div class="item-text-description">En la misma oficina o por correo</div>
-            <div class="item-detail">
-              Comprueba que los datos sean correctos. Si hay errores, puedes solicitar correcciones.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SECTION: COSTES -->
-      <div class="checklist-section">
-        <div class="section-title">
-          <span class="section-icon">💰</span>
-          <span>Costes</span>
-        </div>
-
-        <div class="checklist-item" data-item-id="coste-1">
-          <div class="checkbox"></div>
-          <div class="item-content">
-            <div class="item-text-label">Pagar tasa de expedición</div>
-            <div class="item-text-description">10,47 € (adultos menores de 65 años)</div>
-          </div>
-        </div>
-      </div>
+      </section>
     </main>
 
-    <!-- COMPLETION STATE (hidden by default) -->
-    <div class="completion-state" id="completionState">
-      <div class="completion-icon">✓</div>
-      <h2 class="completion-headline">¡Todo listo!</h2>
-      <p class="completion-text">
-        Ya tienes todo preparado para renovar tu DNI. Recuerda ir a la cita con todos los documentos.
+    <!-- CIERRE (oculto hasta completar todo) -->
+    <div class="cierre" id="cierre">
+      <div class="sello-cierre" aria-hidden="true">Preparado</div>
+      <h2 class="cierre-titular">Lo tienes todo</h2>
+      <p class="cierre-texto">
+        Ya puedes ir a tu cita con todo preparado. Imprime la lista si quieres
+        llevarla en papel.
       </p>
     </div>
 
-    <!-- CTA SECTION -->
-    <div class="cta-section">
-      <button class="btn-download" aria-label="Descargar checklist en PDF">
-        ⬇️ Descargar checklist
+    <!-- BOTONERA -->
+    <div class="botonera">
+      <button class="boton-principal" aria-label="Imprimir mi lista de papeles">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-impresora"/></svg>
+        Imprimir mi lista
       </button>
-      <button class="btn-secondary" aria-label="Compartir checklist">
+      <button class="boton-secundario" aria-label="Compartir la lista">
         Compartir
       </button>
     </div>
   </div>
 
   <script>
-    const items = document.querySelectorAll('.checklist-item');
-    const completionState = document.getElementById('completionState');
-    const contentBand = document.querySelector('.content-band');
-    const ctaSection = document.querySelector('.cta-section');
+    const items = document.querySelectorAll('.item');
+    const cierre = document.getElementById('cierre');
+    const contenido = document.querySelector('.contenido');
 
-    function updateProgress() {
-      const completed = document.querySelectorAll('.checklist-item.completed').length;
+    function actualizarProgreso() {
+      const hechos = document.querySelectorAll('.item.hecho').length;
       const total = items.length;
-      const percentage = Math.round((completed / total) * 100);
+      const porcentaje = Math.round((hechos / total) * 100);
 
-      document.getElementById('completedCount').textContent = completed;
-      document.getElementById('totalCount').textContent = total;
-      document.getElementById('progressPercent').textContent = percentage + '%';
-      document.getElementById('progressFill').style.width = percentage + '%';
+      document.getElementById('cuentaHechos').textContent = `${hechos} de ${total}`;
+      document.getElementById('porcentaje').textContent = porcentaje + '%';
+      document.getElementById('progresoRelleno').style.width = porcentaje + '%';
 
-      // Show completion state when all items are done
-      if (completed === total) {
-        contentBand.style.display = 'none';
-        ctaSection.style.display = 'none';
-        completionState.classList.add('active');
-      } else {
-        contentBand.style.display = 'block';
-        ctaSection.style.display = 'flex';
-        completionState.classList.remove('active');
-      }
+      const completo = hechos === total;
+      contenido.style.display = completo ? 'none' : 'block';
+      cierre.classList.toggle('activo', completo);
     }
 
-    // Handle item clicks
     items.forEach(item => {
-      item.addEventListener('click', (e) => {
-        // Don't toggle checkbox if clicking on expandable detail
-        if (e.target.closest('.item-detail')) {
-          item.classList.toggle('expanded');
-          return;
-        }
-
-        item.classList.toggle('completed');
-        const checkbox = item.querySelector('.checkbox');
-
-        if (item.classList.contains('completed')) {
-          checkbox.textContent = '✓';
-        } else {
-          checkbox.textContent = '';
-        }
-
-        updateProgress();
+      item.addEventListener('click', () => {
+        item.classList.toggle('hecho');
+        actualizarProgreso();
       });
-
-      // Allow expanding details by clicking on the item
-      const detail = item.querySelector('.item-detail');
-      if (detail) {
-        item.style.cursor = 'pointer';
-      }
     });
 
-    // Back button
-    document.querySelector('.nav-back').addEventListener('click', () => {
-      window.history.back();
-    });
+    document.querySelector('.volver').addEventListener('click', () => window.history.back());
 
-    // Download button
-    document.querySelector('.btn-download').addEventListener('click', () => {
-      console.log('Descargar checklist como PDF');
-    });
-
-    // Share button
-    document.querySelector('.btn-secondary').addEventListener('click', () => {
-      console.log('Compartir checklist');
-    });
-
-    // Initialize
-    updateProgress();
+    actualizarProgreso();
   </script>
 </body>
 </html>
