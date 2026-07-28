@@ -46,10 +46,12 @@ Prohibido `emerald-*`, `stone-*`, `amber-*` y `green-*`.
 
 - **Tinta** (`{colors.tinta}`, `#24221f`): texto principal y titulares.
 - **Tinta media** (`{colors.tinta-media}`, `#635c52`): texto secundario.
-- **Tinta tenue** (`{colors.tinta-tenue}`, `#726957`): texto terciario. Oscurecido a propósito
+- **Tinta tenue** (`{colors.tinta-tenue}`, `#6f6654`): texto terciario. Oscurecido a propósito
   para pasar WCAG AA (4.5:1) porque lleva información real (subtítulos, notas de caducidad), no
-  solo decoración. Cualquier color de texto nuevo tiene que pasar AA: lo vigila
-  `tests/contraste.test.ts`.
+  solo decoración. Reoscurecido desde `#726957`, que daba 4.44 sobre `{colors.sello-suave}`: un
+  requisito marcado en la checklist es justo esa combinación. Cualquier color de texto nuevo
+  tiene que pasar AA sobre **todas** las superficies: lo vigila `tests/contraste.test.ts`, que
+  cruza todos los textos contra todos los fondos y falla si un token entra sin clasificar.
 
 ### Acento y estado
 
@@ -59,6 +61,14 @@ Prohibido `emerald-*`, `stone-*`, `amber-*` y `green-*`.
 - **Pendiente** (`{colors.pendiente}`, `#a8342b`): rojo de sello. Sin verificar, avisos,
   obligatorio.
 - **Pendiente suave** (`{colors.pendiente-suave}`, `#f7e7e4`): fondo tintado para avisos.
+- **Borrador** (`{colors.borrador}`, `#83571c`): ocre de expediente. El trámite que está en el
+  catálogo pero aún no tiene ficha: "en preparación". No es un aviso y no debe leerse como tal.
+- **Borrador suave** (`{colors.borrador-suave}`, `#f5ead6`): fondo tintado para "en preparación".
+
+El ocre existe por una razón concreta: "en preparación" llegó a pintarse con el rojo
+`{colors.pendiente}`, y entonces el rojo significaba dos cosas a la vez en la misma pantalla —
+"sin verificar" y "sin construir". Eso diluye la señal que sostiene el argumento del producto.
+Un trámite sin ficha no es un peligro, es un hueco reconocido: se marca, no se alarma.
 
 El estado nunca se comunica solo con color (FR-029): siempre va acompañado de texto o forma
 (el sello dice "VERIFICADO" o "SIN VERIFICAR", no solo cambia de tinta).
@@ -252,3 +262,5 @@ icono nuevo, se añade al catálogo de SVG.
 - Sin pastillas de 24px ni tipografía de peso 900: la voz es institucional, no fintech.
 - El estado nunca se comunica solo con color (FR-029): siempre texto o forma además del color.
 - "Verificado" no se estampa nunca sin cotejo humano detrás.
+- Un color no significa dos cosas: el rojo `{colors.pendiente}` es "sin verificar", y "en
+  preparación" va en ocre `{colors.borrador}`. Si aparece un estado nuevo, token nuevo.

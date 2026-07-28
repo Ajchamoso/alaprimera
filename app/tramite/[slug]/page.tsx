@@ -37,7 +37,7 @@ export default async function PaginaTramite({
           <p className="text-tinta-tenue">
             {tramite.nombreOficial} · {tramite.organismo} · {tramite.territorio}
           </p>
-          <span className="inline-block rounded-sm border-[2.5px] border-tinta-tenue px-3 py-1.5 font-cond font-bold uppercase tracking-widest text-tinta-tenue">
+          <span className="inline-block rounded-sm border-[2.5px] border-borrador bg-borrador-suave px-3 py-1.5 font-cond font-bold uppercase tracking-widest text-borrador">
             En preparación
           </span>
         </header>
