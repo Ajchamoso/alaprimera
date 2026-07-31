@@ -28,6 +28,17 @@
   --font-sans: var(--fuente-cuerpo);
   --font-mono: var(--fuente-datos);
   --font-cond: var(--fuente-sello);
+
+  /* Tamaños de texto (pares únicamente, en rem con base 16px = 1rem).
+     Notar que los HTML de diseño/pantallas/ los definen localmente también,
+     para funcionar sin cargar este fichero: aquí se importan para coherencia en la app. */
+  --ts-sm: 0.75rem;      /* 12px */
+  --ts-base-md: 0.875rem;  /* 14px */
+  --ts-base: 1rem;       /* 16px */
+  --ts-lg: 1.125rem;     /* 18px */
+  --ts-xl: 1.25rem;      /* 20px */
+  --ts-2xl: 1.625rem;    /* 26px */
+  --ts-3xl: 2rem;        /* 32px */
 }
 
 /* Tema claro fijo: esta app se lee a menudo con prisa, se imprime para llevarla a

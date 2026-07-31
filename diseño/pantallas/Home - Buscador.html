@@ -38,9 +38,22 @@
       --sp-xl: 24px;
       --sp-2xl: 32px;
       --sp-3xl: 48px;
+
+      /* Tamaños de texto (pares únicamente, en rem con base 16px = 1rem, sincronizados con app/globals.css) */
+      --ts-sm: 0.75rem;      /* 12px */
+      --ts-base-md: 0.875rem;  /* 14px */
+      --ts-base: 1rem;       /* 16px */
+      --ts-lg: 1.125rem;     /* 18px */
+      --ts-xl: 1.25rem;      /* 20px */
+      --ts-2xl: 1.625rem;    /* 26px */
+      --ts-3xl: 2rem;        /* 32px */
     }
 
-    html, body {
+    html {
+      font-size: 16px;
+    }
+
+    body {
       font-family: var(--sans);
       background-color: var(--papel);
       color: var(--tinta);
@@ -75,7 +88,7 @@
 
     .logo {
       font-family: var(--cond);
-      font-size: 18px;
+      font-size: var(--ts-lg);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -116,7 +129,7 @@
 
     .portada h1 {
       font-family: var(--cond);
-      font-size: 32px;
+      font-size: var(--ts-3xl);
       font-weight: 700;
       line-height: 1.15;
       text-transform: uppercase;
@@ -125,7 +138,7 @@
     }
 
     .portada .lema {
-      font-size: 18px;
+      font-size: var(--ts-lg);
       color: var(--tinta-media);
     }
 
@@ -139,7 +152,7 @@
       outline-offset: 2px;
       transform: rotate(-2deg);
       font-family: var(--cond);
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.14em;
@@ -162,7 +175,7 @@
       flex: 1;
       min-width: 0;
       padding: var(--sp-md) var(--sp-lg);
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-family: var(--sans);
       border: 1px solid var(--tinta-media);
       border-radius: 8px;
@@ -187,7 +200,7 @@
       color: #fff;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 600;
       font-family: var(--sans);
       cursor: pointer;
@@ -209,7 +222,7 @@
 
     .titulo-seccion {
       font-family: var(--cond);
-      font-size: 20px;
+      font-size: var(--ts-xl);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -247,14 +260,14 @@
     }
 
     .hecho-titulo {
-      font-size: 17px;
+      font-size: var(--ts-lg);
       font-weight: 600;
       color: var(--tinta);
     }
 
     .hecho-cuenta {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       font-weight: 500;
       color: #fff;
       background-color: var(--sello);
@@ -270,7 +283,7 @@
     }
 
     .hecho-descripcion {
-      font-size: 14px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-media);
     }
 
@@ -305,14 +318,14 @@
 
     .nombre-tramite {
       flex: 1;
-      font-size: 15px;
+      font-size: var(--ts-base);
       font-weight: 500;
       color: var(--tinta);
     }
 
     .nivel-tramite {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: var(--ts-sm);
       color: var(--tinta-tenue);
       white-space: nowrap;
     }
@@ -335,7 +348,7 @@
 
     .estado-vacio-titulo {
       font-family: var(--cond);
-      font-size: 18px;
+      font-size: var(--ts-lg);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -343,7 +356,7 @@
     }
 
     .estado-vacio-texto {
-      font-size: 14px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-media);
       line-height: 1.6;
     }
@@ -354,7 +367,7 @@
       border-top: 1px solid var(--linea);
       color: var(--tinta-media);
       padding: var(--sp-xl) var(--sp-lg);
-      font-size: 12px;
+      font-size: var(--ts-sm);
       font-family: var(--mono);
       text-align: center;
       line-height: 1.6;
@@ -376,7 +389,7 @@
       text-decoration: none;
       z-index: 101;
       font-weight: 600;
-      font-size: 14px;
+      font-size: var(--ts-base-md);
     }
 
     .skiplink:focus {

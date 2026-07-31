@@ -38,9 +38,22 @@
       --sp-xl: 24px;
       --sp-2xl: 32px;
       --sp-3xl: 48px;
+
+      /* Tamaños de texto (pares únicamente, en rem con base 16px = 1rem, sincronizados con app/globals.css) */
+      --ts-sm: 0.75rem;      /* 12px */
+      --ts-base-md: 0.875rem;  /* 14px */
+      --ts-base: 1rem;       /* 16px */
+      --ts-lg: 1.125rem;     /* 18px */
+      --ts-xl: 1.25rem;      /* 20px */
+      --ts-2xl: 1.625rem;    /* 26px */
+      --ts-3xl: 2rem;        /* 32px */
     }
 
-    html, body {
+    html {
+      font-size: 16px;
+    }
+
+    body {
       font-family: var(--sans);
       background-color: var(--papel);
       color: var(--tinta);
@@ -95,7 +108,7 @@
     .titulo-pantalla {
       flex: 1;
       font-family: var(--cond);
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -120,7 +133,7 @@
     .etiqueta-hecho {
       display: inline-block;
       font-family: var(--cond);
-      font-size: 12px;
+      font-size: var(--ts-sm);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -133,7 +146,7 @@
 
     .nombre-coloquial {
       font-family: var(--cond);
-      font-size: 28px;
+      font-size: var(--ts-2xl);
       font-weight: 700;
       line-height: 1.15;
       margin-bottom: var(--sp-xs);
@@ -141,7 +154,7 @@
 
     .nombre-oficial {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-tenue);
     }
 
@@ -167,7 +180,7 @@
 
     .sello-verificacion .palabra {
       font-family: var(--cond);
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.14em;
@@ -175,13 +188,13 @@
 
     .sello-verificacion .fecha {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: var(--ts-sm);
       margin-top: 2px;
     }
 
     .nota-sello {
       text-align: center;
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-media);
       padding: var(--sp-sm) var(--sp-xl) var(--sp-lg);
       line-height: 1.5;
@@ -210,7 +223,7 @@
 
     .tarjeta-titulo {
       font-family: var(--cond);
-      font-size: 15px;
+      font-size: var(--ts-base);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -218,7 +231,7 @@
     }
 
     .descripcion {
-      font-size: 15px;
+      font-size: var(--ts-base);
       line-height: 1.6;
     }
 
@@ -239,7 +252,7 @@
 
     .dato-clave {
       font-family: var(--cond);
-      font-size: 12px;
+      font-size: var(--ts-sm);
       font-weight: 700;
       color: var(--tinta-tenue);
       text-transform: uppercase;
@@ -249,7 +262,7 @@
 
     .dato-valor {
       font-family: var(--mono);
-      font-size: 14px;
+      font-size: var(--ts-base-md);
       color: var(--tinta);
       text-align: right;
     }
@@ -271,7 +284,7 @@
 
     .aviso-titulo {
       font-family: var(--cond);
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -280,7 +293,7 @@
     }
 
     .aviso-texto {
-      font-size: 14px;
+      font-size: var(--ts-base-md);
       color: var(--tinta);
       line-height: 1.5;
     }
@@ -291,7 +304,7 @@
     }
 
     .canales-intro {
-      font-size: 14px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-media);
       margin-bottom: var(--sp-md);
       line-height: 1.5;
@@ -311,7 +324,7 @@
       text-align: center;
       cursor: pointer;
       font-family: var(--sans);
-      font-size: 14px;
+      font-size: var(--ts-base-md);
       font-weight: 600;
       color: var(--tinta);
       min-height: 80px;
@@ -352,7 +365,7 @@
       color: #fff;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 600;
       font-family: var(--sans);
       cursor: pointer;
@@ -371,7 +384,7 @@
       border-top: 1px solid var(--linea);
       color: var(--tinta-media);
       padding: var(--sp-xl) var(--sp-lg);
-      font-size: 12px;
+      font-size: var(--ts-sm);
       font-family: var(--mono);
       text-align: center;
       line-height: 1.6;
@@ -393,7 +406,7 @@
       text-decoration: none;
       z-index: 101;
       font-weight: 600;
-      font-size: 14px;
+      font-size: var(--ts-base-md);
     }
 
     .skiplink:focus {

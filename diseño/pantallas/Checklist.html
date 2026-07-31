@@ -38,9 +38,22 @@
       --sp-xl: 24px;
       --sp-2xl: 32px;
       --sp-3xl: 48px;
+
+      /* Tamaños de texto (pares únicamente, en rem con base 16px = 1rem, sincronizados con app/globals.css) */
+      --ts-sm: 0.75rem;      /* 12px */
+      --ts-base-md: 0.875rem;  /* 14px */
+      --ts-base: 1rem;       /* 16px */
+      --ts-lg: 1.125rem;     /* 18px */
+      --ts-xl: 1.25rem;      /* 20px */
+      --ts-2xl: 1.625rem;    /* 26px */
+      --ts-3xl: 2rem;        /* 32px */
     }
 
-    html, body {
+    html {
+      font-size: 16px;
+    }
+
+    body {
       font-family: var(--sans);
       background-color: var(--papel);
       color: var(--tinta);
@@ -95,7 +108,7 @@
     .titulo-pantalla {
       flex: 1;
       font-family: var(--cond);
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -116,7 +129,7 @@
 
     .tramite-titulo {
       font-family: var(--cond);
-      font-size: 26px;
+      font-size: var(--ts-2xl);
       font-weight: 700;
       line-height: 1.15;
       margin-bottom: var(--sp-xs);
@@ -124,7 +137,7 @@
 
     .tramite-datos {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-tenue);
     }
 
@@ -152,7 +165,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 14px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-media);
     }
 
@@ -178,7 +191,7 @@
 
     .aviso-titulo {
       font-family: var(--cond);
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -187,7 +200,7 @@
     }
 
     .aviso-texto {
-      font-size: 14px;
+      font-size: var(--ts-base-md);
       color: var(--tinta);
       line-height: 1.5;
     }
@@ -199,7 +212,7 @@
 
     .seccion-titulo {
       font-family: var(--cond);
-      font-size: 15px;
+      font-size: var(--ts-base);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -255,7 +268,7 @@
     }
 
     .item-nombre {
-      font-size: 15px;
+      font-size: var(--ts-base);
       font-weight: 600;
       line-height: 1.4;
     }
@@ -266,21 +279,21 @@
     }
 
     .item-detalle {
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-media);
       line-height: 1.4;
     }
 
     .item-dato {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       color: var(--tinta);
       margin-top: 2px;
     }
 
     .item-opcional {
       font-family: var(--cond);
-      font-size: 11px;
+      font-size: var(--ts-sm);
       font-weight: 600;
       color: var(--tinta-tenue);
       text-transform: uppercase;
@@ -293,7 +306,7 @@
       margin-top: var(--sp-sm);
       padding: var(--sp-sm) var(--sp-md);
       border-left: 2px solid var(--linea);
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-media);
       line-height: 1.5;
     }
@@ -301,7 +314,7 @@
     .cita-fuente .origen {
       display: block;
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: var(--ts-sm);
       color: var(--tinta-tenue);
       margin-top: 2px;
     }
@@ -330,7 +343,7 @@
       outline-offset: 2px;
       transform: rotate(-2deg);
       font-family: var(--cond);
-      font-size: 18px;
+      font-size: var(--ts-lg);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -339,12 +352,12 @@
 
     .cierre-titular {
       font-family: var(--cond);
-      font-size: 26px;
+      font-size: var(--ts-2xl);
       font-weight: 700;
     }
 
     .cierre-texto {
-      font-size: 16px;
+      font-size: var(--ts-base);
       color: var(--tinta-media);
       line-height: 1.6;
       max-width: 300px;
@@ -367,7 +380,7 @@
       color: #fff;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 600;
       font-family: var(--sans);
       cursor: pointer;

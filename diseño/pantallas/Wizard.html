@@ -38,9 +38,22 @@
       --sp-xl: 24px;
       --sp-2xl: 32px;
       --sp-3xl: 48px;
+
+      /* Tamaños de texto (pares únicamente, en rem con base 16px = 1rem, sincronizados con app/globals.css) */
+      --ts-sm: 0.75rem;      /* 12px */
+      --ts-base-md: 0.875rem;  /* 14px */
+      --ts-base: 1rem;       /* 16px */
+      --ts-lg: 1.125rem;     /* 18px */
+      --ts-xl: 1.25rem;      /* 20px */
+      --ts-2xl: 1.625rem;    /* 26px */
+      --ts-3xl: 2rem;        /* 32px */
     }
 
-    html, body {
+    html {
+      font-size: 16px;
+    }
+
+    body {
       font-family: var(--sans);
       background-color: var(--papel);
       color: var(--tinta);
@@ -97,7 +110,7 @@
     .titulo-pantalla {
       flex: 1;
       font-family: var(--cond);
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -131,7 +144,7 @@
 
     .progreso-texto {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: var(--ts-sm);
       font-weight: 500;
       color: var(--tinta-tenue);
       text-align: right;
@@ -172,13 +185,13 @@
 
     .pregunta-titular {
       font-family: var(--cond);
-      font-size: 26px;
+      font-size: var(--ts-2xl);
       font-weight: 700;
       line-height: 1.2;
     }
 
     .pregunta-apoyo {
-      font-size: 15px;
+      font-size: var(--ts-base);
       color: var(--tinta-media);
       margin-top: var(--sp-xs);
     }
@@ -243,12 +256,12 @@
     }
 
     .opcion-nombre {
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 600;
     }
 
     .opcion-detalle {
-      font-size: 13px;
+      font-size: var(--ts-base-md);
       color: var(--tinta-media);
     }
 
@@ -284,7 +297,7 @@
       color: var(--tinta);
       border: 1px solid var(--linea);
       border-radius: 8px;
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 600;
       font-family: var(--sans);
       cursor: pointer;
@@ -298,7 +311,7 @@
       color: #fff;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 600;
       font-family: var(--sans);
       cursor: pointer;
@@ -340,7 +353,7 @@
       outline-offset: 2px;
       transform: rotate(-2deg);
       font-family: var(--cond);
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -350,13 +363,13 @@
 
     .cierre-titular {
       font-family: var(--cond);
-      font-size: 26px;
+      font-size: var(--ts-2xl);
       font-weight: 700;
       line-height: 1.2;
     }
 
     .cierre-texto {
-      font-size: 16px;
+      font-size: var(--ts-base);
       color: var(--tinta-media);
       line-height: 1.6;
     }
@@ -368,7 +381,7 @@
       color: #fff;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: var(--ts-base);
       font-weight: 600;
       font-family: var(--sans);
       cursor: pointer;
@@ -387,7 +400,7 @@
       text-decoration: none;
       z-index: 101;
       font-weight: 600;
-      font-size: 14px;
+      font-size: var(--ts-base-md);
     }
 
     .skiplink:focus {
