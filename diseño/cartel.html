@@ -195,8 +195,11 @@
       0 3px 10px rgba(36, 34, 31, 0.28);
   }
 
+  /* La proporción es la de un iPhone 14/15 (390x844 px CSS) y se declara aquí, así que
+     no hay forma de descuadrarla tocando anchos: el alto sale solo. */
   .telefono .visor {
     position: relative;
+    aspect-ratio: 390 / 844;
     overflow: hidden;
     border-radius: 26px;
     background-color: var(--papel);
@@ -222,7 +225,7 @@
   .telefono img {
     display: block;
     width: 100%;
-    height: var(--alto-visor);
+    height: calc(100% - 26px);
     object-fit: cover;
     object-position: top center;
   }
@@ -240,10 +243,14 @@
   }
 
   /* ── BANDA DE LA PANTALLA ESTRELLA ── */
+  /* El teléfono de la estrella es la mitad más grande que los de la fila, y el texto va
+     centrado a su altura: el aire que sobra se reparte arriba y abajo en vez de quedarse
+     todo en un hueco al final. */
   .banda-estrella {
     display: grid;
     grid-template-columns: 340px 1fr;
-    gap: 32px;
+    align-items: center;
+    gap: 36px;
     padding: 28px;
     background-color: var(--sello-suave);
     border: 2px solid var(--sello);
@@ -251,9 +258,6 @@
   }
 
   .banda-estrella .columna-telefono { position: relative; }
-
-  /* Ajustado para que el teléfono acabe a la misma altura que su columna de texto. */
-  .banda-estrella .telefono { --alto-visor: 485px; }
 
   /* Llamadas numeradas, como en una hoja de anotaciones. El número es el orden en el
      que aparecen bajando por la pantalla, no una posición dibujada encima. */
@@ -387,9 +391,12 @@
     align-items: start;
   }
 
-  .tira-pantallas .telefono { --alto-visor: 420px; }
-
   .pantalla { margin: 0; }
+
+  .tira-pantallas .telefono {
+    width: 230px;
+    margin-inline: auto;
+  }
 
   .pantalla figcaption { padding: 12px 4px 0; }
 
@@ -492,10 +499,9 @@
   </header>
 
   <p class="entradilla">
-    Un asistente para los trámites con la administración española. Le dices cuál necesitas,
-    responde cuatro preguntas sobre tu caso y te devuelve la lista exacta de papeles que
-    tienes que llevar, en qué orden y de dónde sale cada dato.
-    <strong>La app ya está en pie y se puede tocar</strong>: esto no es solo una maqueta.
+    Un asistente para los trámites con la administración española. Dices cuál necesitas,
+    respondes cuatro preguntas y te devuelve la lista exacta de papeles que hay que llevar.
+    <strong>Ya está en pie y se puede tocar</strong>: no es solo una maqueta.
   </p>
 
   <h2 class="rotulo-seccion">Qué hemos hecho</h2>
@@ -508,7 +514,7 @@
         <path d="M7 10h10M7 14h6"></path>
       </svg>
       <h3>La identidad del sello</h3>
-      <p>Papel de expediente, tinta y violeta de caucho. IBM Plex en tres cortes con roles estrictos. Ni un verde, ni un emoji, sin modo oscuro. Todo escrito en <code>DESIGN.md</code>.</p>
+      <p>Papel de expediente, tinta y violeta de caucho. IBM Plex en tres cortes. Ni un verde, ni un emoji, sin modo oscuro.</p>
     </div>
 
     <div class="tarjeta">
@@ -517,7 +523,7 @@
         <rect x="14" y="4" width="7" height="16" rx="1"></rect>
       </svg>
       <h3>Tres versiones, todas guardadas</h3>
-      <p>El diseño no dio un salto, dio dos. Las tres se comparan pantalla a pantalla en <code>comparador.html</code>, incluida la que descartamos.</p>
+      <p>El diseño dio dos saltos. Las tres se comparan pantalla a pantalla en <code>comparador.html</code>, incluida la descartada.</p>
     </div>
 
     <div class="tarjeta">
@@ -526,7 +532,7 @@
         <path d="M12 8v4l3 2"></path>
       </svg>
       <h3>Un texto que se puede agrandar</h3>
-      <p>La escala pasa a rem, así que el texto crece con el tamaño de letra que cada cual tenga en su navegador. Los contrastes los vigila un test que falla si un color entra sin pasar AA.</p>
+      <p>La escala va en rem: crece con el navegador de cada cual. Un test falla si un color no llega a contraste AA.</p>
     </div>
 
     <div class="tarjeta">
@@ -535,7 +541,7 @@
         <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5"></path>
       </svg>
       <h3>Cada dato con su fuente</h3>
-      <p>Ningún requisito se genera al vuelo. Cada uno sale de la página oficial del organismo, con su cita literal y el enlace a la fuente en la propia ficha, para que puedas comprobarlo tú.</p>
+      <p>Nada se genera al vuelo. Cada requisito sale de la página oficial, con su cita y su enlace en la propia ficha.</p>
     </div>
   </div>
 
@@ -559,10 +565,10 @@
       <p class="ruta">Home · Buscador → <strong>Detalle</strong> → Wizard → Checklist</p>
 
       <h4>Qué resuelve</h4>
-      <p>Saber si esta es de verdad tu ficha y qué te va a pedir, <strong>antes</strong> de invertir tiempo en preparar nada.</p>
+      <p>Saber si esta es tu ficha y qué te va a pedir, <strong>antes</strong> de preparar nada.</p>
 
       <h4>Por qué importa</h4>
-      <p>Es donde el usuario decide si sigue, y es la pantalla que más trabajo ahorra. Reúne en un sitio lo que normalmente está repartido entre tres páginas de la administración: qué es el trámite, a quién aplica, cuánto cuesta, qué plazo tiene, por qué canales se puede hacer y de qué página oficial sale cada dato. Sin PDF, sin buscar en el pie de página y sin tener que interpretar nada.</p>
+      <p>Reúne en una pantalla lo que la administración reparte en tres: qué es, a quién aplica, cuánto cuesta, qué plazo tiene, por qué canales y de dónde sale cada dato.</p>
 
       <p class="rotulo-llamadas">Qué trae la pantalla, de arriba abajo</p>
 
@@ -571,7 +577,7 @@
           <span class="num">1</span>
           <span>
             <span class="titulo">El nombre en tu idioma</span>
-            <span class="detalle">«Renovar el carnet de identidad», con el nombre administrativo debajo y en pequeño.</span>
+            <span class="detalle">Con el nombre administrativo debajo, en pequeño.</span>
           </span>
         </div>
 
@@ -579,7 +585,7 @@
           <span class="num">2</span>
           <span>
             <span class="titulo">La fecha de la última revisión</span>
-            <span class="detalle">Estampada bajo el título, para que sepas de cuándo es lo que estás leyendo.</span>
+            <span class="detalle">Para saber de cuándo es lo que estás leyendo.</span>
           </span>
         </div>
 
@@ -587,7 +593,7 @@
           <span class="num">3</span>
           <span>
             <span class="titulo">La ficha en pares clave/valor</span>
-            <span class="detalle">Nivel, canales, plazo y tasa. Los datos van en monoespaciada: vienen de un documento.</span>
+            <span class="detalle">Nivel, canales, plazo y tasa, en monoespaciada.</span>
           </span>
         </div>
 
@@ -595,7 +601,7 @@
           <span class="num">4</span>
           <span>
             <span class="titulo">La fuente oficial, a un toque</span>
-            <span class="detalle">El enlace a la página del organismo, dentro de la ficha. Puedes comprobarlo tú.</span>
+            <span class="detalle">El enlace al organismo, para comprobarlo tú.</span>
           </span>
         </div>
 
@@ -603,7 +609,7 @@
           <span class="num">5</span>
           <span>
             <span class="titulo">Los avisos duros, antes del botón</span>
-            <span class="detalle">Si hay que ir en persona sí o sí, se dice ahí y no cuando ya has empezado.</span>
+            <span class="detalle">Si hay que ir en persona, se dice antes de empezar.</span>
           </span>
         </div>
 
@@ -611,7 +617,7 @@
           <span class="num">6</span>
           <span>
             <span class="titulo">Una sola acción principal</span>
-            <span class="detalle">«Preparar este trámite». El resto de la pantalla es información, no botones.</span>
+            <span class="detalle">El resto de la pantalla es información, no botones.</span>
           </span>
         </div>
       </div>
@@ -633,7 +639,7 @@
       <figcaption>
         <span class="paso">001 · ENCONTRARLO</span>
         <span class="nombre">Home · Buscador</span>
-        <span class="pie">El catálogo se ordena por lo que te está pasando, no por el organigrama del Estado: «nace un hijo», «empieza el cole».</span>
+        <span class="pie">El catálogo por lo que te está pasando, no por el organigrama del Estado.</span>
       </figcaption>
     </figure>
 
@@ -648,7 +654,7 @@
       <figcaption>
         <span class="paso">002 · PREPARARLO</span>
         <span class="nombre">Wizard</span>
-        <span class="pie">Cuatro preguntas sobre tu caso: para quién es, cuándo lo necesitas, por qué canal y si te acompaña alguien.</span>
+        <span class="pie">Cuatro preguntas para pasar de la ficha genérica a tu caso.</span>
       </figcaption>
     </figure>
 
@@ -663,7 +669,7 @@
       <figcaption>
         <span class="paso">002 · PREPARARLO</span>
         <span class="nombre">Resumen</span>
-        <span class="pie">Eliges cómo y dónde vas a hacerlo, por internet o en persona, antes de ver la lista que te toca a ti.</span>
+        <span class="pie">Eliges canal, por internet o en persona, antes de ver la lista.</span>
       </figcaption>
     </figure>
 
@@ -678,7 +684,7 @@
       <figcaption>
         <span class="paso">002 · PREPARARLO</span>
         <span class="nombre">Checklist</span>
-        <span class="pie">Los papeles por secciones y el progreso guardado. Al marcarlo todo aparece «Lo tienes todo», que es el momento para el que existe la app.</span>
+        <span class="pie">Los papeles por secciones, con el progreso guardado.</span>
       </figcaption>
     </figure>
   </div>
@@ -701,7 +707,7 @@
         <path d="M4 7l5 5-5 5M12 17h8"></path>
       </svg>
       <h3>Una red que no depende de acordarse</h3>
-      <p>Cada cambio pasa por lint, tipos, 87 tests y build. Uno de esos tests cruza todos los colores de texto contra todos los fondos y falla si alguno no llega a AA.</p>
+      <p>Lint, tipos, 87 tests y build en cada cambio. Uno de ellos cruza todos los colores de texto contra todos los fondos.</p>
     </div>
 
     <div class="tarjeta">
@@ -710,21 +716,21 @@
         <path d="M3 8h18M7 12h6"></path>
       </svg>
       <h3>Comprobado en un navegador, no a ojo</h3>
-      <p>Las maquetas y las capturas se abren en un navegador de verdad y se miden ahí: ancho de móvil real, sin recortes y sin desbordes.</p>
+      <p>Las maquetas se abren en un navegador de verdad y se miden ahí, no a ojo.</p>
     </div>
   </div>
 
   <div class="cierre">
     <div class="bloque-cierre">
       <h3>Para qué</h3>
-      <p>Para que nadie vuelva de una ventanilla porque le faltaba un papel. Marta lleva los trámites de toda su familia y no tiene por qué saberse el reglamento: la app le dice qué llevar, en qué orden, y le enseña de dónde ha sacado cada dato.</p>
-      <p>Se lee con prisa, se imprime para llevarla encima y la acaban leyendo personas mayores. Por eso el tema es claro fijo y el cuerpo no baja de 16px.</p>
+      <p>Para que nadie vuelva de una ventanilla porque le faltaba un papel. Marta lleva los trámites de su familia y no tiene por qué saberse el reglamento.</p>
+      <p>Se lee con prisa, se imprime y la acaban leyendo personas mayores. Por eso el tema es claro fijo y el cuerpo no baja de 16px.</p>
     </div>
 
     <div class="bloque-cierre">
       <h3>Lo que viene</h3>
-      <p>El catálogo tiene <strong>22 fichas publicadas</strong> y otras 22 preparadas en el backlog, repartidas en once hechos vitales.</p>
-      <p>Lo siguiente es ampliar cobertura por comunidades autónomas y seguir afinando la calidad de las fichas que ya están, antes que engordar la lista por engordarla.</p>
+      <p><strong>22 fichas publicadas</strong> y otras 22 en el backlog, repartidas en once hechos vitales.</p>
+      <p>Ahora toca ampliar cobertura por comunidades autónomas, antes que engordar la lista por engordarla.</p>
     </div>
   </div>
 
