@@ -36,25 +36,25 @@ catálogo se ordena por lo que te está pasando y no por el organigrama del Esta
 ### Detalle de trámite ⭐ (pantalla estrella)
 
 **Qué hace el usuario.** Consulta toda la información del trámite: descripción, requisitos,
-datos oficiales, canales y fuente verificada.
+datos oficiales, canales y fuente.
 
-**Qué resuelve.** Saber si esta es de verdad su ficha, y si se puede fiar de ella, antes de
-invertir tiempo en preparar nada.
+**Qué resuelve.** Saber si esta es de verdad su ficha y qué le va a pedir, antes de invertir
+tiempo en preparar nada.
 
-**Por qué importa.** Es donde vive el argumento entero del producto. Una app de trámites
-solo vale si te puedes fiar de lo que dice, y aquí es donde se demuestra: el sello
-declara que una persona cotejó la ficha contra la fuente, con la fecha del cotejo, y el
-enlace a esa fuente está a un toque. Si nadie la ha mirado todavía, lo dice.
+**Por qué importa.** Es la pantalla que más trabajo ahorra. Reúne en un sitio lo que la
+administración reparte entre tres páginas: qué es el trámite, a quién aplica, cuánto cuesta,
+qué plazo tiene, por qué canales se puede hacer y de qué página oficial sale cada dato. Y
+como el enlace a esa página está en la propia ficha, no hay que creerse nada: se comprueba.
 
 **Qué se ve.**
 
-- El sello de verificación con su fecha, arriba del todo y bajo el título, no en un pie de
-  página.
-- "Una persona cotejó esta ficha contra la fuente oficial. Nada de lo que ves lo ha
-  generado una IA."
-- La ficha en pares clave/valor: nivel, canales, plazo, tasa y fuente oficial. Todo dato
-  que venga de un documento va en monoespaciada.
+- El nombre en lenguaje llano, con el administrativo debajo y en pequeño.
+- La ficha en pares clave/valor: nivel, canales, plazo, tasa y fuente oficial. Todo dato que
+  venga de un documento va en monoespaciada.
+- El enlace a la fuente, dentro de la ficha y a un toque.
 - Los avisos duros ("hay que ir en persona") antes del botón, no después.
+- El sello con la fecha de la última revisión, estampado bajo el título, para saber de
+  cuándo es lo que se está leyendo.
 
 ---
 

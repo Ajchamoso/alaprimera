@@ -243,21 +243,50 @@
   }
 
   /* ── BANDA DE LA PANTALLA ESTRELLA ── */
+  /* La estrella NO se marca con un estampado: el sello girado de filete doble es el
+     elemento firma del producto y significa "estado de verificación". Usarlo aquí para
+     decir "esta pantalla es la importante" haría que el mismo dibujo signifique dos
+     cosas, que es justo lo que prohíbe el DESIGN.md. Va una cabecera maciza. */
+  .banda-estrella {
+    background-color: var(--sello-suave);
+    border: 2px solid var(--sello);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .cabecera-estrella {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 11px 28px;
+    background-color: var(--sello);
+    color: #fff;
+    font-family: var(--cond);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .cabecera-estrella svg {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+  }
+
   /* El teléfono de la estrella es la mitad más grande que los de la fila, y el texto va
      centrado a su altura: el aire que sobra se reparte arriba y abajo en vez de quedarse
      todo en un hueco al final. */
-  .banda-estrella {
+  .contenido-estrella {
     display: grid;
     grid-template-columns: 340px 1fr;
     align-items: center;
     gap: 36px;
     padding: 28px;
-    background-color: var(--sello-suave);
-    border: 2px solid var(--sello);
-    border-radius: 8px;
   }
 
-  .banda-estrella .columna-telefono { position: relative; }
+  .contenido-estrella .columna-telefono { position: relative; }
 
   /* Llamadas numeradas, como en una hoja de anotaciones. El número es el orden en el
      que aparecen bajando por la pantalla, no una posición dibujada encima. */
@@ -316,27 +345,7 @@
 
   /* El estampado sale del bisel y se apoya sobre él: es el elemento firma del
      sistema, y aquí hace de chincheta. */
-  .cinta-estrella {
-    position: absolute;
-    z-index: 4;
-    top: -14px;
-    left: -14px;
-    transform: rotate(-4deg);
-    padding: 7px 14px;
-    background-color: var(--papel);
-    border: 2px solid var(--sello);
-    outline: 1px solid var(--sello);
-    outline-offset: 3px;
-    font-family: var(--cond);
-    font-size: 0.875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--sello);
-    white-space: nowrap;
-  }
-
-  .banda-estrella .nombre-estrella {
+  .contenido-estrella .nombre-estrella {
     margin: 0 0 2px;
     font-family: var(--cond);
     font-size: 1.75rem;
@@ -344,7 +353,7 @@
     line-height: 1.1;
   }
 
-  .banda-estrella .ruta {
+  .contenido-estrella .ruta {
     margin: 0 0 16px;
     font-family: var(--mono);
     font-size: 0.8125rem;
@@ -478,7 +487,7 @@
     .cartel { padding: 24px; }
     .cabecera { flex-direction: column; }
     .tarjetas, .tarjetas-3 { grid-template-columns: repeat(2, 1fr); }
-    .banda-estrella { grid-template-columns: 1fr; }
+    .contenido-estrella { grid-template-columns: 1fr; }
     .tira-pantallas { grid-template-columns: repeat(2, 1fr); }
     .cierre { grid-template-columns: 1fr; }
   }
@@ -549,8 +558,14 @@
   <p class="rotulo-apoyo">Detalle de trámite · la que aporta el valor de verdad</p>
 
   <div class="banda-estrella">
-    <div class="columna-telefono">
-      <span class="cinta-estrella">Pantalla estrella</span>
+    <p class="cabecera-estrella">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8-4.2-4.1 5.9-.9z"></path>
+      </svg>
+      Pantalla estrella
+    </p>
+    <div class="contenido-estrella">
+      <div class="columna-telefono">
       <div class="telefono">
         <div class="visor">
           <span class="isla"></span>
@@ -621,6 +636,7 @@
           </span>
         </div>
       </div>
+    </div>
     </div>
   </div>
 
