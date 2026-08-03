@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cómo llegamos a este diseño · A la Primera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papel: #efebe2;
+    --hoja: #f7f4ee;
+    --linea: #d8d1c4;
+    --tinta: #24221f;
+    --tinta-media: #635c52;
+    --tinta-tenue: #6f6654;
+    --sello: #5a3a82;
+    --sello-suave: #ede6f3;
+
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --cond: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+
+    /* Los mismos tokens que las pantallas. La raíz no se fija a propósito: así el
+       texto escala con el tamaño de letra que cada cual tenga en su navegador. */
+    --ts-sm: 0.75rem;
+    --ts-base-md: 0.875rem;
+    --ts-base: 1rem;
+    --ts-lg: 1.125rem;
+    --ts-xl: 1.25rem;
+    --ts-2xl: 1.625rem;
+    --ts-3xl: 2rem;
+
+    --alto-marco: min(640px, 62vh);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 24px 16px 48px;
+    font-family: var(--sans);
+    font-size: var(--ts-base);
+    line-height: 1.5;
+    background-color: var(--papel);
+    color: var(--tinta);
+  }
+
+  .contenedor { max-width: 900px; margin: 0 auto; }
+
+  /* ── CABECERA ── */
+  .sobretitulo {
+    margin: 0;
+    font-family: var(--cond);
+    font-size: var(--ts-base-md);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sello);
+  }
+
+  h1 {
+    margin: 4px 0 8px;
+    font-family: var(--cond);
+    font-size: var(--ts-2xl);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .entradilla {
+    margin: 0;
+    max-width: 62ch;
+    color: var(--tinta-media);
+  }
+
+  /* El porqué va plegado en móvil: en una pantalla estrecha, dos párrafos seguidos
+     dejan las maquetas por debajo del pliegue, y aquí se viene a mirarlas. En ancho
+     y sin JS se ve abierto. */
+  .porque { margin-top: 4px; }
+
+  .porque summary {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: var(--cond);
+    font-size: var(--ts-base-md);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sello);
+    cursor: pointer;
+  }
+
+  .porque summary:focus-visible {
+    outline: 2px solid var(--tinta);
+    outline-offset: 2px;
+  }
+
+  /* ── CONTROLES ── */
+  .controles {
+    margin: 24px 0 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--linea);
+  }
+
+  .rotulo {
+    display: block;
+    margin-bottom: 8px;
+    font-family: var(--cond);
+    font-size: var(--ts-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--tinta-tenue);
+  }
+
+  .tira {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tira button {
+    min-height: 44px;
+    padding: 8px 14px;
+    font-family: var(--sans);
+    font-size: var(--ts-base-md);
+    font-weight: 600;
+    color: var(--tinta);
+    background-color: var(--hoja);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .tira button[aria-selected="true"],
+  .tira button[aria-pressed="true"] {
+    background-color: var(--sello-suave);
+    border-color: var(--sello);
+    color: var(--sello);
+  }
+
+  .tira button:focus-visible {
+    outline: 2px solid var(--tinta);
+    outline-offset: 2px;
+  }
+
+  .selector-version { margin-top: 16px; }
+
+  .nota {
+    margin: 16px 0 0;
+    max-width: 62ch;
+    font-size: var(--ts-base-md);
+    color: var(--tinta-media);
+    border-left: 2px solid var(--linea);
+    padding-left: 12px;
+  }
+
+  /* ── LAS MAQUETAS ── */
+  .pantalla { margin-top: 20px; }
+  .pantalla.oculta { display: none; }
+
+  .fila {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+  }
+
+  .panel { margin: 0; width: min(390px, 100%); }
+
+  figcaption {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .marca {
+    font-family: var(--cond);
+    font-size: var(--ts-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    color: var(--tinta-tenue);
+  }
+
+  .panel[data-v="v3"] .marca { color: var(--sello); }
+
+  figcaption .detalle {
+    font-size: var(--ts-sm);
+    color: var(--tinta-media);
+  }
+
+  .movil {
+    height: var(--alto-marco);
+    background-color: #fff;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .movil iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .pie-panel {
+    margin: 6px 0 0;
+    font-size: var(--ts-sm);
+    color: var(--tinta-media);
+  }
+
+  .pie-panel a { color: var(--sello); }
+
+  /* Tres columnas de 390px no caben en un móvil, así que las versiones se turnan en
+     el mismo hueco. Comparar parpadeando delata las diferencias mejor que en paralelo,
+     y cada maqueta se ve a tamaño real en vez de encogida a un tercio. */
+  @media (max-width: 999px) {
+    body[data-version="v1"] .panel:not([data-v="v1"]),
+    body[data-version="v2"] .panel:not([data-v="v2"]),
+    body[data-version="v3"] .panel:not([data-v="v3"]) { display: none; }
+
+    body { padding-top: 16px; }
+    .entradilla { font-size: var(--ts-base-md); }
+    .controles { margin-top: 16px; }
+  }
+
+  /* Las maquetas llevan un contenedor fijo de 375px, así que en un móvil de 390 el
+     marco tiene que ir de borde a borde: con los 16px de margen del body a cada lado
+     se quedaba en 358 y la pantalla se salía por dentro del iframe. */
+  @media (max-width: 439px) {
+    .fila { margin-left: -16px; margin-right: -16px; }
+    .panel { width: 100%; }
+    figcaption, .pie-panel { padding-left: 16px; padding-right: 16px; }
+    .movil { border-radius: 0; border-left: 0; border-right: 0; }
+  }
+
+  /* A partir de aquí caben al menos dos de verdad, así que fuera el turno. Las que
+     no entren en la fila bajan a la siguiente, que sigue sirviendo para comparar. */
+  @media (min-width: 1000px) {
+    :root { --alto-marco: min(760px, 72vh); }
+    body { padding: 32px 24px 64px; }
+    .contenedor { max-width: 1320px; }
+    h1 { font-size: var(--ts-3xl); }
+    .selector-version { display: none; }
+    .fila {
+      grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+      align-items: start;
+    }
+  }
+
+  @media print {
+    .controles, .pie-panel { display: none; }
+    .pantalla.oculta { display: block; }
+  }
+</style>
+</head>
+<body data-version="v3">
+<div class="contenedor">
+
+  <header>
+    <p class="sobretitulo">Sprint 2 · el diseño</p>
+    <h1>Cómo llegamos a este diseño</h1>
+    <p class="entradilla">
+      Las mismas cinco pantallas, resueltas tres veces. La <strong>v1</strong> era lima sobre
+      lienzo salvia, con Inter en peso 900 y pastillas de 24px. La <strong>v2</strong> cambia
+      la paleta entera y se agarra al sello: papel de expediente, tinta, violeta de caucho.
+      La <strong>v3</strong> es la v2 con el contraste corregido y un ocre nuevo para los
+      trámites que todavía no tienen ficha.
+    </p>
+    <details class="porque" open>
+      <summary>Por qué se acabó aquí</summary>
+      <p class="entradilla">
+        El porqué largo está en <code>DESIGN.md</code>. El corto: esta app se sostiene sobre que
+        la información no se la ha inventado nadie, y eso no se cuenta con el aspecto que sale
+        por defecto de cualquier generador, que es verde sobre grises, emoji de iconos y la
+        fuente que trae el framework. Ni verde, ni emoji, ni modo oscuro. Se lee con prisa, se
+        imprime para llevarla a una ventanilla y la acaban leyendo personas mayores.
+      </p>
+    </details>
+  </header>
+
+  <div class="controles">
+    <span class="rotulo" id="rotulo-pantalla">Pantalla</span>
+    <div class="tira" role="tablist" aria-labelledby="rotulo-pantalla">
+      <button role="tab" type="button" data-pantalla="0" aria-selected="true">Home</button>
+      <button role="tab" type="button" data-pantalla="1" aria-selected="false">Wizard</button>
+      <button role="tab" type="button" data-pantalla="2" aria-selected="false">Checklist</button>
+      <button role="tab" type="button" data-pantalla="3" aria-selected="false">Detalle ⭐</button>
+      <button role="tab" type="button" data-pantalla="4" aria-selected="false">Resumen</button>
+    </div>
+
+    <div class="selector-version">
+      <span class="rotulo" id="rotulo-version">Versión</span>
+      <div class="tira" role="group" aria-labelledby="rotulo-version">
+        <button type="button" data-version="v1" aria-pressed="false">v1</button>
+        <button type="button" data-version="v2" aria-pressed="false">v2</button>
+        <button type="button" data-version="v3" aria-pressed="true">v3 · actual</button>
+      </div>
+    </div>
+
+    <p class="nota" id="nota"></p>
+  </div>
+
+  <main>
+
+    <section class="pantalla" data-p="0" aria-label="Home - Buscador">
+      <div class="fila">
+        <figure class="panel" data-v="v1">
+          <figcaption><span class="marca">v1</span><span class="detalle">la primera propuesta</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v1/Home%20-%20Buscador.html" title="Home - Buscador, v1" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v1/Home%20-%20Buscador.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v2">
+          <figcaption><span class="marca">v2</span><span class="detalle">el giro al sello</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v2/Home%20-%20Buscador.html" title="Home - Buscador, v2" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v2/Home%20-%20Buscador.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v3">
+          <figcaption><span class="marca">v3</span><span class="detalle">en producción</span></figcaption>
+          <div class="movil"><iframe src="pantallas/Home%20-%20Buscador.html" title="Home - Buscador, v3" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas/Home%20-%20Buscador.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="pantalla oculta" data-p="1" aria-label="Wizard">
+      <div class="fila">
+        <figure class="panel" data-v="v1">
+          <figcaption><span class="marca">v1</span><span class="detalle">la primera propuesta</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v1/Wizard.html" title="Wizard, v1" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v1/Wizard.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v2">
+          <figcaption><span class="marca">v2</span><span class="detalle">el giro al sello</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v2/Wizard.html" title="Wizard, v2" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v2/Wizard.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v3">
+          <figcaption><span class="marca">v3</span><span class="detalle">en producción</span></figcaption>
+          <div class="movil"><iframe src="pantallas/Wizard.html" title="Wizard, v3" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas/Wizard.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="pantalla oculta" data-p="2" aria-label="Checklist">
+      <div class="fila">
+        <figure class="panel" data-v="v1">
+          <figcaption><span class="marca">v1</span><span class="detalle">la primera propuesta</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v1/Checklist.html" title="Checklist, v1" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v1/Checklist.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v2">
+          <figcaption><span class="marca">v2</span><span class="detalle">el giro al sello</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v2/Checklist.html" title="Checklist, v2" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v2/Checklist.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v3">
+          <figcaption><span class="marca">v3</span><span class="detalle">en producción</span></figcaption>
+          <div class="movil"><iframe src="pantallas/Checklist.html" title="Checklist, v3" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas/Checklist.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="pantalla oculta" data-p="3" aria-label="Detalle de trámite">
+      <div class="fila">
+        <figure class="panel" data-v="v1">
+          <figcaption><span class="marca">v1</span><span class="detalle">la primera propuesta</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v1/Detalle%20de%20tr%C3%A1mite.html" title="Detalle de trámite, v1" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v1/Detalle%20de%20tr%C3%A1mite.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v2">
+          <figcaption><span class="marca">v2</span><span class="detalle">el giro al sello</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v2/Detalle%20de%20tr%C3%A1mite.html" title="Detalle de trámite, v2" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v2/Detalle%20de%20tr%C3%A1mite.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v3">
+          <figcaption><span class="marca">v3</span><span class="detalle">pantalla estrella</span></figcaption>
+          <div class="movil"><iframe src="pantallas/Detalle%20de%20tr%C3%A1mite.html" title="Detalle de trámite, v3" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas/Detalle%20de%20tr%C3%A1mite.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="pantalla oculta" data-p="4" aria-label="Resumen">
+      <div class="fila">
+        <figure class="panel" data-v="v1">
+          <figcaption><span class="marca">v1</span><span class="detalle">la primera propuesta</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v1/Resumen.html" title="Resumen, v1" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v1/Resumen.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v2">
+          <figcaption><span class="marca">v2</span><span class="detalle">el giro al sello</span></figcaption>
+          <div class="movil"><iframe src="pantallas-v2/Resumen.html" title="Resumen, v2" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas-v2/Resumen.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+        <figure class="panel" data-v="v3">
+          <figcaption><span class="marca">v3</span><span class="detalle">en producción</span></figcaption>
+          <div class="movil"><iframe src="pantallas/Resumen.html" title="Resumen, v3" loading="lazy"></iframe></div>
+          <p class="pie-panel"><a href="pantallas/Resumen.html" target="_blank" rel="noopener">Abrirla suelta</a></p>
+        </figure>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Sin JS se ven las cinco pantallas seguidas y las tres versiones apiladas: se
+  // pierde la comodidad, no el contenido.
+  var NOTAS = [
+    "La v1 abre con un titular en peso 900 y cuenta las fichas en píldoras verdes. La v2 sube el sello a la portada. En la v3 «en preparación» deja de ser un gris casi invisible y se pinta en ocre, con token propio, para que no se confunda con un aviso.",
+    "Cuatro preguntas en las tres. La v1 rotula cada opción con un emoji del sistema y deja «Siguiente» en gris plano, más apagado que «Atrás». De la v2 en adelante los iconos son SVG dibujados a mano y el violeta se guarda para lo que hace avanzar.",
+    "La lista de papeles. En la v1 son tarjetas verdes y los títulos de sección llevan emoji. La v2 la convierte en expediente: casilla cuadrada, filete y los datos oficiales en monoespaciada. La v3 oscurece el texto terciario hasta pasar el contraste AA.",
+    "La pantalla estrella. Las tres afirman que un humano cotejó la ficha, pero la v1 lo suelta en una nota gris debajo del botón. La v2 lo sube arriba del todo, bajo el título, y lo estampa. Ahí es donde hace falta: es lo primero que hay que creerse.",
+    "Elegir canal, por internet o en persona. En la v1 todo lo que es acción va en verde. De la v2 en adelante no queda ni un verde, y el estado nunca viaja solo en color: siempre lleva texto o forma detrás."
+  ];
+
+  var cuerpo = document.body;
+  var nota = document.getElementById("nota");
+  var pantallas = document.querySelectorAll(".pantalla");
+  var pestanas = document.querySelectorAll("[data-pantalla]");
+  var versiones = document.querySelectorAll("[data-version]");
+
+  function mostrarPantalla(i) {
+    pantallas.forEach(function (s) { s.classList.toggle("oculta", s.dataset.p !== String(i)); });
+    pestanas.forEach(function (b) { b.setAttribute("aria-selected", b.dataset.pantalla === String(i)); });
+    nota.textContent = NOTAS[i];
+  }
+
+  function mostrarVersion(v) {
+    cuerpo.dataset.version = v;
+    versiones.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.version === v); });
+  }
+
+  pestanas.forEach(function (b) {
+    b.addEventListener("click", function () { mostrarPantalla(Number(b.dataset.pantalla)); });
+  });
+  versiones.forEach(function (b) {
+    b.addEventListener("click", function () { mostrarVersion(b.dataset.version); });
+  });
+
+  // El porqué llega abierto en el HTML para que sin JS no se pierda nada; en estrecho
+  // se pliega, que es donde estorba.
+  var porque = document.querySelector(".porque");
+  var estrecho = window.matchMedia("(max-width: 999px)");
+  function ajustarPorque(mq) { porque.open = !mq.matches; }
+  ajustarPorque(estrecho);
+  estrecho.addEventListener("change", ajustarPorque);
+
+  mostrarPantalla(0);
+  mostrarVersion("v3");
+</script>
+</body>
+</html>

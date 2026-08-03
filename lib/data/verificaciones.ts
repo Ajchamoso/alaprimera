@@ -13,8 +13,8 @@
  * NO se edita a mano (regla del reto: nada de código escrito por humanos).
  * Se usa:  npm run verificar <slug>
  *
- * Una ficha que no está aquí sale como "generada por IA — sin verificar", que es
- * la verdad hasta que alguien abra la fuente y la coteje.
+ * Una ficha que no está aquí sale como "por verificar", que es la verdad hasta que
+ * el rastreo la coteje contra su fuente (FR-020b).
  */
 export const verificaciones: Record<string, string> = {
   // "renovacion-dni": "2026-07-17",
@@ -26,9 +26,10 @@ export function verificadaEn(slug: string): string | null {
 }
 
 /**
- * Una ficha sin verificar la escribió la IA; una verificada la avala una persona.
- * Por eso el sello de "generada por IA" desaparece justo cuando aparece la firma
- * humana: son las dos caras del mismo hecho.
+ * Derivado de la ausencia de verificación, no un dato propio: hoy nadie registra por
+ * separado cómo se extrajo cada ficha. Ya no se enseña en el sello (03/08) porque decía
+ * lo mismo que "por verificar" y encima afirmaba algo sobre la autoría que nadie ha
+ * anotado. Sigue vivo porque lo consumen el seed y la columna generada_por_ia.
  */
 export function generadaPorIa(slug: string): boolean {
   return !(slug in verificaciones);

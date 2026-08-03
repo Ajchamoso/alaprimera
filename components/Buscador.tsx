@@ -219,16 +219,16 @@ function TarjetaFicha({ t, compacto = false }: { t: Tramite; compacto?: boolean 
   );
 }
 
-/** Un pendiente: sin ficha aún. Atenuado, sin promesas — solo "en preparación". */
+/** Un pendiente: sin ficha aún. Marcado en ocre borrador, sin promesas — solo "en preparación". */
 function TarjetaPendiente({ t }: { t: Tramite }) {
   return (
     <Link
       href={`/tramite/${t.slug}`}
-      className="block rounded-xl border border-dashed border-linea bg-transparent p-5 transition hover:border-tinta-tenue"
+      className="block rounded-xl border border-dashed border-linea bg-transparent p-5 transition hover:border-borrador"
     >
       <div className="flex flex-wrap items-center gap-2">
         <h3 className="text-lg font-medium text-tinta-media">{t.nombreColoquial}</h3>
-        <span className="rounded-xs border border-linea px-1.5 py-0.5 font-cond text-[10px] font-bold uppercase tracking-widest text-tinta-tenue">
+        <span className="rounded-xs border border-borrador bg-borrador-suave px-1.5 py-0.5 font-cond text-[10px] font-bold uppercase tracking-widest text-borrador">
           En preparación
         </span>
       </div>

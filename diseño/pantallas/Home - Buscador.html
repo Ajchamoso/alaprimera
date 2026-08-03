@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A la Primera · Catálogo de trámites</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Identidad: EL SELLO. Tokens de app/globals.css */
+      --papel: #efebe2;
+      --hoja: #f7f4ee;
+      --tinta: #24221f;
+      --tinta-media: #635c52;
+      --tinta-tenue: #6f6654;
+      --linea: #d8d1c4;
+      --sello: #5a3a82;
+      --sello-suave: #ede6f3;
+      --pendiente: #a8342b;
+      --pendiente-suave: #f7e7e4;
+      --borrador: #83571c;
+      --borrador-suave: #f5ead6;
+
+      --sans: "IBM Plex Sans", -apple-system, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --cond: "IBM Plex Sans Condensed", sans-serif;
+
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 12px;
+      --sp-lg: 16px;
+      --sp-xl: 24px;
+      --sp-2xl: 32px;
+      --sp-3xl: 48px;
+
+      /* Tamaños de texto (pares únicamente, en rem con base 16px = 1rem, sincronizados con app/globals.css) */
+      --ts-sm: 0.75rem;      /* 12px */
+      --ts-base-md: 0.875rem;  /* 14px */
+      --ts-base: 1rem;       /* 16px */
+      --ts-lg: 1.125rem;     /* 18px */
+      --ts-xl: 1.25rem;      /* 20px */
+      --ts-2xl: 1.625rem;    /* 26px */
+      --ts-3xl: 2rem;        /* 32px */
+    }
+
+    /* La raíz NO se fija a 16px a propósito: los rem de arriba escalan con el tamaño de
+       letra que cada persona lleve puesto en su navegador. Fijarla anula justo eso, y
+       el público de esta app incluye personas mayores. Es una decisión, no un olvido. */
+
+    body {
+      font-family: var(--sans);
+      background-color: var(--papel);
+      color: var(--tinta);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Maqueta en viewport móvil de 375px */
+    .container {
+      width: 375px;
+      margin: 0 auto;
+      background: var(--papel);
+      overflow-x: hidden;
+      min-height: 100vh;
+      border-left: 1px solid var(--linea);
+      border-right: 1px solid var(--linea);
+    }
+
+    /* ── BARRA SUPERIOR ── */
+    .barra-superior {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--papel);
+      border-bottom: 1px solid var(--linea);
+      padding: var(--sp-md) var(--sp-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+    }
+
+    .logo {
+      font-family: var(--cond);
+      font-size: var(--ts-lg);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tinta);
+    }
+
+    .logo .acento {
+      color: var(--sello);
+    }
+
+    .hamburguesa {
+      width: 48px;
+      height: 48px;
+      margin-right: -12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .hamburguesa span {
+      width: 20px;
+      height: 2px;
+      background-color: var(--tinta);
+    }
+
+    /* ── PORTADA (ALTO CONTRASTE) ── */
+    .portada {
+      padding: var(--sp-3xl) var(--sp-lg) var(--sp-xl);
+      text-align: center;
+      background-color: var(--sello-suave);
+      border-bottom: 1px solid var(--linea);
+    }
+
+    .portada h1 {
+      font-family: var(--cond);
+      font-size: var(--ts-3xl);
+      font-weight: 700;
+      line-height: 1.15;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: var(--sp-sm);
+    }
+
+    .portada .lema {
+      font-size: var(--ts-lg);
+      color: var(--tinta-media);
+    }
+
+    /* El sello de la portada: el elemento firma, estampado y girado */
+    .sello-portada {
+      display: inline-block;
+      margin-top: var(--sp-lg);
+      padding: var(--sp-xs) var(--sp-md);
+      border: 2px solid var(--sello);
+      outline: 1px solid var(--sello);
+      outline-offset: 2px;
+      transform: rotate(-2deg);
+      font-family: var(--cond);
+      font-size: var(--ts-base-md);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--sello);
+    }
+
+    /* ── BUSCADOR (ALTO CONTRASTE) ── */
+    .banda-buscador {
+      padding: var(--sp-lg) var(--sp-lg) var(--sp-2xl);
+      background-color: var(--hoja);
+      border-bottom: 1px solid var(--linea);
+    }
+
+    .buscador {
+      display: flex;
+      gap: var(--sp-sm);
+    }
+
+    .buscador input {
+      flex: 1;
+      min-width: 0;
+      padding: var(--sp-md) var(--sp-lg);
+      font-size: var(--ts-base);
+      font-family: var(--sans);
+      border: 1px solid var(--tinta-media);
+      border-radius: 8px;
+      background-color: var(--papel);
+      color: var(--tinta);
+      height: 48px;
+    }
+
+    .buscador input::placeholder {
+      color: var(--tinta-tenue);
+    }
+
+    .buscador input:focus {
+      outline: 2px solid var(--sello);
+      outline-offset: 1px;
+      border-color: var(--sello);
+    }
+
+    .boton-buscar {
+      padding: var(--sp-md) var(--sp-lg);
+      background-color: var(--sello);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: var(--ts-base);
+      font-weight: 600;
+      font-family: var(--sans);
+      cursor: pointer;
+      height: 48px;
+      min-width: 56px;
+    }
+
+    .boton-buscar:focus-visible {
+      outline: 2px solid var(--tinta);
+      outline-offset: 2px;
+    }
+
+    /* ── CATÁLOGO (ALTO CONTRASTE) ── */
+    .catalogo {
+      background-color: var(--papel);
+      border-bottom: 1px solid var(--linea);
+      padding: var(--sp-2xl) var(--sp-lg) var(--sp-3xl);
+    }
+
+    .titulo-seccion {
+      font-family: var(--cond);
+      font-size: var(--ts-xl);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--sp-xl);
+    }
+
+    .lista-hechos {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-md);
+    }
+
+    .hecho-vital {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      font-family: var(--sans);
+    }
+
+    .hecho-vital:focus-visible {
+      outline: 2px solid var(--sello);
+      outline-offset: 2px;
+    }
+
+    .hecho-cabecera {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--sp-sm);
+      margin-bottom: var(--sp-xs);
+    }
+
+    .hecho-titulo {
+      font-size: var(--ts-lg);
+      font-weight: 600;
+      color: var(--tinta);
+    }
+
+    .hecho-cuenta {
+      font-family: var(--mono);
+      font-size: var(--ts-base-md);
+      font-weight: 500;
+      color: #fff;
+      background-color: var(--sello);
+      padding: 2px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .hecho-cuenta.preparacion {
+      color: var(--borrador);
+      background-color: var(--borrador-suave);
+      border: 1px dashed var(--borrador);
+    }
+
+    .hecho-descripcion {
+      font-size: var(--ts-base-md);
+      color: var(--tinta-media);
+    }
+
+    .hecho-vital.preparacion .hecho-titulo {
+      color: var(--tinta-media);
+    }
+
+    /* ── LISTA DE TRÁMITES (expandible) ── */
+    .lista-tramites {
+      display: none;
+      margin-top: var(--sp-lg);
+      padding-top: var(--sp-sm);
+      border-top: 1px solid var(--linea);
+    }
+
+    .lista-tramites.abierta {
+      display: block;
+    }
+
+    .fila-tramite {
+      padding: var(--sp-md) 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--sp-sm);
+      border-bottom: 1px solid var(--linea);
+    }
+
+    .fila-tramite:last-child {
+      border-bottom: none;
+    }
+
+    .nombre-tramite {
+      flex: 1;
+      font-size: var(--ts-base);
+      font-weight: 500;
+      color: var(--tinta);
+    }
+
+    .nivel-tramite {
+      font-family: var(--mono);
+      font-size: var(--ts-sm);
+      color: var(--tinta-tenue);
+      white-space: nowrap;
+    }
+
+    /* ── ESTADO VACÍO ── */
+    .estado-vacio {
+      padding: var(--sp-2xl) var(--sp-lg);
+      text-align: center;
+      background-color: var(--sello-suave);
+      border-radius: 8px;
+      border: 1px solid var(--linea);
+    }
+
+    .estado-vacio svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--tinta-tenue);
+      margin-bottom: var(--sp-lg);
+    }
+
+    .estado-vacio-titulo {
+      font-family: var(--cond);
+      font-size: var(--ts-lg);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--sp-sm);
+    }
+
+    .estado-vacio-texto {
+      font-size: var(--ts-base-md);
+      color: var(--tinta-media);
+      line-height: 1.6;
+    }
+
+    /* ── PIE ── */
+    .pie {
+      background-color: var(--hoja);
+      border-top: 1px solid var(--linea);
+      color: var(--tinta-media);
+      padding: var(--sp-xl) var(--sp-lg);
+      font-size: var(--ts-sm);
+      font-family: var(--mono);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .pie a {
+      color: var(--sello);
+      text-decoration: underline;
+    }
+
+    /* ── UTILIDADES ── */
+    .skiplink {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background-color: var(--sello);
+      color: #fff;
+      padding: 8px 16px;
+      text-decoration: none;
+      z-index: 101;
+      font-weight: 600;
+      font-size: var(--ts-base-md);
+    }
+
+    .skiplink:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="#contenido" class="skiplink">Saltar al contenido principal</a>
+  <div class="container">
+    <!-- BARRA SUPERIOR -->
+    <nav class="barra-superior">
+      <div class="logo">A <span class="acento">la</span> Primera</div>
+      <button class="hamburguesa" aria-label="Menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <!-- PORTADA CON MAYOR CONTRASTE -->
+    <header class="portada">
+      <h1>Tu trámite</h1>
+      <p class="lema">Con tus papeles, sin sorpresas</p>
+      <div class="sello-portada" aria-hidden="true">Verificado contra la fuente</div>
+    </header>
+
+    <!-- BUSCADOR CON MAYOR CONTRASTE -->
+    <div class="banda-buscador">
+      <div class="buscador">
+        <input
+          type="text"
+          id="buscador"
+          placeholder="Lo del carnet de mi hijo…"
+          aria-label="Busca tu trámite"
+        >
+        <button class="boton-buscar" aria-label="Buscar">Ir</button>
+      </div>
+    </div>
+
+    <!-- CATÁLOGO POR HECHO VITAL -->
+    <main class="catalogo" id="contenido">
+      <h2 class="titulo-seccion">Según lo que estés viviendo</h2>
+
+      <div class="lista-hechos" id="listaHechos">
+        <!-- Documentos base -->
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Documentos base</h3>
+            <span class="hecho-cuenta">7 fichas</span>
+          </div>
+          <p class="hecho-descripcion">DNI, pasaporte, certificados</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Renovar el carnet de identidad</span>
+              <span class="nivel-tramite">estatal</span>
+            </div>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">El pasaporte</span>
+              <span class="nivel-tramite">estatal</span>
+            </div>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">El primer DNI (de un niño o niña)</span>
+              <span class="nivel-tramite">estatal</span>
+            </div>
+          </div>
+        </button>
+
+        <!-- Nace un hijo -->
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Nace un hijo</h3>
+            <span class="hecho-cuenta">4 fichas</span>
+          </div>
+          <p class="hecho-descripcion">Inscripción, certificados, prestaciones</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Inscribir al recién nacido</span>
+              <span class="nivel-tramite">estatal</span>
+            </div>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">El certificado de nacimiento</span>
+              <span class="nivel-tramite">estatal</span>
+            </div>
+          </div>
+        </button>
+
+        <!-- Empieza el cole -->
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Empieza el cole</h3>
+            <span class="hecho-cuenta">2 fichas</span>
+          </div>
+          <p class="hecho-descripcion">Admisión, becas, documentación</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Beca de comedor</span>
+              <span class="nivel-tramite">Madrid</span>
+            </div>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Beca de comedor</span>
+              <span class="nivel-tramite">Aragón</span>
+            </div>
+          </div>
+        </button>
+
+        <!-- Conducir y el coche -->
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Conducir y el coche</h3>
+            <span class="hecho-cuenta">3 fichas</span>
+          </div>
+          <p class="hecho-descripcion">Carnet de conducir, matriculación</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Sacarse el carnet de conducir</span>
+              <span class="nivel-tramite">estatal</span>
+            </div>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Matricular un vehículo</span>
+              <span class="nivel-tramite">estatal</span>
+            </div>
+          </div>
+        </button>
+
+        <!-- Fallece un familiar -->
+        <button class="hecho-vital" onclick="alternarTramites(this)" aria-expanded="false">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Fallece un familiar</h3>
+            <span class="hecho-cuenta">3 fichas</span>
+          </div>
+          <p class="hecho-descripcion">Certificados, seguros, pensiones</p>
+          <div class="lista-tramites">
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Certificado de defunción</span>
+              <span class="nivel-tramite">estatal</span>
+            </div>
+            <div class="fila-tramite">
+              <span class="nombre-tramite">Saber qué seguros tenía</span>
+              <span class="nivel-tramite">estatal</span>
+            </div>
+          </div>
+        </button>
+
+        <!-- Cuido de un mayor (sin fichas aún) -->
+        <div class="hecho-vital preparacion">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Cuido de un mayor</h3>
+            <span class="hecho-cuenta preparacion">en preparación</span>
+          </div>
+          <p class="hecho-descripcion">Dependencia, tarjeta sanitaria</p>
+        </div>
+
+        <!-- Empiezo a trabajar (sin fichas aún) -->
+        <div class="hecho-vital preparacion">
+          <div class="hecho-cabecera">
+            <h3 class="hecho-titulo">Empiezo a trabajar</h3>
+            <span class="hecho-cuenta preparacion">en preparación</span>
+          </div>
+          <p class="hecho-descripcion">Seguridad Social, Hacienda</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- PIE -->
+    <footer class="pie">
+      © 2026 A la Primera · <a href="#">Privacidad</a> · <a href="#">Sobre el proyecto</a> · <a href="#">Avisar de un error</a>
+    </footer>
+  </div>
+
+  <script>
+    function alternarTramites(tarjeta) {
+      const lista = tarjeta.querySelector('.lista-tramites');
+      if (lista) {
+        const abierta = lista.classList.toggle('abierta');
+        tarjeta.setAttribute('aria-expanded', abierta);
+      }
+    }
+
+    // Búsqueda: la maqueta enseña el estado honesto de "sin resultados"
+    document.getElementById('buscador').addEventListener('input', (e) => {
+      const consulta = e.target.value.trim();
+      const catalogo = document.querySelector('.catalogo');
+      if (consulta.length > 0) {
+        catalogo.innerHTML = `
+          <h2 class="titulo-seccion">Resultados para «${consulta}»</h2>
+          <div class="estado-vacio">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+            </svg>
+            <div class="estado-vacio-titulo">Aún no lo tenemos</div>
+            <p class="estado-vacio-texto">
+              Preferimos decírtelo claro antes que inventar. Estamos ampliando el catálogo
+              poco a poco, verificando cada ficha contra su fuente oficial.
+            </p>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
