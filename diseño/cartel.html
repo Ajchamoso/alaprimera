@@ -18,8 +18,11 @@
     --sello: #5a3a82;
     --sello-suave: #ede6f3;
     --pendiente: #a8342b;
-    --borrador: #83571c;
-    --borrador-suave: #f5ead6;
+    /* El oro NO es de la paleta del producto: es cromo de este cartel, para marcar la
+       pantalla destacada. Se elige claramente más claro y saturado que el ocre
+       {borrador} #83571c, que en la app significa "en preparación", para que nadie lea
+       una cosa por la otra. No debe aparecer dentro de ninguna pantalla. */
+    --estrella: #f2c14e;
 
     --sans: "IBM Plex Sans", system-ui, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, monospace;
@@ -294,9 +297,10 @@
   }
 
   .cabecera-estrella svg {
-    width: 19px;
-    height: 19px;
+    width: 23px;
+    height: 23px;
     flex-shrink: 0;
+    color: var(--estrella);
   }
 
   /* El teléfono de la estrella es la mitad más grande que los de la fila, y el texto va
@@ -593,7 +597,7 @@
 
   <div class="banda-estrella">
     <p class="cabecera-estrella">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true">
         <path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8-4.2-4.1 5.9-.9z"></path>
       </svg>
       Pantalla estrella
