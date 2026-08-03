@@ -227,12 +227,13 @@ para revisión sin bloquear ni afectar a nada visible por usuarios finales.
 - **FR-018**: El sistema DEBE permitir reportar un error desde cualquier ficha; el reporte queda en cola de revisión sin alterar el contenido publicado.
 
 **Confianza y contenido (la regla que no se negocia)**
-- **FR-019**: Toda información mostrada a usuarios finales DEBE proceder de fichas curadas o revisadas por una persona. El sistema NUNCA genera requisitos en el momento de la consulta.
+- **FR-019** *(reescrito el 03/08)*: Toda información mostrada a usuarios finales DEBE proceder de una fuente oficial, con la cita literal y el enlace guardados junto al dato. El sistema NUNCA genera requisitos en el momento de la consulta.
 - **FR-020**: El sello "verificada" DEBE degradar automáticamente a "puede estar desactualizada" a los 90 días de la fecha de verificación.
+- **FR-020b** *(añadido el 03/08)*: La verificación es **automática por diseño**. Una ficha pasa a "verificada" cuando el rastreo la coteja contra su fuente y el dato guardado sigue coincidiendo. El cotejo periódico a mano no escala: hoy son 22 fichas y el objetivo son cientos, y una persona se olvida de revisar donde un proceso automático no.
 
 **Motor de curación (rol curador)**
 - **FR-021**: El sistema DEBE permitir a una curadora aportar la URL de una fuente oficial y preparar un borrador de ficha de forma diferida, sin bloquear su pantalla ni afectar a usuarios finales.
-- **FR-022**: Los borradores DEBEN nacer etiquetados "Generada por IA — sin verificar", ser visibles solo para curadoras y requerir aprobación humana explícita para publicarse.
+- **FR-022** *(reescrito el 03/08)*: Una ficha DEBE nacer marcada "por verificar" y solo pasa a "verificada" cuando el rastreo la coteja contra su fuente. Una persona interviene únicamente cuando el rastreo encuentra una diferencia, o cuando no puede resolver la comparación. Extraer e ir cotejando no son la misma operación: la primera extracción es interpretación y admite revisión humana; el cotejo posterior es comparación y se automatiza.
 - **FR-023**: Si la extracción falla o carece de confianza suficiente, el sistema DEBE avisar del fallo y NO publicar contenido parcial.
 
 **Plazos** *(FR-027 añadido el 17/07: lo reveló la curación real, no el diseño)*

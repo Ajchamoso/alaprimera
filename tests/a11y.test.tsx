@@ -41,21 +41,21 @@ const OPC = { rules: { region: { enabled: false }, "landmark-one-main": { enable
 describe("accesibilidad de los componentes (axe)", () => {
   it("SelloVerificacion · sin verificar no tiene violaciones", async () => {
     const { container } = render(
-      <SelloVerificacion verificadaEn={null} generadaPorIa={true} />
+      <SelloVerificacion verificadaEn={null} />
     );
     expect(await axe(container, OPC)).toHaveNoViolations();
   });
 
   it("SelloVerificacion · verificada reciente no tiene violaciones", async () => {
     const { container } = render(
-      <SelloVerificacion verificadaEn="2026-07-01" generadaPorIa={false} />
+      <SelloVerificacion verificadaEn="2026-07-01" />
     );
     expect(await axe(container, OPC)).toHaveNoViolations();
   });
 
   it("SelloVerificacion · caducada (verificación vieja) no tiene violaciones", async () => {
     const { container } = render(
-      <SelloVerificacion verificadaEn="2020-01-01" generadaPorIa={false} />
+      <SelloVerificacion verificadaEn="2020-01-01" />
     );
     expect(await axe(container, OPC)).toHaveNoViolations();
   });

@@ -67,7 +67,7 @@ export default async function PaginaTramite({
         <p className="text-tinta-tenue">
           {tramite.nombreOficial} · {tramite.organismo} · {tramite.territorio}
         </p>
-        <SelloVerificacion verificadaEn={tramite.verificadaEn} generadaPorIa={tramite.generadaPorIa} />
+        <SelloVerificacion verificadaEn={tramite.verificadaEn} />
         <p className="max-w-prose text-tinta-media">{tramite.descripcion}</p>
         <AvisoPlazo plazo={tramite.plazo} />
         <p>

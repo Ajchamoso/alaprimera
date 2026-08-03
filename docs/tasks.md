@@ -5,8 +5,9 @@
 
 **Estado a 17/07/2026:** Fases 0-3 completas y en producción (https://alaprimera.vercel.app), con
 identidad visual propia (plan.md §4bis).
-Catálogo de 11 fichas extraídas con cita literal. **Deuda única: verificación humana de las 11
-fichas** (T-024) — el único paso que no puede hacer una IA. La Fase 4 (motor en la app) se reenfocó
+Catálogo de fichas extraídas con cita literal. **Deuda única: el rastreo que coteja las fichas
+contra su fuente** (T-024). Corrección del 03/08: no es "el único paso que no puede hacer una IA";
+cotejar es comparar, y eso se automatiza. Lo que no escala es hacerlo a mano. La Fase 4 (motor en la app) se reenfocó
 a extracción asistida sin API key (R2). Pendiente de humano además: probar el magic link con un
 email real (T-014) y las 4 fichas de la CM confirmar el enlace "firma electrónica reconocida".
 
@@ -50,8 +51,8 @@ email real (T-014) y las 4 fichas de la CM confirmar el enlace "firma electróni
 
 **Decisión:** el motor NO se construye como feature de la app (sin API key). En su lugar, la
 extracción se hace **en sesión de Claude Code** y las fichas se vuelcan con `npm run db:seed`.
-Mismo flujo que diseñamos (IA extrae con citas → humano verifica → sello), sin pipeline que
-mantener, sin coste y más rápido hasta las 11 fichas. Ver [docs/preparar-fichas.md](./preparar-fichas.md).
+Mismo flujo que diseñamos (IA extrae con citas → rastreo coteja → sello), sin pipeline que
+mantener, sin coste y más rápido a esta escala. Ver [docs/preparar-fichas.md](./preparar-fichas.md).
 
 Motivo técnico: la app desplegada corre en Vercel; una suscripción de Claude Code no puede vivir
 ahí. La alternativa era una API key, que el equipo descarta.
