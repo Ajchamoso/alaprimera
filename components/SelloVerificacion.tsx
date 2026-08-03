@@ -18,20 +18,14 @@ const getAhoraServidor = () => 0;
  * el idioma visual de cualquier ventanilla. La caducidad se deriva en el momento
  * de la lectura: sin trabajos programados que se desincronicen.
  */
-export function SelloVerificacion({
-  verificadaEn,
-  generadaPorIa,
-}: {
-  verificadaEn: string | null;
-  generadaPorIa: boolean;
-}) {
+export function SelloVerificacion({ verificadaEn }: { verificadaEn: string | null }) {
   const ahora = useSyncExternalStore(suscribeNada, getAhora, getAhoraServidor);
   const caducada = selloCaducado(verificadaEn, ahora);
 
   if (verificadaEn === null) {
     return (
       <Estampa color="pendiente" doble titulo="Por verificar">
-        {generadaPorIa ? "obtenida con IA · confirma en la fuente" : "confirma en la fuente oficial"}
+        compruébalo en la fuente oficial
       </Estampa>
     );
   }

@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A la Primera · Sprint 2, el diseño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papel: #efebe2;
+    --hoja: #f7f4ee;
+    --linea: #d8d1c4;
+    --tinta: #24221f;
+    --tinta-media: #635c52;
+    --tinta-tenue: #6f6654;
+    --sello: #5a3a82;
+    --sello-suave: #ede6f3;
+    --pendiente: #a8342b;
+    /* El oro NO es de la paleta del producto: es cromo de este cartel y se usa en un
+       solo sitio, la estrella que marca la pantalla destacada. Se elige claramente más
+       claro y saturado que el ocre {borrador} #83571c, que en la app significa "en
+       preparación", para que nadie lea una cosa por la otra. No debe aparecer dentro de
+       ninguna pantalla. */
+    --estrella: #f2c14e;
+
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --cond: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+
+    --ancho-cartel: 1240px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 32px 20px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: #e4dfd4;
+    color: var(--tinta);
+  }
+
+  .cartel {
+    max-width: var(--ancho-cartel);
+    margin: 0 auto;
+    padding: 40px;
+    background-color: var(--papel);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+  }
+
+  /* ── CABECERA ── */
+  .cabecera {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--linea);
+  }
+
+  .marca-nombre {
+    margin: 0;
+    font-family: var(--cond);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .marca-nombre .la { color: var(--sello); }
+
+  .marca-lema {
+    margin: 8px 0 0;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--tinta-tenue);
+  }
+
+  .sello-estampado {
+    flex-shrink: 0;
+    padding: 10px 18px;
+    border: 2px solid var(--sello);
+    outline: 1px solid var(--sello);
+    outline-offset: 3px;
+    transform: rotate(-2deg);
+    text-align: center;
+    color: var(--sello);
+  }
+
+  .sello-estampado .linea-1 {
+    display: block;
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .sello-estampado .linea-2 {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--tinta-media);
+  }
+
+  .entradilla {
+    margin: 24px 0 0;
+    max-width: 82ch;
+    font-size: 1.0625rem;
+    color: var(--tinta-media);
+  }
+
+  .entradilla strong { color: var(--tinta); font-weight: 600; }
+
+
+  /* El enlace a la app, macizo como el botón principal del sistema: es lo único del
+     cartel en lo que se puede hacer clic, y la diferencia entre esto y una maqueta. */
+  .enlace-app {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 18px;
+    padding: 10px 18px;
+    background-color: var(--sello);
+    color: #fff;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .enlace-app svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+
+  /* ── RÓTULOS ── */
+  .rotulo-seccion {
+    margin: 40px 0 4px;
+    font-family: var(--cond);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .rotulo-apoyo {
+    margin: 0 0 20px;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--tinta-tenue);
+  }
+
+  /* ── TARJETAS ── */
+  .tarjetas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+
+  .tarjetas-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .tarjeta {
+    padding: 18px;
+    background-color: var(--hoja);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+  }
+
+  .tarjeta .icono {
+    display: block;
+    width: 26px;
+    height: 26px;
+    margin-bottom: 12px;
+    color: var(--sello);
+  }
+
+  .tarjeta h3 {
+    margin: 0 0 6px;
+    font-family: var(--cond);
+    font-size: 1.0625rem;
+    font-weight: 700;
+  }
+
+  .tarjeta p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--tinta-media);
+  }
+
+  .tarjeta code, .nota code {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--tinta);
+  }
+
+  /* ── EL TELÉFONO ──
+     Chasis dibujado en CSS, sin imágenes: bisel oscuro en el tono de la tinta,
+     pantalla recortada y la isla sobre una franja de estado del color del papel,
+     para que no tape la barra superior de la app. */
+  .telefono {
+    position: relative;
+    padding: 9px;
+    background: linear-gradient(158deg, #443f38 0%, #26231f 38%, #16150f 100%);
+    border-radius: 34px;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+      0 3px 10px rgba(36, 34, 31, 0.28);
+  }
+
+  /* La proporción es la de un iPhone 14/15 (390x844 px CSS) y se declara aquí, así que
+     no hay forma de descuadrarla tocando anchos: el alto sale solo. */
+  .telefono .visor {
+    position: relative;
+    aspect-ratio: 390 / 844;
+    overflow: hidden;
+    border-radius: 26px;
+    background-color: var(--papel);
+  }
+
+  .telefono .franja-estado {
+    height: 26px;
+    background-color: var(--papel);
+  }
+
+  .telefono .isla {
+    position: absolute;
+    z-index: 3;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 68px;
+    height: 17px;
+    background-color: #16150f;
+    border-radius: 10px;
+  }
+
+  .telefono img {
+    display: block;
+    width: 100%;
+    height: calc(100% - 26px);
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* Se degrada hacia el papel por abajo en vez de cortar en seco. */
+  .telefono .visor::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 52px;
+    background: linear-gradient(to bottom, rgba(239, 235, 226, 0), var(--papel));
+  }
+
+  /* ── BANDA DE LA PANTALLA ESTRELLA ── */
+  /* La estrella NO se marca con un estampado: el sello girado de filete doble es el
+     elemento firma del producto y significa "estado de verificación". Usarlo aquí para
+     decir "esta pantalla es la importante" haría que el mismo dibujo signifique dos
+     cosas, que es justo lo que prohíbe el DESIGN.md. Va una cabecera maciza. */
+  .banda-estrella {
+    background-color: var(--sello-suave);
+    border: 2px solid var(--sello);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .cabecera-estrella {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    padding: 11px 28px;
+    background-color: var(--sello);
+    color: #fff;
+    font-family: var(--cond);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .cabecera-estrella svg {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+  }
+
+  /* El teléfono de la estrella es la mitad más grande que los de la fila, y el texto va
+     centrado a su altura: el aire que sobra se reparte arriba y abajo en vez de quedarse
+     todo en un hueco al final. */
+  .contenido-estrella {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    align-items: center;
+    gap: 36px;
+    padding: 28px;
+  }
+
+  .contenido-estrella .columna-telefono { position: relative; }
+
+  /* La estrella grande se apoya en la esquina del chasis: marca la pantalla, no el
+     titular. Cae sobre el bisel, así que no tapa nada de la interfaz, y lleva un filo
+     del color del papel para despegarse tanto del violeta como del negro. */
+  .estrella-grande {
+    position: absolute;
+    z-index: 5;
+    top: -8px;
+    left: -4px;
+    width: 94px;
+    height: 94px;
+    color: var(--estrella);
+    transform: rotate(-14deg);
+    filter: drop-shadow(0 2px 4px rgba(36, 34, 31, 0.32));
+  }
+
+  .estrella-grande path {
+    fill: currentColor;
+    stroke: var(--papel);
+    stroke-width: 1.1;
+    stroke-linejoin: round;
+    paint-order: stroke fill;
+  }
+
+  /* Llamadas numeradas, como en una hoja de anotaciones. El número es el orden en el
+     que aparecen bajando por la pantalla, no una posición dibujada encima. */
+  .rotulo-llamadas {
+    margin: 18px 0 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--sello);
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sello);
+  }
+
+  .llamadas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .llamada {
+    display: flex;
+    gap: 10px;
+  }
+
+  .llamada .num {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background-color: var(--sello);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  .llamada .titulo {
+    display: block;
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  .llamada .detalle {
+    display: block;
+    margin-top: 1px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--tinta-media);
+  }
+
+  /* El estampado sale del bisel y se apoya sobre él: es el elemento firma del
+     sistema, y aquí hace de chincheta. */
+  .contenido-estrella .nombre-estrella {
+    margin: 0 0 2px;
+    font-family: var(--cond);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .contenido-estrella .ruta {
+    margin: 0 0 16px;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--tinta-tenue);
+  }
+
+  .bloque-texto h4 {
+    margin: 0 0 4px;
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sello);
+  }
+
+  .bloque-texto h4 + p { margin-top: 0; }
+
+  .bloque-texto p {
+    margin: 0 0 16px;
+    font-size: 0.9375rem;
+    color: var(--tinta-media);
+  }
+
+  .bloque-texto p:last-child { margin-bottom: 0; }
+
+  .bloque-texto strong { color: var(--tinta); font-weight: 600; }
+
+  .bloque-texto ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.9375rem;
+    color: var(--tinta-media);
+  }
+
+  .bloque-texto li { margin-bottom: 8px; }
+  .bloque-texto li:last-child { margin-bottom: 0; }
+
+  /* ── LAS OTRAS CUATRO ── */
+  .tira-pantallas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: start;
+  }
+
+  .pantalla { margin: 0; }
+
+  .tira-pantallas .telefono {
+    width: 230px;
+    margin-inline: auto;
+  }
+
+  .pantalla figcaption { padding: 12px 4px 0; }
+
+  .pantalla .paso {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--sello);
+  }
+
+  .pantalla .nombre {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--cond);
+    font-size: 1.0625rem;
+    font-weight: 700;
+  }
+
+  .pantalla .pie {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--tinta-media);
+  }
+
+  /* ── CIERRE ── */
+  .cierre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+    align-items: start;
+  }
+
+  .bloque-cierre {
+    padding: 20px;
+    background-color: var(--sello-suave);
+    border: 1px solid var(--sello);
+    border-radius: 8px;
+  }
+
+  .bloque-cierre h3 {
+    margin: 0 0 8px;
+    font-family: var(--cond);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sello);
+  }
+
+  .bloque-cierre p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--tinta);
+  }
+
+  .bloque-cierre p + p { margin-top: 8px; }
+
+  .pie-cartel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--linea);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--tinta-media);
+  }
+
+  .pie-cartel .etiquetas { color: var(--sello); letter-spacing: 0.06em; }
+
+  @media (max-width: 1000px) {
+    .cartel { padding: 24px; }
+    .cabecera { flex-direction: column; }
+    .tarjetas, .tarjetas-3 { grid-template-columns: repeat(2, 1fr); }
+    .contenido-estrella { grid-template-columns: 1fr; }
+    .tira-pantallas { grid-template-columns: repeat(2, 1fr); }
+    .cierre { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="cartel">
+
+  <header class="cabecera">
+    <div>
+      <p class="marca-nombre">A <span class="la">LA</span> PRIMERA.</p>
+      <p class="marca-lema">Tu trámite, con tus papeles, sin sorpresas</p>
+    </div>
+    <div class="sello-estampado">
+      <span class="linea-1">Sprint 2 · diseño cerrado</span>
+      <span class="linea-2">5 pantallas · 3 versiones</span>
+    </div>
+  </header>
+
+  <p class="entradilla">
+    Un asistente para los trámites con la administración española. Dices cuál necesitas,
+    respondes cuatro preguntas y te devuelve la lista exacta de papeles que hay que llevar.
+    <strong>Ya funciona y se puede probar</strong>: no es solo una maqueta.
+  </p>
+
+
+  <p>
+    <a class="enlace-app" href="https://alaprimera.vercel.app">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path>
+      </svg>
+      alaprimera.vercel.app
+    </a>
+  </p>
+
+  <h2 class="rotulo-seccion">Qué hemos hecho</h2>
+  <p class="rotulo-apoyo">Sprint 2 · el diseño</p>
+
+  <div class="tarjetas">
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="6" width="18" height="12" rx="1"></rect>
+        <path d="M7 10h10M7 14h6"></path>
+      </svg>
+      <h3>La identidad del sello</h3>
+      <p>Color de papel de expediente, tinta y violeta de sello. Tres estilos de IBM Plex, cada uno para lo suyo. Ni un verde, ni un emoji, sin modo oscuro.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="7" height="16" rx="1"></rect>
+        <rect x="14" y="4" width="7" height="16" rx="1"></rect>
+      </svg>
+      <h3>Tres versiones, todas guardadas</h3>
+      <p>El diseño dio dos saltos. Las tres se comparan pantalla a pantalla en <code>comparador.html</code>, incluida la descartada.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3a9 9 0 1 0 9 9"></path>
+        <path d="M12 8v4l3 2"></path>
+      </svg>
+      <h3>Un texto que se puede agrandar</h3>
+      <p>Si subes el tamaño de letra en tu navegador, la app crece contigo. Y una prueba automática avisa si algún color no se lee bien.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5"></path>
+        <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5"></path>
+      </svg>
+      <h3>Cada dato con su fuente</h3>
+      <p>Nada se genera al vuelo. Cada requisito sale de la página oficial, con su cita y su enlace en la propia ficha.</p>
+    </div>
+  </div>
+
+  <h2 class="rotulo-seccion">La pantalla estrella</h2>
+  <p class="rotulo-apoyo">Detalle de trámite · la que aporta el valor de verdad</p>
+
+  <div class="banda-estrella">
+    <p class="cabecera-estrella">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8-4.2-4.1 5.9-.9z"></path>
+      </svg>
+      Pantalla estrella
+    </p>
+    <div class="contenido-estrella">
+      <div class="columna-telefono">
+      <svg class="estrella-grande" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8-4.2-4.1 5.9-.9z"></path>
+      </svg>
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Detalle de trámite.jpg" alt="Ficha del trámite con los datos oficiales, la fuente y el sello de revisión">
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque-texto">
+      <p class="nombre-estrella">Detalle de trámite</p>
+      <p class="ruta">Home · Buscador → <strong>Detalle</strong> → Wizard → Checklist</p>
+
+      <h4>Qué resuelve</h4>
+      <p>Saber si esta es tu ficha y qué te va a pedir, <strong>antes</strong> de preparar nada.</p>
+
+      <h4>Por qué importa</h4>
+      <p>Reúne en una pantalla lo que la administración reparte en tres: qué es, para quién, cuánto cuesta, hasta cuándo hay plazo, si se hace por internet o en persona, y de dónde sale cada dato.</p>
+
+      <p class="rotulo-llamadas">Qué trae la pantalla, de arriba abajo</p>
+
+      <div class="llamadas">
+        <div class="llamada">
+          <span class="num">1</span>
+          <span>
+            <span class="titulo">El nombre en tu idioma</span>
+            <span class="detalle">Con el nombre administrativo debajo, en pequeño.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">2</span>
+          <span>
+            <span class="titulo">La fecha de la última revisión</span>
+            <span class="detalle">Para saber de cuándo es lo que estás leyendo.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">3</span>
+          <span>
+            <span class="titulo">Los datos, de un vistazo</span>
+            <span class="detalle">Quién lo lleva, cómo se hace, plazo y lo que cuesta.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">4</span>
+          <span>
+            <span class="titulo">La fuente oficial, a un click</span>
+            <span class="detalle">El enlace al organismo, para comprobarlo tú.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">5</span>
+          <span>
+            <span class="titulo">Las pegas, antes del botón</span>
+            <span class="detalle">Si hay que ir en persona, se dice antes de empezar.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">6</span>
+          <span>
+            <span class="titulo">Un solo botón</span>
+            <span class="detalle">El resto de la pantalla es información, no botones.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <h2 class="rotulo-seccion">Las otras cuatro pantallas</h2>
+  <p class="rotulo-apoyo">Capturas de las maquetas de móvil</p>
+
+  <div class="tira-pantallas">
+    <figure class="pantalla">
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Home - Buscador.jpg" alt="Inicio con el buscador y el catálogo por hecho vital">
+        </div>
+      </div>
+      <figcaption>
+        <span class="paso">001 · ENCONTRARLO</span>
+        <span class="nombre">Home · Buscador</span>
+        <span class="pie">El catálogo por lo que te está pasando, no por el organigrama del Estado.</span>
+      </figcaption>
+    </figure>
+
+    <figure class="pantalla">
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Wizard.jpg" alt="Wizard con la primera de las cuatro preguntas">
+        </div>
+      </div>
+      <figcaption>
+        <span class="paso">002 · PREPARARLO</span>
+        <span class="nombre">Wizard</span>
+        <span class="pie">Cuatro preguntas para pasar de la ficha genérica a tu caso.</span>
+      </figcaption>
+    </figure>
+
+    <figure class="pantalla">
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Resumen.jpg" alt="Pantalla de preparación para elegir el canal">
+        </div>
+      </div>
+      <figcaption>
+        <span class="paso">002 · PREPARARLO</span>
+        <span class="nombre">Resumen</span>
+        <span class="pie">Eliges canal, por internet o en persona, antes de ver la lista.</span>
+      </figcaption>
+    </figure>
+
+    <figure class="pantalla">
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Checklist.jpg" alt="Lista de papeles agrupada por secciones con casillas">
+        </div>
+      </div>
+      <figcaption>
+        <span class="paso">002 · PREPARARLO</span>
+        <span class="nombre">Checklist</span>
+        <span class="pie">Los papeles por secciones, con el progreso guardado.</span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <h2 class="rotulo-seccion">Cómo lo hemos hecho</h2>
+  <p class="rotulo-apoyo">Todo a base de prompts, con Claude Code</p>
+
+  <div class="tarjetas tarjetas-3">
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 3h9l4 4v14H6z"></path>
+        <path d="M14 3v5h5M9 13h7M9 17h5"></path>
+      </svg>
+      <h3>La spec manda</h3>
+      <p><code>spec.md</code> → <code>plan.md</code> → <code>tasks.md</code> antes de escribir nada. Si la app y la spec no coinciden, se arregla la app.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 7l5 5-5 5M12 17h8"></path>
+      </svg>
+      <h3>Una red de seguridad automática</h3>
+      <p>Lint, tipos, 87 tests y build en cada cambio. Uno de ellos cruza todos los colores de texto contra todos los fondos.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="15" rx="1"></rect>
+        <path d="M3 8h18M7 12h6"></path>
+      </svg>
+      <h3>Comprobado en navegador de escritorio y móvil</h3>
+      <p>Las maquetas y el comparador se abren en un navegador de verdad y se miden ahí, a ancho de móvil y de escritorio.</p>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <div class="bloque-cierre">
+      <h3>Para qué</h3>
+      <p>Para que nadie vuelva de una ventanilla porque le faltaba un papel. Marta lleva los trámites de su familia y no tiene por qué saberse el reglamento.</p>
+      <p>Se lee con prisa, se imprime y la acaban leyendo personas mayores. Por eso el tema es claro fijo y el cuerpo no baja de 16px.</p>
+    </div>
+
+    <div class="bloque-cierre">
+      <h3>Lo que viene</h3>
+      <p><strong>22 fichas publicadas</strong> y otras 22 preparadas para entrar, repartidas en once momentos de la vida.</p>
+      <p>Ahora toca llegar a más comunidades autónomas, antes que engordar la lista por engordarla.</p>
+    </div>
+  </div>
+
+  <div class="pie-cartel">
+    <span>Construida a base de prompts, sin escribir código a mano</span>
+    <span class="etiquetas">#RetoViberano · #Sprint2 · #ALaPrimera</span>
+  </div>
+
+</div>
+</body>
+</html>

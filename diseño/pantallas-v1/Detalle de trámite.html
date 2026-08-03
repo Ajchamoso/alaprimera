@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renovar el carnet de identidad — A la Primera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Brand & Accent */
+      --primary: #9fe870;
+      --primary-active: #cdffad;
+      --primary-neutral: #c5edab;
+      --primary-pale: #e2f6d5;
+
+      /* Surface */
+      --canvas: #ffffff;
+      --canvas-soft: #e8ebe6;
+
+      /* Text */
+      --ink: #0e0f0c;
+      --ink-deep: #163300;
+      --body: #454745;
+      --mute: #868685;
+
+      /* Semantic */
+      --positive: #2ead4b;
+      --positive-deep: #054d28;
+      --warning: #ffd11a;
+      --warning-deep: #b86700;
+      --warning-content: #4a3b1c;
+      --negative: #d03238;
+
+      /* Spacing */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --spacing-xl: 24px;
+      --spacing-2xl: 32px;
+      --spacing-3xl: 48px;
+    }
+
+    html, body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--canvas-soft);
+      color: var(--ink);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Mobile viewport: 375px width */
+    .container {
+      width: 375px;
+      margin: 0 auto;
+      background: var(--canvas-soft);
+      overflow-x: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--canvas);
+      border-bottom: 1px solid #f0f0f0;
+      padding: var(--spacing-md) var(--spacing-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+    }
+
+    .nav-back {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--ink);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-title {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: center;
+      margin: 0 var(--spacing-md);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .nav-spacer {
+      width: 44px;
+    }
+
+    /* ── HERO BAND ── */
+    .hero-band {
+      background: linear-gradient(135deg, var(--primary-pale) 0%, #f0f9e6 100%);
+      padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-2xl);
+    }
+
+    .hecho-vital-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary-pale);
+      background-color: var(--positive-deep);
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .tramite-nombre-coloquial {
+      font-size: 28px;
+      font-weight: 900;
+      font-family: Inter, sans-serif;
+      line-height: 1.2;
+      margin-bottom: var(--spacing-sm);
+      color: var(--ink);
+      letter-spacing: -0.6px;
+    }
+
+    .tramite-nombre-oficial {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--body);
+      line-height: 1.5;
+    }
+
+    /* ── CONTENT BAND ── */
+    .content-band {
+      background-color: var(--canvas);
+      padding: var(--spacing-3xl) var(--spacing-lg);
+    }
+
+    /* ── CARD ── */
+    .card {
+      background-color: var(--canvas);
+      padding: var(--spacing-xl);
+      border-radius: 24px;
+      margin-bottom: var(--spacing-2xl);
+      border: 1px solid #f0f0f0;
+    }
+
+    .card-headline {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .card-content {
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.6;
+    }
+
+    /* ── DESCRIPTION CARD ── */
+    .description-card {
+      background-color: var(--primary-pale);
+      padding: var(--spacing-xl);
+      border-radius: 24px;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .description-text {
+      font-size: 15px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ── INFO ROW ── */
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: var(--spacing-lg) 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--mute);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      flex: 0 0 40%;
+    }
+
+    .info-value {
+      font-size: 14px;
+      color: var(--ink);
+      flex: 1;
+      text-align: right;
+    }
+
+    .info-value.link {
+      color: #163300;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ── VERIFICATION BADGE ── */
+    .verification-badge {
+      background-color: var(--primary-pale);
+      padding: var(--spacing-lg);
+      border-radius: 24px;
+      margin-bottom: var(--spacing-2xl);
+      display: flex;
+      gap: var(--spacing-md);
+      align-items: flex-start;
+    }
+
+    .verification-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .verification-content {
+      flex: 1;
+    }
+
+    .verification-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--positive-deep);
+      margin-bottom: 4px;
+    }
+
+    .verification-text {
+      font-size: 12px;
+      color: var(--body);
+      line-height: 1.5;
+    }
+
+    .verification-link {
+      color: #163300;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ── CHANNELS ── */
+    .channels-section {
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .channel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .channel-card {
+      background-color: var(--canvas);
+      padding: var(--spacing-lg);
+      border-radius: 24px;
+      text-align: center;
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: Inter, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .channel-card:hover {
+      background-color: var(--primary-pale);
+      border-color: var(--primary);
+    }
+
+    .channel-card:active {
+      background-color: var(--primary);
+      color: var(--ink);
+    }
+
+    .channel-card:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    }
+
+    .channel-icon {
+      font-size: 28px;
+      margin-bottom: var(--spacing-sm);
+      line-height: 1;
+    }
+
+    .channel-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: inherit;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .btn-start {
+      width: 100%;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background-color: var(--primary);
+      color: var(--ink);
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      height: 48px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-start:hover {
+      background-color: var(--primary-active);
+    }
+
+    .btn-start:active {
+      background-color: var(--positive-deep);
+    }
+
+    .btn-start:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    }
+
+    /* ── WARNING BANNER ── */
+    .warning-banner {
+      background-color: rgba(255, 209, 26, 0.25);
+      padding: var(--spacing-lg);
+      border-radius: 24px;
+      margin-bottom: var(--spacing-2xl);
+      border: 1px solid rgba(255, 209, 26, 0.5);
+    }
+
+    .warning-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--warning-content);
+      margin-bottom: 4px;
+    }
+
+    .warning-text {
+      font-size: 12px;
+      color: var(--warning-content);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background-color: var(--ink);
+      color: var(--canvas-soft);
+      padding: var(--spacing-3xl) var(--spacing-lg);
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .footer a {
+      color: #9fe870;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ── UTILITIES ── */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .skiplink {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background-color: var(--primary);
+      color: var(--ink);
+      padding: 8px 16px;
+      text-decoration: none;
+      z-index: 101;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .skiplink:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+
+  <div class="container">
+    <!-- NAV BAR -->
+    <nav class="nav-bar">
+      <button class="nav-back" aria-label="Volver">‹</button>
+      <div class="nav-title">Renovación de DNI</div>
+      <div class="nav-spacer"></div>
+    </nav>
+
+    <!-- HERO BAND -->
+    <section class="hero-band">
+      <span class="hecho-vital-badge">Documentos base</span>
+      <h1 class="tramite-nombre-coloquial">Renovar el carnet de identidad</h1>
+      <p class="tramite-nombre-oficial">Renovación del DNI · Policía Nacional</p>
+    </section>
+
+    <!-- CONTENT BAND -->
+    <main class="content-band" id="main-content">
+      <!-- DESCRIPCIÓN -->
+      <div class="card">
+        <p class="card-content">
+          Renovar el DNI cuando está caducado, a punto de caducar, se ha deteriorado o has perdido el anterior. Hay que ir en persona y con cita previa a una oficina de expedición.
+        </p>
+      </div>
+
+      <!-- INFORMACIÓN GENERAL -->
+      <div class="card" style="background-color: var(--primary-pale);">
+        <h2 class="card-headline">Información</h2>
+        <div class="info-row">
+          <span class="info-label">Nivel</span>
+          <span class="info-value">Estatal</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Canales</span>
+          <span class="info-value">Online · Presencial</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Plazo</span>
+          <span class="info-value">Todo el año</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Fuente oficial</span>
+          <a href="#" class="info-value link" aria-label="Abrir dnielectronico.es">dnielectronico.es</a>
+        </div>
+      </div>
+
+      <!-- CTA SECTION -->
+      <div class="cta-section">
+        <button class="btn-start" aria-label="Empezar mi checklist para renovar el DNI">Empezar mi checklist</button>
+      </div>
+
+      <!-- VERIFICACIÓN -->
+      <div class="verification-badge" style="background-color: var(--canvas-soft);">
+        <div class="verification-icon">✓</div>
+        <div class="verification-content">
+          <div class="verification-title">Verificada el 17/07/2026</div>
+          <div class="verification-text">
+            Esta ficha fue cotejada contra la <a href="#" class="verification-link">fuente oficial</a> por un humano. No se pierde al actualizarse.
+          </div>
+        </div>
+      </div>
+
+      <!-- CANALES -->
+      <div class="channels-section">
+        <h2 class="card-headline" style="margin-bottom: var(--spacing-lg);">¿Cómo lo harás?</h2>
+        <p style="font-size: 14px; color: var(--body); margin-bottom: var(--spacing-lg); line-height: 1.5;">
+          Elige tu canal para ver exactamente qué necesitas llevar o hacer.
+        </p>
+        <div class="channel-grid">
+          <button class="channel-card" aria-label="Elegir En persona">
+            <div class="channel-icon">👤</div>
+            <div class="channel-name">En persona</div>
+          </button>
+          <button class="channel-card" aria-label="Elegir Cita previa">
+            <div class="channel-icon">💻</div>
+            <div class="channel-name">Cita previa</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ADVERTENCIA -->
+      <div class="warning-banner">
+        <div class="warning-title">⚠️ Requisito técnico</div>
+        <div class="warning-text">
+          Este trámite requiere presencia física en una oficina. No se puede completar íntegramente online.
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      © 2026 A la Primera · <a href="#">Privacidad</a> · <a href="#">Reportar error</a>
+    </footer>
+  </div>
+
+  <script>
+    // Back button
+    document.querySelector('.nav-back').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    // Channel selection (para next step)
+    document.querySelectorAll('.channel-card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.parentElement.querySelectorAll('.channel-card').forEach(c => {
+          c.style.borderColor = '#f0f0f0';
+          c.style.backgroundColor = 'var(--canvas-soft)';
+        });
+        card.style.borderColor = 'var(--primary)';
+        card.style.backgroundColor = 'var(--primary-pale)';
+      });
+    });
+
+    // CTA Button
+    document.querySelector('.btn-start').addEventListener('click', () => {
+      console.log('Iniciar wizard para este trámite');
+      // En una app real, navegar al wizard
+    });
+  </script>
+</body>
+</html>

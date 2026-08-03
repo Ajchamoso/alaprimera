@@ -58,10 +58,7 @@ export default async function PaginaCompartida({
         <p className="text-tinta-tenue">
           {tramite.nombreOficial} · {tramite.organismo}
         </p>
-        <SelloVerificacion
-          verificadaEn={tramite.verificadaEn}
-          generadaPorIa={tramite.generadaPorIa}
-        />
+        <SelloVerificacion verificadaEn={tramite.verificadaEn} />
       </header>
 
       <section className="rounded-xl border border-linea bg-hoja p-5">

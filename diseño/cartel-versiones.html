@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A la Primera · Tres versiones del diseño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papel: #efebe2;
+    --hoja: #f7f4ee;
+    --linea: #d8d1c4;
+    --tinta: #24221f;
+    --tinta-media: #635c52;
+    --tinta-tenue: #6f6654;
+    --sello: #5a3a82;
+    --sello-suave: #ede6f3;
+    --borrador: #83571c;
+    --borrador-suave: #f5ead6;
+
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --cond: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+
+    --rejilla: 220px repeat(5, 1fr);
+    --hueco: 16px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 32px 20px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: #e4dfd4;
+    color: var(--tinta);
+  }
+
+  .cartel {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: var(--papel);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+  }
+
+  /* ── CABECERA ── */
+  .cabecera {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--linea);
+  }
+
+  .marca-nombre {
+    margin: 0;
+    font-family: var(--cond);
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .marca-nombre .la { color: var(--sello); }
+
+  .marca-lema {
+    margin: 8px 0 0;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--tinta-tenue);
+  }
+
+  .sello-estampado {
+    flex-shrink: 0;
+    padding: 10px 18px;
+    border: 2px solid var(--sello);
+    outline: 1px solid var(--sello);
+    outline-offset: 3px;
+    transform: rotate(-2deg);
+    text-align: center;
+    color: var(--sello);
+  }
+
+  .sello-estampado .linea-1 {
+    display: block;
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .sello-estampado .linea-2 {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--tinta-media);
+  }
+
+  .entradilla {
+    margin: 20px 0 0;
+    max-width: 84ch;
+    font-size: 1.0625rem;
+    color: var(--tinta-media);
+  }
+
+  .entradilla strong { color: var(--tinta); font-weight: 600; }
+
+
+  /* El enlace a la app, macizo como el botón principal del sistema: es lo único del
+     cartel en lo que se puede hacer clic, y la diferencia entre esto y una maqueta. */
+  .enlace-app {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 18px;
+    padding: 10px 18px;
+    background-color: var(--sello);
+    color: #fff;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .enlace-app svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+
+  /* ── RÓTULOS DE COLUMNA ── */
+  .rotulos {
+    display: grid;
+    grid-template-columns: var(--rejilla);
+    gap: var(--hueco);
+    margin-top: 28px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--linea);
+  }
+
+  .rotulos span {
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+
+  .rotulos .vacio { text-align: left; color: var(--tinta-tenue); }
+
+  /* ── BANDAS DE VERSIÓN ── */
+  .banda {
+    display: grid;
+    grid-template-columns: var(--rejilla);
+    gap: var(--hueco);
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--linea);
+  }
+
+  /* La actual se marca: es la que está en producción, no una más de la serie. */
+  .banda.actual {
+    margin-top: 4px;
+    padding: 20px 16px;
+    background-color: var(--sello-suave);
+    border: 2px solid var(--sello);
+    border-radius: 8px;
+  }
+
+  .etiqueta-version { padding-right: 8px; }
+
+  .numero-version {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    background-color: var(--tinta-tenue);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .banda.actual .numero-version { background-color: var(--sello); }
+
+  .nombre-version {
+    margin: 0 0 4px;
+    font-family: var(--cond);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .rasgos-version {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--tinta-media);
+  }
+
+  /* ── EL TELÉFONO ──
+     Proporción de iPhone 14/15 declarada con aspect-ratio: el alto sale del ancho. */
+  .telefono {
+    position: relative;
+    padding: 6px;
+    background: linear-gradient(158deg, #443f38 0%, #26231f 38%, #16150f 100%);
+    border-radius: 22px;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+      0 2px 7px rgba(36, 34, 31, 0.24);
+  }
+
+  .telefono .visor {
+    position: relative;
+    aspect-ratio: 390 / 844;
+    overflow: hidden;
+    border-radius: 17px;
+    background-color: var(--papel);
+  }
+
+  .telefono img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* ── EL DETALLE QUE NO SE VE A ESTE TAMAÑO ── */
+  .detalle {
+    margin-top: 32px;
+    padding: 24px;
+    background-color: var(--hoja);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+  }
+
+  .detalle h2 {
+    margin: 0 0 4px;
+    font-family: var(--cond);
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .detalle .apoyo {
+    margin: 0 0 18px;
+    max-width: 90ch;
+    font-size: 0.9375rem;
+    color: var(--tinta-media);
+  }
+
+  .par-zoom {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .zoom figcaption {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.875rem;
+    color: var(--tinta-media);
+  }
+
+  .zoom .marca {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: var(--tinta-tenue);
+    color: #fff;
+  }
+
+  .zoom.intermedia .marca { background-color: #a8342b; }
+  .zoom.nueva .marca { background-color: var(--sello); }
+
+  .zoom img {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--linea);
+    border-radius: 6px;
+  }
+
+  /* ── PIE ── */
+  .pie-cartel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--linea);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--tinta-media);
+  }
+
+  .pie-cartel .etiquetas { color: var(--sello); letter-spacing: 0.06em; }
+
+  @media (max-width: 1000px) {
+    .cartel { padding: 24px; }
+    .cabecera { flex-direction: column; }
+    :root { --rejilla: 1fr 1fr 1fr; }
+    .rotulos { display: none; }
+    .banda { align-items: start; }
+    .etiqueta-version { grid-column: 1 / -1; }
+    .par-zoom { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="cartel">
+
+  <header class="cabecera">
+    <div>
+      <p class="marca-nombre">A <span class="la">LA</span> PRIMERA.</p>
+      <p class="marca-lema">Tres versiones del diseño</p>
+    </div>
+    <div class="sello-estampado">
+      <span class="linea-1">Sprint 2 · la evolución</span>
+      <span class="linea-2">5 pantallas · 3 versiones</span>
+    </div>
+  </header>
+
+  <p class="entradilla">
+    Las mismas cinco pantallas, hechas tres veces. <strong>El diseño no dio un salto, dio
+    dos</strong>: primero cambió de cara por completo, y después se pulió sin tocarla.
+  </p>
+
+
+  <p>
+    <a class="enlace-app" href="https://alaprimera.vercel.app">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path>
+      </svg>
+      alaprimera.vercel.app
+    </a>
+  </p>
+
+  <div class="rotulos">
+    <span class="vacio">Pantalla →</span>
+    <span>Home</span>
+    <span>Wizard</span>
+    <span>Checklist</span>
+    <span>Detalle</span>
+    <span>Resumen</span>
+  </div>
+
+  <div class="banda">
+    <div class="etiqueta-version">
+      <span class="numero-version">V1</span>
+      <p class="nombre-version">La primera propuesta</p>
+      <p class="rasgos-version">Verde lima sobre fondo grisáceo, titulares muy gruesos, esquinas muy redondeadas y emoji como iconos.</p>
+    </div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v1-Home - Buscador.jpg" alt="Home en la v1"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v1-Wizard.jpg" alt="Wizard en la v1"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v1-Checklist.jpg" alt="Checklist en la v1"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v1-Detalle de trámite.jpg" alt="Detalle de trámite en la v1"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v1-Resumen.jpg" alt="Resumen en la v1"></div></div>
+  </div>
+
+  <div class="banda">
+    <div class="etiqueta-version">
+      <span class="numero-version">V2</span>
+      <p class="nombre-version">El giro al sello</p>
+      <p class="rasgos-version">Color de papel de expediente, tinta y violeta de sello. Esquinas discretas, iconos dibujados a mano y ni un verde.</p>
+    </div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v2-Home - Buscador.jpg" alt="Home en la v2"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v2-Wizard.jpg" alt="Wizard en la v2"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v2-Checklist.jpg" alt="Checklist en la v2"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v2-Detalle de trámite.jpg" alt="Detalle de trámite en la v2"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v2-Resumen.jpg" alt="Resumen en la v2"></div></div>
+  </div>
+
+  <div class="banda actual">
+    <div class="etiqueta-version">
+      <span class="numero-version">V3 · actual</span>
+      <p class="nombre-version">La misma, afinada</p>
+      <p class="rasgos-version">Bandas de color que separan las zonas, contadores macizos en violeta, más contraste en todo y un ocre propio para «en preparación».</p>
+    </div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v3-Home - Buscador.jpg" alt="Home en la v3"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v3-Wizard.jpg" alt="Wizard en la v3"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v3-Checklist.jpg" alt="Checklist en la v3"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v3-Detalle de trámite.jpg" alt="Detalle de trámite en la v3"></div></div>
+    <div class="telefono"><div class="visor"><img src="imagenes/versiones/v3-Resumen.jpg" alt="Resumen en la v3"></div></div>
+  </div>
+
+  <div class="detalle">
+    <h2>El detalle que no se ve a este tamaño</h2>
+    <p class="apoyo">
+      La etiqueta de «aún no hay ficha» pasó por tres estados hasta dar con el suyo. Primero un
+      gris tan apagado que no se veía. Luego rojo, que se veía pero la mezclaba con los avisos
+      de verdad, los de «hay que ir en persona». Y al final un ocre propio: se nota que falta
+      algo, sin parecer una alarma.
+    </p>
+    <div class="par-zoom">
+      <figure class="zoom">
+        <figcaption><span class="marca">1</span> gris: no se ve</figcaption>
+        <img src="imagenes/versiones/zoom-preparacion-v2.jpg" alt="La etiqueta «en preparación» en gris sobre fondo transparente">
+      </figure>
+      <figure class="zoom intermedia">
+        <figcaption><span class="marca">2</span> rojo: parece un aviso</figcaption>
+        <img src="imagenes/versiones/zoom-preparacion-rojo.jpg" alt="La etiqueta «en preparación» en rojo sobre fondo rojo claro">
+      </figure>
+      <figure class="zoom nueva">
+        <figcaption><span class="marca">3</span> ocre: es un hueco, no una alarma</figcaption>
+        <img src="imagenes/versiones/zoom-preparacion-v3.jpg" alt="La etiqueta «en preparación» en ocre sobre fondo tintado">
+      </figure>
+    </div>
+  </div>
+
+  <div class="pie-cartel">
+    <span>Diseño a cuatro manos · las tres se pueden abrir y comparar en diseño/comparador.html</span>
+    <span class="etiquetas">#RetoViberano · #Sprint2 · #ALaPrimera</span>
+  </div>
+
+</div>
+</body>
+</html>
