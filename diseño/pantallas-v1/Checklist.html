@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi checklist — A la Primera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Brand & Accent */
+      --primary: #9fe870;
+      --primary-active: #cdffad;
+      --primary-neutral: #c5edab;
+      --primary-pale: #e2f6d5;
+
+      /* Surface */
+      --canvas: #ffffff;
+      --canvas-soft: #e8ebe6;
+
+      /* Text */
+      --ink: #0e0f0c;
+      --ink-deep: #163300;
+      --body: #454745;
+      --mute: #868685;
+
+      /* Semantic */
+      --positive: #2ead4b;
+      --positive-deep: #054d28;
+      --warning: #ffd11a;
+      --warning-deep: #b86700;
+      --warning-content: #4a3b1c;
+      --negative: #d03238;
+
+      /* Spacing */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --spacing-xl: 24px;
+      --spacing-2xl: 32px;
+      --spacing-3xl: 48px;
+    }
+
+    html, body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--canvas-soft);
+      color: var(--ink);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Mobile viewport: 375px width */
+    .container {
+      width: 375px;
+      margin: 0 auto;
+      background: var(--canvas-soft);
+      overflow-x: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--canvas);
+      border-bottom: 1px solid #f0f0f0;
+      padding: var(--spacing-md) var(--spacing-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+    }
+
+    .nav-back {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--ink);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-title {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: center;
+      margin: 0 var(--spacing-md);
+    }
+
+    .nav-spacer {
+      width: 44px;
+    }
+
+    /* ── HERO BAND ── */
+    .hero-band {
+      background: linear-gradient(135deg, var(--primary-pale) 0%, #f0f9e6 100%);
+      padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-2xl);
+    }
+
+    .tramite-titulo {
+      font-size: 24px;
+      font-weight: 900;
+      font-family: Inter, sans-serif;
+      line-height: 1.2;
+      margin-bottom: var(--spacing-md);
+      color: var(--ink);
+      letter-spacing: -0.5px;
+    }
+
+    .tramite-subtitulo {
+      font-size: 13px;
+      color: var(--body);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    /* ── PROGRESS SECTION ── */
+    .progress-section {
+      background-color: var(--canvas);
+      padding: var(--spacing-lg) var(--spacing-lg);
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--positive-deep);
+      transition: width 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .progress-text {
+      font-size: 13px;
+      color: var(--body);
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .progress-label {
+      color: var(--mute);
+    }
+
+    /* ── CONTENT BAND ── */
+    .content-band {
+      background-color: var(--canvas);
+      padding: var(--spacing-2xl) var(--spacing-lg);
+    }
+
+    /* ── SECTION ── */
+    .checklist-section {
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .section-icon {
+      font-size: 16px;
+    }
+
+    /* ── CHECKLIST ITEM ── */
+    .checklist-item {
+      background-color: var(--primary-pale);
+      border-radius: 16px;
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      gap: var(--spacing-lg);
+      align-items: flex-start;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .checklist-item:hover {
+      background-color: var(--primary-neutral);
+    }
+
+    .checklist-item.completed {
+      background-color: var(--primary-pale);
+      border-color: transparent;
+    }
+
+    .checklist-item.completed .item-text-label {
+      text-decoration: line-through;
+      color: var(--mute);
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--mute);
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      background-color: var(--canvas);
+    }
+
+    .checklist-item:hover .checkbox {
+      border-color: var(--primary);
+    }
+
+    .checklist-item.completed .checkbox {
+      background-color: var(--positive-deep);
+      border-color: var(--positive-deep);
+      color: var(--primary-pale);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .item-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .item-text-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .item-text-description {
+      font-size: 13px;
+      color: var(--body);
+      line-height: 1.4;
+    }
+
+    .item-optional {
+      font-size: 11px;
+      color: var(--mute);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-top: 4px;
+    }
+
+    /* ── EXPANDIBLE DETAIL ── */
+    .item-detail {
+      display: none;
+      margin-top: var(--spacing-md);
+      padding: var(--spacing-md);
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 12px;
+      border-left: 3px solid var(--primary);
+      font-size: 13px;
+      color: var(--body);
+      line-height: 1.6;
+    }
+
+    .checklist-item.expanded .item-detail {
+      display: block;
+    }
+
+    /* ── WARNING BANNER ── */
+    .info-banner {
+      background-color: rgba(255, 209, 26, 0.25);
+      padding: var(--spacing-lg);
+      border-radius: 24px;
+      margin-bottom: var(--spacing-2xl);
+      border: 1px solid rgba(255, 209, 26, 0.5);
+    }
+
+    .info-banner-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--warning-content);
+      margin-bottom: 4px;
+    }
+
+    .info-banner-text {
+      font-size: 12px;
+      color: var(--warning-content);
+      line-height: 1.5;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background-color: var(--canvas-soft);
+      padding: var(--spacing-2xl) var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .btn-download {
+      width: 100%;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background-color: var(--primary);
+      color: var(--ink);
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      height: 48px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-download:hover {
+      background-color: var(--primary-active);
+    }
+
+    .btn-download:active {
+      background-color: var(--positive-deep);
+    }
+
+    .btn-download:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background-color: var(--canvas);
+      color: var(--ink);
+      border: 1px solid var(--mute);
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      height: 48px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      background-color: var(--primary-pale);
+    }
+
+    .btn-secondary:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1), inset 0 0 0 2px var(--ink);
+    }
+
+    /* ── COMPLETION STATE ── */
+    .completion-state {
+      display: none;
+      text-align: center;
+      padding: var(--spacing-3xl) var(--spacing-lg);
+    }
+
+    .completion-state.active {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xl);
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+
+    .completion-icon {
+      font-size: 64px;
+    }
+
+    .completion-headline {
+      font-size: 28px;
+      font-weight: 900;
+      font-family: Inter, sans-serif;
+      color: var(--ink);
+      letter-spacing: -0.6px;
+    }
+
+    .completion-text {
+      font-size: 16px;
+      color: var(--body);
+      line-height: 1.6;
+      max-width: 300px;
+    }
+
+    /* ── UTILITIES ── */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .skiplink {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background-color: var(--primary);
+      color: var(--ink);
+      padding: 8px 16px;
+      text-decoration: none;
+      z-index: 101;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .skiplink:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+
+  <div class="container">
+    <!-- NAV BAR -->
+    <nav class="nav-bar">
+      <button class="nav-back" aria-label="Volver">‹</button>
+      <div class="nav-title">Mi checklist</div>
+      <div class="nav-spacer"></div>
+    </nav>
+
+    <!-- HERO BAND -->
+    <section class="hero-band">
+      <h1 class="tramite-titulo">Renovar el carnet de identidad</h1>
+      <p class="tramite-subtitulo">Policía Nacional · Estatal</p>
+    </section>
+
+    <!-- PROGRESS SECTION -->
+    <div class="progress-section">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <div class="progress-text">
+        <span><strong id="completedCount">0</strong> de <strong id="totalCount">8</strong> completados</span>
+        <span class="progress-label" id="progressPercent">0%</span>
+      </div>
+    </div>
+
+    <!-- CONTENT BAND -->
+    <main class="content-band" id="main-content">
+      <!-- INFO BANNER -->
+      <div class="info-banner">
+        <div class="info-banner-title">⚠️ Nota importante</div>
+        <div class="info-banner-text">
+          Este trámite requiere tu presencia física. No se puede completar entirely online.
+        </div>
+      </div>
+
+      <!-- SECTION: DOCUMENTOS -->
+      <div class="checklist-section">
+        <div class="section-title">
+          <span class="section-icon">📄</span>
+          <span>Documentos a recopilar</span>
+        </div>
+
+        <div class="checklist-item" data-item-id="doc-1">
+          <div class="checkbox"></div>
+          <div class="item-content">
+            <div class="item-text-label">DNI actual o pasaporte</div>
+            <div class="item-text-description">Original o copia autenticada</div>
+          </div>
+        </div>
+
+        <div class="checklist-item" data-item-id="doc-2">
+          <div class="checkbox"></div>
+          <div class="item-content">
+            <div class="item-text-label">Libro de familia (si procede)</div>
+            <div class="item-text-description">Para menores o cambios de estado civil</div>
+            <div class="item-optional">Opcional según tu caso</div>
+          </div>
+        </div>
+
+        <div class="checklist-item" data-item-id="doc-3">
+          <div class="checkbox"></div>
+          <div class="item-content">
+            <div class="item-text-label">Fotografía de carnet (4x3 cm)</div>
+            <div class="item-text-description">Fondo blanco, sin gafas ni accesorios</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: PASOS -->
+      <div class="checklist-section">
+        <div class="section-title">
+          <span class="section-icon">🎯</span>
+          <span>Pasos a seguir</span>
+        </div>
+
+        <div class="checklist-item" data-item-id="paso-1">
+          <div class="checkbox"></div>
+          <div class="item-content">
+            <div class="item-text-label">Pedir cita previa</div>
+            <div class="item-text-description">En dnielectronico.es o por teléfono</div>
+            <div class="item-detail">
+              Llamar al 062 (Policía Nacional) o reservar online. Tienes que ir a la oficina que te asignen.
+            </div>
+          </div>
+        </div>
+
+        <div class="checklist-item" data-item-id="paso-2">
+          <div class="checkbox"></div>
+          <div class="item-content">
+            <div class="item-text-label">Ir a la oficina en la fecha asignada</div>
+            <div class="item-text-description">Lleva todos los documentos originales</div>
+            <div class="item-detail">
+              Llega con 15 minutos de anticipación. El trámite dura unos 15-20 minutos.
+            </div>
+          </div>
+        </div>
+
+        <div class="checklist-item" data-item-id="paso-3">
+          <div class="checkbox"></div>
+          <div class="item-content">
+            <div class="item-text-label">Recoger el DNI nuevo</div>
+            <div class="item-text-description">En la misma oficina o por correo</div>
+            <div class="item-detail">
+              Comprueba que los datos sean correctos. Si hay errores, puedes solicitar correcciones.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: COSTES -->
+      <div class="checklist-section">
+        <div class="section-title">
+          <span class="section-icon">💰</span>
+          <span>Costes</span>
+        </div>
+
+        <div class="checklist-item" data-item-id="coste-1">
+          <div class="checkbox"></div>
+          <div class="item-content">
+            <div class="item-text-label">Pagar tasa de expedición</div>
+            <div class="item-text-description">10,47 € (adultos menores de 65 años)</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- COMPLETION STATE (hidden by default) -->
+    <div class="completion-state" id="completionState">
+      <div class="completion-icon">✓</div>
+      <h2 class="completion-headline">¡Todo listo!</h2>
+      <p class="completion-text">
+        Ya tienes todo preparado para renovar tu DNI. Recuerda ir a la cita con todos los documentos.
+      </p>
+    </div>
+
+    <!-- CTA SECTION -->
+    <div class="cta-section">
+      <button class="btn-download" aria-label="Descargar checklist en PDF">
+        ⬇️ Descargar checklist
+      </button>
+      <button class="btn-secondary" aria-label="Compartir checklist">
+        Compartir
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const items = document.querySelectorAll('.checklist-item');
+    const completionState = document.getElementById('completionState');
+    const contentBand = document.querySelector('.content-band');
+    const ctaSection = document.querySelector('.cta-section');
+
+    function updateProgress() {
+      const completed = document.querySelectorAll('.checklist-item.completed').length;
+      const total = items.length;
+      const percentage = Math.round((completed / total) * 100);
+
+      document.getElementById('completedCount').textContent = completed;
+      document.getElementById('totalCount').textContent = total;
+      document.getElementById('progressPercent').textContent = percentage + '%';
+      document.getElementById('progressFill').style.width = percentage + '%';
+
+      // Show completion state when all items are done
+      if (completed === total) {
+        contentBand.style.display = 'none';
+        ctaSection.style.display = 'none';
+        completionState.classList.add('active');
+      } else {
+        contentBand.style.display = 'block';
+        ctaSection.style.display = 'flex';
+        completionState.classList.remove('active');
+      }
+    }
+
+    // Handle item clicks
+    items.forEach(item => {
+      item.addEventListener('click', (e) => {
+        // Don't toggle checkbox if clicking on expandable detail
+        if (e.target.closest('.item-detail')) {
+          item.classList.toggle('expanded');
+          return;
+        }
+
+        item.classList.toggle('completed');
+        const checkbox = item.querySelector('.checkbox');
+
+        if (item.classList.contains('completed')) {
+          checkbox.textContent = '✓';
+        } else {
+          checkbox.textContent = '';
+        }
+
+        updateProgress();
+      });
+
+      // Allow expanding details by clicking on the item
+      const detail = item.querySelector('.item-detail');
+      if (detail) {
+        item.style.cursor = 'pointer';
+      }
+    });
+
+    // Back button
+    document.querySelector('.nav-back').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    // Download button
+    document.querySelector('.btn-download').addEventListener('click', () => {
+      console.log('Descargar checklist como PDF');
+    });
+
+    // Share button
+    document.querySelector('.btn-secondary').addEventListener('click', () => {
+      console.log('Compartir checklist');
+    });
+
+    // Initialize
+    updateProgress();
+  </script>
+</body>
+</html>

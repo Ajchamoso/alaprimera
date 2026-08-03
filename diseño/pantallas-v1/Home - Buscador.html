@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A la Primera — Catálogo de Trámites</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Brand & Accent */
+      --primary: #9fe870;
+      --primary-active: #cdffad;
+      --primary-neutral: #c5edab;
+      --primary-pale: #e2f6d5;
+
+      /* Surface */
+      --canvas: #ffffff;
+      --canvas-soft: #e8ebe6;
+
+      /* Text */
+      --ink: #0e0f0c;
+      --ink-deep: #163300;
+      --body: #454745;
+      --mute: #868685;
+
+      /* Semantic */
+      --positive: #2ead4b;
+      --positive-deep: #054d28;
+      --warning: #ffd11a;
+      --warning-deep: #b86700;
+      --negative: #d03238;
+      --negative-deep: #a72027;
+
+      /* Spacing */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --spacing-xl: 24px;
+      --spacing-2xl: 32px;
+      --spacing-3xl: 48px;
+    }
+
+    html, body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--canvas-soft);
+      color: var(--ink);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Mobile viewport: 375px width */
+    .container {
+      width: 375px;
+      margin: 0 auto;
+      background: var(--canvas-soft);
+      overflow-x: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--canvas);
+      border-bottom: 1px solid #f0f0f0;
+      padding: var(--spacing-md) var(--spacing-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      font-family: Inter, sans-serif;
+      white-space: nowrap;
+    }
+
+    .nav-logo .primary-text {
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .hamburger {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--ink);
+    }
+
+    .hamburger span {
+      width: 20px;
+      height: 2px;
+      background-color: var(--ink);
+      border-radius: 1px;
+    }
+
+    /* ── HERO BAND ── */
+    .hero-band {
+      background-color: var(--canvas-soft);
+      padding: var(--spacing-3xl) var(--spacing-lg);
+      text-align: center;
+    }
+
+    .hero-headline {
+      font-size: 47px;
+      font-weight: 900;
+      font-family: Inter, sans-serif;
+      line-height: 1.2;
+      margin-bottom: var(--spacing-md);
+      color: var(--ink);
+      letter-spacing: -1.08px;
+    }
+
+    .hero-subheadline {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--body);
+      margin-bottom: var(--spacing-lg);
+      line-height: 1.4;
+    }
+
+    /* ── SEARCH CONTAINER ── */
+    .search-band {
+      background-color: var(--canvas-soft);
+      padding: 0 var(--spacing-lg) var(--spacing-xl);
+    }
+
+    .search-wrapper {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+
+    .search-input {
+      flex: 1;
+      padding: var(--spacing-md) var(--spacing-lg);
+      font-size: 16px;
+      font-weight: 400;
+      font-family: Inter, sans-serif;
+      border: 1px solid var(--ink);
+      border-radius: 12px;
+      background-color: var(--canvas);
+      color: var(--ink);
+      height: 48px;
+    }
+
+    .search-input::placeholder {
+      color: var(--mute);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1);
+    }
+
+    .btn-search {
+      padding: var(--spacing-md) var(--spacing-xl);
+      background-color: var(--primary);
+      color: var(--ink);
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      height: 48px;
+      min-width: 48px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-search:hover {
+      background-color: var(--primary-active);
+    }
+
+    .btn-search:active {
+      background-color: var(--positive-deep);
+    }
+
+    .btn-search:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    }
+
+    /* ── CONTENT BAND ── */
+    .content-band {
+      background-color: var(--canvas);
+      padding: var(--spacing-3xl) var(--spacing-lg);
+    }
+
+    .section-headline {
+      font-size: 32px;
+      font-weight: 900;
+      font-family: Inter, sans-serif;
+      margin-bottom: var(--spacing-2xl);
+      color: var(--ink);
+      letter-spacing: -0.96px;
+    }
+
+    /* ── HECHO VITAL CARD ── */
+    .hecho-vital-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+
+    .hecho-vital-card {
+      background-color: var(--primary-pale);
+      padding: var(--spacing-xl);
+      border-radius: 24px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .hecho-vital-card:hover {
+      background-color: var(--primary-neutral);
+      transform: translateY(-2px);
+    }
+
+    .hecho-vital-card.empty {
+      background-color: var(--canvas-soft);
+      color: var(--mute);
+    }
+
+    .hecho-vital-card.empty:hover {
+      background-color: #f5f5f3;
+    }
+
+    .hecho-vital-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .hecho-vital-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .hecho-vital-count {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary-pale);
+      background-color: var(--positive-deep);
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    .hecho-vital-count.empty {
+      color: var(--mute);
+      background-color: transparent;
+    }
+
+    .hecho-vital-description {
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.5;
+    }
+
+    /* ── TRAMITES LIST (expandible) ── */
+    .tramites-list {
+      display: none;
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-lg);
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .tramites-list.active {
+      display: block;
+    }
+
+    .tramite-row {
+      padding: var(--spacing-md) 0;
+      font-size: 14px;
+      color: var(--body);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .tramite-row:last-child {
+      border-bottom: none;
+    }
+
+    .tramite-name {
+      flex: 1;
+      color: var(--ink-deep);
+      font-weight: 500;
+    }
+
+    .tramite-badge {
+      font-size: 11px;
+      font-weight: 600;
+      background-color: var(--primary);
+      color: var(--ink);
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-left: var(--spacing-sm);
+      text-transform: capitalize;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      padding: var(--spacing-3xl) var(--spacing-lg);
+      text-align: center;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: var(--spacing-lg);
+      opacity: 0.5;
+    }
+
+    .empty-state-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background-color: var(--ink);
+      color: var(--canvas-soft);
+      padding: var(--spacing-3xl) var(--spacing-lg);
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ── UTILITIES ── */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .skiplink {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background-color: var(--primary);
+      color: var(--ink);
+      padding: 8px 16px;
+      text-decoration: none;
+      z-index: 101;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .skiplink:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+  <div class="container">
+    <!-- NAV BAR -->
+    <nav class="nav-bar">
+      <div class="nav-logo">A <span class="primary-text">la</span> Primera</div>
+      <button class="hamburger" aria-label="Menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <!-- HERO BAND -->
+    <section class="hero-band">
+      <h1 class="hero-headline">Tu trámite</h1>
+      <p class="hero-subheadline">Con tus papeles, sin sorpresas</p>
+    </section>
+
+    <!-- SEARCH BAND -->
+    <div class="search-band">
+      <div class="search-wrapper">
+        <input
+          type="text"
+          class="search-input"
+          id="searchInput"
+          placeholder="Lo del carnet de mi hijo…"
+          aria-label="Busca tu trámite"
+        >
+        <button class="btn-search" aria-label="Buscar">Ir</button>
+      </div>
+    </div>
+
+    <!-- CONTENT BAND -->
+    <main class="content-band" id="main-content">
+      <h2 class="section-headline">Según lo que estés viviendo</h2>
+
+      <div class="hecho-vital-grid" id="hechosList">
+        <!-- Documentos base -->
+        <div class="hecho-vital-card" onclick="toggleTramites(this)">
+          <div class="hecho-vital-header">
+            <h3 class="hecho-vital-title">Documentos base</h3>
+            <span class="hecho-vital-count">7</span>
+          </div>
+          <p class="hecho-vital-description">DNI, pasaporte, certificados</p>
+          <div class="tramites-list">
+            <div class="tramite-row">
+              <span class="tramite-name">Renovar el carnet de identidad</span>
+              <span class="tramite-badge">Estatal</span>
+            </div>
+            <div class="tramite-row">
+              <span class="tramite-name">El pasaporte</span>
+              <span class="tramite-badge">Estatal</span>
+            </div>
+            <div class="tramite-row">
+              <span class="tramite-name">El primer DNI (de un niño)</span>
+              <span class="tramite-badge">Estatal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nace un hijo -->
+        <div class="hecho-vital-card" onclick="toggleTramites(this)">
+          <div class="hecho-vital-header">
+            <h3 class="hecho-vital-title">Nace un hijo</h3>
+            <span class="hecho-vital-count">4</span>
+          </div>
+          <p class="hecho-vital-description">Inscripción, certificados, prestaciones</p>
+          <div class="tramites-list">
+            <div class="tramite-row">
+              <span class="tramite-name">Inscribir al recién nacido</span>
+              <span class="tramite-badge">Estatal</span>
+            </div>
+            <div class="tramite-row">
+              <span class="tramite-name">El certificado de nacimiento</span>
+              <span class="tramite-badge">Estatal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empieza el cole -->
+        <div class="hecho-vital-card" onclick="toggleTramites(this)">
+          <div class="hecho-vital-header">
+            <h3 class="hecho-vital-title">Empieza el cole</h3>
+            <span class="hecho-vital-count">2</span>
+          </div>
+          <p class="hecho-vital-description">Admisión, becas, documentación</p>
+          <div class="tramites-list">
+            <div class="tramite-row">
+              <span class="tramite-name">Beca de comedor (Madrid)</span>
+              <span class="tramite-badge">Madrid</span>
+            </div>
+            <div class="tramite-row">
+              <span class="tramite-name">Beca de comedor (Aragón)</span>
+              <span class="tramite-badge">Aragón</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conducir -->
+        <div class="hecho-vital-card" onclick="toggleTramites(this)">
+          <div class="hecho-vital-header">
+            <h3 class="hecho-vital-title">Conducir y el coche</h3>
+            <span class="hecho-vital-count">3</span>
+          </div>
+          <p class="hecho-vital-description">Carnet de conducir, matriculación</p>
+          <div class="tramites-list">
+            <div class="tramite-row">
+              <span class="tramite-name">Sacarse el carnet de conducir</span>
+              <span class="tramite-badge">Estatal</span>
+            </div>
+            <div class="tramite-row">
+              <span class="tramite-name">Matricular un vehículo</span>
+              <span class="tramite-badge">Estatal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fallece un familiar -->
+        <div class="hecho-vital-card" onclick="toggleTramites(this)">
+          <div class="hecho-vital-header">
+            <h3 class="hecho-vital-title">Fallece un familiar</h3>
+            <span class="hecho-vital-count">3</span>
+          </div>
+          <p class="hecho-vital-description">Certificados, seguros, pensiones</p>
+          <div class="tramites-list">
+            <div class="tramite-row">
+              <span class="tramite-name">Certificado de defunción</span>
+              <span class="tramite-badge">Estatal</span>
+            </div>
+            <div class="tramite-row">
+              <span class="tramite-name">Saber qué seguros tenía</span>
+              <span class="tramite-badge">Estatal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cuido de un mayor (sin fichas aún) -->
+        <div class="hecho-vital-card empty">
+          <div class="hecho-vital-header">
+            <h3 class="hecho-vital-title">Cuido de un mayor</h3>
+            <span class="hecho-vital-count empty">Próximamente</span>
+          </div>
+          <p class="hecho-vital-description">Dependencia, tarjeta sanitaria</p>
+        </div>
+
+        <!-- Empiezo a trabajar (sin fichas aún) -->
+        <div class="hecho-vital-card empty">
+          <div class="hecho-vital-header">
+            <h3 class="hecho-vital-title">Empiezo a trabajar</h3>
+            <span class="hecho-vital-count empty">Próximamente</span>
+          </div>
+          <p class="hecho-vital-description">Seguridad Social, Hacienda</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      © 2026 A la Primera · <a href="#">Privacidad</a> · <a href="#">Sobre nosotros</a>
+    </footer>
+  </div>
+
+  <script>
+    function toggleTramites(card) {
+      const list = card.querySelector('.tramites-list');
+      if (list) {
+        list.classList.toggle('active');
+      }
+    }
+
+    // Búsqueda en tiempo real
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      if (query.length > 0) {
+        document.querySelector('.content-band').innerHTML = `
+          <h2 class="section-headline">Resultados para "<span style="color: var(--primary);">${query}</span>"</h2>
+          <div class="empty-state">
+            <div class="empty-state-icon">🔍</div>
+            <div class="empty-state-title">Aún no lo tenemos</div>
+            <div class="empty-state-text">
+              Preferimos decirte claro antes que inventar. Estamos ampliando el catálogo poco a poco, siempre verificando cada ficha contra la fuente oficial.
+            </div>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

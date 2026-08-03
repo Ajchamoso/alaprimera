@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renovar el carnet de identidad · A la Primera</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Identidad: EL SELLO. Tokens de app/globals.css */
+      --papel: #efebe2;
+      --hoja: #f7f4ee;
+      --tinta: #24221f;
+      --tinta-media: #635c52;
+      --tinta-tenue: #726957;
+      --linea: #d8d1c4;
+      --sello: #5a3a82;
+      --sello-suave: #ede6f3;
+      --pendiente: #a8342b;
+      --pendiente-suave: #f7e7e4;
+
+      --sans: "IBM Plex Sans", -apple-system, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+      --cond: "IBM Plex Sans Condensed", sans-serif;
+
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 12px;
+      --sp-lg: 16px;
+      --sp-xl: 24px;
+      --sp-2xl: 32px;
+      --sp-3xl: 48px;
+    }
+
+    html, body {
+      font-family: var(--sans);
+      background-color: var(--papel);
+      color: var(--tinta);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Maqueta en viewport móvil de 375px */
+    .container {
+      width: 375px;
+      margin: 0 auto;
+      background: var(--papel);
+      overflow-x: hidden;
+      min-height: 100vh;
+      border-left: 1px solid var(--linea);
+      border-right: 1px solid var(--linea);
+    }
+
+    /* ── BARRA SUPERIOR ── */
+    .barra-superior {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--papel);
+      border-bottom: 1px solid var(--linea);
+      padding: var(--sp-md) var(--sp-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+    }
+
+    .volver {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--tinta);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: -12px;
+    }
+
+    .volver svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    .titulo-pantalla {
+      flex: 1;
+      font-family: var(--cond);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      margin: 0 var(--sp-md);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hueco {
+      width: 44px;
+    }
+
+    /* ── CABECERA ── */
+    .cabecera {
+      padding: var(--sp-xl) var(--sp-lg);
+      border-bottom: 1px solid var(--linea);
+    }
+
+    .etiqueta-hecho {
+      display: inline-block;
+      font-family: var(--cond);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--sello);
+      background-color: var(--sello-suave);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: var(--sp-md);
+    }
+
+    .nombre-coloquial {
+      font-family: var(--cond);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: var(--sp-xs);
+    }
+
+    .nombre-oficial {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--tinta-tenue);
+    }
+
+    /* ── EL SELLO DE VERIFICACIÓN (elemento firma) ── */
+    .zona-sello {
+      display: flex;
+      justify-content: center;
+      padding: var(--sp-xl) var(--sp-lg) var(--sp-sm);
+    }
+
+    .sello-verificacion {
+      display: inline-block;
+      padding: var(--sp-sm) var(--sp-lg);
+      border: 2px solid var(--sello);
+      outline: 1px solid var(--sello);
+      outline-offset: 2px;
+      transform: rotate(-2deg);
+      text-align: center;
+      color: var(--sello);
+    }
+
+    .sello-verificacion .palabra {
+      font-family: var(--cond);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .sello-verificacion .fecha {
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .nota-sello {
+      text-align: center;
+      font-size: 13px;
+      color: var(--tinta-media);
+      padding: var(--sp-sm) var(--sp-xl) var(--sp-lg);
+      line-height: 1.5;
+    }
+
+    .nota-sello a {
+      color: var(--sello);
+      text-decoration: underline;
+    }
+
+    /* ── CONTENIDO ── */
+    .contenido {
+      padding: var(--sp-lg) var(--sp-lg) var(--sp-2xl);
+    }
+
+    /* ── TARJETAS ── */
+    .tarjeta {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+      margin-bottom: var(--sp-lg);
+    }
+
+    .tarjeta-titulo {
+      font-family: var(--cond);
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--sp-md);
+    }
+
+    .descripcion {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── FICHA DE DATOS ── */
+    .fila-dato {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--sp-md);
+      padding: var(--sp-md) 0;
+      border-bottom: 1px solid var(--linea);
+    }
+
+    .fila-dato:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .dato-clave {
+      font-family: var(--cond);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--tinta-tenue);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+    }
+
+    .dato-valor {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--tinta);
+      text-align: right;
+    }
+
+    .dato-valor a {
+      color: var(--sello);
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    /* ── AVISO ── */
+    .aviso {
+      background-color: var(--pendiente-suave);
+      border: 1px solid var(--pendiente);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+      margin-bottom: var(--sp-lg);
+    }
+
+    .aviso-titulo {
+      font-family: var(--cond);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--pendiente);
+      margin-bottom: var(--sp-xs);
+    }
+
+    .aviso-texto {
+      font-size: 14px;
+      color: var(--tinta);
+      line-height: 1.5;
+    }
+
+    /* ── CANALES ── */
+    .canales {
+      margin-bottom: var(--sp-lg);
+    }
+
+    .canales-intro {
+      font-size: 14px;
+      color: var(--tinta-media);
+      margin-bottom: var(--sp-md);
+      line-height: 1.5;
+    }
+
+    .rejilla-canales {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-md);
+    }
+
+    .canal {
+      background-color: var(--hoja);
+      border: 1px solid var(--linea);
+      border-radius: 8px;
+      padding: var(--sp-lg);
+      text-align: center;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--tinta);
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--sp-sm);
+    }
+
+    .canal svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      color: var(--tinta-media);
+    }
+
+    .canal.elegido {
+      border: 2px solid var(--sello);
+      background-color: var(--sello-suave);
+      padding: calc(var(--sp-lg) - 1px);
+    }
+
+    .canal.elegido svg {
+      color: var(--sello);
+    }
+
+    .canal:focus-visible {
+      outline: 2px solid var(--sello);
+      outline-offset: 2px;
+    }
+
+    /* ── BOTÓN PRINCIPAL ── */
+    .boton-principal {
+      width: 100%;
+      padding: var(--sp-md) var(--sp-xl);
+      background-color: var(--sello);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: var(--sans);
+      cursor: pointer;
+      height: 48px;
+      margin-bottom: var(--sp-lg);
+    }
+
+    .boton-principal:focus-visible {
+      outline: 2px solid var(--tinta);
+      outline-offset: 2px;
+    }
+
+    /* ── PIE ── */
+    .pie {
+      background-color: var(--papel);
+      border-top: 1px solid var(--linea);
+      color: var(--tinta-media);
+      padding: var(--sp-xl) var(--sp-lg);
+      font-size: 12px;
+      font-family: var(--mono);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .pie a {
+      color: var(--sello);
+      text-decoration: underline;
+    }
+
+    /* ── UTILIDADES ── */
+    .skiplink {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background-color: var(--sello);
+      color: #fff;
+      padding: 8px 16px;
+      text-decoration: none;
+      z-index: 101;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .skiplink:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="#contenido" class="skiplink">Saltar al contenido principal</a>
+
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <g id="icono-volver" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 5 8 12l6.5 7"/>
+      </g>
+      <g id="icono-ordenador" fill="none" stroke-width="1.5" stroke-linecap="round">
+        <rect x="4" y="5" width="16" height="11" rx="1"/>
+        <path d="M8 20h8M12 16v4"/>
+      </g>
+      <g id="icono-edificio" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20h16M5 20V9h14v11M3 9h18M12 4 4.5 9h15L12 4z"/>
+        <path d="M8 20v-7M12 20v-7M16 20v-7"/>
+      </g>
+    </defs>
+  </svg>
+
+  <div class="container">
+    <!-- BARRA SUPERIOR -->
+    <nav class="barra-superior">
+      <button class="volver" aria-label="Volver al catálogo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-volver"/></svg>
+      </button>
+      <div class="titulo-pantalla">Ficha del trámite</div>
+      <div class="hueco"></div>
+    </nav>
+
+    <!-- CABECERA -->
+    <header class="cabecera">
+      <span class="etiqueta-hecho">Documentos base</span>
+      <h1 class="nombre-coloquial">Renovar el carnet de identidad</h1>
+      <p class="nombre-oficial">Renovación del DNI · Policía Nacional</p>
+    </header>
+
+    <!-- EL SELLO: el estado de verificación se estampa, no es un badge -->
+    <div class="zona-sello">
+      <div class="sello-verificacion" role="status" aria-label="Ficha verificada el 17 de julio de 2026">
+        <div class="palabra">Verificado</div>
+        <div class="fecha">17/07/2026</div>
+      </div>
+    </div>
+    <p class="nota-sello">
+      Una persona cotejó esta ficha contra la
+      <a href="#">fuente oficial</a>. Nada de lo que ves lo ha generado una IA.
+    </p>
+
+    <!-- CONTENIDO -->
+    <main class="contenido" id="contenido">
+      <!-- DESCRIPCIÓN -->
+      <div class="tarjeta">
+        <p class="descripcion">
+          Renovar el DNI cuando está caducado, a punto de caducar, se ha deteriorado
+          o has perdido el anterior. Hay que ir en persona y con cita previa a una
+          oficina de expedición.
+        </p>
+      </div>
+
+      <!-- FICHA DE DATOS -->
+      <div class="tarjeta">
+        <h2 class="tarjeta-titulo">La ficha</h2>
+        <div class="fila-dato">
+          <span class="dato-clave">Nivel</span>
+          <span class="dato-valor">estatal</span>
+        </div>
+        <div class="fila-dato">
+          <span class="dato-clave">Canales</span>
+          <span class="dato-valor">online · presencial</span>
+        </div>
+        <div class="fila-dato">
+          <span class="dato-clave">Plazo</span>
+          <span class="dato-valor">todo el año</span>
+        </div>
+        <div class="fila-dato">
+          <span class="dato-clave">Tasa</span>
+          <span class="dato-valor">12,00 €</span>
+        </div>
+        <div class="fila-dato">
+          <span class="dato-clave">Fuente oficial</span>
+          <span class="dato-valor"><a href="#" aria-label="Abrir dnielectronico.es">dnielectronico.es</a></span>
+        </div>
+      </div>
+
+      <!-- CANALES -->
+      <div class="canales">
+        <h2 class="tarjeta-titulo">¿Cómo lo vas a hacer?</h2>
+        <p class="canales-intro">
+          Elige el canal y verás exactamente qué llevar o qué preparar.
+        </p>
+        <div class="rejilla-canales">
+          <button class="canal" aria-label="Elegir hacerlo online" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-ordenador"/></svg>
+            <span>Online</span>
+          </button>
+          <button class="canal" aria-label="Elegir hacerlo en persona" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icono-edificio"/></svg>
+            <span>En persona</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- AVISO -->
+      <div class="aviso">
+        <div class="aviso-titulo">Hay que ir en persona</div>
+        <div class="aviso-texto">
+          La entrega de documentos y la toma de huellas se hacen en la oficina: este
+          trámite no se puede completar entero por internet.
+        </div>
+      </div>
+
+      <!-- ACCIÓN PRINCIPAL -->
+      <button class="boton-principal" aria-label="Empezar a preparar este trámite">
+        Preparar este trámite
+      </button>
+    </main>
+
+    <!-- PIE -->
+    <footer class="pie">
+      © 2026 A la Primera · <a href="#">Privacidad</a> · <a href="#">Avisar de un error</a>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelector('.volver').addEventListener('click', () => window.history.back());
+
+    // Selección de canal: el estado no es solo color (borde + fondo + aria-pressed)
+    document.querySelectorAll('.canal').forEach(boton => {
+      boton.addEventListener('click', () => {
+        document.querySelectorAll('.canal').forEach(c => {
+          c.classList.remove('elegido');
+          c.setAttribute('aria-pressed', 'false');
+        });
+        boton.classList.add('elegido');
+        boton.setAttribute('aria-pressed', 'true');
+      });
+    });
+  </script>
+</body>
+</html>

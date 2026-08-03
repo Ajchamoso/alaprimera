@@ -1,9 +1,14 @@
 # DESIGN.md: A la Primera
 
-> Contrapropuesta al DESIGN.md derivado de Wise (rama `feat/design`). Misma estructura de
+> Contrapropuesta al primer DESIGN.md de la rama `feat/design`. Misma estructura de
 > documento y mismas 5 pantallas; la identidad visual es la que ya está decidida y en producción
 > en `app/globals.css` y `docs/plan.md` §4bis. Nombre y colores quedan fijados aquí para el resto
 > del reto, como pide el Sprint 2.
+>
+> Las tres versiones por las que pasó el diseño, pantalla a pantalla, en
+> [`comparador.html`](comparador.html). Las maquetas de la v1 y de la v2 se guardan en
+> `pantallas-v1/` y `pantallas-v2/`, para que la comparación siga funcionando cuando esas
+> ramas desaparezcan.
 
 ## La idea
 

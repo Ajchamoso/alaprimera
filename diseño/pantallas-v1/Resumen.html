@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preparación — A la Primera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Brand & Accent */
+      --primary: #9fe870;
+      --primary-active: #cdffad;
+      --primary-neutral: #c5edab;
+      --primary-pale: #e2f6d5;
+
+      /* Surface */
+      --canvas: #ffffff;
+      --canvas-soft: #e8ebe6;
+
+      /* Text */
+      --ink: #0e0f0c;
+      --ink-deep: #163300;
+      --body: #454745;
+      --mute: #868685;
+
+      /* Semantic */
+      --positive: #2ead4b;
+      --positive-deep: #054d28;
+      --warning: #ffd11a;
+      --warning-deep: #b86700;
+      --warning-content: #4a3b1c;
+      --negative: #d03238;
+
+      /* Spacing */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --spacing-xl: 24px;
+      --spacing-2xl: 32px;
+      --spacing-3xl: 48px;
+    }
+
+    html, body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--canvas-soft);
+      color: var(--ink);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Mobile viewport: 375px width */
+    .container {
+      width: 375px;
+      margin: 0 auto;
+      background: var(--canvas-soft);
+      overflow-x: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--canvas);
+      border-bottom: 1px solid #f0f0f0;
+      padding: var(--spacing-md) var(--spacing-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+    }
+
+    .nav-back {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--ink);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-title {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: center;
+      margin: 0 var(--spacing-md);
+    }
+
+    .nav-spacer {
+      width: 44px;
+    }
+
+    /* ── HERO BAND ── */
+    .hero-band {
+      background: linear-gradient(135deg, var(--primary-pale) 0%, #f0f9e6 100%);
+      padding: var(--spacing-3xl) var(--spacing-lg) var(--spacing-2xl);
+    }
+
+    .hero-headline {
+      font-size: 28px;
+      font-weight: 900;
+      font-family: Inter, sans-serif;
+      line-height: 1.2;
+      color: var(--ink);
+      letter-spacing: -0.6px;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .hero-subheadline {
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.5;
+    }
+
+    /* ── CONTENT BAND ── */
+    .content-band {
+      background-color: var(--canvas);
+      padding: var(--spacing-3xl) var(--spacing-lg);
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: var(--spacing-xl);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .section-icon {
+      font-size: 16px;
+    }
+
+    /* ── CHANNEL GRID ── */
+    .channel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-3xl);
+    }
+
+    .channel-card {
+      background-color: var(--canvas);
+      padding: var(--spacing-lg);
+      border-radius: 24px;
+      text-align: center;
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: Inter, sans-serif;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .channel-card:hover {
+      background-color: var(--primary-pale);
+      border-color: var(--primary);
+    }
+
+    .channel-card:active {
+      background-color: var(--primary);
+      color: var(--ink);
+    }
+
+    .channel-card.selected {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--ink);
+    }
+
+    .channel-card:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    }
+
+    .channel-icon {
+      font-size: 28px;
+      margin-bottom: var(--spacing-sm);
+      line-height: 1;
+    }
+
+    .channel-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: inherit;
+    }
+
+    /* ── PREPARATION SECTION ── */
+    .prep-section {
+      display: none;
+      margin-bottom: var(--spacing-3xl);
+    }
+
+    .prep-section.active {
+      display: block;
+    }
+
+    .prep-headline {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    /* ── CARD LIST ── */
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .prep-card {
+      background-color: var(--primary-pale);
+      border-radius: 16px;
+      padding: var(--spacing-lg);
+      display: flex;
+      gap: var(--spacing-lg);
+      align-items: flex-start;
+    }
+
+    .prep-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .prep-content {
+      flex: 1;
+    }
+
+    .prep-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .prep-description {
+      font-size: 13px;
+      color: var(--body);
+      line-height: 1.4;
+    }
+
+    /* ── WARNING BANNER ── */
+    .info-banner {
+      background-color: rgba(255, 209, 26, 0.25);
+      padding: var(--spacing-lg);
+      border-radius: 24px;
+      margin-bottom: var(--spacing-3xl);
+      border: 1px solid rgba(255, 209, 26, 0.5);
+    }
+
+    .info-banner-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--warning-content);
+      margin-bottom: 4px;
+    }
+
+    .info-banner-text {
+      font-size: 12px;
+      color: var(--warning-content);
+      line-height: 1.5;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background-color: var(--canvas-soft);
+      padding: var(--spacing-2xl) var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background-color: var(--primary);
+      color: var(--ink);
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      height: 48px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-active);
+    }
+
+    .btn-primary:active {
+      background-color: var(--positive-deep);
+    }
+
+    .btn-primary:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background-color: var(--canvas);
+      color: var(--ink);
+      border: 1px solid var(--mute);
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      height: 48px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      background-color: var(--primary-pale);
+    }
+
+    .btn-secondary:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1), inset 0 0 0 2px var(--ink);
+    }
+
+    /* ── UTILITIES ── */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .skiplink {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background-color: var(--primary);
+      color: var(--ink);
+      padding: 8px 16px;
+      text-decoration: none;
+      z-index: 101;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .skiplink:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+
+  <div class="container">
+    <!-- NAV BAR -->
+    <nav class="nav-bar">
+      <button class="nav-back" aria-label="Volver">‹</button>
+      <div class="nav-title">Preparación</div>
+      <div class="nav-spacer"></div>
+    </nav>
+
+    <!-- HERO BAND -->
+    <section class="hero-band">
+      <h1 class="hero-headline">Antes de empezar</h1>
+      <p class="hero-subheadline">Elige cómo vas a hacerlo para ver qué necesitas</p>
+    </section>
+
+    <!-- CONTENT BAND -->
+    <main class="content-band" id="main-content">
+      <!-- CHANNEL SELECTION -->
+      <div class="section-title">
+        <span class="section-icon">🎯</span>
+        <span>¿Cómo prefieres hacerlo?</span>
+      </div>
+
+      <div class="channel-grid">
+        <button class="channel-card" id="btn-online" aria-label="Elegir Online">
+          <div class="channel-icon">💻</div>
+          <div class="channel-name">Online</div>
+        </button>
+        <button class="channel-card" id="btn-presencial" aria-label="Elegir Presencial">
+          <div class="channel-icon">🏛️</div>
+          <div class="channel-name">Presencial</div>
+        </button>
+      </div>
+
+      <!-- ONLINE PREPARATION -->
+      <div class="prep-section" id="prep-online">
+        <h2 class="prep-headline">Qué necesitas para empezar</h2>
+        <div class="card-list">
+          <div class="prep-card">
+            <div class="prep-icon">📱</div>
+            <div class="prep-content">
+              <div class="prep-label">Un dispositivo con internet</div>
+              <div class="prep-description">Ordenador, tablet o móvil con conexión estable</div>
+            </div>
+          </div>
+          <div class="prep-card">
+            <div class="prep-icon">📄</div>
+            <div class="prep-content">
+              <div class="prep-label">Documentos digitales</div>
+              <div class="prep-description">Ten a mano copias escaneadas de tus papeles</div>
+            </div>
+          </div>
+          <div class="prep-card">
+            <div class="prep-icon">⏱️</div>
+            <div class="prep-content">
+              <div class="prep-label">30-45 minutos</div>
+              <div class="prep-description">Tiempo estimado para completar el trámite</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFO BANNER -->
+        <div class="info-banner" style="margin-top: var(--spacing-2xl); margin-bottom: 0;">
+          <div class="info-banner-title">💡 Consejo</div>
+          <div class="info-banner-text">
+            Abre el navegador en pestaña privada. Algunos trámites requieren una sesión limpia.
+          </div>
+        </div>
+      </div>
+
+      <!-- PRESENCIAL PREPARATION -->
+      <div class="prep-section" id="prep-presencial">
+        <h2 class="prep-headline">Qué llevar</h2>
+        <div class="card-list">
+          <div class="prep-card">
+            <div class="prep-icon">🆔</div>
+            <div class="prep-content">
+              <div class="prep-label">Documentación original</div>
+              <div class="prep-description">DNI, pasaporte o documento válido que te identifique</div>
+            </div>
+          </div>
+          <div class="prep-card">
+            <div class="prep-icon">📋</div>
+            <div class="prep-content">
+              <div class="prep-label">Formularios impresos</div>
+              <div class="prep-description">Descarga e imprime los formularios necesarios</div>
+            </div>
+          </div>
+          <div class="prep-card">
+            <div class="prep-icon">📍</div>
+            <div class="prep-content">
+              <div class="prep-label">La dirección de la oficina</div>
+              <div class="prep-description">Anota bien dónde tienes que ir y a qué hora</div>
+            </div>
+          </div>
+          <div class="prep-card">
+            <div class="prep-icon">⏱️</div>
+            <div class="prep-content">
+              <div class="prep-label">15-20 minutos antes</div>
+              <div class="prep-description">Llega con tiempo para completar la gestión</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFO BANNER -->
+        <div class="info-banner" style="margin-top: var(--spacing-2xl); margin-bottom: 0;">
+          <div class="info-banner-title">⚠️ Importante</div>
+          <div class="info-banner-text">
+            Algunos organismos cierran a la hora de comer. Verifica el horario antes de ir.
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- CTA SECTION -->
+    <div class="cta-section">
+      <button class="btn-primary" id="btn-continue" aria-label="Continuar">
+        Continuar
+      </button>
+      <button class="btn-secondary" id="btn-back-alt" aria-label="Volver">
+        Volver
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const btnOnline = document.getElementById('btn-online');
+    const btnPresencial = document.getElementById('btn-presencial');
+    const prepOnline = document.getElementById('prep-online');
+    const prepPresencial = document.getElementById('prep-presencial');
+    const btnContinue = document.getElementById('btn-continue');
+    let selectedChannel = null;
+
+    // Channel selection
+    btnOnline.addEventListener('click', () => {
+      selectedChannel = 'online';
+      updateChannelSelection();
+      showPreparation('online');
+    });
+
+    btnPresencial.addEventListener('click', () => {
+      selectedChannel = 'presencial';
+      updateChannelSelection();
+      showPreparation('presencial');
+    });
+
+    function updateChannelSelection() {
+      btnOnline.classList.remove('selected');
+      btnPresencial.classList.remove('selected');
+
+      if (selectedChannel === 'online') {
+        btnOnline.classList.add('selected');
+      } else if (selectedChannel === 'presencial') {
+        btnPresencial.classList.add('selected');
+      }
+    }
+
+    function showPreparation(channel) {
+      prepOnline.classList.remove('active');
+      prepPresencial.classList.remove('active');
+
+      if (channel === 'online') {
+        prepOnline.classList.add('active');
+      } else if (channel === 'presencial') {
+        prepPresencial.classList.add('active');
+      }
+    }
+
+    // Back button
+    document.querySelector('.nav-back').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    // Continue button
+    btnContinue.addEventListener('click', () => {
+      if (selectedChannel) {
+        console.log('Continuar con canal:', selectedChannel);
+        // En una app real, navegar al siguiente paso
+      }
+    });
+
+    // Back button alternative
+    document.getElementById('btn-back-alt').addEventListener('click', () => {
+      window.history.back();
+    });
+  </script>
+</body>
+</html>

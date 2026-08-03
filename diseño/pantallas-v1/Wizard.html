@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wizard de personalización — A la Primera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Brand & Accent */
+      --primary: #9fe870;
+      --primary-active: #cdffad;
+      --primary-neutral: #c5edab;
+      --primary-pale: #e2f6d5;
+
+      /* Surface */
+      --canvas: #ffffff;
+      --canvas-soft: #e8ebe6;
+
+      /* Text */
+      --ink: #0e0f0c;
+      --ink-deep: #163300;
+      --body: #454745;
+      --mute: #868685;
+
+      /* Semantic */
+      --positive: #2ead4b;
+      --positive-deep: #054d28;
+      --warning: #ffd11a;
+      --warning-deep: #b86700;
+      --warning-content: #4a3b1c;
+      --negative: #d03238;
+
+      /* Spacing */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --spacing-xl: 24px;
+      --spacing-2xl: 32px;
+      --spacing-3xl: 48px;
+    }
+
+    html, body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--canvas-soft);
+      color: var(--ink);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Mobile viewport: 375px width */
+    .container {
+      width: 375px;
+      margin: 0 auto;
+      background: var(--canvas-soft);
+      overflow-x: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV BAR ── */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--canvas);
+      border-bottom: 1px solid #f0f0f0;
+      padding: var(--spacing-md) var(--spacing-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+    }
+
+    .nav-back {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--ink);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-title {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: center;
+      margin: 0 var(--spacing-md);
+    }
+
+    .nav-spacer {
+      width: 44px;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-container {
+      background-color: var(--canvas);
+      padding: var(--spacing-lg) var(--spacing-lg);
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background-color: #f0f0f0;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .progress-text {
+      font-size: 12px;
+      color: var(--mute);
+      font-weight: 600;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── CONTENT BAND ── */
+    .content-band {
+      flex: 1;
+      background-color: var(--canvas-soft);
+      padding: var(--spacing-3xl) var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ── QUESTION SECTION ── */
+    .question-section {
+      display: none;
+    }
+
+    .question-section.active {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xl);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .question-headline {
+      font-size: 28px;
+      font-weight: 900;
+      font-family: Inter, sans-serif;
+      line-height: 1.2;
+      color: var(--ink);
+      letter-spacing: -0.6px;
+    }
+
+    .question-subheadline {
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.5;
+    }
+
+    /* ── OPTIONS CONTAINER ── */
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .option-button {
+      background-color: var(--canvas);
+      border: 2px solid transparent;
+      border-radius: 24px;
+      padding: var(--spacing-lg) var(--spacing-xl);
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+    }
+
+    .option-button:hover {
+      background-color: var(--primary-pale);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .option-button:active {
+      background-color: var(--primary-neutral);
+      border-color: var(--primary);
+    }
+
+    .option-button.selected {
+      background-color: var(--primary);
+      color: var(--ink);
+      border-color: var(--primary);
+    }
+
+    .option-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    }
+
+    .option-icon {
+      font-size: 20px;
+      margin-right: var(--spacing-lg);
+      flex-shrink: 0;
+    }
+
+    .option-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .option-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: inherit;
+    }
+
+    .option-description {
+      font-size: 12px;
+      color: var(--body);
+      font-weight: 400;
+    }
+
+    .option-button.selected .option-description {
+      color: var(--ink);
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-xl);
+    }
+
+    .btn-back {
+      flex: 1;
+      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--canvas);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      height: 48px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-back:hover {
+      background-color: var(--canvas-soft);
+      border-color: var(--mute);
+    }
+
+    .btn-back:active {
+      background-color: #f0f0f0;
+    }
+
+    .btn-back:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1), inset 0 0 0 2px var(--ink);
+    }
+
+    .btn-next {
+      flex: 1;
+      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--primary);
+      color: var(--ink);
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      height: 48px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-next:hover:not(:disabled) {
+      background-color: var(--primary-active);
+    }
+
+    .btn-next:active:not(:disabled) {
+      background-color: var(--positive-deep);
+    }
+
+    .btn-next:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    }
+
+    .btn-next:disabled {
+      background-color: var(--canvas-soft);
+      color: var(--mute);
+      cursor: not-allowed;
+    }
+
+    /* ── COMPLETION STATE ── */
+    .completion-section {
+      display: none;
+      flex-direction: column;
+      gap: var(--spacing-xl);
+      text-align: center;
+      justify-content: center;
+    }
+
+    .completion-section.active {
+      display: flex;
+    }
+
+    .completion-icon {
+      font-size: 64px;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .completion-headline {
+      font-size: 28px;
+      font-weight: 900;
+      font-family: Inter, sans-serif;
+      line-height: 1.2;
+      color: var(--ink);
+      letter-spacing: -0.6px;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .completion-text {
+      font-size: 16px;
+      color: var(--body);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .btn-start-checklist {
+      width: 100%;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background-color: var(--primary);
+      color: var(--ink);
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      height: 48px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-start-checklist:hover {
+      background-color: var(--primary-active);
+    }
+
+    .btn-start-checklist:active {
+      background-color: var(--positive-deep);
+    }
+
+    .btn-start-checklist:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.3), inset 0 0 0 2px var(--ink);
+    }
+
+    /* ── UTILITIES ── */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .skiplink {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background-color: var(--primary);
+      color: var(--ink);
+      padding: 8px 16px;
+      text-decoration: none;
+      z-index: 101;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .skiplink:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skiplink">Saltar a contenido principal</a>
+
+  <div class="container">
+    <!-- NAV BAR -->
+    <nav class="nav-bar">
+      <button class="nav-back" aria-label="Volver">‹</button>
+      <div class="nav-title">Mi personalización</div>
+      <div class="nav-spacer"></div>
+    </nav>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText">Pregunta 1 de 4</div>
+    </div>
+
+    <!-- CONTENT BAND -->
+    <main class="content-band" id="main-content">
+      <!-- QUESTION 1: ¿Para quién? -->
+      <div class="question-section active" id="question-1">
+        <div>
+          <h1 class="question-headline">¿Para quién es?</h1>
+          <p class="question-subheadline">Esto nos ayuda a personalizar los requisitos</p>
+        </div>
+
+        <div class="options-container" id="options-1">
+          <button class="option-button" data-option="yo-mismo">
+            <span class="option-icon">👤</span>
+            <span class="option-text">
+              <span class="option-label">Para mí</span>
+              <span class="option-description">Yo soy quien lo solicita</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="hijo">
+            <span class="option-icon">👶</span>
+            <span class="option-text">
+              <span class="option-label">Para mi hijo/a</span>
+              <span class="option-description">Es un menor a cargo</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="pareja">
+            <span class="option-icon">👥</span>
+            <span class="option-text">
+              <span class="option-label">Para mi pareja</span>
+              <span class="option-description">Mi cónyuge o conviviente</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="otro">
+            <span class="option-icon">🔗</span>
+            <span class="option-text">
+              <span class="option-label">Para otra persona</span>
+              <span class="option-description">Familiar u otro</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- QUESTION 2: ¿Cuándo? -->
+      <div class="question-section" id="question-2">
+        <div>
+          <h1 class="question-headline">¿Cuándo lo necesitas?</h1>
+          <p class="question-subheadline">Así priorizamos los trámites más rápidos</p>
+        </div>
+
+        <div class="options-container" id="options-2">
+          <button class="option-button" data-option="urgente">
+            <span class="option-icon">⚡</span>
+            <span class="option-text">
+              <span class="option-label">Urgente</span>
+              <span class="option-description">Esta semana o antes</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="proximas-semanas">
+            <span class="option-icon">📅</span>
+            <span class="option-text">
+              <span class="option-label">Próximas semanas</span>
+              <span class="option-description">Dentro de este mes</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="mes-proximo">
+            <span class="option-icon">📆</span>
+            <span class="option-text">
+              <span class="option-label">Mes que viene</span>
+              <span class="option-description">En los próximos 2 meses</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="sin-prisa">
+            <span class="option-icon">☕</span>
+            <span class="option-text">
+              <span class="option-label">Sin prisa</span>
+              <span class="option-description">Cuando me venga bien</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- QUESTION 3: ¿Dónde? -->
+      <div class="question-section" id="question-3">
+        <div>
+          <h1 class="question-headline">¿Dónde prefieres?</h1>
+          <p class="question-subheadline">Online o presencial, tú tienes la palabra</p>
+        </div>
+
+        <div class="options-container" id="options-3">
+          <button class="option-button" data-option="internet">
+            <span class="option-icon">💻</span>
+            <span class="option-text">
+              <span class="option-label">Desde casa (online)</span>
+              <span class="option-description">Por internet, sin salir</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="presencial">
+            <span class="option-icon">🏛️</span>
+            <span class="option-text">
+              <span class="option-label">En una oficina</span>
+              <span class="option-description">Ir en persona a una sede</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="indiferente">
+            <span class="option-icon">↔️</span>
+            <span class="option-text">
+              <span class="option-label">Me da igual</span>
+              <span class="option-description">Cualquier forma me vale</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- QUESTION 4: ¿Algo más? -->
+      <div class="question-section" id="question-4">
+        <div>
+          <h1 class="question-headline">¿Algo más que sepamos?</h1>
+          <p class="question-subheadline">Adaptamos el checklist a tu situación</p>
+        </div>
+
+        <div class="options-container" id="options-4">
+          <button class="option-button" data-option="tengo-ayuda">
+            <span class="option-icon">🤝</span>
+            <span class="option-text">
+              <span class="option-label">Voy a pedir ayuda</span>
+              <span class="option-description">Con un gestor o asesor</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="voy-solo">
+            <span class="option-icon">💪</span>
+            <span class="option-text">
+              <span class="option-label">Voy solo</span>
+              <span class="option-description">Me defiendo por mi cuenta</span>
+            </span>
+          </button>
+          <button class="option-button" data-option="necesito-asesoramiento">
+            <span class="option-icon">❓</span>
+            <span class="option-text">
+              <span class="option-label">Necesito asesoramiento</span>
+              <span class="option-description">Quiero que alguien me oriente</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- COMPLETION STATE -->
+      <div class="completion-section" id="completion">
+        <div class="completion-icon">✓</div>
+        <h1 class="completion-headline">¡Listo!</h1>
+        <p class="completion-text">
+          Ya tenemos tu perfil. Ahora te mostraremos solo lo que necesitas para tu situación.
+        </p>
+        <button class="btn-start-checklist" aria-label="Empezar mi checklist personalizado">
+          Empezar mi checklist
+        </button>
+      </div>
+
+      <!-- NAVIGATION BUTTONS -->
+      <div class="cta-section" id="nav-buttons">
+        <button class="btn-back" id="btnBack" aria-label="Pregunta anterior">Atrás</button>
+        <button class="btn-next" id="btnNext" aria-label="Siguiente pregunta" disabled>Siguiente</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const totalQuestions = 4;
+    let currentQuestion = 1;
+    const answers = {};
+
+    // Update progress bar
+    function updateProgress() {
+      const progress = (currentQuestion - 1) / totalQuestions * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+      document.getElementById('progressText').textContent = `Pregunta ${currentQuestion} de ${totalQuestions}`;
+    }
+
+    // Show question
+    function showQuestion(number) {
+      // Hide all questions
+      document.querySelectorAll('.question-section').forEach(q => {
+        q.classList.remove('active');
+      });
+
+      // Show current question
+      document.getElementById(`question-${number}`).classList.add('active');
+
+      // Update buttons
+      document.getElementById('btnBack').style.display = number === 1 ? 'none' : 'block';
+
+      if (number === totalQuestions) {
+        document.getElementById('btnNext').textContent = 'Finalizar';
+      } else {
+        document.getElementById('btnNext').textContent = 'Siguiente';
+      }
+
+      // Disable/enable next button
+      updateNextButtonState();
+
+      // Update selected option visual
+      updateSelectedOptions(number);
+
+      updateProgress();
+    }
+
+    // Update next button state
+    function updateNextButtonState() {
+      const selected = document.querySelector(
+        `#options-${currentQuestion} .option-button.selected`
+      );
+      document.getElementById('btnNext').disabled = !selected;
+    }
+
+    // Update selected options visual
+    function updateSelectedOptions(number) {
+      const options = document.querySelectorAll(`#options-${number} .option-button`);
+      options.forEach(btn => {
+        btn.classList.remove('selected');
+        if (answers[`q${number}`] === btn.dataset.option) {
+          btn.classList.add('selected');
+        }
+      });
+    }
+
+    // Handle option selection
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.option-button')) {
+        const btn = e.target.closest('.option-button');
+        const questionId = `q${currentQuestion}`;
+
+        // Remove previous selection from this question
+        btn.parentElement.querySelectorAll('.option-button').forEach(b => {
+          b.classList.remove('selected');
+        });
+
+        // Select this option
+        btn.classList.add('selected');
+        answers[questionId] = btn.dataset.option;
+
+        updateNextButtonState();
+      }
+    });
+
+    // Navigation
+    document.getElementById('btnBack').addEventListener('click', () => {
+      if (currentQuestion > 1) {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+        window.scrollTo(0, 0);
+      }
+    });
+
+    document.getElementById('btnNext').addEventListener('click', () => {
+      if (currentQuestion < totalQuestions) {
+        currentQuestion++;
+        showQuestion(currentQuestion);
+        window.scrollTo(0, 0);
+      } else {
+        // Complete wizard
+        showCompletion();
+      }
+    });
+
+    function showCompletion() {
+      document.querySelectorAll('.question-section').forEach(q => {
+        q.classList.remove('active');
+      });
+      document.getElementById('completion').classList.add('active');
+      document.getElementById('nav-buttons').style.display = 'none';
+
+      console.log('Respuestas del usuario:', answers);
+    }
+
+    // Back button
+    document.querySelector('.nav-back').addEventListener('click', () => {
+      window.history.back();
+    });
+
+    // Start checklist button
+    document.querySelector('.btn-start-checklist').addEventListener('click', () => {
+      console.log('Iniciar checklist con personalización:', answers);
+      // En una app real, navegar al checklist
+    });
+
+    // Initialize
+    updateProgress();
+  </script>
+</body>
+</html>
