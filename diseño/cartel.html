@@ -18,7 +18,6 @@
     --sello: #5a3a82;
     --sello-suave: #ede6f3;
     --pendiente: #a8342b;
-    --pendiente-suave: #f7e7e4;
     --borrador: #83571c;
     --borrador-suave: #f5ead6;
 
@@ -27,7 +26,6 @@
     --cond: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
 
     --ancho-cartel: 1240px;
-    --col-pantalla: 230px;
   }
 
   * { box-sizing: border-box; }
@@ -66,7 +64,6 @@
     font-family: var(--cond);
     font-size: 2.5rem;
     font-weight: 700;
-    letter-spacing: 0.01em;
     line-height: 1;
   }
 
@@ -82,7 +79,6 @@
     color: var(--tinta-tenue);
   }
 
-  /* El elemento firma del sistema: caja girada, filete doble, condensada en caja alta. */
   .sello-estampado {
     flex-shrink: 0;
     padding: 10px 18px;
@@ -114,14 +110,14 @@
 
   .entradilla {
     margin: 24px 0 0;
-    max-width: 78ch;
+    max-width: 82ch;
     font-size: 1.0625rem;
     color: var(--tinta-media);
   }
 
   .entradilla strong { color: var(--tinta); font-weight: 600; }
 
-  /* ── RÓTULOS DE SECCIÓN ── */
+  /* ── RÓTULOS ── */
   .rotulo-seccion {
     margin: 40px 0 4px;
     font-family: var(--cond);
@@ -141,11 +137,12 @@
     color: var(--tinta-tenue);
   }
 
-  /* ── TARJETAS DE "QUÉ HEMOS HECHO" ── */
+  /* ── TARJETAS ── */
   .tarjetas {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
+    align-items: start;
   }
 
   .tarjetas-3 { grid-template-columns: repeat(3, 1fr); }
@@ -178,63 +175,179 @@
     color: var(--tinta-media);
   }
 
-  .tarjeta code {
+  .tarjeta code, .nota code {
     font-family: var(--mono);
     font-size: 0.8125rem;
     color: var(--tinta);
   }
 
-  /* ── LAS PANTALLAS ── */
-  .grupo { margin-bottom: 28px; }
-
-  .grupo-titulo {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    margin: 0 0 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--linea);
+  /* ── EL TELÉFONO ──
+     Chasis dibujado en CSS, sin imágenes: bisel oscuro en el tono de la tinta,
+     pantalla recortada y la isla sobre una franja de estado del color del papel,
+     para que no tape la barra superior de la app. */
+  .telefono {
+    position: relative;
+    padding: 9px;
+    background: linear-gradient(158deg, #443f38 0%, #26231f 38%, #16150f 100%);
+    border-radius: 34px;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+      0 3px 10px rgba(36, 34, 31, 0.28);
   }
 
-  .grupo-numero {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: #fff;
-    background-color: var(--sello);
-    padding: 3px 8px;
-    border-radius: 4px;
+  .telefono .visor {
+    position: relative;
+    overflow: hidden;
+    border-radius: 26px;
+    background-color: var(--papel);
   }
 
-  .grupo-nombre {
-    font-family: var(--cond);
-    font-size: 1.0625rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+  .telefono .franja-estado {
+    height: 26px;
+    background-color: var(--papel);
   }
 
-  .tira-pantallas {
+  .telefono .isla {
+    position: absolute;
+    z-index: 3;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 68px;
+    height: 17px;
+    background-color: #16150f;
+    border-radius: 10px;
+  }
+
+  .telefono img {
+    display: block;
+    width: 100%;
+    height: var(--alto-visor);
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* Se degrada hacia el papel por abajo en vez de cortar en seco. */
+  .telefono .visor::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 52px;
+    background: linear-gradient(to bottom, rgba(239, 235, 226, 0), var(--papel));
+  }
+
+  /* ── BANDA DE LA PANTALLA ESTRELLA ── */
+  .banda-estrella {
     display: grid;
-    grid-template-columns: repeat(5, var(--col-pantalla));
-    gap: 20px;
-  }
-
-  /* La nota rellena las columnas que dejan libres las pantallas del bloque, para que
-     la fila no quede coja, y de paso cuenta qué resuelve el bloque. */
-  .nota-grupo {
-    align-self: stretch;
-    padding: 20px;
-    background-color: var(--hoja);
-    border: 1px solid var(--linea);
+    grid-template-columns: 340px 1fr;
+    gap: 32px;
+    padding: 28px;
+    background-color: var(--sello-suave);
+    border: 2px solid var(--sello);
     border-radius: 8px;
   }
 
-  .nota-grupo.ancha-3 { grid-column: span 3; }
-  .nota-grupo.ancha-2 { grid-column: span 2; }
+  .banda-estrella .columna-telefono { position: relative; }
 
-  .nota-grupo h4 {
+  /* Ajustado para que el teléfono acabe a la misma altura que su columna de texto. */
+  .banda-estrella .telefono { --alto-visor: 485px; }
+
+  /* Llamadas numeradas, como en una hoja de anotaciones. El número es el orden en el
+     que aparecen bajando por la pantalla, no una posición dibujada encima. */
+  .rotulo-llamadas {
+    margin: 18px 0 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--sello);
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sello);
+  }
+
+  .llamadas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .llamada {
+    display: flex;
+    gap: 10px;
+  }
+
+  .llamada .num {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background-color: var(--sello);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  .llamada .titulo {
+    display: block;
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  .llamada .detalle {
+    display: block;
+    margin-top: 1px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--tinta-media);
+  }
+
+  /* El estampado sale del bisel y se apoya sobre él: es el elemento firma del
+     sistema, y aquí hace de chincheta. */
+  .cinta-estrella {
+    position: absolute;
+    z-index: 4;
+    top: -14px;
+    left: -14px;
+    transform: rotate(-4deg);
+    padding: 7px 14px;
+    background-color: var(--papel);
+    border: 2px solid var(--sello);
+    outline: 1px solid var(--sello);
+    outline-offset: 3px;
+    font-family: var(--cond);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--sello);
+    white-space: nowrap;
+  }
+
+  .banda-estrella .nombre-estrella {
+    margin: 0 0 2px;
+    font-family: var(--cond);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .banda-estrella .ruta {
+    margin: 0 0 16px;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--tinta-tenue);
+  }
+
+  .bloque-texto h4 {
     margin: 0 0 4px;
     font-family: var(--cond);
     font-size: 0.9375rem;
@@ -244,87 +357,63 @@
     color: var(--sello);
   }
 
-  .nota-grupo h4 + p { margin-top: 0; }
+  .bloque-texto h4 + p { margin-top: 0; }
 
-  .nota-grupo p {
+  .bloque-texto p {
     margin: 0 0 16px;
     font-size: 0.9375rem;
     color: var(--tinta-media);
   }
 
-  .nota-grupo p:last-child { margin-bottom: 0; }
+  .bloque-texto p:last-child { margin-bottom: 0; }
 
-  .nota-grupo strong { color: var(--tinta); font-weight: 600; }
+  .bloque-texto strong { color: var(--tinta); font-weight: 600; }
+
+  .bloque-texto ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.9375rem;
+    color: var(--tinta-media);
+  }
+
+  .bloque-texto li { margin-bottom: 8px; }
+  .bloque-texto li:last-child { margin-bottom: 0; }
+
+  /* ── LAS OTRAS CUATRO ── */
+  .tira-pantallas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: start;
+  }
+
+  .tira-pantallas .telefono { --alto-visor: 420px; }
 
   .pantalla { margin: 0; }
 
-  .pantalla .marco {
-    position: relative;
-    height: 430px;
-    overflow: hidden;
-    background-color: var(--hoja);
-    border: 1px solid var(--linea);
-    border-radius: 8px;
-  }
+  .pantalla figcaption { padding: 12px 4px 0; }
 
-  .pantalla.estrella .marco {
-    border: 2px solid var(--sello);
-    box-shadow: 0 0 0 4px var(--sello-suave);
-  }
-
-  .pantalla img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-  }
-
-  /* Se degrada hacia el papel por abajo en vez de cortar en seco. */
-  .pantalla .marco::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 56px;
-    background: linear-gradient(to bottom, rgba(247, 244, 238, 0), var(--hoja));
-  }
-
-  .marca-estrella {
-    position: absolute;
-    z-index: 2;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    padding: 4px 10px;
-    background-color: var(--papel);
-    border: 2px solid var(--sello);
-    outline: 1px solid var(--sello);
-    outline-offset: 2px;
-    font-family: var(--cond);
-    font-size: 0.6875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+  .pantalla .paso {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     color: var(--sello);
-    white-space: nowrap;
   }
-
-  .pantalla figcaption { padding-top: 10px; }
 
   .pantalla .nombre {
     display: block;
+    margin-top: 2px;
     font-family: var(--cond);
-    font-size: 1rem;
+    font-size: 1.0625rem;
     font-weight: 700;
   }
 
   .pantalla .pie {
     display: block;
-    margin-top: 3px;
-    font-size: 0.8125rem;
-    line-height: 1.4;
+    margin-top: 4px;
+    font-size: 0.875rem;
+    line-height: 1.45;
     color: var(--tinta-media);
   }
 
@@ -334,6 +423,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 16px;
     margin-top: 32px;
+    align-items: start;
   }
 
   .bloque-cierre {
@@ -341,11 +431,6 @@
     background-color: var(--sello-suave);
     border: 1px solid var(--sello);
     border-radius: 8px;
-  }
-
-  .bloque-cierre.deuda {
-    background-color: var(--borrador-suave);
-    border-color: var(--borrador);
   }
 
   .bloque-cierre h3 {
@@ -358,11 +443,9 @@
     color: var(--sello);
   }
 
-  .bloque-cierre.deuda h3 { color: var(--borrador); }
-
   .bloque-cierre p {
     margin: 0;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     color: var(--tinta);
   }
 
@@ -387,7 +470,8 @@
   @media (max-width: 1000px) {
     .cartel { padding: 24px; }
     .cabecera { flex-direction: column; }
-    .tarjetas { grid-template-columns: repeat(2, 1fr); }
+    .tarjetas, .tarjetas-3 { grid-template-columns: repeat(2, 1fr); }
+    .banda-estrella { grid-template-columns: 1fr; }
     .tira-pantallas { grid-template-columns: repeat(2, 1fr); }
     .cierre { grid-template-columns: 1fr; }
   }
@@ -447,88 +531,156 @@
 
     <div class="tarjeta">
       <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 3l7 3v5c0 4.2-2.9 7.9-7 9-4.1-1.1-7-4.8-7-9V6z"></path>
-        <path d="M9 12l2 2 4-4"></path>
+        <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5"></path>
+        <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5"></path>
       </svg>
-      <h3>Nada se lo inventa una IA</h3>
-      <p>Cada ficha se extrae de la fuente oficial con su cita, y la sella una persona después de cotejarla. Si nadie la ha mirado todavía, se estampa «SIN VERIFICAR».</p>
+      <h3>Cada dato con su fuente</h3>
+      <p>Ningún requisito se genera al vuelo. Cada uno sale de la página oficial del organismo, con su cita literal y el enlace a la fuente en la propia ficha, para que puedas comprobarlo tú.</p>
     </div>
   </div>
 
-  <h2 class="rotulo-seccion">Las 5 pantallas del MVP</h2>
+  <h2 class="rotulo-seccion">La pantalla estrella</h2>
+  <p class="rotulo-apoyo">Detalle de trámite · la que aporta el valor de verdad</p>
+
+  <div class="banda-estrella">
+    <div class="columna-telefono">
+      <span class="cinta-estrella">Pantalla estrella</span>
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Detalle de trámite.jpg" alt="Ficha del trámite con los datos oficiales, la fuente y el sello de revisión">
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque-texto">
+      <p class="nombre-estrella">Detalle de trámite</p>
+      <p class="ruta">Home · Buscador → <strong>Detalle</strong> → Wizard → Checklist</p>
+
+      <h4>Qué resuelve</h4>
+      <p>Saber si esta es de verdad tu ficha y qué te va a pedir, <strong>antes</strong> de invertir tiempo en preparar nada.</p>
+
+      <h4>Por qué importa</h4>
+      <p>Es donde el usuario decide si sigue, y es la pantalla que más trabajo ahorra. Reúne en un sitio lo que normalmente está repartido entre tres páginas de la administración: qué es el trámite, a quién aplica, cuánto cuesta, qué plazo tiene, por qué canales se puede hacer y de qué página oficial sale cada dato. Sin PDF, sin buscar en el pie de página y sin tener que interpretar nada.</p>
+
+      <p class="rotulo-llamadas">Qué trae la pantalla, de arriba abajo</p>
+
+      <div class="llamadas">
+        <div class="llamada">
+          <span class="num">1</span>
+          <span>
+            <span class="titulo">El nombre en tu idioma</span>
+            <span class="detalle">«Renovar el carnet de identidad», con el nombre administrativo debajo y en pequeño.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">2</span>
+          <span>
+            <span class="titulo">La fecha de la última revisión</span>
+            <span class="detalle">Estampada bajo el título, para que sepas de cuándo es lo que estás leyendo.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">3</span>
+          <span>
+            <span class="titulo">La ficha en pares clave/valor</span>
+            <span class="detalle">Nivel, canales, plazo y tasa. Los datos van en monoespaciada: vienen de un documento.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">4</span>
+          <span>
+            <span class="titulo">La fuente oficial, a un toque</span>
+            <span class="detalle">El enlace a la página del organismo, dentro de la ficha. Puedes comprobarlo tú.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">5</span>
+          <span>
+            <span class="titulo">Los avisos duros, antes del botón</span>
+            <span class="detalle">Si hay que ir en persona sí o sí, se dice ahí y no cuando ya has empezado.</span>
+          </span>
+        </div>
+
+        <div class="llamada">
+          <span class="num">6</span>
+          <span>
+            <span class="titulo">Una sola acción principal</span>
+            <span class="detalle">«Preparar este trámite». El resto de la pantalla es información, no botones.</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="rotulo-seccion">Las otras cuatro pantallas</h2>
   <p class="rotulo-apoyo">Capturas reales de las maquetas, a ancho de móvil</p>
 
-  <div class="grupo">
-    <div class="grupo-titulo">
-      <span class="grupo-numero">001</span>
-      <span class="grupo-nombre">Encontrar el trámite</span>
-    </div>
-    <div class="tira-pantallas">
-      <figure class="pantalla">
-        <div class="marco"><img src="imagenes/Home - Buscador.jpg" alt="Pantalla de inicio con el buscador y el catálogo por hecho vital"></div>
-        <figcaption>
-          <span class="nombre">Home · Buscador</span>
-          <span class="pie">El catálogo se ordena por lo que te está pasando, no por el organigrama del Estado: «nace un hijo», «empieza el cole».</span>
-        </figcaption>
-      </figure>
-
-      <figure class="pantalla estrella">
-        <div class="marco">
-          <span class="marca-estrella">Pantalla estrella</span>
-          <img src="imagenes/Detalle de trámite.jpg" alt="Ficha del trámite con el sello de verificación, los datos oficiales y la fuente">
+  <div class="tira-pantallas">
+    <figure class="pantalla">
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Home - Buscador.jpg" alt="Inicio con el buscador y el catálogo por hecho vital">
         </div>
-        <figcaption>
-          <span class="nombre">Detalle de trámite</span>
-          <span class="pie">La ficha entera y, arriba del todo, el sello con la fecha en que una persona la cotejó. Es lo primero que hay que creerse.</span>
-        </figcaption>
-      </figure>
-
-      <div class="nota-grupo ancha-3">
-        <h4>Qué resuelve</h4>
-        <p>Llegar al trámite correcto sin saber cómo se llama. Nadie busca «renovación del documento nacional de identidad»: busca <strong>«lo del carnet de mi hijo»</strong>. Por eso el catálogo se ordena por lo que te está pasando y no por el organigrama del Estado.</p>
-        <h4>Por qué importa</h4>
-        <p>Si te equivocas de ficha, todo lo que venga después está mal. Antes de pedirte un solo dato, la ficha te enseña de dónde ha salido: el organismo, el enlace a la fuente oficial y si una persona la ha cotejado o no.</p>
       </div>
-    </div>
-  </div>
+      <figcaption>
+        <span class="paso">001 · ENCONTRARLO</span>
+        <span class="nombre">Home · Buscador</span>
+        <span class="pie">El catálogo se ordena por lo que te está pasando, no por el organigrama del Estado: «nace un hijo», «empieza el cole».</span>
+      </figcaption>
+    </figure>
 
-  <div class="grupo">
-    <div class="grupo-titulo">
-      <span class="grupo-numero">002</span>
-      <span class="grupo-nombre">Prepararlo sin sorpresas</span>
-    </div>
-    <div class="tira-pantallas">
-      <figure class="pantalla">
-        <div class="marco"><img src="imagenes/Wizard.jpg" alt="Wizard con la primera de las cuatro preguntas"></div>
-        <figcaption>
-          <span class="nombre">Wizard</span>
-          <span class="pie">Cuatro preguntas sobre tu caso: para quién es, cuándo lo necesitas, por qué canal y si te acompaña alguien.</span>
-        </figcaption>
-      </figure>
-
-      <figure class="pantalla">
-        <div class="marco"><img src="imagenes/Resumen.jpg" alt="Pantalla de preparación para elegir canal"></div>
-        <figcaption>
-          <span class="nombre">Resumen</span>
-          <span class="pie">Eliges cómo y dónde vas a hacerlo, por internet o en persona, antes de ver la lista que te toca a ti.</span>
-        </figcaption>
-      </figure>
-
-      <figure class="pantalla">
-        <div class="marco"><img src="imagenes/Checklist.jpg" alt="Lista de papeles agrupada por secciones con casillas"></div>
-        <figcaption>
-          <span class="nombre">Checklist</span>
-          <span class="pie">Los papeles agrupados por sección, con el progreso guardado. Los datos oficiales van en monoespaciada: vienen de un documento.</span>
-        </figcaption>
-      </figure>
-
-      <div class="nota-grupo ancha-2">
-        <h4>Qué resuelve</h4>
-        <p>Convertir una ficha que vale para todo el mundo en <strong>la lista concreta de tu caso</strong>.</p>
-        <h4>Por qué importa</h4>
-        <p>Aquí se gana o se pierde el viaje a la ventanilla. Un requisito que solo aplica a menores no tiene por qué salirte si el trámite es para ti, y un trámite que esconde otro trámite tiene que avisarte antes, no cuando ya estás en la cola.</p>
+    <figure class="pantalla">
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Wizard.jpg" alt="Wizard con la primera de las cuatro preguntas">
+        </div>
       </div>
-    </div>
+      <figcaption>
+        <span class="paso">002 · PREPARARLO</span>
+        <span class="nombre">Wizard</span>
+        <span class="pie">Cuatro preguntas sobre tu caso: para quién es, cuándo lo necesitas, por qué canal y si te acompaña alguien.</span>
+      </figcaption>
+    </figure>
+
+    <figure class="pantalla">
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Resumen.jpg" alt="Pantalla de preparación para elegir el canal">
+        </div>
+      </div>
+      <figcaption>
+        <span class="paso">002 · PREPARARLO</span>
+        <span class="nombre">Resumen</span>
+        <span class="pie">Eliges cómo y dónde vas a hacerlo, por internet o en persona, antes de ver la lista que te toca a ti.</span>
+      </figcaption>
+    </figure>
+
+    <figure class="pantalla">
+      <div class="telefono">
+        <div class="visor">
+          <span class="isla"></span>
+          <div class="franja-estado"></div>
+          <img src="imagenes/Checklist.jpg" alt="Lista de papeles agrupada por secciones con casillas">
+        </div>
+      </div>
+      <figcaption>
+        <span class="paso">002 · PREPARARLO</span>
+        <span class="nombre">Checklist</span>
+        <span class="pie">Los papeles por secciones y el progreso guardado. Al marcarlo todo aparece «Lo tienes todo», que es el momento para el que existe la app.</span>
+      </figcaption>
+    </figure>
   </div>
 
   <h2 class="rotulo-seccion">Cómo lo hemos hecho</h2>
@@ -569,10 +721,10 @@
       <p>Se lee con prisa, se imprime para llevarla encima y la acaban leyendo personas mayores. Por eso el tema es claro fijo y el cuerpo no baja de 16px.</p>
     </div>
 
-    <div class="bloque-cierre deuda">
-      <h3>Lo que viene, y lo que aún no está</h3>
-      <p>El catálogo tiene 22 fichas y otras 22 esperando en el backlog. <strong>Las 22 estampan hoy «SIN VERIFICAR»</strong>, porque ese sello solo se cambia con una persona delante de la fuente oficial.</p>
-      <p>Lo siguiente es justo eso: cotejar las que ya están antes de añadir ninguna más. Preferimos un catálogo pequeño y honesto que uno grande y dudoso.</p>
+    <div class="bloque-cierre">
+      <h3>Lo que viene</h3>
+      <p>El catálogo tiene <strong>22 fichas publicadas</strong> y otras 22 preparadas en el backlog, repartidas en once hechos vitales.</p>
+      <p>Lo siguiente es ampliar cobertura por comunidades autónomas y seguir afinando la calidad de las fichas que ya están, antes que engordar la lista por engordarla.</p>
     </div>
   </div>
 
