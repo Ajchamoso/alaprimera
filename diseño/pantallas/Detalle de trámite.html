@@ -162,7 +162,10 @@
     .zona-sello {
       display: flex;
       justify-content: center;
-      padding: var(--sp-xl) var(--sp-lg) var(--sp-sm);
+      align-items: center;
+      /* Simétrico a propósito: con 24 arriba y 8 abajo el sello quedaba 15px caído
+         dentro de su banda. Si se toca uno, se tocan los dos. */
+      padding: var(--sp-lg);
       background-color: var(--hoja);
       border-bottom: 1px solid var(--linea);
     }
