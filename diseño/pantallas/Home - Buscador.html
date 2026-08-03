@@ -49,9 +49,9 @@
       --ts-3xl: 2rem;        /* 32px */
     }
 
-    html {
-      font-size: 16px;
-    }
+    /* La raíz NO se fija a 16px a propósito: los rem de arriba escalan con el tamaño de
+       letra que cada persona lleve puesto en su navegador. Fijarla anula justo eso, y
+       el público de esta app incluye personas mayores. Es una decisión, no un olvido. */
 
     body {
       font-family: var(--sans);
