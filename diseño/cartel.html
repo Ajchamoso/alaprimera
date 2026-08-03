@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A la Primera · Sprint 2, el diseño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papel: #efebe2;
+    --hoja: #f7f4ee;
+    --linea: #d8d1c4;
+    --tinta: #24221f;
+    --tinta-media: #635c52;
+    --tinta-tenue: #6f6654;
+    --sello: #5a3a82;
+    --sello-suave: #ede6f3;
+    --pendiente: #a8342b;
+    --pendiente-suave: #f7e7e4;
+    --borrador: #83571c;
+    --borrador-suave: #f5ead6;
+
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --cond: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+
+    --ancho-cartel: 1240px;
+    --col-pantalla: 230px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 32px 20px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: #e4dfd4;
+    color: var(--tinta);
+  }
+
+  .cartel {
+    max-width: var(--ancho-cartel);
+    margin: 0 auto;
+    padding: 40px;
+    background-color: var(--papel);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+  }
+
+  /* ── CABECERA ── */
+  .cabecera {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--linea);
+  }
+
+  .marca-nombre {
+    margin: 0;
+    font-family: var(--cond);
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+
+  .marca-nombre .la { color: var(--sello); }
+
+  .marca-lema {
+    margin: 8px 0 0;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--tinta-tenue);
+  }
+
+  /* El elemento firma del sistema: caja girada, filete doble, condensada en caja alta. */
+  .sello-estampado {
+    flex-shrink: 0;
+    padding: 10px 18px;
+    border: 2px solid var(--sello);
+    outline: 1px solid var(--sello);
+    outline-offset: 3px;
+    transform: rotate(-2deg);
+    text-align: center;
+    color: var(--sello);
+  }
+
+  .sello-estampado .linea-1 {
+    display: block;
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .sello-estampado .linea-2 {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--tinta-media);
+  }
+
+  .entradilla {
+    margin: 24px 0 0;
+    max-width: 78ch;
+    font-size: 1.0625rem;
+    color: var(--tinta-media);
+  }
+
+  .entradilla strong { color: var(--tinta); font-weight: 600; }
+
+  /* ── RÓTULOS DE SECCIÓN ── */
+  .rotulo-seccion {
+    margin: 40px 0 4px;
+    font-family: var(--cond);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .rotulo-apoyo {
+    margin: 0 0 20px;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--tinta-tenue);
+  }
+
+  /* ── TARJETAS DE "QUÉ HEMOS HECHO" ── */
+  .tarjetas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .tarjetas-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .tarjeta {
+    padding: 18px;
+    background-color: var(--hoja);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+  }
+
+  .tarjeta .icono {
+    display: block;
+    width: 26px;
+    height: 26px;
+    margin-bottom: 12px;
+    color: var(--sello);
+  }
+
+  .tarjeta h3 {
+    margin: 0 0 6px;
+    font-family: var(--cond);
+    font-size: 1.0625rem;
+    font-weight: 700;
+  }
+
+  .tarjeta p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--tinta-media);
+  }
+
+  .tarjeta code {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--tinta);
+  }
+
+  /* ── LAS PANTALLAS ── */
+  .grupo { margin-bottom: 28px; }
+
+  .grupo-titulo {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--linea);
+  }
+
+  .grupo-numero {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background-color: var(--sello);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .grupo-nombre {
+    font-family: var(--cond);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .tira-pantallas {
+    display: grid;
+    grid-template-columns: repeat(5, var(--col-pantalla));
+    gap: 20px;
+  }
+
+  /* La nota rellena las columnas que dejan libres las pantallas del bloque, para que
+     la fila no quede coja, y de paso cuenta qué resuelve el bloque. */
+  .nota-grupo {
+    align-self: stretch;
+    padding: 20px;
+    background-color: var(--hoja);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+  }
+
+  .nota-grupo.ancha-3 { grid-column: span 3; }
+  .nota-grupo.ancha-2 { grid-column: span 2; }
+
+  .nota-grupo h4 {
+    margin: 0 0 4px;
+    font-family: var(--cond);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sello);
+  }
+
+  .nota-grupo h4 + p { margin-top: 0; }
+
+  .nota-grupo p {
+    margin: 0 0 16px;
+    font-size: 0.9375rem;
+    color: var(--tinta-media);
+  }
+
+  .nota-grupo p:last-child { margin-bottom: 0; }
+
+  .nota-grupo strong { color: var(--tinta); font-weight: 600; }
+
+  .pantalla { margin: 0; }
+
+  .pantalla .marco {
+    position: relative;
+    height: 430px;
+    overflow: hidden;
+    background-color: var(--hoja);
+    border: 1px solid var(--linea);
+    border-radius: 8px;
+  }
+
+  .pantalla.estrella .marco {
+    border: 2px solid var(--sello);
+    box-shadow: 0 0 0 4px var(--sello-suave);
+  }
+
+  .pantalla img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* Se degrada hacia el papel por abajo en vez de cortar en seco. */
+  .pantalla .marco::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 56px;
+    background: linear-gradient(to bottom, rgba(247, 244, 238, 0), var(--hoja));
+  }
+
+  .marca-estrella {
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    padding: 4px 10px;
+    background-color: var(--papel);
+    border: 2px solid var(--sello);
+    outline: 1px solid var(--sello);
+    outline-offset: 2px;
+    font-family: var(--cond);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--sello);
+    white-space: nowrap;
+  }
+
+  .pantalla figcaption { padding-top: 10px; }
+
+  .pantalla .nombre {
+    display: block;
+    font-family: var(--cond);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .pantalla .pie {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--tinta-media);
+  }
+
+  /* ── CIERRE ── */
+  .cierre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .bloque-cierre {
+    padding: 20px;
+    background-color: var(--sello-suave);
+    border: 1px solid var(--sello);
+    border-radius: 8px;
+  }
+
+  .bloque-cierre.deuda {
+    background-color: var(--borrador-suave);
+    border-color: var(--borrador);
+  }
+
+  .bloque-cierre h3 {
+    margin: 0 0 8px;
+    font-family: var(--cond);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sello);
+  }
+
+  .bloque-cierre.deuda h3 { color: var(--borrador); }
+
+  .bloque-cierre p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--tinta);
+  }
+
+  .bloque-cierre p + p { margin-top: 8px; }
+
+  .pie-cartel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--linea);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--tinta-media);
+  }
+
+  .pie-cartel .etiquetas { color: var(--sello); letter-spacing: 0.06em; }
+
+  @media (max-width: 1000px) {
+    .cartel { padding: 24px; }
+    .cabecera { flex-direction: column; }
+    .tarjetas { grid-template-columns: repeat(2, 1fr); }
+    .tira-pantallas { grid-template-columns: repeat(2, 1fr); }
+    .cierre { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="cartel">
+
+  <header class="cabecera">
+    <div>
+      <p class="marca-nombre">A <span class="la">LA</span> PRIMERA.</p>
+      <p class="marca-lema">Tu trámite, con tus papeles, sin sorpresas</p>
+    </div>
+    <div class="sello-estampado">
+      <span class="linea-1">Sprint 2 · diseño cerrado</span>
+      <span class="linea-2">5 pantallas · 3 versiones</span>
+    </div>
+  </header>
+
+  <p class="entradilla">
+    Un asistente para los trámites con la administración española. Le dices cuál necesitas,
+    responde cuatro preguntas sobre tu caso y te devuelve la lista exacta de papeles que
+    tienes que llevar, en qué orden y de dónde sale cada dato.
+    <strong>La app ya está en pie y se puede tocar</strong>: esto no es solo una maqueta.
+  </p>
+
+  <h2 class="rotulo-seccion">Qué hemos hecho</h2>
+  <p class="rotulo-apoyo">Sprint 2 · el diseño</p>
+
+  <div class="tarjetas">
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="6" width="18" height="12" rx="1"></rect>
+        <path d="M7 10h10M7 14h6"></path>
+      </svg>
+      <h3>La identidad del sello</h3>
+      <p>Papel de expediente, tinta y violeta de caucho. IBM Plex en tres cortes con roles estrictos. Ni un verde, ni un emoji, sin modo oscuro. Todo escrito en <code>DESIGN.md</code>.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="7" height="16" rx="1"></rect>
+        <rect x="14" y="4" width="7" height="16" rx="1"></rect>
+      </svg>
+      <h3>Tres versiones, todas guardadas</h3>
+      <p>El diseño no dio un salto, dio dos. Las tres se comparan pantalla a pantalla en <code>comparador.html</code>, incluida la que descartamos.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3a9 9 0 1 0 9 9"></path>
+        <path d="M12 8v4l3 2"></path>
+      </svg>
+      <h3>Un texto que se puede agrandar</h3>
+      <p>La escala pasa a rem, así que el texto crece con el tamaño de letra que cada cual tenga en su navegador. Los contrastes los vigila un test que falla si un color entra sin pasar AA.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3l7 3v5c0 4.2-2.9 7.9-7 9-4.1-1.1-7-4.8-7-9V6z"></path>
+        <path d="M9 12l2 2 4-4"></path>
+      </svg>
+      <h3>Nada se lo inventa una IA</h3>
+      <p>Cada ficha se extrae de la fuente oficial con su cita, y la sella una persona después de cotejarla. Si nadie la ha mirado todavía, se estampa «SIN VERIFICAR».</p>
+    </div>
+  </div>
+
+  <h2 class="rotulo-seccion">Las 5 pantallas del MVP</h2>
+  <p class="rotulo-apoyo">Capturas reales de las maquetas, a ancho de móvil</p>
+
+  <div class="grupo">
+    <div class="grupo-titulo">
+      <span class="grupo-numero">001</span>
+      <span class="grupo-nombre">Encontrar el trámite</span>
+    </div>
+    <div class="tira-pantallas">
+      <figure class="pantalla">
+        <div class="marco"><img src="imagenes/Home - Buscador.jpg" alt="Pantalla de inicio con el buscador y el catálogo por hecho vital"></div>
+        <figcaption>
+          <span class="nombre">Home · Buscador</span>
+          <span class="pie">El catálogo se ordena por lo que te está pasando, no por el organigrama del Estado: «nace un hijo», «empieza el cole».</span>
+        </figcaption>
+      </figure>
+
+      <figure class="pantalla estrella">
+        <div class="marco">
+          <span class="marca-estrella">Pantalla estrella</span>
+          <img src="imagenes/Detalle de trámite.jpg" alt="Ficha del trámite con el sello de verificación, los datos oficiales y la fuente">
+        </div>
+        <figcaption>
+          <span class="nombre">Detalle de trámite</span>
+          <span class="pie">La ficha entera y, arriba del todo, el sello con la fecha en que una persona la cotejó. Es lo primero que hay que creerse.</span>
+        </figcaption>
+      </figure>
+
+      <div class="nota-grupo ancha-3">
+        <h4>Qué resuelve</h4>
+        <p>Llegar al trámite correcto sin saber cómo se llama. Nadie busca «renovación del documento nacional de identidad»: busca <strong>«lo del carnet de mi hijo»</strong>. Por eso el catálogo se ordena por lo que te está pasando y no por el organigrama del Estado.</p>
+        <h4>Por qué importa</h4>
+        <p>Si te equivocas de ficha, todo lo que venga después está mal. Antes de pedirte un solo dato, la ficha te enseña de dónde ha salido: el organismo, el enlace a la fuente oficial y si una persona la ha cotejado o no.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grupo">
+    <div class="grupo-titulo">
+      <span class="grupo-numero">002</span>
+      <span class="grupo-nombre">Prepararlo sin sorpresas</span>
+    </div>
+    <div class="tira-pantallas">
+      <figure class="pantalla">
+        <div class="marco"><img src="imagenes/Wizard.jpg" alt="Wizard con la primera de las cuatro preguntas"></div>
+        <figcaption>
+          <span class="nombre">Wizard</span>
+          <span class="pie">Cuatro preguntas sobre tu caso: para quién es, cuándo lo necesitas, por qué canal y si te acompaña alguien.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="pantalla">
+        <div class="marco"><img src="imagenes/Resumen.jpg" alt="Pantalla de preparación para elegir canal"></div>
+        <figcaption>
+          <span class="nombre">Resumen</span>
+          <span class="pie">Eliges cómo y dónde vas a hacerlo, por internet o en persona, antes de ver la lista que te toca a ti.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="pantalla">
+        <div class="marco"><img src="imagenes/Checklist.jpg" alt="Lista de papeles agrupada por secciones con casillas"></div>
+        <figcaption>
+          <span class="nombre">Checklist</span>
+          <span class="pie">Los papeles agrupados por sección, con el progreso guardado. Los datos oficiales van en monoespaciada: vienen de un documento.</span>
+        </figcaption>
+      </figure>
+
+      <div class="nota-grupo ancha-2">
+        <h4>Qué resuelve</h4>
+        <p>Convertir una ficha que vale para todo el mundo en <strong>la lista concreta de tu caso</strong>.</p>
+        <h4>Por qué importa</h4>
+        <p>Aquí se gana o se pierde el viaje a la ventanilla. Un requisito que solo aplica a menores no tiene por qué salirte si el trámite es para ti, y un trámite que esconde otro trámite tiene que avisarte antes, no cuando ya estás en la cola.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="rotulo-seccion">Cómo lo hemos hecho</h2>
+  <p class="rotulo-apoyo">Todo a base de prompts, con Claude Code</p>
+
+  <div class="tarjetas tarjetas-3">
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 3h9l4 4v14H6z"></path>
+        <path d="M14 3v5h5M9 13h7M9 17h5"></path>
+      </svg>
+      <h3>La spec manda</h3>
+      <p><code>spec.md</code> → <code>plan.md</code> → <code>tasks.md</code> antes de escribir nada. Si la app y la spec no coinciden, se arregla la app.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 7l5 5-5 5M12 17h8"></path>
+      </svg>
+      <h3>Una red que no depende de acordarse</h3>
+      <p>Cada cambio pasa por lint, tipos, 87 tests y build. Uno de esos tests cruza todos los colores de texto contra todos los fondos y falla si alguno no llega a AA.</p>
+    </div>
+
+    <div class="tarjeta">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="15" rx="1"></rect>
+        <path d="M3 8h18M7 12h6"></path>
+      </svg>
+      <h3>Comprobado en un navegador, no a ojo</h3>
+      <p>Las maquetas y las capturas se abren en un navegador de verdad y se miden ahí: ancho de móvil real, sin recortes y sin desbordes.</p>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <div class="bloque-cierre">
+      <h3>Para qué</h3>
+      <p>Para que nadie vuelva de una ventanilla porque le faltaba un papel. Marta lleva los trámites de toda su familia y no tiene por qué saberse el reglamento: la app le dice qué llevar, en qué orden, y le enseña de dónde ha sacado cada dato.</p>
+      <p>Se lee con prisa, se imprime para llevarla encima y la acaban leyendo personas mayores. Por eso el tema es claro fijo y el cuerpo no baja de 16px.</p>
+    </div>
+
+    <div class="bloque-cierre deuda">
+      <h3>Lo que viene, y lo que aún no está</h3>
+      <p>El catálogo tiene 22 fichas y otras 22 esperando en el backlog. <strong>Las 22 estampan hoy «SIN VERIFICAR»</strong>, porque ese sello solo se cambia con una persona delante de la fuente oficial.</p>
+      <p>Lo siguiente es justo eso: cotejar las que ya están antes de añadir ninguna más. Preferimos un catálogo pequeño y honesto que uno grande y dudoso.</p>
+    </div>
+  </div>
+
+  <div class="pie-cartel">
+    <span>alaprimera.vercel.app · construida a base de prompts</span>
+    <span class="etiquetas">#RetoViberano · #Sprint2 · #ALaPrimera</span>
+  </div>
+
+</div>
+</body>
+</html>
