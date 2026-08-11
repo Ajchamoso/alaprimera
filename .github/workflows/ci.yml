@@ -40,3 +40,15 @@ jobs:
       # secretos: verifica que la app compila y prerrenderiza de punta a punta.
       - name: Build
         run: npm run build
+
+      # E2E del viaje de la demo: clic-a-clic del recorrido usuario
+      - name: E2E (viaje de la demo)
+        run: npm run e2e
+
+      - name: Subir reporte HTML de E2E
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
