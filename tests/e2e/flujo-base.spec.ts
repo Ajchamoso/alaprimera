@@ -4,20 +4,31 @@ test.describe('Flujo base de usuario', () => {
   test('Home carga y muestra catálogo', async ({ page }) => {
     await page.goto('/');
 
-    // Verificar que es la home
-    expect(page.url()).toContain('localhost:3000/');
+    // Verificar que es la home (URL correcta)
+    expect(page.url()).toBe('http://localhost:3000/');
 
-    // Debe mostrar título de la app
-    await expect(page.locator('h1, h2').first()).toBeVisible();
+    // Debe mostrar el título principal "Termina tu trámite a la primera"
+    const titulo = page.locator('h1');
+    await expect(titulo).toBeVisible();
+    await expect(titulo).toContainText(/Termina tu trámite/i);
 
-    // Debe haber un campo de búsqueda
-    const busqueda = page.locator('input[type="search"], input[placeholder*="Buscar"]').first();
+    // Debe haber un campo de búsqueda con el placeholder correcto
+    const busqueda = page.locator('input[type="search"]');
     await expect(busqueda).toBeVisible();
+    await expect(busqueda).toHaveAttribute('placeholder', /Escríbelo con tus palabras/i);
 
-    // Debe haber fichas en el catálogo
+    // Debe haber fichas en el catálogo (enlaces a /tramite/*)
     const fichas = page.locator('a[href*="/tramite/"]');
     const countFichas = await fichas.count();
     expect(countFichas).toBeGreaterThan(0);
+
+    // Verificar que hay al menos una tarjeta visible
+    const primeraFicha = fichas.first();
+    await expect(primeraFicha).toBeVisible();
+
+    // Verificar que hay contenido en la tarjeta (nombre de la ficha)
+    const nombreFicha = primeraFicha.locator('h3, h2');
+    await expect(nombreFicha).toBeVisible();
   });
 
   test('Navegación a ficha individual y wizard', async ({ page }) => {
