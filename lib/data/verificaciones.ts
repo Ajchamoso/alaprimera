@@ -18,6 +18,7 @@
  */
 export const verificaciones: Record<string, string> = {
   "beca-comedor-madrid": "2026-08-10",
+  "tarjeta-sanitaria-madrid": "2026-08-11",
 };
 
 /** La fecha en que una persona selló esta ficha, o null si nadie lo ha hecho aún. */
