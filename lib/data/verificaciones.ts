@@ -19,6 +19,16 @@
 export const verificaciones: Record<string, string> = {
   "beca-comedor-madrid": "2026-08-10",
   "tarjeta-sanitaria-madrid": "2026-08-11",
+  "transferencia-vehiculo": "2026-08-11",
+  "carnet-conducir": "2026-08-11",
+  "inscripcion-nacimiento": "2026-08-11",
+  "certificado-nacimiento": "2026-08-11",
+  "certificado-digital-fnmt": "2026-08-11",
+  "clave": "2026-08-11",
+  "apoderamiento": "2026-08-11",
+  "empadronamiento-zaragoza": "2026-08-11",
+  "familia-numerosa-aragon": "2026-08-11",
+  "empadronamiento-madrid": "2026-08-11",
 };
 
 /** La fecha en que una persona selló esta ficha, o null si nadie lo ha hecho aún. */
