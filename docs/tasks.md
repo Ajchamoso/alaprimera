@@ -103,8 +103,7 @@ BD para cuando llegue.
       - [x] **FR-027 (plazos)**: descubierto al curar la beca — su convocatoria cerró el 28/05 y la app
             habría servido una checklist para un trámite no solicitable. Añadido campo `plazo`,
             migración `0002_plazos.sql` y aviso en la ficha.
-- [ ] **T-025** E2E del viaje de la demo en CI (Playwright). **Parcial**: la CI ya corre lint +
-      tipos + tests + build en cada push (ver Fase 6), pero falta el clic-a-clic del recorrido.
+- [x] **T-025** E2E del viaje de la demo en CI (Playwright). *Completado: 10 tests (7 flujo-base + 3 viaje-demo) ejecutándose en CI con Playwright. Corre en cada push y PR con HTML reporting y screenshots de fallos.* ✅ 11/08
 - [ ] **T-026** Ensayo cronometrado de la demo (<3 min) contra producción.
 
 ## Fase 6 — Red de seguridad e infraestructura *(17/07, no estaba planificado)*
