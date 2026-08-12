@@ -36,14 +36,14 @@ test.describe('Flujo base de usuario', () => {
 
     // Cliquear en la primera ficha disponible
     const primeraFicha = page.locator('a[href*="/tramite/"]').first();
-    const fichaUrl = await primeraFicha.getAttribute('href');
     await primeraFicha.click();
 
     // Esperar a que la página cargue
     await page.waitForLoadState('networkidle');
 
-    // Verificar que navegó a la ficha (URL contiene /tramite/)
-    expect(page.url()).toContain('/tramite/');
+    // La navegación es client-side: se espera a que la URL cambie en vez de
+    // afirmarla al instante (el click vuelve antes de que el router empuje).
+    await expect(page).toHaveURL(/\/tramite\//);
 
     // Debe haber un h1 o h2 con el nombre de la ficha
     const titulo = page.locator('h1, h2').first();

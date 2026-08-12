@@ -6,9 +6,9 @@ name: CI
 # tenga que acordarse de comprobarlo.
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
   # Y a mano, con el botón "Run workflow" de la pestaña Actions, sin tener que
   # inventarse un commit para relanzarlo.
   workflow_dispatch:
@@ -41,7 +41,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      # E2E del viaje de la demo: clic-a-clic del recorrido usuario
+      # E2E del viaje de la demo: clic-a-clic del recorrido usuario, contra el
+      # build de producción que dejó el paso anterior. Los navegadores de
+      # Playwright no vienen en el runner: se instalan justo antes de usarse.
+      - name: Instalar navegador de Playwright
+        run: npx playwright install --with-deps chromium
+
       - name: E2E (viaje de la demo)
         run: npm run e2e
 

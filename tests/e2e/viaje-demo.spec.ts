@@ -72,9 +72,10 @@ test.describe('Viaje completo de la demo', () => {
       await checkbox.click();
       await page.waitForTimeout(300);
 
-      // Verificar localStorage se actualizó
+      // Verificar localStorage se actualizó (la clave real del store,
+      // lib/checklist-store.ts)
       const storage = await page.evaluate(() => {
-        return localStorage.getItem('checklists');
+        return localStorage.getItem('alaprimera.checklists.v1');
       });
 
       expect(storage).toBeTruthy();

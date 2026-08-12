@@ -21,9 +21,12 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npm run dev',
+    // Contra el build de producción, no contra `next dev`: en dev cada ruta
+    // compila en su primera visita y el test llega antes de que termine. En CI
+    // el paso Build ya dejó `.next` listo; en local se construye aquí mismo.
+    command: process.env.CI ? 'npm run start' : 'npm run build && npm run start',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    timeout: 180 * 1000,
   },
 });
