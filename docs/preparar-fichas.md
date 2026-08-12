@@ -48,6 +48,21 @@ entre que el mantenimiento sea viable o no lo sea.
 ⚠️ **Aviso de calendario:** las 11 fichas se prepararon el mismo día (17/07), así que **degradarán
 todas a la vez** a mediados de octubre. Antes del directo de septiembre no afecta.
 
+## Hallazgos en la revisión del 10/08/2026
+
+**Fichas verificadas:** 1 de 22 (beca-comedor-madrid ✅)
+
+**Limitación hallada:** Fichas con contenido dinámico o en acordeones (FNMT, DNI) no son accesibles
+vía `curl` + `sed`. El contenido existe en la página pero no se expande sin JavaScript. Esto afecta
+a renovacion-dni, dni-primera-vez, certificado-digital-fnmt, pasaporte, y potencialmente apoderamiento
+(administracion.gob.es que devuelve HTTP 200 con esqueleto).
+
+**Impacto:** La verificación de estas fichas requiere navegador real. Solución:
+- Continuar con fichas accesibles por fetch (beca-comedor-madrid, tarjeta-sanitaria-madrid, etc.)
+- Aparcar las fichas de requisitos técnicos para verificación manual en lote con navegador
+- Estrategia: verificar las estatales (DNI, pasaporte) una sesión diferente cuando se tenga
+  estabilidad del navegador
+
 ## La regla que no se negocia
 
 **La ficha guía; la fuente manda.** Ningún dato entra sin cita literal de la
