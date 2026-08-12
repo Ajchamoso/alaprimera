@@ -8,8 +8,9 @@ identidad visual propia (plan.md §4bis).
 Catálogo de fichas extraídas con cita literal. **Deuda única: el rastreo que coteja las fichas
 contra su fuente** (T-024). Corrección del 03/08: no es "el único paso que no puede hacer una IA";
 cotejar es comparar, y eso se automatiza. Lo que no escala es hacerlo a mano. La Fase 4 (motor en la app) se reenfocó
-a extracción asistida sin API key (R2). Pendiente de humano además: probar el magic link con un
-email real (T-014) y las 4 fichas de la CM confirmar el enlace "firma electrónica reconocida".
+a extracción asistida sin API key (R2). El magic link (T-014) quedó probado con un email real el
+10/08. Pendiente de humano: en las 4 fichas de la CM, confirmar el enlace "firma electrónica
+reconocida".
 
 ## Fase 0 — Esqueleto (semana 1)
 
@@ -35,7 +36,7 @@ email real (T-014) y las 4 fichas de la CM confirmar el enlace "firma electróni
 
 ## Fase 2 — Persistencia real (semana 2)
 
-- [ ] **T-014** Login magic link (Supabase Auth) (FR-011). *Construido y conectado al proyecto real (cliente, middleware, callback, /cuenta); pendiente de probar el ciclo completo pulsando el enlace de un email real — solo el humano puede.*
+- [x] **T-014** Login magic link (Supabase Auth) (FR-011). *Construido y conectado al proyecto real (cliente, middleware, callback, /cuenta). Ciclo completo probado por un humano con un email real: enlace recibido, pulsado y sesión iniciada.* ✅ 10/08
 - [x] **T-015** Merge anónimo→cuenta sin pérdida (FR-012). *Verificado E2E con usuario de prueba confirmado: 3 checklists anónimas subieron a la cuenta con sus marcados intactos; conflicto = gana lo local.* ✅ 17/07
 - [x] **T-016** Multi-dispositivo: checklists en BD con RLS (SC-005). *Verificado: localStorage borrado (dispositivo nuevo) → recarga → las 3 checklists bajan con su progreso exacto; marcar con sesión replica a BD al momento. Diseño sync-through: la UI lee siempre local (offline-first), el espejo replica.* ✅ 17/07
 
@@ -89,17 +90,20 @@ BD para cuando llegue.
 ## Fase 5 — Contenido + pulido (semanas 3-5, paralelo, humano)
 
 - [ ] **T-024** Curar y verificar las 11 fichas contra fuente oficial (empezando por beca → certificado → DNI).
-      **✅ 11 de 11 extraídas con citas el 17/07 — todas ⚠️ pendientes de verificación humana:**
-      - [x] Renovación DNI (re-extraída) · DNI primera vez · Pasaporte
-      - [x] Certificado de nacimiento · Empadronamiento Madrid
-      - [x] Certificado digital FNMT · Cl@ve · Apoderamiento
-      - [x] Tarjeta sanitaria · Familia numerosa · Beca comedor Madrid
+      **11 de 11 extraídas con citas el 17/07. Rastreo de agosto (10-11/08): 22 fuentes revisadas,
+      2 fichas selladas tras cotejo completo de citas.**
+      - [x] Extraídas con citas las 11 del plan; el catálogo creció después hasta 22 fichas.
+      - [x] Rastreo de las 22 fuentes (10-11/08): todas responden; el detalle por ficha está en
+            [pendientes-verificacion.md](./pendientes-verificacion.md).
+      - [x] Selladas con cotejo completo: beca comedor Madrid (8 citas, 10/08) y transferencia de
+            vehículo (plazo y tasas, 11/08).
+      - [ ] Quedan 20 fichas por cotejar en navegador: sus citas viven en acordeones o menús que
+            el rastreo por HTTP no despliega (FR-022: eso lo resuelve una persona).
       - **Cadenas citadas por la fuente**: pasaporte→DNI · DNI primera vez→{certificado nacimiento,
         empadronamiento} · tarjeta sanitaria→empadronamiento · familia numerosa→empadronamiento
       - **El veredicto de Cl@ve es el único citado literalmente**: «no cabe instar registros en
         CL@VE mediante representación por parte de un tercero o apoderado». Corta la cadena
         apoderamiento→Cl@ve, que era justo la salida que ofrecíamos a Marta con su madre.
-      - **⚠️ La verificación humana es ahora la única deuda del proyecto.** 11 fichas sin cotejar.
       - [x] **FR-027 (plazos)**: descubierto al curar la beca — su convocatoria cerró el 28/05 y la app
             habría servido una checklist para un trámite no solicitable. Añadido campo `plazo`,
             migración `0002_plazos.sql` y aviso en la ficha.
