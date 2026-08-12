@@ -6,7 +6,7 @@
 
 ## Resumen
 
-- **Fichas**: 22 (0 verificadas, 22 por verificar)
+- **Fichas**: 22 (2 verificadas, 20 por verificar)
 - **Pendientes** (backlog sin ficha): 22
 - **Total de entradas del catálogo**: 44
 
@@ -16,16 +16,16 @@
 |---|--:|--:|--:|
 | Documentos base | 7 | 0 | 0 |
 | Nace un hijo | 4 | 0 | 1 |
-| Empieza el cole | 2 | 0 | 3 |
+| Empieza el cole | 2 | 1 | 3 |
 | Me mudo de casa | 0 | 0 | 1 |
 | Cuido de un mayor | 3 | 0 | 6 |
 | Empiezo a trabajar | 0 | 0 | 4 |
-| Conducir y el coche | 3 | 0 | 0 |
+| Conducir y el coche | 3 | 1 | 0 |
 | La renta y Hacienda | 0 | 0 | 2 |
 | Fallece un familiar | 3 | 0 | 1 |
 | Me caso | 0 | 0 | 1 |
 | Pido una ayuda | 0 | 0 | 3 |
-| **Total** | **22** | **0** | **22** |
+| **Total** | **22** | **2** | **22** |
 
 ## Fichas
 
@@ -33,7 +33,7 @@
 |---|---|---|---|---|
 | `apoderamiento` | Poder actuar en nombre de otra persona | estatal | España | — por verificar |
 | `beca-comedor-aragon` | La beca de comedor del cole | autonomico | Aragón | — por verificar |
-| `beca-comedor-madrid` | La beca de comedor del cole | autonomico | Comunidad de Madrid | — por verificar |
+| `beca-comedor-madrid` | La beca de comedor del cole | autonomico | Comunidad de Madrid | 2026-08-10 |
 | `carnet-conducir` | Sacarse el carnet de conducir | estatal | España | — por verificar |
 | `certificado-defuncion` | El certificado de defunción | estatal | España | — por verificar |
 | `certificado-digital-fnmt` | El certificado para hacer trámites por internet | estatal | España | — por verificar |
@@ -51,7 +51,7 @@
 | `seguros-fallecimiento` | Saber qué seguros de vida tenía | estatal | España | — por verificar |
 | `tarjeta-sanitaria-aragon` | La tarjeta sanitaria | autonomico | Aragón | — por verificar |
 | `tarjeta-sanitaria-madrid` | La tarjeta sanitaria | autonomico | Comunidad de Madrid | — por verificar |
-| `transferencia-vehiculo` | Cambiar un coche de dueño | estatal | España | — por verificar |
+| `transferencia-vehiculo` | Cambiar un coche de dueño | estatal | España | 2026-08-11 |
 | `ultimas-voluntades` | El certificado de últimas voluntades | estatal | España | — por verificar |
 
 ## Pendientes (backlog)

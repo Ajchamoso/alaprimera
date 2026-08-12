@@ -17,7 +17,8 @@
  * el rastreo la coteje contra su fuente (FR-020b).
  */
 export const verificaciones: Record<string, string> = {
-  // "renovacion-dni": "2026-07-17",
+  "beca-comedor-madrid": "2026-08-10",
+  "transferencia-vehiculo": "2026-08-11",
 };
 
 /** La fecha en que una persona selló esta ficha, o null si nadie lo ha hecho aún. */
