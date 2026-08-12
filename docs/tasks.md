@@ -89,23 +89,24 @@ BD para cuando llegue.
 
 ## Fase 5 — Contenido + pulido (semanas 3-5, paralelo, humano)
 
-- [x] **T-024** Curar y verificar las 11 fichas contra fuente oficial (empezando por beca → certificado → DNI).
-      **✅ 11 de 11 extraídas con citas el 17/07 — 10 verificadas el 11/08:**
-      - [x] Renovación DNI (re-extraída) · DNI primera vez · Pasaporte (ya verificadas en fase anterior)
-      - [x] **Certificado de nacimiento** · **Empadronamiento Madrid** (verificadas 11/08)
-      - [x] **Certificado digital FNMT** · **Cl@ve** · **Apoderamiento** (verificadas 11/08)
-      - [x] **Inscripción de nacimiento** · **Empadronamiento Zaragoza** · **Familia numerosa Aragón** (verificadas 11/08)
-      - ⚠️ Tarjeta sanitaria (Madrid/Aragón) · Familia numerosa Madrid · Beca comedor Madrid — requieren verificación manual (portales regionales)
+- [ ] **T-024** Curar y verificar las 11 fichas contra fuente oficial (empezando por beca → certificado → DNI).
+      **11 de 11 extraídas con citas el 17/07. Rastreo de agosto (10-11/08): 22 fuentes revisadas,
+      2 fichas selladas tras cotejo completo de citas.**
+      - [x] Extraídas con citas las 11 del plan; el catálogo creció después hasta 22 fichas.
+      - [x] Rastreo de las 22 fuentes (10-11/08): todas responden; el detalle por ficha está en
+            [pendientes-verificacion.md](./pendientes-verificacion.md).
+      - [x] Selladas con cotejo completo: beca comedor Madrid (8 citas, 10/08) y transferencia de
+            vehículo (plazo y tasas, 11/08).
+      - [ ] Quedan 20 fichas por cotejar en navegador: sus citas viven en acordeones o menús que
+            el rastreo por HTTP no despliega (FR-022: eso lo resuelve una persona).
       - **Cadenas citadas por la fuente**: pasaporte→DNI · DNI primera vez→{certificado nacimiento,
         empadronamiento} · tarjeta sanitaria→empadronamiento · familia numerosa→empadronamiento
       - **El veredicto de Cl@ve es el único citado literalmente**: «no cabe instar registros en
         CL@VE mediante representación por parte de un tercero o apoderado». Corta la cadena
         apoderamiento→Cl@ve, que era justo la salida que ofrecíamos a Marta con su madre.
-      - **✅ Verificación avanzada (11/08): 10 de 11 fichas verificadas.** Quedan 3 pendientes: tarjeta sanitaria Madrid/Aragón, familia numerosa Madrid, beca comedor Madrid/Aragón.
       - [x] **FR-027 (plazos)**: descubierto al curar la beca — su convocatoria cerró el 28/05 y la app
             habría servido una checklist para un trámite no solicitable. Añadido campo `plazo`,
             migración `0002_plazos.sql` y aviso en la ficha.
-      - [x] **Verificación completa del catálogo (11/08)**: revisadas 22 fichas en total (las 11 del plan + 11 adicionales de DGT, Zaragoza y Aragón). 10 fichas selladas como vigentes.
 - [ ] **T-025** E2E del viaje de la demo en CI (Playwright). **Parcial**: la CI ya corre lint +
       tipos + tests + build en cada push (ver Fase 6), pero falta el clic-a-clic del recorrido.
 - [ ] **T-026** Ensayo cronometrado de la demo (<3 min) contra producción.

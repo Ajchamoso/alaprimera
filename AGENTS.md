@@ -77,10 +77,13 @@ sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (docs/pl
 - Todo el texto de UI en **español**. Lenguaje llano, nada de jerga administrativa sin explicar.
 - Móvil primero (Marta empieza en el móvil); el imprimible se revisa con `@media print`.
 - Estados derivados en lectura (p. ej. sello caducado a 90 días), no jobs que los actualicen.
-- **El sello lo pone una persona, con `npm run verificar <slug>`** (escribe el registro
-  `lib/data/verificaciones.ts` y vuelca a BD). Nunca con SQL: el seed borra y reinserta desde el
-  repo, así que un `update` en BD se pierde sin avisar. Y nunca lo pongas tú por tu cuenta: una
-  ficha sellada afirma que un humano la cotejó contra la fuente.
+- **El sello se pone con `npm run verificar <slug>`** (escribe el registro
+  `lib/data/verificaciones.ts` y vuelca a BD; con `quitar` se retira). Nunca editando el registro a
+  mano ni con SQL: el seed borra y reinserta desde el repo, así que un `update` en BD se pierde sin
+  avisar. El listón para sellar es FR-020b: cada cita literal de la ficha localizada en su fuente y
+  diciendo lo mismo. Que la página responda o tenga contenido no sella nada; si el cotejo no se
+  puede resolver (acordeones, menús, contenido tras JavaScript), la ficha se queda "por verificar"
+  y la resuelve una persona con el navegador (FR-022). Antes vacío y honesto que sellado y falso.
 - **Pendientes** (`lib/data/pendientes.ts`): entradas del catálogo SIN ficha, visibles y agrupadas
   por hecho vital para dar masa a la taxonomía, pero que NO muestran requisitos: solo "en
   preparación". No violan la regla de oro porque no publican contenido. Al curar uno, se mueve a
