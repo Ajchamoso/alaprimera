@@ -14,9 +14,9 @@
 @theme {
   --color-papel: #efebe2; /* fondo: expediente */
   --color-hoja: #f7f4ee; /* tarjetas: la hoja encima del expediente */
-  --color-tinta: #24221f; /* texto principal */
-  --color-tinta-media: #635c52; /* texto secundario */
-  --color-tinta-tenue: #6f6654; /* texto terciario. Oscurecido de #a79e92 para pasar WCAG AA (4.5:1): se usa para info real (subtítulos, notas de caducidad), no solo decoración. Reoscurecido de #726957, que fallaba (4.44) sobre sello-suave: un requisito marcado en la checklist es justo ese par. Ver tests/contraste.test.ts */
+  --color-tinta: #0d0b09; /* texto principal */
+  --color-tinta-media: #3d3530; /* texto secundario */
+  --color-tinta-tenue: #4d4540; /* texto terciario. Oscurecido para pasar WCAG AA (mínimo 7.68:1): se usa para info real (subtítulos, notas de caducidad), no solo decoración. Ver tests/contraste.test.ts */
   --color-linea: #d8d1c4; /* filetes y bordes */
   --color-sello: #5a3a82; /* violeta de sello: verificado, acento */
   --color-sello-suave: #ede6f3; /* fondo del acento */
