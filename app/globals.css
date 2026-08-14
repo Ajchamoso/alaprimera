@@ -20,7 +20,7 @@
   --color-linea: #d8d1c4; /* filetes y bordes */
   --color-sello: #5a3a82; /* violeta de sello: verificado, acento */
   --color-sello-suave: #ede6f3; /* fondo del acento */
-  --color-pendiente: #a8342b; /* rojo de sello: sin verificar, aviso */
+  --color-pendiente: #A34735; /* rojo de sello: sin verificar, aviso */
   --color-pendiente-suave: #f7e7e4;
   --color-borrador: #83571c; /* ocre de expediente: "en preparación", el trámite que aún no tiene ficha. NO es un aviso: el rojo pendiente significa "sin verificar" y no puede significar además "sin construir". Ver tests/contraste.test.ts */
   --color-borrador-suave: #f5ead6;
