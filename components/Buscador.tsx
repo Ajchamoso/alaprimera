@@ -84,9 +84,9 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
 
       {zonaSinFichas && (
         <div className="rounded-xl border border-pendiente bg-pendiente-suave p-5 text-tinta-media">
-          <p className="font-medium text-tinta">
+          <h3 className="font-medium text-tinta">
             De {nombreComunidad(zona)} aún no tenemos trámites propios.
-          </p>
+          </h3>
           <p className="mt-1 text-sm">
             Por ahora solo hemos preparado los de la Comunidad de Madrid y Aragón. Abajo tienes los
             estatales, iguales en toda España. Los de tu comunidad llegarán; no te los enseñamos
