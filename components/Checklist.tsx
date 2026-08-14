@@ -82,27 +82,22 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
                     onChange={() => marcaRequisito(r.id)}
                     className="mt-1 h-5 w-5 accent-sello"
                   />
-                  <span
-                    className={`mt-0.5 shrink-0 ${
-                      r.tipo === "tramite_previo" ? "text-sello" : "text-tinta-tenue"
-                    }`}
-                  >
-                    <IconoRequisito tipo={r.tipo} />
-                  </span>
                   <span className="min-w-0 flex-1">
                     <span className={`font-medium ${marcado ? "text-tinta-tenue line-through" : ""}`}>
                       {r.titulo}
                     </span>{" "}
-                    {/* El tipo va en el flujo del texto, no en una columna suya: en un
-                        móvil de 375 se llevaba 85 px fijos y el título caía en cuatro
-                        líneas. Aquí se coloca al lado si cabe y baja solo si no. */}
+                    {/* Icono y nombre del tipo, juntos y en el flujo del texto. Antes
+                        iban en dos columnas fijas que se comían 115 px del ancho y
+                        dejaban el título en cuatro líneas, y encima decían lo mismo dos
+                        veces. El dibujo pegado a su propia etiqueta se lee mejor. */}
                     <span
-                      className={`inline-block whitespace-nowrap rounded-xs border px-1.5 py-0.5 align-middle font-mono text-[9.5px] font-semibold uppercase tracking-wider ${
+                      className={`inline-flex items-center gap-1 whitespace-nowrap rounded-xs border px-1.5 py-0.5 align-middle font-mono text-[9.5px] font-semibold uppercase tracking-wider ${
                         r.tipo === "tramite_previo"
                           ? "border-sello text-sello"
                           : "border-linea text-tinta-tenue"
                       }`}
                     >
+                      <IconoRequisito tipo={r.tipo} className="h-3 w-3" />
                       {NOMBRE_TIPO[r.tipo]}
                     </span>
                     <span className="mt-0.5 block text-sm text-tinta-media">{r.explicacion}</span>

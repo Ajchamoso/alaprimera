@@ -66,14 +66,18 @@ describe("accesibilidad de los componentes (axe)", () => {
   });
 
   it("cada IconoRequisito es decorativo y su fila lleva texto (patrón real)", async () => {
+    // El patrón real desde el 14/08: el dibujo vive dentro de la etiqueta que lo
+    // nombra, no en una columna aparte. Decían lo mismo por duplicado y entre las
+    // dos se llevaban 115 px del ancho de un móvil.
     const tipos = Object.keys(NOMBRE_TIPO) as TipoRequisito[];
     for (const tipo of tipos) {
       const { container } = render(
         <p>
-          <span aria-hidden={false}>
-            <IconoRequisito tipo={tipo} />
+          Documento de ejemplo{" "}
+          <span>
+            <IconoRequisito tipo={tipo} className="h-3 w-3" />
+            {NOMBRE_TIPO[tipo]}
           </span>
-          {NOMBRE_TIPO[tipo]}: documento de ejemplo
         </p>
       );
       expect(await axe(container, OPC), `tipo ${tipo}`).toHaveNoViolations();
