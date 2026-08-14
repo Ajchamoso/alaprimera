@@ -61,6 +61,14 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
   const grupoActivo = grupos.find((g) => g.hv.codigo === tema);
   const zonaSinFichas = zona !== null && !tieneFichas(zona);
 
+  // Las fichas ya publicadas de la comunidad elegida (los pendientes se quedan
+  // en su tema). Sin esta sección, elegir zona no cambiaba nada a la vista (solo
+  // quitaba lo de otras comunidades) y parecía que el filtro no funcionaba.
+  const deMiComunidad = useMemo(
+    () => deMiZona.filter((t) => t.nivel !== "estatal" && !t.pendiente),
+    [deMiZona]
+  );
+
   return (
     <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -123,6 +131,23 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
       ) : (
         // ── El índice de temas, con los destacados fuera ──
         <div className="space-y-8">
+          {zona !== null && deMiComunidad.length > 0 && (
+            <div className="space-y-3">
+              <Rotulo>De tu zona: {nombreComunidad(zona)}</Rotulo>
+              <p className="-mt-1 text-sm text-tinta-media">
+                Lo autonómico y lo local de tu comunidad. El resto del catálogo vale en toda
+                España.
+              </p>
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {deMiComunidad.map((t) => (
+                  <li key={t.slug}>
+                    <TarjetaFicha t={t} compacto />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {destacadosTramites.length > 0 && (
             <div className="space-y-3">
               <Rotulo>Empieza por aquí</Rotulo>
