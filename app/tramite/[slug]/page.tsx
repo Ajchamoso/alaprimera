@@ -114,14 +114,19 @@ export default async function PaginaTramite({
         <ul className="mt-3 space-y-2">
           {tramite.requisitos.map((r) => (
             <li key={r.id} className="rounded-lg border border-linea bg-hoja p-4">
-              {/* Envuelve en vez de exprimir el título: en móvil la etiqueta del
-                  tipo dejaba el texto en una columna estrechísima. */}
+              {/* El dibujo del tipo va dentro de su etiqueta, y la fila envuelve:
+                  en móvil, icono y etiqueta en columnas propias dejaban el título
+                  en una tira estrechísima. */}
               <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-medium">
-                <span className={r.tipo === "tramite_previo" ? "text-sello" : "text-tinta-tenue"}>
-                  <IconoRequisito tipo={r.tipo} />
-                </span>
                 <span className="min-w-0">{r.titulo}</span>
-                <span className="shrink-0 rounded-xs border border-linea px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-wider text-tinta-tenue">
+                <span
+                  className={`inline-flex shrink-0 items-center gap-1 rounded-xs border px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-wider ${
+                    r.tipo === "tramite_previo"
+                      ? "border-sello text-sello"
+                      : "border-linea text-tinta-tenue"
+                  }`}
+                >
+                  <IconoRequisito tipo={r.tipo} className="h-3 w-3" />
                   {NOMBRE_TIPO[r.tipo]}
                 </span>
               </p>
