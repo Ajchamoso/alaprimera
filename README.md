@@ -27,14 +27,14 @@ Toda la documentación está en [`docs/`](./docs).
 - [docs/discovery/](./docs/discovery/README.md) — el *discovery* congelado: cómo se llegó a la idea (hipótesis, mapa de historias, ideas descartadas, el pivote desde SpecLens). Copiado del repo `Viberano` de la propuesta; son snapshots de julio de 2026 y no se actualizan.
 - [CLAUDE.md](./CLAUDE.md) / [AGENTS.md](./AGENTS.md) — reglas del reto y del producto para cada sesión, con las skills `/preparar-ficha` y `/revisar-codigo` y la red de seguridad de tests.
 
-## Estado (17/07/2026)
+## Estado (14/08/2026)
 
 ✅ **URL pública en marcha** — el requisito del reto, cumplido. Cada push a `main` despliega solo.
 
 **Funciona de punta a punta:**
 - Catálogo de **fichas curadas** con búsqueda coloquial, de **Estado, Madrid y Aragón** (recuento vivo en [docs/estado-catalogo.md](./docs/estado-catalogo.md))
 - Catálogo agrupado por **hecho vital** ("nace un hijo", "me mudo"…), con un backlog de trámites **pendientes** (visibles, sin ficha aún) para validar la taxonomía
-- **"Tu zona"**: se elige una vez y se recuerda; filtra el catálogo por comunidad y, si no hay ficha para la tuya, lo dice con honestidad en vez de darte la de otra
+- **"Tu zona"**: se elige una vez y se recuerda; filtra el catálogo por comunidad y, al elegirla, muestra la sección **"De tu zona"** con las fichas publicadas de tu comunidad. Si no hay ficha para la tuya, lo dice con honestidad en vez de darte la de otra
 - Wizard personalizado con **veredicto de inviabilidad** ("esto no lo puedes hacer tú por ella")
 - Checklist con 4 tipos de requisito y **cadenas de trámites encadenados** ⛓️
 - **Aviso de plazo** cuando un trámite está fuera de fechas
@@ -59,20 +59,18 @@ sin API key, y queda como R2.
 
 Una red automática evita que un cambio rompa lo que ya funcionaba.
 
-> Esta sección entera existe porque **Mónica González** la pidió: tests automáticos que validen que
-> una funcionalidad nueva no rompe lo que ya funcionaba, una skill que valide que el código es
-> mantenible y sigue patrones que faciliten evolucionar la plataforma, documentación generada de
-> forma automática y validaciones de accesibilidad. El listado de abajo es esa petición,
-> implementada.
-
 - **Tests (Vitest, `npm test`)** — blindan las invariantes que dan confianza: la regla de oro
   (fichas ancladas a su fuente; pendientes que no publican contenido), la estructura del wizard, la
-  integridad de las cadenas, el aislamiento por zona, el sello a 90 días y la taxonomía.
+  integridad de las cadenas, el aislamiento por zona (incluida la sección "De tu zona", que solo
+  lista fichas publicadas de tu comunidad), el sello a 90 días y la taxonomía.
+- **E2E (Playwright, `npm run e2e`)** — el viaje de la demo clic a clic (catálogo → wizard →
+  checklist), contra el build de producción.
 - **Accesibilidad** — `axe` sobre los componentes y **contraste WCAG AA** de la paleta (el público
   es gente mayor; el imprimible llega a una persona de 74 años).
 - **Patrones del "sello"** — guardias que fallan si aparece un emoji en la UI (FR-028) o un color de
   Tailwind no semántico.
-- **CI** — cada push y PR a `main` corre lint + tipos + tests + build en GitHub Actions.
+- **CI** — cada push y PR a `main` y `develop` corre lint + tipos + tests + build + los e2e del
+  viaje de la demo en GitHub Actions.
 - **Skill `/revisar-codigo`** — revisión de mantenibilidad contra los patrones del proyecto.
 - **Docs sin deriva** — el estado del catálogo se genera desde los datos (`npm run docs`) y un test
   falla si se queda desfasado.
