@@ -191,4 +191,55 @@ test.describe('Flujo base de usuario', () => {
     // Verificar que no hay URLs de Supabase con credenciales expuestas
     expect(htmlContent).not.toMatch(/https:\/\/.+\.supabase\.co.*\?anon_key=.+&secret=/);
   });
+
+  test('Filtrado de zona funciona: sin zona y con Madrid', async ({ page }) => {
+    await page.goto('/');
+
+    // Contar fichas sin zona seleccionada
+    const fichasTotal = page.locator('a[href*="/tramite/"]');
+    const countTotal = await fichasTotal.count();
+    expect(countTotal).toBeGreaterThan(0);
+
+    // Seleccionar Madrid en el selector de zona
+    const selectZona = page.locator('select');
+    await selectZona.selectOption('madrid');
+
+    // Esperar a que se actualice el DOM
+    await page.waitForTimeout(500);
+
+    // Contar fichas después de seleccionar Madrid
+    const fichasMadrid = page.locator('a[href*="/tramite/"]');
+    const countMadrid = await fichasMadrid.count();
+
+    // Madrid debe tener menos fichas que el catálogo total
+    expect(countMadrid).toBeLessThan(countTotal);
+    expect(countMadrid).toBeGreaterThan(0);
+
+    // Seleccionar "Elige tu comunidad" (sin zona)
+    await selectZona.selectOption('');
+    await page.waitForTimeout(500);
+
+    // Debe volver a mostrar todas las fichas
+    const fichasSinZona = page.locator('a[href*="/tramite/"]');
+    const countSinZona = await fichasSinZona.count();
+    expect(countSinZona).toBe(countTotal);
+  });
+
+  test('Mensaje de zona sin fichas propias aparece cuando corresponde', async ({ page }) => {
+    await page.goto('/');
+
+    // Seleccionar Aragón (comunidad sin fichas propias en el catálogo actual)
+    const selectZona = page.locator('select');
+    await selectZona.selectOption('aragon');
+    await page.waitForTimeout(500);
+
+    // Debe aparecer el mensaje "aún no tenemos trámites propios"
+    const mensaje = page.locator('h3').filter({ hasText: /aún no tenemos trámites propios/i });
+    await expect(mensaje).toBeVisible();
+
+    // Debe seguir mostrando fichas estatales
+    const fichasEstatales = page.locator('a[href*="/tramite/"]');
+    const count = await fichasEstatales.count();
+    expect(count).toBeGreaterThan(0);
+  });
 });
