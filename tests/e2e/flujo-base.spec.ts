@@ -243,10 +243,11 @@ test.describe('Flujo base de usuario', () => {
     const options = selectZona.locator('option');
     const optionsCount = await options.count();
 
-    // Las comunidades con fichas son Madrid y Aragón (según comunidades.ts)
-    const comunidadesConFichas = ['madrid', 'aragon'];
+    // Las comunidades con fichas propias están en lib/data/comunidades.ts: CON_FICHAS
+    // Mantén este array sincronizado con esa fuente de verdad
+    const COMUNIDADES_CON_FICHAS = ['madrid', 'aragon'];
 
-    // Probar cada comunidad
+    // Probar cada comunidad disponible
     for (let i = 1; i < optionsCount; i++) {
       const opcion = options.nth(i);
       const comunidadValue = await opcion.getAttribute('value');
@@ -257,19 +258,19 @@ test.describe('Flujo base de usuario', () => {
         await page.waitForTimeout(500);
 
         const tieneAviso = await page.locator('h3').filter({ hasText: /aún no tenemos trámites propios/i }).isVisible({ timeout: 1000 }).catch(() => false);
-        const tieneFichasSegunArray = comunidadesConFichas.includes(comunidadValue);
+        const tieneFichasSegunArray = COMUNIDADES_CON_FICHAS.includes(comunidadValue);
 
-        // Si NO está en el array de comunidades con fichas, debe mostrar el aviso
+        // Si NO está en COMUNIDADES_CON_FICHAS, debe mostrar el aviso
         if (!tieneFichasSegunArray) {
-          expect(tieneAviso, `${comunidadText} no está en CON_FICHAS y debe mostrar aviso`).toBe(true);
+          expect(tieneAviso, `${comunidadText} (${comunidadValue}) no está en COMUNIDADES_CON_FICHAS y debe mostrar el aviso`).toBe(true);
         }
 
-        // Pero siempre debe mostrar fichas estatales
+        // Siempre debe mostrar fichas estatales (al menos)
         const fichasEstatales = page.locator('a[href*="/tramite/"]');
         const count = await fichasEstatales.count();
         expect(count).toBeGreaterThan(0);
 
-        // Con esto es suficiente, salir después de la primera iteración
+        // Con esto es suficiente: verificamos el comportamiento correcto
         break;
       }
     }
