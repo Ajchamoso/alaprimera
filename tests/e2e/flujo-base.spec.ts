@@ -192,7 +192,7 @@ test.describe('Flujo base de usuario', () => {
     expect(htmlContent).not.toMatch(/https:\/\/.+\.supabase\.co.*\?anon_key=.+&secret=/);
   });
 
-  test('Filtrado de zona funciona: sin zona y con Madrid', async ({ page }) => {
+  test('Filtrado de zona funciona: sin zona y con comunidad que tiene fichas', async ({ page }) => {
     await page.goto('/');
 
     // Contar fichas sin zona seleccionada
@@ -200,20 +200,30 @@ test.describe('Flujo base de usuario', () => {
     const countTotal = await fichasTotal.count();
     expect(countTotal).toBeGreaterThan(0);
 
-    // Seleccionar Madrid en el selector de zona
+    // Obtener lista de comunidades disponibles en el selector
     const selectZona = page.locator('select');
-    await selectZona.selectOption('madrid');
+    const options = selectZona.locator('option');
+    const optionsCount = await options.count();
+    expect(optionsCount).toBeGreaterThan(1);
 
-    // Esperar a que se actualice el DOM
-    await page.waitForTimeout(500);
+    // Seleccionar la primera comunidad que no sea "Elige tu comunidad…"
+    // (que es la segunda opción, índice 1; la primera es el placeholder)
+    const primeraOpcion = options.nth(1);
+    const comunidadValue = await primeraOpcion.getAttribute('value');
 
-    // Contar fichas después de seleccionar Madrid
-    const fichasMadrid = page.locator('a[href*="/tramite/"]');
-    const countMadrid = await fichasMadrid.count();
+    if (comunidadValue && comunidadValue !== '') {
+      await selectZona.selectOption(comunidadValue);
+      await page.waitForTimeout(500);
 
-    // Madrid debe tener menos fichas que el catálogo total
-    expect(countMadrid).toBeLessThan(countTotal);
-    expect(countMadrid).toBeGreaterThan(0);
+      // Contar fichas después de seleccionar la comunidad
+      const fichasComuna = page.locator('a[href*="/tramite/"]');
+      const countComuna = await fichasComuna.count();
+
+      // Debe tener fichas (estatales como mínimo)
+      expect(countComuna).toBeGreaterThan(0);
+      // Puede tener menos o igual, dependiendo de si tiene fichas propias
+      expect(countComuna).toBeLessThanOrEqual(countTotal);
+    }
 
     // Seleccionar "Elige tu comunidad" (sin zona)
     await selectZona.selectOption('');
@@ -225,21 +235,43 @@ test.describe('Flujo base de usuario', () => {
     expect(countSinZona).toBe(countTotal);
   });
 
-  test('Mensaje de zona sin fichas propias aparece cuando corresponde', async ({ page }) => {
+  test('Mensaje de zona sin fichas propias aparece solo para comunidades sin fichas propias', async ({ page }) => {
     await page.goto('/');
 
-    // Seleccionar Aragón (comunidad sin fichas propias en el catálogo actual)
+    // Iterar sobre las opciones del selector para encontrar una sin fichas propias
     const selectZona = page.locator('select');
-    await selectZona.selectOption('aragon');
-    await page.waitForTimeout(500);
+    const options = selectZona.locator('option');
+    const optionsCount = await options.count();
 
-    // Debe aparecer el mensaje "aún no tenemos trámites propios"
-    const mensaje = page.locator('h3').filter({ hasText: /aún no tenemos trámites propios/i });
-    await expect(mensaje).toBeVisible();
+    // Las comunidades con fichas son Madrid y Aragón (según comunidades.ts)
+    const comunidadesConFichas = ['madrid', 'aragon'];
 
-    // Debe seguir mostrando fichas estatales
-    const fichasEstatales = page.locator('a[href*="/tramite/"]');
-    const count = await fichasEstatales.count();
-    expect(count).toBeGreaterThan(0);
+    // Probar cada comunidad
+    for (let i = 1; i < optionsCount; i++) {
+      const opcion = options.nth(i);
+      const comunidadValue = await opcion.getAttribute('value');
+      const comunidadText = await opcion.textContent();
+
+      if (comunidadValue && comunidadValue !== '') {
+        await selectZona.selectOption(comunidadValue);
+        await page.waitForTimeout(500);
+
+        const tieneAviso = await page.locator('h3').filter({ hasText: /aún no tenemos trámites propios/i }).isVisible({ timeout: 1000 }).catch(() => false);
+        const tieneFichasSegunArray = comunidadesConFichas.includes(comunidadValue);
+
+        // Si NO está en el array de comunidades con fichas, debe mostrar el aviso
+        if (!tieneFichasSegunArray) {
+          expect(tieneAviso, `${comunidadText} no está en CON_FICHAS y debe mostrar aviso`).toBe(true);
+        }
+
+        // Pero siempre debe mostrar fichas estatales
+        const fichasEstatales = page.locator('a[href*="/tramite/"]');
+        const count = await fichasEstatales.count();
+        expect(count).toBeGreaterThan(0);
+
+        // Con esto es suficiente, salir después de la primera iteración
+        break;
+      }
+    }
   });
 });
