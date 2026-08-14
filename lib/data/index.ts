@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import type { Canal, Pregunta, Requisito, TipoRequisito, Tramite } from "@/lib/types";
 import { tramites as contenidoLocal } from "./tramites";
 import { generadaPorIa, verificadaEn } from "./verificaciones";
-import { hechoVitalDeFicha } from "./hechos-vitales";
+import { hechoVitalDeFicha, hechosVitales } from "./hechos-vitales";
 import { pendientes } from "./pendientes";
 
 /** Contenido + registro de verificaciones = la ficha completa. */
@@ -169,13 +169,42 @@ export function buscaTramites(consulta: string, catalogo: Tramite[]): Tramite[] 
     .filter((p) => (p.length > 2 && !STOPWORDS.has(p)) || PALABRAS_CORTAS_UTILES.has(p));
   return catalogo.filter((t) => {
     const pajar = normaliza(
-      [t.nombreOficial, t.nombreColoquial, t.descripcion, t.organismo, ...t.alias].join(" ")
+      [
+        t.nombreOficial,
+        t.nombreColoquial,
+        t.descripcion,
+        t.organismo,
+        // El nombre del hecho vital cuenta como alias de toda su familia: quien
+        // escribe "he tenido un hijo" busca el tema, no el nombre del trámite.
+        // Sin esto la app respondía "aún no tenemos ese trámite" teniéndolo.
+        ETIQUETA_HECHO[t.hechoVital ?? ""] ?? "",
+        ...t.alias,
+      ].join(" ")
     );
     return palabras.length > 0
-      ? palabras.some((p) => pajar.includes(p))
+      ? palabras.some((p) => empiezaAlgunaPalabra(pajar, p))
       : pajar.includes(q);
   });
 }
+
+/**
+ * ¿Alguna palabra del texto empieza por `termino`?
+ *
+ * Buscar el trozo suelto daba falsos positivos que despistan: "he tenido un
+ * hijo" sacaba "pedir plaza en el cole", porque "tenido" vive dentro de
+ * "sostenidos con fondos públicos". Anclar al principio de palabra los quita y
+ * mantiene lo útil, que es encontrar por el principio: "beca" saca "becas" y
+ * "carne" saca "carnet".
+ */
+function empiezaAlgunaPalabra(texto: string, termino: string): boolean {
+  const escapado = termino.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`\\b${escapado}`).test(texto);
+}
+
+/** Código de hecho vital → su etiqueta ("nacimiento" → "Nace un hijo"). */
+const ETIQUETA_HECHO: Record<string, string> = Object.fromEntries(
+  hechosVitales.map((hv) => [hv.codigo, hv.etiqueta])
+);
 
 const PALABRAS_CORTAS_UTILES = new Set(["dni", "nie", "ss", "irpf"]);
 

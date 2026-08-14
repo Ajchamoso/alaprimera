@@ -114,12 +114,14 @@ export default async function PaginaTramite({
         <ul className="mt-3 space-y-2">
           {tramite.requisitos.map((r) => (
             <li key={r.id} className="rounded-lg border border-linea bg-hoja p-4">
-              <p className="flex items-center gap-2 font-medium">
+              {/* Envuelve en vez de exprimir el título: en móvil la etiqueta del
+                  tipo dejaba el texto en una columna estrechísima. */}
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-medium">
                 <span className={r.tipo === "tramite_previo" ? "text-sello" : "text-tinta-tenue"}>
                   <IconoRequisito tipo={r.tipo} />
                 </span>
-                {r.titulo}
-                <span className="ml-auto shrink-0 rounded-xs border border-linea px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-wider text-tinta-tenue">
+                <span className="min-w-0">{r.titulo}</span>
+                <span className="shrink-0 rounded-xs border border-linea px-1.5 py-0.5 font-mono text-[9.5px] font-semibold uppercase tracking-wider text-tinta-tenue">
                   {NOMBRE_TIPO[r.tipo]}
                 </span>
               </p>

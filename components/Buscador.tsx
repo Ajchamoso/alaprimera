@@ -138,7 +138,10 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
 
           <div className="space-y-3">
             <Rotulo>Según lo que estés viviendo</Rotulo>
-            <p className="-mt-1 text-sm text-tinta-media">Entra en el momento que te trae por aquí:</p>
+            <p className="-mt-1 text-sm text-tinta-media">
+              Entra en el momento que te trae por aquí
+              {zonaSinFichas ? ". Aquí solo hay trámites del Estado, iguales en toda España" : ""}:
+            </p>
           <ul className="grid gap-2 sm:grid-cols-2">
             {grupos.map(({ hv, items }) => {
               const listos = items.filter((t) => !t.pendiente).length;
@@ -165,6 +168,21 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
         </div>
       )}
     </section>
+  );
+}
+
+/**
+ * De dónde vale este trámite, en la propia tarjeta.
+ *
+ * Sin esto, alguien de una comunidad sin fichas leía el aviso ("aún no tenemos
+ * trámites propios") y debajo veía una lista larga sin saber que era la estatal:
+ * parecía que el filtro no hacía nada. El dato ya vivía en cada ficha.
+ */
+function EtiquetaTerritorio({ t }: { t: Tramite }) {
+  return (
+    <span className="rounded-xs border border-linea px-1.5 py-0.5 font-mono text-[10px] font-semibold text-tinta-media">
+      {t.territorio}
+    </span>
   );
 }
 
@@ -198,6 +216,7 @@ function TarjetaFicha({ t, compacto = false }: { t: Tramite; compacto?: boolean 
     >
       <div className="flex flex-wrap items-center gap-2">
         <h3 className={compacto ? "font-semibold" : "text-lg font-semibold"}>{t.nombreColoquial}</h3>
+        <EtiquetaTerritorio t={t} />
         {t.verificadaEn === null && (
           <span className="rounded-xs border border-pendiente px-1.5 py-0.5 font-cond text-[10px] font-bold uppercase tracking-widest text-pendiente">
             Por verificar
@@ -228,6 +247,7 @@ function TarjetaPendiente({ t }: { t: Tramite }) {
     >
       <div className="flex flex-wrap items-center gap-2">
         <h3 className="text-lg font-medium text-tinta-media">{t.nombreColoquial}</h3>
+        <EtiquetaTerritorio t={t} />
         <span className="rounded-xs border border-borrador bg-borrador-suave px-1.5 py-0.5 font-cond text-[10px] font-bold uppercase tracking-widest text-borrador">
           En preparación
         </span>
