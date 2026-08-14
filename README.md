@@ -23,6 +23,7 @@ Toda la documentación está en [`docs/`](./docs).
 - [docs/tasks.md](./docs/tasks.md) — el desglose en tareas y su estado.
 - [docs/preparar-fichas.md](./docs/preparar-fichas.md) — cómo se prepara, verifica y mantiene una ficha, y qué aprendimos curándolas.
 - [docs/estado-catalogo.md](./docs/estado-catalogo.md) — **recuento vivo del catálogo** (fichas, verificadas y pendientes por hecho vital), generado desde los datos con `npm run docs`.
+- [docs/estado-proyecto.md](./docs/estado-proyecto.md) — qué funciona ya y qué falta, en una foto con fecha.
 - [docs/hechos-vitales.md](./docs/hechos-vitales.md) — el backlog del catálogo (~55 trámites) y el diseño de la futura navegación por hechos vitales.
 - [docs/discovery/](./docs/discovery/README.md) — el *discovery* congelado: cómo se llegó a la idea (hipótesis, mapa de historias, ideas descartadas, el pivote desde SpecLens). Copiado del repo `Viberano` de la propuesta; son snapshots de julio de 2026 y no se actualizan.
 - [CLAUDE.md](./CLAUDE.md) / [AGENTS.md](./AGENTS.md) — reglas del reto y del producto para cada sesión, con las skills `/preparar-ficha` y `/revisar-codigo` y la red de seguridad de tests.
