@@ -92,6 +92,18 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
                   <span className="min-w-0 flex-1">
                     <span className={`font-medium ${marcado ? "text-tinta-tenue line-through" : ""}`}>
                       {r.titulo}
+                    </span>{" "}
+                    {/* El tipo va en el flujo del texto, no en una columna suya: en un
+                        móvil de 375 se llevaba 85 px fijos y el título caía en cuatro
+                        líneas. Aquí se coloca al lado si cabe y baja solo si no. */}
+                    <span
+                      className={`inline-block whitespace-nowrap rounded-xs border px-1.5 py-0.5 align-middle font-mono text-[9.5px] font-semibold uppercase tracking-wider ${
+                        r.tipo === "tramite_previo"
+                          ? "border-sello text-sello"
+                          : "border-linea text-tinta-tenue"
+                      }`}
+                    >
+                      {NOMBRE_TIPO[r.tipo]}
                     </span>
                     <span className="mt-0.5 block text-sm text-tinta-media">{r.explicacion}</span>
                     {r.tipo === "tramite_previo" && r.tramitePrevioSlug && (
@@ -102,15 +114,6 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
                         Preparar este trámite primero →
                       </Link>
                     )}
-                  </span>
-                  <span
-                    className={`ml-auto shrink-0 self-start rounded-xs border px-1.5 py-1 font-mono text-[9.5px] font-semibold uppercase tracking-wider ${
-                      r.tipo === "tramite_previo"
-                        ? "border-sello text-sello"
-                        : "border-linea text-tinta-tenue"
-                    }`}
-                  >
-                    {NOMBRE_TIPO[r.tipo]}
                   </span>
                 </label>
               </li>
