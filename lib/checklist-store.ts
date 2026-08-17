@@ -1,4 +1,5 @@
 import { requisitosAplicablesDe } from "@/lib/personaliza";
+import { nuevoId } from "@/lib/id";
 
 /**
  * Progreso anónimo en el navegador (FR-011), modelado como store externo para
@@ -101,7 +102,7 @@ export function creaChecklist(
   respuestas: Record<string, string>
 ): ChecklistLocal {
   const nueva: ChecklistLocal = {
-    id: crypto.randomUUID(),
+    id: nuevoId(),
     tramiteSlug,
     nombre,
     respuestas,
