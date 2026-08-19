@@ -1,4 +1,5 @@
 import { tramites } from "@/lib/data/tramites";
+import { comunidades } from "@/lib/data/comunidades";
 
 export interface InstantaneaChecklist {
   id: string;
@@ -17,6 +18,7 @@ export interface FeedbackValidado {
 }
 
 const FICHAS = new Map(tramites.map((tramite) => [tramite.slug, tramite]));
+const COMUNIDADES = new Set(comunidades.map((comunidad) => comunidad.codigo));
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const FECHA_ISO = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/;
 
@@ -122,4 +124,18 @@ export function validaReporte(
   const texto = descripcion.trim();
   if (texto.length < 5 || texto.length > 2000) return null;
   return { tramiteSlug, descripcion: texto };
+}
+
+export function validaPeticionCatalogo(
+  consulta: unknown,
+  comunidad: unknown
+): { consulta: string; comunidad: string | null } | null {
+  if (typeof consulta !== "string") return null;
+  const texto = consulta.trim();
+  if (texto.length < 2 || texto.length > 200) return null;
+  if (comunidad !== null && comunidad !== undefined) {
+    if (typeof comunidad !== "string" || !COMUNIDADES.has(comunidad)) return null;
+    return { consulta: texto, comunidad };
+  }
+  return { consulta: texto, comunidad: null };
 }

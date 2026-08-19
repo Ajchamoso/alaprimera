@@ -2,11 +2,12 @@
  * Buzón de señales de deriva: lo que la gente de ahí fuera nos está diciendo
  * sobre el contenido.
  *
- * Dos señales, por orden de valor:
+ * Tres señales, por orden de valor:
  *  1. Los "no" de "¿salió a la primera?" (FR-017) — alguien acaba de chocar con
  *     la realidad en una ventanilla y nos cuenta qué faltaba. Con el contexto de
  *     su checklist: qué trámite, qué caso, qué canal.
  *  2. Los reportes de error (FR-018) — avisos directos sobre una ficha.
+ *  3. Las búsquedas sin resultado registradas (FR-003) — demanda real para el catálogo.
  *
  * Uso: npm run buzon
  */
@@ -68,7 +69,21 @@ async function main() {
       console.log(`   ${AMBAR}▸${FIN} ${r.descripcion}`);
     }
 
-    // ── 3. Estado del sello: qué fichas piden revisión ───────────────────────
+    // ── 3. Peticiones de fichas que aún no existen ──────────────────────────
+    const { rows: peticiones } = await db.query(`
+      select consulta, comunidad, creado_en
+      from peticiones_catalogo where estado = 'pendiente'
+      order by creado_en desc
+    `);
+    console.log(`\n${NEGRITA}Peticiones de catálogo: ${peticiones.length}${FIN}`);
+    if (peticiones.length === 0) console.log(`${GRIS}   Ninguna.${FIN}`);
+    for (const peticion of peticiones) {
+      console.log(
+        `   ${NEGRITA}${peticion.consulta}${FIN} ${GRIS}· ${peticion.comunidad ?? "sin zona"} · ${fecha(peticion.creado_en)}${FIN}`
+      );
+    }
+
+    // ── 4. Estado del sello: qué fichas piden revisión ───────────────────────
     const { rows: fichas } = await db.query(`
       select id, verificada_en, generada_por_ia,
              (verificada_en is not null and now() - verificada_en > interval '90 days') as caducada
@@ -87,7 +102,7 @@ async function main() {
       console.log(`   ${ROJO}🤖 Sin verificar: ${sinVerificar.length}${FIN} ${GRIS}${sinVerificar.map((f) => f.id).join(", ")}${FIN}`);
     }
 
-    // ── 4. Qué hacer ─────────────────────────────────────────────────────────
+    // ── 5. Qué hacer ─────────────────────────────────────────────────────────
     const aRevisar = [
       ...new Set([
         ...noes.map((n) => n.tramite_id),

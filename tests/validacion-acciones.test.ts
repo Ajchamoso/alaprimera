@@ -3,6 +3,7 @@ import { tramites } from "@/lib/data/tramites";
 import {
   validaChecklist,
   validaFeedback,
+  validaPeticionCatalogo,
   validaReporte,
 } from "@/lib/validacion-acciones";
 
@@ -58,5 +59,14 @@ describe("validación de Server Actions", () => {
       descripcion: "Enlace roto",
     });
     expect(validaReporte("inventado", "Enlace roto")).toBeNull();
+  });
+
+  it("registra solo peticiones acotadas y de una comunidad conocida", () => {
+    expect(validaPeticionCatalogo("  licencia de pesca  ", "madrid")).toEqual({
+      consulta: "licencia de pesca",
+      comunidad: "madrid",
+    });
+    expect(validaPeticionCatalogo("x", null)).toBeNull();
+    expect(validaPeticionCatalogo("licencia de pesca", "inventada")).toBeNull();
   });
 });

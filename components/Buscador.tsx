@@ -9,6 +9,7 @@ import { hechosVitales } from "@/lib/data/hechos-vitales";
 import { nombreComunidad, tieneFichas } from "@/lib/data/comunidades";
 import { getZona, getZonaServidor, suscribeZona, visibleEnZona } from "@/lib/zona";
 import { SelectorZona } from "@/components/SelectorZona";
+import { PeticionCatalogo } from "@/components/PeticionCatalogo";
 
 /**
  * Búsqueda coloquial (FR-002) y catálogo por hecho vital, en DOS niveles para
@@ -87,6 +88,7 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
           placeholder="Escríbelo con tus palabras: «lo del carnet de mi hijo»…"
           className="w-full rounded-xl border border-linea bg-hoja px-4 py-3 text-base shadow-sm outline-none focus:border-sello focus:ring-2 focus:ring-sello-suave"
           autoComplete="off"
+          maxLength={200}
         />
       </label>
 
@@ -112,6 +114,13 @@ export function Buscador({ tramites }: { tramites: Tramite[] }) {
               Preferimos decírtelo claro antes que inventar una respuesta. Estamos ampliando el
               catálogo poco a poco, siempre verificando cada ficha contra la fuente oficial.
             </p>
+            {consulta.trim().length >= 2 && (
+              <PeticionCatalogo
+                key={`${consulta.trim()}-${zona ?? "espana"}`}
+                consulta={consulta}
+                comunidad={zona}
+              />
+            )}
           </div>
         ) : (
           <Lista tramites={resultados} />

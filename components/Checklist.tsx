@@ -12,15 +12,19 @@ import { Compartir } from "@/components/Compartir";
 import { SalioALaPrimera } from "@/components/SalioALaPrimera";
 import { IconoRequisito, NOMBRE_TIPO } from "@/components/IconoRequisito";
 import { haySesion, suscribeSesion } from "@/lib/sesion";
+import { requisitosDelCanal } from "@/lib/personaliza";
+import { formateaFechaEs } from "@/lib/sello";
 
 /** Vista de checklist: requisitos marcables, elección de canal (H5) y preparación final con imprimible (FR-015/016). */
 export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist: ChecklistLocal }) {
   const conSesion = useSyncExternalStore(suscribeSesion, haySesion, () => false);
   const aplicables = requisitosAplicables(tramite, checklist.respuestas);
-  const conseguidos = aplicables.filter((r) => checklist.marcados[r.id]).length;
 
   // Sin elección falsa (H5.6): si el trámite solo admite una vía, es la que hay.
   const canal = tramite.canales.length === 1 ? tramite.canales[0] : checklist.canal;
+  const visibles = requisitosDelCanal(aplicables, canal);
+  const conseguidos = visibles.filter((r) => checklist.marcados[r.id]).length;
+  const completada = visibles.length > 0 && conseguidos === visibles.length;
 
   function marcaRequisito(requisitoId: string) {
     actualizaChecklist(checklist.id, {
@@ -51,7 +55,7 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
             </button>
           </h2>
           <p className="text-sm font-medium text-sello">
-            {conseguidos} de {aplicables.length} listo{conseguidos === 1 ? "" : "s"}
+            {conseguidos} de {visibles.length} listo{conseguidos === 1 ? "" : "s"}
           </p>
         </div>
 
@@ -59,13 +63,13 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
           <div
             className="h-full rounded-full bg-sello transition-all"
             style={{
-              width: `${aplicables.length === 0 ? 0 : Math.round((conseguidos / aplicables.length) * 100)}%`,
+              width: `${visibles.length === 0 ? 0 : Math.round((conseguidos / visibles.length) * 100)}%`,
             }}
           />
         </div>
 
         <ul className="mt-4 space-y-2">
-          {aplicables.map((r) => {
+          {visibles.map((r) => {
             const marcado = !!checklist.marcados[r.id];
             return (
               <li key={r.id}>
@@ -100,10 +104,12 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
                       <IconoRequisito tipo={r.tipo} className="h-3 w-3" />
                       {NOMBRE_TIPO[r.tipo]}
                     </span>
-                    <span className="mt-0.5 block text-sm text-tinta-media">{r.explicacion}</span>
+                    <span className="mt-0.5 block break-words text-sm text-tinta-media">
+                      {r.explicacion}
+                    </span>
                     {r.tipo === "tramite_previo" && r.tramitePrevioSlug && (
                       <Link
-                        href={`/tramite/${r.tramitePrevioSlug}`}
+                        href={`/tramite/${r.tramitePrevioSlug}?desde=${encodeURIComponent(tramite.slug)}`}
                         className="mt-1 inline-block text-sm font-medium text-sello hover:underline"
                       >
                         Preparar este trámite primero →
@@ -129,7 +135,7 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
             puedeCambiar={tramite.canales.length > 1}
           />
           <Compartir checklist={checklist} conSesion={conSesion} />
-          <SalioALaPrimera checklist={checklist} />
+          {completada && <SalioALaPrimera checklist={checklist} />}
         </>
       )}
     </div>
@@ -205,7 +211,7 @@ function Preparacion({
   puedeCambiar: boolean;
 }) {
   const relevantes = aplicables.filter((r) => r.canal === canal || r.canal === "ambos");
-  const faltan = aplicables.filter((r) => !checklist.marcados[r.id]);
+  const faltan = relevantes.filter((r) => !checklist.marcados[r.id]);
 
   return (
     <section
@@ -254,7 +260,7 @@ function Preparacion({
             </span>
             <span>
               <span className="font-medium">{r.titulo}</span>
-              <span className="block text-sm text-tinta-media">{r.explicacion}</span>
+              <span className="block break-words text-sm text-tinta-media">{r.explicacion}</span>
             </span>
           </li>
         ))}
@@ -268,7 +274,7 @@ function Preparacion({
               href={tramite.urlFuente}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-sello underline"
+              className="break-all font-medium text-sello underline"
             >
               {tramite.urlFuente}
             </a>
@@ -281,16 +287,18 @@ function Preparacion({
                 href={tramite.urlCitaPrevia}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-sello underline"
+                className="break-all font-medium text-sello underline"
               >
                 {tramite.urlCitaPrevia}
               </a>
             </p>
           )
         )}
-        <p className="text-tinta-tenue">
+        <p className="break-all text-tinta-tenue">
           Fuente oficial: {tramite.urlFuente}
-          {tramite.verificadaEn === null && " · ficha por verificar, confirma antes de ir"}
+          {tramite.verificadaEn === null
+            ? " · ficha por verificar, confirma antes de ir"
+            : ` · verificada el ${formateaFechaEs(tramite.verificadaEn)}`}
         </p>
       </div>
 

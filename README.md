@@ -84,7 +84,8 @@ npm run dev            # http://localhost:3000
 
 Comandos útiles: `npm test` (la red de seguridad), `npm run lint`, `npm run docs` (regenera el
 estado del catálogo), `npm run db:seed` (vuelca el catálogo), `npm run verificar <slug>` (sella una
-ficha cotejada), `npm run buzon` (qué te está diciendo la gente: fallos y reportes).
+ficha cotejada), `npm run buzon` (qué te está diciendo la gente: fallos, reportes y trámites que
+echa en falta).
 
 Variables de entorno en `.env.local` (no versionado): `NEXT_PUBLIC_SUPABASE_URL`,
 `NEXT_PUBLIC_SUPABASE_ANON_KEY`, y para tareas de servidor/seed `SUPABASE_SERVICE_ROLE_KEY` y

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCadena, getTramites } from "@/lib/data";
@@ -6,6 +7,7 @@ import { Asistente } from "@/components/Asistente";
 import { ReportarError } from "@/components/ReportarError";
 import { AvisoPlazo } from "@/components/AvisoPlazo";
 import { IconoRequisito, NOMBRE_TIPO } from "@/components/IconoRequisito";
+import { VueltaTramite } from "@/components/VueltaTramite";
 
 export const revalidate = 300;
 
@@ -54,10 +56,18 @@ export default async function PaginaTramite({
 
   return (
     <article className="space-y-8">
-      <nav className="text-sm print:hidden">
+      <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm print:hidden">
         <Link href="/" className="text-sello hover:underline">
           ← Todos los trámites
         </Link>
+        <Suspense fallback={null}>
+          <VueltaTramite
+            actual={tramite.slug}
+            tramites={catalogo
+              .filter((ficha) => !ficha.pendiente)
+              .map((ficha) => ({ slug: ficha.slug, nombre: ficha.nombreColoquial }))}
+          />
+        </Suspense>
       </nav>
 
       <header className="space-y-3">
@@ -93,7 +103,7 @@ export default async function PaginaTramite({
             {cadena.map(({ tramite: previo, nota }) => (
               <li key={previo.slug} className="flex flex-wrap items-baseline gap-2">
                 <Link
-                  href={`/tramite/${previo.slug}`}
+                  href={`/tramite/${previo.slug}?desde=${encodeURIComponent(tramite.slug)}`}
                   className="font-medium text-sello hover:underline"
                 >
                   {previo.nombreColoquial} →
@@ -145,4 +155,3 @@ export default async function PaginaTramite({
     </article>
   );
 }
-
