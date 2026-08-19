@@ -39,6 +39,12 @@ reconocida".
 - [x] **T-014** Login magic link (Supabase Auth) (FR-011). *Construido y conectado al proyecto real (cliente, middleware, callback, /cuenta). Ciclo completo probado por un humano con un email real: enlace recibido, pulsado y sesión iniciada.* ✅ 10/08
 - [x] **T-015** Merge anónimo→cuenta sin pérdida (FR-012). *Verificado E2E con usuario de prueba confirmado: 3 checklists anónimas subieron a la cuenta con sus marcados intactos; conflicto = gana lo local.* ✅ 17/07
 - [x] **T-016** Multi-dispositivo: checklists en BD con RLS (SC-005). *Verificado: localStorage borrado (dispositivo nuevo) → recarga → las 3 checklists bajan con su progreso exacto; marcar con sesión replica a BD al momento. Diseño sync-through: la UI lee siempre local (offline-first), el espejo replica.* ✅ 17/07
+- [x] **Remediación de integridad del catálogo**: el seed conserva las filas padre y todo dato de
+      usuario, bloquea destinos remotos por defecto y avisa de fichas que solo existen en BD. Las
+      claves foráneas de checklists y reportes impiden borrados en cascada. ✅ 19/08
+- [x] **RLS de catálogo endurecida**: preguntas, opciones, requisitos y condiciones solo son
+      públicas cuando su ficha padre está publicada; el helper de curación sale del esquema de la
+      API y fija su `search_path`. ✅ 19/08
 
 ## Fase 3 — Confianza + cierre (semana 3) ✅ 17/07
 

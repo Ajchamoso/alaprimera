@@ -138,7 +138,10 @@ La ficha se escribe en `lib/data/tramites.ts` (tipo `TramiteContenido`) con:
 - **Nada de verificación aquí.** No estar en el registro (`verificaciones.ts`) ya hace que la app
   la muestre "⚠️ sin verificar", que es la verdad hasta que un humano la selle.
 
-Luego: `DATABASE_URL=... npm run db:seed`
+Luego, en local: `DATABASE_URL=... npm run db:seed`. Para un destino remoto hay que revisar dos
+veces la URL y confirmar solo esa ejecución con
+`PERMITIR_SEED_REMOTO=si DATABASE_URL=... npm run db:seed`. El seed actualiza las fichas y sus
+hijos, pero conserva checklists, enlaces, feedback, reportes y fichas que solo existan en BD.
 
 ### 3. Verificar (humano, obligatorio)
 
@@ -169,9 +172,9 @@ npm run verificar dni-primera-vez quitar   # retira el sello (te equivocaste, o 
 ```
 
 > ⚠️ **No lo hagas con SQL a mano.** Un `update tramites set verificada_en = now()` parece que
-> funciona… y el siguiente `npm run db:seed` se lo lleva por delante en silencio, porque el seed
-> borra y reinserta desde el repo. Lo comprobamos: verificar en BD y reseedear devolvía la ficha a
-> "sin verificar". Por eso la verificación vive en el registro y no en la base de datos.
+> funciona, pero el siguiente `npm run db:seed` restablece ese campo desde el registro del repo.
+> Lo comprobamos: verificar solo en BD y reseedear devolvía la ficha a "sin verificar". Por eso la
+> verificación vive en el registro y no en la base de datos.
 
 ## Por qué la verificación humana no es burocracia
 

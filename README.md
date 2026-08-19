@@ -88,7 +88,9 @@ ficha cotejada), `npm run buzon` (qué te está diciendo la gente: fallos y repo
 
 Variables de entorno en `.env.local` (no versionado): `NEXT_PUBLIC_SUPABASE_URL`,
 `NEXT_PUBLIC_SUPABASE_ANON_KEY`, y para tareas de servidor/seed `SUPABASE_SERVICE_ROLE_KEY` y
-`DATABASE_URL`. Migraciones en `supabase/migrations/`; seed del catálogo con `npm run db:seed`.
+`DATABASE_URL`. Migraciones en `supabase/migrations/`; seed local del catálogo con
+`npm run db:seed`. Un destino remoto queda bloqueado salvo que esa ejecución incluya
+`PERMITIR_SEED_REMOTO=si`; el seed actualiza las fichas sin borrar checklists ni reportes.
 
 ## Autoría y licencia
 
