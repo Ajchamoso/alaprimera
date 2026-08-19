@@ -53,6 +53,11 @@ reconocida".
 - [x] **T-019** "¿Salió a la primera?" una vez por checklist (H8, FR-017). *Verificado E2E: el "no" pregunta qué falló, el motivo llega a BD con la checklist como contexto, y no se vuelve a preguntar.*
 - [x] **T-020** Reportar error → cola de revisión (FR-018). *Verificado: reporte en BD como `pendiente`; la ficha no cambia hasta revisión humana.*
 - [x] **RLS auditada**: con la anon key, `checklists`, `shares`, `feedback` y `reportes` devuelven vacío. Los datos de usuario no se filtran; solo el endpoint del share (service role, server-side) los sirve por token válido.
+- [x] **Server Actions endurecidas**: validación por esquema y relaciones del catálogo, reclamación
+      atómica de checklists sin cambio de propietario, redirección de auth solo interna y límites
+      compartidos para sync, share, feedback y reportes. Ensayado contra Postgres con rollback. ✅ 19/08
+- [x] **Dependencias de producción sin avisos conocidos**: Next y `eslint-config-next` suben a
+      16.3.1, `nanoid` queda en 3.3.18 y `npm audit --omit=dev` devuelve 0. ✅ 19/08
 
 ## Fase 4 — Motor de curación ⟶ **reenfocada el 17/07**
 
