@@ -146,7 +146,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "Cita previa pedida",
         explicacion:
-          "Fuente: «previa petición de cita previa por teléfono en el número 060, o por Internet en la página Web: www.citapreviadnie.es».",
+          "Fuente: «en el momento de solicitud de cita previa a través de la web www.citapreviadnie.es».",
         canal: "presencial",
       },
     ],
@@ -286,7 +286,7 @@ export const tramites: TramiteContenido[] = [
       },
     ],
     prerequisitos: [
-      { slug: "certificado-nacimiento", nota: "Pídelo «a los solos efectos» del DNI: caduca a los 6 meses." },
+      { slug: "certificado-nacimiento", nota: "Pídelo «emitida solo a efectos de la obtención del Documento Nacional de Identidad» del DNI: caduca a los 6 meses." },
       { slug: "empadronamiento-madrid", nota: "El certificado caduca a los 3 meses." },
     ],
   },
