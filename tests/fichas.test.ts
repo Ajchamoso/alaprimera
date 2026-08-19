@@ -80,6 +80,20 @@ describe("integridad de las fichas reales", () => {
     }
   });
 
+  it("la cita de un requisito de tasa respalda que hay un pago", () => {
+    for (const t of fichasReales) {
+      for (const r of t.requisitos.filter((requisito) => /tasa/i.test(requisito.titulo))) {
+        const citas = [...r.explicacion.matchAll(/«([^»]+)»/g)].map((coincidencia) =>
+          coincidencia[1].toLocaleLowerCase("es")
+        );
+        expect(
+          citas.some((cita) => /\b(tasa|pago|abonar|euros?)\b/i.test(cita)),
+          `${t.slug}/${r.id} · ninguna cita respalda el pago`
+        ).toBe(true);
+      }
+    }
+  });
+
   it("cada soloSiOpciones apunta a una opción que existe en la propia ficha", () => {
     for (const t of fichasReales) {
       const idsOpcion = new Set(t.preguntas.flatMap((p) => p.opciones.map((o) => o.id)));

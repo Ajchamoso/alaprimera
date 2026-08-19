@@ -90,15 +90,16 @@ BD para cuando llegue.
 ## Fase 5 — Contenido + pulido (semanas 3-5, paralelo, humano)
 
 - [ ] **T-024** Curar y verificar las 11 fichas contra fuente oficial (empezando por beca → certificado → DNI).
-      **11 de 11 extraídas con citas el 17/07. Rastreo de agosto (10-11/08): 22 fuentes revisadas,
-      2 fichas selladas tras cotejo completo de citas.**
+      **22 fichas extraídas. Rastreo de agosto (10-19/08): 22 fuentes revisadas y 13 fichas
+      selladas. La del carnet se retiró del lote tras detectar un cruce entre la cita de identidad
+      y el requisito de la tasa.**
       - [x] Extraídas con citas las 11 del plan; el catálogo creció después hasta 22 fichas.
       - [x] Rastreo de las 22 fuentes (10-11/08): todas responden; el detalle por ficha está en
             [pendientes-verificacion.md](./pendientes-verificacion.md).
-      - [x] Selladas con cotejo completo: beca comedor Madrid (8 citas, 10/08) y transferencia de
-            vehículo (plazo y tasas, 11/08).
-      - [ ] Quedan 20 fichas por cotejar en navegador: sus citas viven en acordeones o menús que
-            el rastreo por HTTP no despliega (FR-022: eso lo resuelve una persona).
+      - [x] Selladas con cotejo completo: 13 de 22. Detalle y fechas en
+            [pendientes-verificacion.md](./pendientes-verificacion.md).
+      - [ ] Quedan 9 fichas: `carnet-conducir` necesita recotejo tras corregir tres citas y las
+            otras 8 requieren navegador por acordeones, bloqueos o contenido dinámico.
       - **Cadenas citadas por la fuente**: pasaporte→DNI · DNI primera vez→{certificado nacimiento,
         empadronamiento} · tarjeta sanitaria→empadronamiento · familia numerosa→empadronamiento
       - **El veredicto de Cl@ve es el único citado literalmente**: «no cabe instar registros en
