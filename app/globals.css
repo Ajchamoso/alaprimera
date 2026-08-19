@@ -45,6 +45,11 @@
    una ventanilla y la acaban leyendo personas mayores. La legibilidad manda sobre
    el modo oscuro. Es una decisión, no un olvido. */
 
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
 @media print {
   body {
     background: #fff;

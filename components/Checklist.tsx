@@ -12,7 +12,7 @@ import { Compartir } from "@/components/Compartir";
 import { SalioALaPrimera } from "@/components/SalioALaPrimera";
 import { IconoRequisito, NOMBRE_TIPO } from "@/components/IconoRequisito";
 import { haySesion, suscribeSesion } from "@/lib/sesion";
-import { requisitosDelCanal } from "@/lib/personaliza";
+import { requisitosDeChecklist } from "@/lib/personaliza";
 import { formateaFechaEs } from "@/lib/sello";
 
 /** Vista de checklist: requisitos marcables, elección de canal (H5) y preparación final con imprimible (FR-015/016). */
@@ -22,7 +22,7 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
 
   // Sin elección falsa (H5.6): si el trámite solo admite una vía, es la que hay.
   const canal = tramite.canales.length === 1 ? tramite.canales[0] : checklist.canal;
-  const visibles = requisitosDelCanal(aplicables, canal);
+  const visibles = requisitosDeChecklist(tramite, checklist.respuestas, canal);
   const conseguidos = visibles.filter((r) => checklist.marcados[r.id]).length;
   const completada = visibles.length > 0 && conseguidos === visibles.length;
 
@@ -294,11 +294,13 @@ function Preparacion({
             </p>
           )
         )}
-        <p className="break-all text-tinta-tenue">
-          Fuente oficial: {tramite.urlFuente}
-          {tramite.verificadaEn === null
-            ? " · ficha por verificar, confirma antes de ir"
-            : ` · verificada el ${formateaFechaEs(tramite.verificadaEn)}`}
+        <p className="text-tinta-tenue">
+          Fuente oficial: <span className="break-all">{tramite.urlFuente}</span>
+          <span>
+            {tramite.verificadaEn === null
+              ? " · ficha por verificar, confirma antes de ir"
+              : ` · verificada el ${formateaFechaEs(tramite.verificadaEn)}`}
+          </span>
         </p>
       </div>
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getTramites } from "@/lib/data";
-import { requisitosAplicablesDe } from "@/lib/personaliza";
+import { requisitosDeChecklist } from "@/lib/personaliza";
 import { adminConfigurado, supabaseAdmin } from "@/lib/supabase/admin";
 import { SelloVerificacion } from "@/components/SelloVerificacion";
 import { IconoRequisito, NOMBRE_TIPO } from "@/components/IconoRequisito";
@@ -45,7 +45,13 @@ export default async function PaginaCompartida({
   const tramite = (await getTramites()).find((t) => t.slug === checklist.tramite_id);
   if (!tramite) return <NoDisponible />;
 
-  const aplicables = requisitosAplicablesDe(tramite, checklist.respuestas);
+  const canal =
+    tramite.canales.length === 1
+      ? tramite.canales[0]
+      : checklist.canal_elegido === "online" || checklist.canal_elegido === "presencial"
+        ? checklist.canal_elegido
+        : undefined;
+  const aplicables = requisitosDeChecklist(tramite, checklist.respuestas, canal);
   const conseguidos = aplicables.filter((r) => checklist.marcados?.[r.id]).length;
 
   return (

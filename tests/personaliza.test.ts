@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { requisitosDelCanal } from "@/lib/personaliza";
-import type { Requisito } from "@/lib/types";
+import { requisitosDeChecklist, requisitosDelCanal } from "@/lib/personaliza";
+import type { Requisito, Tramite } from "@/lib/types";
 
 const base = {
   tipo: "doc_fisico" as const,
@@ -23,5 +23,39 @@ describe("requisitosDelCanal", () => {
       "comun",
       "oficina",
     ]);
+  });
+});
+
+describe("requisitosDeChecklist", () => {
+  const tramite: Tramite = {
+    slug: "prueba",
+    nombreOficial: "Prueba",
+    nombreColoquial: "Prueba",
+    descripcion: "Prueba",
+    organismo: "Organismo",
+    nivel: "estatal",
+    territorio: "España",
+    canales: ["online", "presencial"],
+    urlFuente: "https://example.com",
+    verificadaEn: null,
+    generadaPorIa: false,
+    alias: [],
+    preguntas: [],
+    requisitos: [
+      ...requisitos,
+      {
+        ...base,
+        id: "solo-caso",
+        titulo: "Solo para este caso",
+        canal: "ambos",
+        soloSiOpciones: ["opcion-si"],
+      },
+    ],
+    prerequisitos: [],
+  };
+
+  it("combina el caso personalizado con la vía de la instantánea", () => {
+    expect(requisitosDeChecklist(tramite, { pregunta: "opcion-si" }, "presencial").map((r) => r.id))
+      .toEqual(["comun", "oficina", "solo-caso"]);
   });
 });

@@ -20,3 +20,16 @@ export function requisitosDelCanal(requisitos: Requisito[], canal?: Canal): Requ
   if (!canal) return requisitos;
   return requisitos.filter((requisito) => requisito.canal === "ambos" || requisito.canal === canal);
 }
+
+/**
+ * Lista final que representa una checklist: primero personaliza el caso y
+ * después aplica la vía elegida. Compartir y editar deben usar exactamente la
+ * misma composición para que el progreso no cambie al abrir el enlace.
+ */
+export function requisitosDeChecklist(
+  tramite: Tramite,
+  respuestas: Record<string, string>,
+  canal?: Canal
+): Requisito[] {
+  return requisitosDelCanal(requisitosAplicablesDe(tramite, respuestas), canal);
+}
