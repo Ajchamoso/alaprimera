@@ -16,6 +16,11 @@ on:
 jobs:
   verificar:
     runs-on: ubuntu-latest
+    # Un cuelgue no puede salir gratis: el 19/08 el paso de instalar el navegador
+    # se quedó 102 minutos parado en apt (los espejos de Ubuntu no respondían) y
+    # nadie se enteró hasta mirarlo a mano. Lo normal son 90 segundos, así que
+    # con 20 minutos sobra para fallar rápido y volver a lanzarlo.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -45,6 +50,9 @@ jobs:
       # build de producción que dejó el paso anterior. Los navegadores de
       # Playwright no vienen en el runner: se instalan justo antes de usarse.
       - name: Instalar navegador de Playwright
+        # --with-deps tira de apt, que es de donde vino el cuelgue: si vuelve a
+        # pasar, que reviente aquí y con nombre y apellidos.
+        timeout-minutes: 8
         run: npx playwright install --with-deps chromium
 
       - name: E2E (viaje de la demo)
