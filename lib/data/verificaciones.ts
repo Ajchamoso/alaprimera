@@ -17,9 +17,17 @@
  * el rastreo la coteje contra su fuente (FR-020b).
  */
 export const verificaciones: Record<string, string> = {
+  "apoderamiento": "2026-08-19",
+  "beca-comedor-aragon": "2026-08-19",
   "beca-comedor-madrid": "2026-08-10",
   "carnet-conducir": "2026-08-19",
+  "empadronamiento-zaragoza": "2026-08-19",
+  "familia-numerosa-aragon": "2026-08-19",
+  "familia-numerosa-madrid": "2026-08-19",
   "matriculacion-vehiculo": "2026-08-19",
+  "pasaporte": "2026-08-19",
+  "tarjeta-sanitaria-aragon": "2026-08-19",
+  "tarjeta-sanitaria-madrid": "2026-08-19",
   "transferencia-vehiculo": "2026-08-11",
 };
 

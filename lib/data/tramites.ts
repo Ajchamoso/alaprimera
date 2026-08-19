@@ -371,7 +371,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "El consentimiento de TODAS las personas con patria potestad",
         explicacion:
-          "Aquí es donde más gente se atasca. Fuente: «El consentimiento ha de ser prestado por TODAS las personas que ostenten la patria potestad o tutela, (y no únicamente la guardia y custodia)». Pueden ir juntos o por separado, incluso a equipos de expedición distintos, o hacerlo ante notario. Si hay sentencia que priva o limita la patria potestad de uno, basta la autorización del otro.",
+          "Aquí es donde más gente se atasca. Fuente: «deberá constar el consentimiento expreso de quienes tengan atribuido el ejercicio de la patria potestad o tutela (TODAS LAS PERSONAS QUE LA TENGAN ATRIBUIDA)». Pueden ir juntos o por separado, incluso a equipos de expedición distintos, o hacerlo ante notario. Si hay sentencia que priva o limita la patria potestad de uno, basta la autorización del otro.",
         canal: "presencial",
         soloSiOpciones: ["pas-p1-menor"],
       },
@@ -1844,7 +1844,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "Cita previa (para la vía presencial)",
         explicacion:
-          "Fuente: se atiende «con cita previa, que puede solicitarse online en citaprevia.aragon.es» o por teléfono.",
+          "Fuente: se atiende «La información y tramitación presencial requieren de cita previa, que puede solicitarse: Online en https://citaprevia.aragon.es/» o por teléfono.",
         canal: "presencial",
       },
     ],
