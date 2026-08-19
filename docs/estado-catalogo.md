@@ -6,7 +6,7 @@
 
 ## Resumen
 
-- **Fichas**: 22 (2 verificadas, 20 por verificar)
+- **Fichas**: 22 (4 verificadas, 18 por verificar)
 - **Pendientes** (backlog sin ficha): 22
 - **Total de entradas del catálogo**: 44
 
@@ -20,12 +20,12 @@
 | Me mudo de casa | 0 | 0 | 1 |
 | Cuido de un mayor | 3 | 0 | 6 |
 | Empiezo a trabajar | 0 | 0 | 4 |
-| Conducir y el coche | 3 | 1 | 0 |
+| Conducir y el coche | 3 | 3 | 0 |
 | La renta y Hacienda | 0 | 0 | 2 |
 | Fallece un familiar | 3 | 0 | 1 |
 | Me caso | 0 | 0 | 1 |
 | Pido una ayuda | 0 | 0 | 3 |
-| **Total** | **22** | **2** | **22** |
+| **Total** | **22** | **4** | **22** |
 
 ## Fichas
 
@@ -34,7 +34,7 @@
 | `apoderamiento` | Poder actuar en nombre de otra persona | estatal | España | — por verificar |
 | `beca-comedor-aragon` | La beca de comedor del cole | autonomico | Aragón | — por verificar |
 | `beca-comedor-madrid` | La beca de comedor del cole | autonomico | Comunidad de Madrid | 2026-08-10 |
-| `carnet-conducir` | Sacarse el carnet de conducir | estatal | España | — por verificar |
+| `carnet-conducir` | Sacarse el carnet de conducir | estatal | España | 2026-08-19 |
 | `certificado-defuncion` | El certificado de defunción | estatal | España | — por verificar |
 | `certificado-digital-fnmt` | El certificado para hacer trámites por internet | estatal | España | — por verificar |
 | `certificado-nacimiento` | El certificado de nacimiento | estatal | España | — por verificar |
@@ -45,7 +45,7 @@
 | `familia-numerosa-aragon` | El título de familia numerosa | autonomico | Aragón | — por verificar |
 | `familia-numerosa-madrid` | El título de familia numerosa | autonomico | Comunidad de Madrid | — por verificar |
 | `inscripcion-nacimiento` | Inscribir al recién nacido | estatal | España | — por verificar |
-| `matriculacion-vehiculo` | Matricular un vehículo | estatal | España | — por verificar |
+| `matriculacion-vehiculo` | Matricular un vehículo | estatal | España | 2026-08-19 |
 | `pasaporte` | El pasaporte | estatal | España | — por verificar |
 | `renovacion-dni` | Renovar el carnet de identidad | estatal | España | — por verificar |
 | `seguros-fallecimiento` | Saber qué seguros de vida tenía | estatal | España | — por verificar |

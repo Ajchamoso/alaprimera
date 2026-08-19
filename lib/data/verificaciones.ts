@@ -18,6 +18,8 @@
  */
 export const verificaciones: Record<string, string> = {
   "beca-comedor-madrid": "2026-08-10",
+  "carnet-conducir": "2026-08-19",
+  "matriculacion-vehiculo": "2026-08-19",
   "transferencia-vehiculo": "2026-08-11",
 };
 

@@ -2513,15 +2513,15 @@ export const tramites: TramiteContenido[] = [
         tipo: "tramite_previo",
         titulo: "El informe de aptitud psicofísica (el psicotécnico)",
         explicacion:
-          "Se hace en un centro de reconocimiento antes del examen. Fuente: «Informe de aptitud psicofísica, expedido por un Centro de Reconocimiento de Conductores autorizado». Ojo: «Este certificado tiene un período de validez de 90 días».",
+          "Se hace en un centro de reconocimiento antes del examen. Fuente: «Obtén un informe de aptitud psicofísica[.] Para ello acude a un Centro de Reconocimiento de Conductores autorizado». Ojo: «Este certificado tiene un período de validez de 90 días».",
         canal: "presencial",
       },
       {
         id: "cc-r2",
         tipo: "doc_fisico",
-        titulo: "Una fotografía de 32×26 mm",
+        titulo: "El talón-foto, con una fotografía de 32×26 mm",
         explicacion:
-          "Fuente: «Fotografía original actual (de 32 x 26 mm) en color y con fondo liso, tomada de frente con la cabeza descubierta y sin gafas de cristales oscuros o cualquier otra prenda que pueda impedir o dificultar tu identificación».",
+          "Te lo entrega la autoescuela y lo llevas al examen práctico. Fuente: «Talón-foto con fotografía original actual de 32 x 26 mm. en color y con fondo liso, tomada de frente con la cabeza descubierta y sin gafas de cristales oscuros o cualquier otra prenda que pueda impedir o dificultar tu identificación»; «la escuela en la que te matricules para realizar el examen práctico te entregará el talón-foto». Desde noviembre de 2024 «ya no es necesario volver a presentar el talón-foto y/o fotografías en aquellos trámites en los que tengamos dicha documentación ya recopilada», pero sí la primera vez.",
         canal: "ambos",
       },
       {
@@ -2537,7 +2537,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "La tasa de la DGT",
         explicacion:
-          "Fuente: «Tienes que presentar la documentación original y pagar la tasa correspondiente a cada tipo de permiso». (El importe exacto no lo fijamos aquí: la sede lo carga de forma dinámica; conviene comprobarlo al pagar.)",
+          "Fuente: «deberás acudir con documentación original y en vigor para acreditar tu identidad: DNI o Pasaporte». (El importe exacto no lo fijamos aquí: la sede lo carga de forma dinámica; conviene comprobarlo al pagar.)",
         canal: "ambos",
       },
       {
@@ -2620,7 +2620,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "tramite_previo",
         titulo: "El impuesto de circulación (IVTM) del ayuntamiento, pagado o exento",
         explicacion:
-          "Fuente: «Justificante del pago o exención del Impuesto de Circulación del Ayuntamiento en el que tenga su domicilio el solicitante (original o fotocopia)».",
+          "Fuente: «Justificante del pago o exención del Impuesto de Circulación del Ayuntamiento donde tengas tu domicilio».",
         canal: "ambos",
       },
       {
@@ -2636,7 +2636,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "La tasa de la DGT: 99,77 € (27,85 € si es ciclomotor)",
         explicacion:
-          "Fuente: «Tasa por importe de 99,77 €, excepto ciclomotores 27,85 €. (No se admite el pago en metálico)».",
+          "Fuente: «tienes que adquirir la tasa 1.1 de 99,77 euros» y, «para el caso de ciclomotores, tendrás que comprar la tasa 1.2 de 27,85 €», que se paga con tarjeta, «nunca en metálico».",
         canal: "ambos",
       },
       {
@@ -2644,15 +2644,15 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "El documento de identidad del titular",
         explicacion:
-          "Fuente: «documento oficial que acredite la identidad y domicilio del titular (DNI, permiso de conducción español, tarjeta de residencia, pasaporte más Número de Identificación de Extranjeros)».",
+          "Fuente: «documento oficial que acredite tu identidad y domicilio (DNI, permiso de conducción español, tarjeta de residencia, pasaporte más Número de Identificación de Extranjeros)».",
         canal: "ambos",
       },
       {
         id: "mv-r6",
         tipo: "doc_fisico",
-        titulo: "El DUA de la Aduana",
+        titulo: "El certificado de importación H1",
         explicacion:
-          "Para vehículos de fuera de la UE. Fuente: «Documento Único Administrativo (DUA) expedido por la Aduana, salvo que en la tarjeta de ITV conste la diligencia de importación del vehículo».",
+          "Para vehículos de fuera de la UE. Fuente: «Certificado de Importación H1, salvo que en la tarjeta de ITV conste la diligencia de importación del vehículo».",
         canal: "ambos",
         soloSiOpciones: ["mv-p2-importado"],
       },
@@ -2670,7 +2670,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "Cita previa y la solicitud en impreso oficial",
         explicacion:
-          "Para la vía presencial. Fuente: «antes de presentar el trámite en jefatura deberá solicitar cita previa», y la «Solicitud en impreso oficial».",
+          "Para la vía presencial. Fuente: «necesitas solicitar cita previa por internet o llamando al 060», y la «Solicitud en impreso oficial».",
         canal: "presencial",
         soloSiOpciones: ["mv-p3-presencial"],
       },
