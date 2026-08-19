@@ -63,6 +63,32 @@ a renovacion-dni, dni-primera-vez, certificado-digital-fnmt, pasaporte, y potenc
 - Estrategia: verificar las estatales (DNI, pasaporte) una sesión diferente cuando se tenga
   estabilidad del navegador
 
+## Cómo cotejar sin perder la tarde (19/08/2026)
+
+El cotejo de agosto empezó mal: siete intentos peleando ficha a ficha con la web de
+Justicia, que carga los requisitos con JavaScript, sin sacar contenido. Lo que lo
+resolvió fue **medir antes de trabajar**: una sonda de dos minutos que descarga las
+fuentes pendientes y cuenta qué porcentaje de citas de cada ficha aparece en su página.
+
+El orden bueno es este:
+
+1. **Sonda primero.** Descarga simple de todas las fuentes pendientes y porcentaje de
+   citas que casan. Sale un ranking.
+2. **Sella lo que da 100%**, que es cotejo terminado.
+3. **Mira una a una las que quedan cerca** (60-90%): casi siempre son reescrituras, y se
+   arreglan actualizando la cita a la redacción de hoy.
+4. **Las que dan 0% no se pelean**: son las que el rastreo no puede resolver y pasan a
+   una persona con navegador, que es lo que dice FR-022.
+
+**El falso positivo que hay que vigilar:** una página que solo devuelve su menú de
+navegación puede dar porcentajes altos, porque las citas cortas casan contra los
+títulos del menú. Antes de sellar, comprueba que la descarga tiene tamaño de contenido
+real. Las páginas del DNI devuelven unos 6 KB de puro menú y daban un 67%.
+
+**Fuentes que el rastreo NO resuelve** (a fecha de 19/08/2026): mjusticia.gob.es (todo
+el contenido tras acordeones que cargan al pulsar), dnielectronico.es (solo devuelve
+menú), sede.madrid.es (403), clave.gob.es y la sede de la FNMT.
+
 ## La regla que no se negocia
 
 **La ficha guía; la fuente manda.** Ningún dato entra sin cita literal de la
