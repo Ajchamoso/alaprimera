@@ -1,4 +1,4 @@
-import type { Requisito, Tramite } from "@/lib/types";
+import type { Canal, Requisito, Tramite } from "@/lib/types";
 
 /**
  * Personalización (FR-006): qué requisitos aplican a unas respuestas dadas.
@@ -13,4 +13,23 @@ export function requisitosAplicablesDe(
   return tramite.requisitos.filter(
     (r) => !r.soloSiOpciones || r.soloSiOpciones.some((o) => elegidas.has(o))
   );
+}
+
+/** Tras elegir vía, oculta lo exclusivo de la otra sin perder los requisitos comunes. */
+export function requisitosDelCanal(requisitos: Requisito[], canal?: Canal): Requisito[] {
+  if (!canal) return requisitos;
+  return requisitos.filter((requisito) => requisito.canal === "ambos" || requisito.canal === canal);
+}
+
+/**
+ * Lista final que representa una checklist: primero personaliza el caso y
+ * después aplica la vía elegida. Compartir y editar deben usar exactamente la
+ * misma composición para que el progreso no cambie al abrir el enlace.
+ */
+export function requisitosDeChecklist(
+  tramite: Tramite,
+  respuestas: Record<string, string>,
+  canal?: Canal
+): Requisito[] {
+  return requisitosDelCanal(requisitosAplicablesDe(tramite, respuestas), canal);
 }

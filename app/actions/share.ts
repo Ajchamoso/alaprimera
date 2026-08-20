@@ -1,7 +1,13 @@
 "use server";
 
+import { randomBytes } from "node:crypto";
+import { guardaInstantaneas, idUsuarioActual } from "@/lib/checklists-servidor";
+import { permiteAccion } from "@/lib/limite-acciones";
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { supabaseServidor } from "@/lib/supabase/server";
+import {
+  type InstantaneaChecklist,
+  validaChecklist,
+} from "@/lib/validacion-acciones";
 
 /**
  * Crear un enlace de compartición (FR-014, H7).
@@ -16,70 +22,46 @@ import { supabaseServidor } from "@/lib/supabase/server";
  * instantánea: volver a compartir la refresca (la UI lo dice explícitamente).
  */
 
-export interface EntradaShare {
-  id: string;
-  tramiteSlug: string;
-  nombre: string;
-  respuestas: Record<string, string>;
-  marcados: Record<string, boolean>;
-  canal?: "online" | "presencial";
-  creadaEn: string;
-}
+export type EntradaShare = InstantaneaChecklist;
 
 export async function creaShare(
-  entrada: EntradaShare
+  entrada: unknown
 ): Promise<{ token: string } | { error: string }> {
-  const admin = supabaseAdmin();
+  const checklist = validaChecklist(entrada);
+  if (!checklist) return { error: "No se pudo crear el enlace. Inténtalo de nuevo." };
 
-  // Si hay sesión, la checklist se guarda con su dueño; si no, queda sin dueño
-  // hasta que alguien la reclame al identificarse.
-  let userId: string | null = null;
+  const userId = await idUsuarioActual();
+  if (!(await permiteAccion(userId ? `share:${userId}` : "share:anon", 20, 3600))) {
+    return { error: "No se pudo crear el enlace. Inténtalo más tarde." };
+  }
+
   try {
-    const supabase = await supabaseServidor();
-    const { data } = await supabase.auth.getUser();
-    userId = data.user?.id ?? null;
-  } catch {
-    // sin sesión: checklist anónima
-  }
+    await guardaInstantaneas([checklist], userId);
+    const admin = supabaseAdmin();
 
-  const { error: errorChecklist } = await admin.from("checklists").upsert({
-    id: entrada.id,
-    user_id: userId,
-    tramite_id: entrada.tramiteSlug,
-    nombre: entrada.nombre,
-    respuestas: entrada.respuestas,
-    marcados: entrada.marcados,
-    canal_elegido: entrada.canal ?? null,
-    creada_en: entrada.creadaEn,
-    actualizada_en: new Date().toISOString(),
-  });
-  if (errorChecklist) {
-    console.error("Share: no se pudo guardar la checklist.", errorChecklist.message);
+    // Si ya existe, se reutiliza y la instantánea de arriba lo deja al día.
+    const { data: existente, error: errorLectura } = await admin
+      .from("shares")
+      .select("token")
+      .eq("checklist_id", checklist.id)
+      .limit(1)
+      .maybeSingle();
+    if (errorLectura) throw errorLectura;
+    if (existente?.token) return { token: existente.token };
+
+    const token = generaToken();
+    const { error: errorShare } = await admin
+      .from("shares")
+      .insert({ token, checklist_id: checklist.id });
+    if (errorShare) throw errorShare;
+    return { token };
+  } catch (error) {
+    console.error("Share: no se pudo crear el enlace.", error);
     return { error: "No se pudo crear el enlace. Inténtalo de nuevo." };
   }
-
-  // Un solo enlace por checklist: si ya existe se reutiliza (y su contenido
-  // acaba de refrescarse arriba).
-  const { data: existente } = await admin
-    .from("shares")
-    .select("token")
-    .eq("checklist_id", entrada.id)
-    .maybeSingle();
-  if (existente?.token) return { token: existente.token };
-
-  const token = generaToken();
-  const { error: errorShare } = await admin
-    .from("shares")
-    .insert({ token, checklist_id: entrada.id });
-  if (errorShare) {
-    console.error("Share: no se pudo crear el enlace.", errorShare.message);
-    return { error: "No se pudo crear el enlace. Inténtalo de nuevo." };
-  }
-  return { token };
 }
 
 /** Token url-safe de 128 bits: imposible de adivinar, corto de leer. */
 function generaToken(): string {
-  const bytes = crypto.getRandomValues(new Uint8Array(16));
-  return Buffer.from(bytes).toString("base64url");
+  return randomBytes(16).toString("base64url");
 }

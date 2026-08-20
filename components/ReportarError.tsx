@@ -36,8 +36,11 @@ export function ReportarError({ tramiteSlug }: { tramiteSlug: string }) {
 
   return (
     <div className="rounded-lg border border-linea bg-hoja p-4 print:hidden">
-      <label className="block text-sm font-medium">¿Qué está mal?</label>
+      <label htmlFor={`reporte-${tramiteSlug}`} className="block text-sm font-medium">
+        ¿Qué está mal?
+      </label>
       <textarea
+        id={`reporte-${tramiteSlug}`}
         value={texto}
         onChange={(e) => setTexto(e.target.value)}
         rows={3}

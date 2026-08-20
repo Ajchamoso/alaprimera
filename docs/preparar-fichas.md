@@ -1,8 +1,8 @@
 # Cómo se prepara y se mantiene una ficha
 
-> El cuello de botella real del proyecto. La IA acelera la extracción; **la
-> verificación no la puede hacer una IA** — es lo que separa esto de publicar
-> información falsa sobre trámites oficiales.
+> El cuello de botella real del proyecto. La IA acelera la extracción y localiza
+> diferencias; **la aprobación y el sello los pone una persona**. Comparar cadenas
+> no sustituye comprobar que cada cita respalda el requisito al que está unida.
 >
 > **⚡ Este flujo está empaquetado como skill**, en `.claude/skills/preparar-ficha/`. En una
 > sesión de Claude Code sobre este repo:
@@ -31,7 +31,7 @@ calendario:
 | **Al instante** | Reportes de error y los "no" del feedback | La señal más barata y con más contexto |
 
 Los requisitos de fondo (qué documentos pide el DNI) casi nunca cambian. Priorizad por uso real,
-no por ansiedad. Con 11 fichas y 90 días de sello: **una ficha cada 8 días**.
+no por ansiedad. Con 22 fichas y 90 días de sello: **una ficha cada 4 días**.
 
 **3. Las citas son el ancla.** Aquí está el truco que hace viable el mantenimiento: cada requisito
 guarda la frase literal de la fuente, así que comprobar si sigue vigente es un `grep`, no un
@@ -74,7 +74,8 @@ El orden bueno es este:
 
 1. **Sonda primero.** Descarga simple de todas las fuentes pendientes y porcentaje de
    citas que casan. Sale un ranking.
-2. **Sella lo que da 100%**, que es cotejo terminado.
+2. **Toma el 100% como candidato**, no como cotejo terminado: revisa también que cada
+   cita respalde el requisito concreto al que está unida.
 3. **Mira una a una las que quedan cerca** (60-90%): casi siempre son reescrituras, y se
    arreglan actualizando la cita a la redacción de hoy.
 4. **Las que dan 0% no se pelean**: son las que el rastreo no puede resolver y pasan a
@@ -85,9 +86,23 @@ navegación puede dar porcentajes altos, porque las citas cortas casan contra lo
 títulos del menú. Antes de sellar, comprueba que la descarga tiene tamaño de contenido
 real. Las páginas del DNI devuelven unos 6 KB de puro menú y daban un 67%.
 
+Hay un segundo falso positivo: una cita puede existir en la página y estar pegada al
+requisito equivocado. El 19/08 la ficha del carnet pasó el recuento con la frase del
+DNI/pasaporte puesta bajo «La tasa de la DGT». La fuente contenía ambas ideas, pero esa
+cita no demostraba la tasa. Desde entonces el cotejo exige leer juntos título y cita.
+
+## Recotejo del lote del 19/08/2026
+
+Se revisaron de nuevo las 12 fichas selladas ese día. Once mantienen correspondencia
+entre requisito, cita y fuente oficial. `carnet-conducir` tenía tres citas que necesitaban
+ajuste: una frase construida con `[.]`, una redacción antigua del examen y el cruce entre
+identidad y tasa. Se corrigieron contra la DGT y se retiró su sello hasta que una persona
+vuelva a cotejarla. Estado resultante: **13 de 22 fichas verificadas**.
+
 **Fuentes que el rastreo NO resuelve** (a fecha de 19/08/2026): mjusticia.gob.es (todo
-el contenido tras acordeones que cargan al pulsar), dnielectronico.es (solo devuelve
-menú), sede.madrid.es (403), clave.gob.es y la sede de la FNMT.
+el contenido tras acordeones que cargan al pulsar), sede.madrid.es (403), clave.gob.es
+y la sede de la FNMT. `dnielectronico.es` sí entrega contenido completo cuando se convierte
+correctamente desde ISO-8859-1.
 
 ## La regla que no se negocia
 
@@ -123,7 +138,10 @@ La ficha se escribe en `lib/data/tramites.ts` (tipo `TramiteContenido`) con:
 - **Nada de verificación aquí.** No estar en el registro (`verificaciones.ts`) ya hace que la app
   la muestre "⚠️ sin verificar", que es la verdad hasta que un humano la selle.
 
-Luego: `DATABASE_URL=... npm run db:seed`
+Luego, en local: `DATABASE_URL=... npm run db:seed`. Para un destino remoto hay que revisar dos
+veces la URL y confirmar solo esa ejecución con
+`PERMITIR_SEED_REMOTO=si DATABASE_URL=... npm run db:seed`. El seed actualiza las fichas y sus
+hijos, pero conserva checklists, enlaces, feedback, reportes y fichas que solo existan en BD.
 
 ### 3. Verificar (humano, obligatorio)
 
@@ -154,9 +172,9 @@ npm run verificar dni-primera-vez quitar   # retira el sello (te equivocaste, o 
 ```
 
 > ⚠️ **No lo hagas con SQL a mano.** Un `update tramites set verificada_en = now()` parece que
-> funciona… y el siguiente `npm run db:seed` se lo lleva por delante en silencio, porque el seed
-> borra y reinserta desde el repo. Lo comprobamos: verificar en BD y reseedear devolvía la ficha a
-> "sin verificar". Por eso la verificación vive en el registro y no en la base de datos.
+> funciona, pero el siguiente `npm run db:seed` restablece ese campo desde el registro del repo.
+> Lo comprobamos: verificar solo en BD y reseedear devolvía la ficha a "sin verificar". Por eso la
+> verificación vive en el registro y no en la base de datos.
 
 ## Por qué la verificación humana no es burocracia
 

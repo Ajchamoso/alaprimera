@@ -46,6 +46,7 @@ export function Compartir({ checklist, conSesion }: { checklist: ChecklistLocal;
         <div className="mt-2 flex flex-wrap gap-2">
           <input
             readOnly
+            aria-label="Enlace de la checklist compartida"
             value={url}
             onFocus={(e) => e.currentTarget.select()}
             className="min-w-0 flex-1 rounded-lg border border-linea bg-hoja px-3 py-2 text-sm"

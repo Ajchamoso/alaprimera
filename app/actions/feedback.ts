@@ -1,6 +1,13 @@
 "use server";
 
+import { guardaInstantaneas, idUsuarioActual } from "@/lib/checklists-servidor";
+import { permiteAccion } from "@/lib/limite-acciones";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import {
+  type FeedbackValidado,
+  validaFeedback,
+  validaReporte,
+} from "@/lib/validacion-acciones";
 
 /**
  * Cierre del bucle: "¿salió a la primera?" (FR-017) y reportar error (FR-018).
@@ -11,70 +18,50 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
  * requisitos) — que es justo lo que hace útil un "no".
  */
 
-export interface EntradaFeedback {
-  checklist: {
-    id: string;
-    tramiteSlug: string;
-    nombre: string;
-    respuestas: Record<string, string>;
-    marcados: Record<string, boolean>;
-    canal?: "online" | "presencial";
-    creadaEn: string;
-  };
-  salioALaPrimera: boolean;
-  queFallo?: string;
-}
+export type EntradaFeedback = FeedbackValidado;
 
-export async function enviaFeedback(entrada: EntradaFeedback): Promise<{ ok: boolean }> {
-  const admin = supabaseAdmin();
-  const { checklist } = entrada;
+export async function enviaFeedback(entrada: unknown): Promise<{ ok: boolean }> {
+  const validada = validaFeedback(entrada);
+  if (!validada) return { ok: false };
 
-  const { error: errorChecklist } = await admin.from("checklists").upsert(
-    {
-      id: checklist.id,
-      tramite_id: checklist.tramiteSlug,
-      nombre: checklist.nombre,
-      respuestas: checklist.respuestas,
-      marcados: checklist.marcados,
-      canal_elegido: checklist.canal ?? null,
-      creada_en: checklist.creadaEn,
-      actualizada_en: new Date().toISOString(),
-    },
-    { onConflict: "id", ignoreDuplicates: false }
-  );
-  if (errorChecklist) {
-    console.error("Feedback: no se pudo guardar la checklist.", errorChecklist.message);
+  const userId = await idUsuarioActual();
+  if (!(await permiteAccion(userId ? `feedback:${userId}` : "feedback:anon", 20, 3600))) {
     return { ok: false };
   }
 
-  const { error } = await admin.from("feedback").upsert(
-    {
-      checklist_id: checklist.id,
-      salio_a_la_primera: entrada.salioALaPrimera,
-      que_fallo: entrada.queFallo?.trim() || null,
-    },
-    { onConflict: "checklist_id" }
-  );
-  if (error) {
-    console.error("Feedback: no se pudo guardar la respuesta.", error.message);
+  try {
+    await guardaInstantaneas([validada.checklist], userId);
+    const { error } = await supabaseAdmin().from("feedback").upsert(
+      {
+        checklist_id: validada.checklist.id,
+        salio_a_la_primera: validada.salioALaPrimera,
+        que_fallo: validada.queFallo ?? null,
+      },
+      { onConflict: "checklist_id" }
+    );
+    if (error) throw error;
+    return { ok: true };
+  } catch (error) {
+    console.error("Feedback: no se pudo guardar la respuesta.", error);
     return { ok: false };
   }
-  return { ok: true };
 }
 
 export async function reportaError(
-  tramiteSlug: string,
-  descripcion: string
+  tramiteSlug: unknown,
+  descripcion: unknown
 ): Promise<{ ok: boolean }> {
-  const texto = descripcion.trim();
-  if (texto.length < 5) return { ok: false };
+  const reporte = validaReporte(tramiteSlug, descripcion);
+  if (!reporte || !(await permiteAccion("reporte", 10, 3600))) return { ok: false };
 
-  const { error } = await supabaseAdmin()
-    .from("reportes")
-    .insert({ tramite_id: tramiteSlug, descripcion: texto.slice(0, 2000) });
-  if (error) {
-    console.error("Reporte: no se pudo registrar.", error.message);
+  try {
+    const { error } = await supabaseAdmin()
+      .from("reportes")
+      .insert({ tramite_id: reporte.tramiteSlug, descripcion: reporte.descripcion });
+    if (error) throw error;
+    return { ok: true };
+  } catch (error) {
+    console.error("Reporte: no se pudo registrar.", error);
     return { ok: false };
   }
-  return { ok: true };
 }

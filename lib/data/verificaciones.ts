@@ -20,7 +20,6 @@ export const verificaciones: Record<string, string> = {
   "apoderamiento": "2026-08-19",
   "beca-comedor-aragon": "2026-08-19",
   "beca-comedor-madrid": "2026-08-10",
-  "carnet-conducir": "2026-08-19",
   "dni-primera-vez": "2026-08-19",
   "empadronamiento-zaragoza": "2026-08-19",
   "familia-numerosa-aragon": "2026-08-19",

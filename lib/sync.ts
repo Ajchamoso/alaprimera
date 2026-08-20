@@ -1,3 +1,4 @@
+import { sincronizaChecklists } from "@/app/actions/checklists";
 import { supabaseNavegador } from "@/lib/supabase/client";
 import {
   ChecklistLocal,
@@ -17,7 +18,6 @@ import {
  * usuario tiene delante — y se sube.
  */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 function aFila(c: ChecklistLocal, userId: string) {
   return {
     id: c.id,
@@ -32,74 +32,55 @@ function aFila(c: ChecklistLocal, userId: string) {
   };
 }
 
-function aLocal(f: any): ChecklistLocal {
-  return {
-    id: f.id,
-    tramiteSlug: f.tramite_id,
-    nombre: f.nombre,
-    respuestas: f.respuestas ?? {},
-    marcados: f.marcados ?? {},
-    canal: f.canal_elegido ?? undefined,
-    creadaEn: f.creada_en,
-  };
-}
-/* eslint-enable @typescript-eslint/no-explicit-any */
-
-let sincronizando = false;
+let versionSync = 0;
 
 export async function activaSync(userId: string) {
-  if (sincronizando) return;
-  sincronizando = true;
+  const versionActual = ++versionSync;
   const supabase = supabaseNavegador();
 
-  try {
-    const { data: remotas, error } = await supabase.from("checklists").select("*");
-    if (error) {
-      console.error("Sync: no se pudo leer la cuenta; seguimos en local.", error.message);
+  // 1) El servidor reclama de forma atómica lo anónimo y devuelve solo las filas del usuario.
+  let remotas: ChecklistLocal[] = [];
+  for (let intento = 0; intento < 3; intento += 1) {
+    const enviadas = getChecklistsSnapshot();
+    const resultado = await sincronizaChecklists(enviadas);
+    if (versionActual !== versionSync) return;
+    if ("error" in resultado) {
+      console.error("Sync: no se pudo fusionar la cuenta; seguimos en local.", resultado.error);
       return;
     }
-
-    // 1) MERGE al iniciar sesión: lo anónimo local sube (FR-012), nada se pierde.
-    const locales = getChecklistsSnapshot();
-    if (locales.length > 0) {
-      const { error: errorSubida } = await supabase
-        .from("checklists")
-        .upsert(locales.map((c) => aFila(c, userId)));
-      if (errorSubida) {
-        console.error("Sync: fallo subiendo checklists locales.", errorSubida.message);
-      }
-    }
-
-    // 2) Lo remoto que no está aquí, baja (multi-dispositivo, SC-005).
-    const idsLocales = new Set(locales.map((c) => c.id));
-    const nuevas = (remotas ?? []).filter((f) => !idsLocales.has(f.id)).map(aLocal);
-    if (nuevas.length > 0) reemplazaChecklists([...locales, ...nuevas]);
-
-    // 3) Espejo continuo para las mutaciones que vengan.
-    registraEspejo({
-      alGuardar: (c) => {
-        void supabase
-          .from("checklists")
-          .upsert(aFila(c, userId))
-          .then(({ error: e }) => {
-            if (e) console.error("Sync: fallo replicando checklist.", e.message);
-          });
-      },
-      alBorrar: (id) => {
-        void supabase
-          .from("checklists")
-          .delete()
-          .eq("id", id)
-          .then(({ error: e }) => {
-            if (e) console.error("Sync: fallo borrando checklist remota.", e.message);
-          });
-      },
-    });
-  } finally {
-    sincronizando = false;
+    remotas = resultado.checklists;
+    if (getChecklistsSnapshot() === enviadas) break;
   }
+
+  // 2) Lo remoto que no está aquí baja; ante conflicto sigue ganando lo que el usuario ve local.
+  const locales = getChecklistsSnapshot();
+  const idsLocales = new Set(locales.map((checklist) => checklist.id));
+  const nuevas = remotas.filter((checklist) => !idsLocales.has(checklist.id));
+  if (nuevas.length > 0) reemplazaChecklists([...locales, ...nuevas]);
+
+  // 3) Tras la reclamación, la RLS normal protege el espejo continuo.
+  registraEspejo({
+    alGuardar: (c) => {
+      void supabase
+        .from("checklists")
+        .upsert(aFila(c, userId))
+        .then(({ error: e }) => {
+          if (e) console.error("Sync: fallo replicando checklist.", e.message);
+        });
+    },
+    alBorrar: (id) => {
+      void supabase
+        .from("checklists")
+        .delete()
+        .eq("id", id)
+        .then(({ error: e }) => {
+          if (e) console.error("Sync: fallo borrando checklist remota.", e.message);
+        });
+    },
+  });
 }
 
 export function desactivaSync() {
+  versionSync += 1;
   registraEspejo(null);
 }

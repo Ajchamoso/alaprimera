@@ -5,8 +5,9 @@
 **Tu trámite, con tus papeles.** Termina cualquier gestión con la administración española
 a la primera, sin que te frene a mitad un requisito que no sabías que necesitabas.
 
-App del reto **Viberano** (Comunidad IÁgil de 233 Academy) — construida 100% mediante prompts con
-Claude Code, sin editar una línea de código a mano.
+App del reto **Viberano** (Comunidad IÁgil de 233 Academy), construida mediante prompts sin editar
+una línea de código a mano: desarrollo principal con Claude Code y auditoría y remediación final
+con OpenAI Codex.
 
 Proyecto de **Alberto Chamoso y Mónica González**.
 
@@ -27,7 +28,7 @@ Toda la documentación está en [`docs/`](./docs).
 - [docs/discovery/](./docs/discovery/README.md) — el *discovery* congelado: cómo se llegó a la idea (hipótesis, mapa de historias, ideas descartadas, el pivote desde SpecLens). Copiado del repo `Viberano` de la propuesta; son snapshots de julio de 2026 y no se actualizan.
 - [CLAUDE.md](./CLAUDE.md) / [AGENTS.md](./AGENTS.md) — reglas del reto y del producto para cada sesión, con las skills `/preparar-ficha` y `/revisar-codigo` y la red de seguridad de tests.
 
-## Estado (14/08/2026)
+## Estado (20/08/2026)
 
 ✅ **URL pública en marcha** — el requisito del reto, cumplido. Cada push a `main` despliega solo.
 
@@ -84,11 +85,14 @@ npm run dev            # http://localhost:3000
 
 Comandos útiles: `npm test` (la red de seguridad), `npm run lint`, `npm run docs` (regenera el
 estado del catálogo), `npm run db:seed` (vuelca el catálogo), `npm run verificar <slug>` (sella una
-ficha cotejada), `npm run buzon` (qué te está diciendo la gente: fallos y reportes).
+ficha cotejada), `npm run buzon` (qué te está diciendo la gente: fallos, reportes y trámites que
+echa en falta).
 
 Variables de entorno en `.env.local` (no versionado): `NEXT_PUBLIC_SUPABASE_URL`,
 `NEXT_PUBLIC_SUPABASE_ANON_KEY`, y para tareas de servidor/seed `SUPABASE_SERVICE_ROLE_KEY` y
-`DATABASE_URL`. Migraciones en `supabase/migrations/`; seed del catálogo con `npm run db:seed`.
+`DATABASE_URL`. Migraciones en `supabase/migrations/`; seed local del catálogo con
+`npm run db:seed`. Un destino remoto queda bloqueado salvo que esa ejecución incluya
+`PERMITIR_SEED_REMOTO=si`; el seed actualiza las fichas sin borrar checklists ni reportes.
 
 ## Autoría y licencia
 
@@ -103,8 +107,10 @@ la documentación generada sola y las validaciones de accesibilidad. Es lo que p
 cambiando la app sin miedo.
 
 El historial de git sale a nombre de una sola persona porque los commits se lanzaron desde una
-máquina. En este reto el historial es la evidencia de que todo el código se escribió con Claude
-Code, así que su contenido no se toca. La autoría del proyecto es de las dos personas.
+máquina. En este reto el historial es la evidencia de que todo el código se escribió mediante
+agentes, así que su contenido no se toca. Los commits de la construcción principal identifican a
+Claude Code y los de la auditoría final llevan el trailer de OpenAI Codex. La autoría del proyecto
+es de las dos personas.
 
 Con una excepción, dicha aquí para que nadie la descubra por su cuenta: antes de abrir el repo se
 reescribió la **dirección de correo del autor** en los 42 commits que existían, cambiando una

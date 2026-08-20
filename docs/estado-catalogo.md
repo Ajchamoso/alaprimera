@@ -6,7 +6,7 @@
 
 ## Resumen
 
-- **Fichas**: 22 (14 verificadas, 8 por verificar)
+- **Fichas**: 22 (13 verificadas, 9 por verificar)
 - **Pendientes** (backlog sin ficha): 22
 - **Total de entradas del catálogo**: 44
 
@@ -20,12 +20,12 @@
 | Me mudo de casa | 0 | 0 | 1 |
 | Cuido de un mayor | 3 | 3 | 6 |
 | Empiezo a trabajar | 0 | 0 | 4 |
-| Conducir y el coche | 3 | 3 | 0 |
+| Conducir y el coche | 3 | 2 | 0 |
 | La renta y Hacienda | 0 | 0 | 2 |
 | Fallece un familiar | 3 | 0 | 1 |
 | Me caso | 0 | 0 | 1 |
 | Pido una ayuda | 0 | 0 | 3 |
-| **Total** | **22** | **14** | **22** |
+| **Total** | **22** | **13** | **22** |
 
 ## Fichas
 
@@ -34,7 +34,7 @@
 | `apoderamiento` | Poder actuar en nombre de otra persona | estatal | España | 2026-08-19 |
 | `beca-comedor-aragon` | La beca de comedor del cole | autonomico | Aragón | 2026-08-19 |
 | `beca-comedor-madrid` | La beca de comedor del cole | autonomico | Comunidad de Madrid | 2026-08-10 |
-| `carnet-conducir` | Sacarse el carnet de conducir | estatal | España | 2026-08-19 |
+| `carnet-conducir` | Sacarse el carnet de conducir | estatal | España | — por verificar |
 | `certificado-defuncion` | El certificado de defunción | estatal | España | — por verificar |
 | `certificado-digital-fnmt` | El certificado para hacer trámites por internet | estatal | España | — por verificar |
 | `certificado-nacimiento` | El certificado de nacimiento | estatal | España | — por verificar |

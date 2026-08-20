@@ -96,6 +96,7 @@ checklists          id (uuid), user_id, tramite_id, nombre ("DNI Hugo"),
 shares              checklist_id, token (url-safe), creado_en          — solo lectura (FR-014)
 feedback            checklist_id, salio_a_la_primera (bool), comentario, que_fallo   — FR-017
 reportes            tramite_id, descripcion, estado ('pendiente'|'revisado')          — FR-018
+peticiones_catalogo consulta, comunidad, estado ('pendiente'|'revisada'), creado_en   — FR-003
 
 extraction_jobs     id, url, texto_pegado (nullable), estado ('pendiente'|'procesando'|
                     'listo'|'fallido'), error, borrador (jsonb con citas por campo), creado_por
@@ -111,8 +112,8 @@ profiles            user_id, es_curadora (bool)
 - **Respuestas en jsonb**: el wizard es corto y sus respuestas se leen siempre juntas; no
   normalizar aquí es simplicidad ganada.
 - **RLS en todo**: checklists/feedback solo del dueño; `tramites` publicadas legibles por
-  cualquiera; borradores y jobs solo curadoras. El share funciona por token con una policy de
-  lectura específica.
+  cualquiera; las tablas hijas solo se leen si su ficha padre está publicada; borradores y jobs
+  solo curadoras. El share funciona por token desde servidor, sin abrir una policy anónima.
 - **`anon` solo lee el catálogo** *(migración 0004, 20/07)*: el rol anónimo tiene `select` sobre las
   seis tablas del catálogo y nada más. Toda escritura del producto (reportes, feedback, shares) va
   por server action con la service role, que nunca llega al navegador. Dos motivos para no confiar
@@ -120,6 +121,13 @@ profiles            user_id, es_curadora (bool)
   Supabase concede por defecto a `anon` sobre todo el esquema. Las tablas nuevas nacen sin permisos
   para `anon` (`alter default privileges`), igual que nacen con RLS por el event trigger
   `rls_auto_enable`.
+- **Seed sin borrado de fichas** *(migración de seguridad, 19/08)*: el volcado hace `upsert` de los
+  datos maestros y reemplaza solo preguntas, opciones y requisitos. Las claves foráneas de
+  checklists y reportes usan `RESTRICT`, así que una regresión no puede arrastrar datos de usuario.
+  En remoto exige `PERMITIR_SEED_REMOTO=si` en esa única ejecución.
+- **Reclamación atómica de checklists**: la service role llama a una función versionada que permite
+  crear una checklist anónima o reclamarla al iniciar sesión, pero rechaza cambiar o borrar un
+  propietario ya asignado. Las acciones públicas se limitan con un contador atómico en Postgres.
 
 ## 4bis. Identidad visual: el sello *(añadida el 17/07)*
 

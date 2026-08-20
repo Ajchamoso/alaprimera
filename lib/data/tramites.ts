@@ -2513,7 +2513,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "tramite_previo",
         titulo: "El informe de aptitud psicofísica (el psicotécnico)",
         explicacion:
-          "Se hace en un centro de reconocimiento antes del examen. Fuente: «Obtén un informe de aptitud psicofísica[.] Para ello acude a un Centro de Reconocimiento de Conductores autorizado». Ojo: «Este certificado tiene un período de validez de 90 días».",
+          "Se hace en un centro de reconocimiento antes del examen. Fuente: «Obtén un informe de aptitud psicofísica». Para ello, «acude a un Centro de Reconocimiento de Conductores autorizado». Ojo: «Este certificado tiene un período de validez de 90 días».",
         canal: "presencial",
       },
       {
@@ -2529,7 +2529,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "tramite_previo",
         titulo: "Aprobar el examen teórico y el práctico",
         explicacion:
-          "Es el núcleo del trámite. Fuente: «será necesario superar un examen específico teórico y otro práctico». El aprobado de una prueba se guarda dos años: «El aprobado de una prueba se guardará durante dos años».",
+          "Es el núcleo del trámite. Fuente: «es necesario superar un examen específico teórico y otro práctico». El aprobado de una prueba se guarda dos años: «El aprobado de una prueba se guardará durante dos años».",
         canal: "presencial",
       },
       {
@@ -2537,7 +2537,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "La tasa de la DGT",
         explicacion:
-          "Fuente: «deberás acudir con documentación original y en vigor para acreditar tu identidad: DNI o Pasaporte». (El importe exacto no lo fijamos aquí: la sede lo carga de forma dinámica; conviene comprobarlo al pagar.)",
+          "Fuente: «Para poder presentarte a los exámenes será necesario abonar una tasa». (El importe exacto no lo fijamos aquí: la sede lo carga de forma dinámica; conviene comprobarlo al pagar.)",
         canal: "ambos",
       },
       {

@@ -26,12 +26,12 @@ reconocida".
 ## Fase 1 — Walking skeleton P1 (semanas 1-2)
 
 - [x] **T-006** Catálogo navegable con las fichas publicadas (H1). *Acepta: home lista fichas con nombre coloquial + oficial.* ✅ 16/07
-- [x] **T-007** Búsqueda por alias curados con tolerancia básica (H1, FR-002). *Verificado en navegador: "lo del carné de mi hijo" → DNI; "empadronamiento" → mensaje honesto (FR-003).* ✅ 16/07
+- [x] **T-007** Búsqueda por alias curados con tolerancia básica (H1, FR-002). *Verificado en navegador: "lo del carné de mi hijo" → DNI. Una búsqueda sin resultado muestra el mensaje honesto y permite dejar una petición persistida, validada y limitada (FR-003).* ✅ 19/08
 - [x] **T-008** Wizard de máx. 4 preguntas, la 1ª siempre destinatario (H2, FR-004). *Verificado: "menor+caducidad+sin cambio domicilio" da 4 requisitos y excluye denuncia y empadronamiento; el borrador se retoma sin repetir (H2.4).* ✅ 16/07
 - [x] **T-009** Veredicto de inviabilidad con alternativas (H2, FR-005). *Verificado: certificado "para otra persona" → veredicto con alternativas y vuelta atrás, sin checklist.* ✅ 16/07
-- [x] **T-010** Checklist personalizada: 4 tipos etiquetados + requisito trámite_previo enlazado + fuente prominente (H3, FR-007..009). ✅ 16/07
+- [x] **T-010** Checklist personalizada: 4 tipos etiquetados + requisito trámite_previo enlazado + fuente prominente (H3, FR-007..009). Los enlaces de prerrequisito conservan un regreso visible a la ficha de la que se salió (FR-008). ✅ 19/08
 - [x] **T-011** Progreso anónimo en localStorage con guardado automático (H4, FR-010/011). *Verificado: marcar 2 → recargar → siguen marcados. Store externo (useSyncExternalStore) con sync entre pestañas.* ✅ 16/07
-- [x] **T-012** Elección de canal + "antes de empezar" (online) / "qué llevar" imprimible (presencial) (H5, FR-015/016). *Verificado: canal único → preparación directa sin elección falsa (H5.6); aviso de faltantes (H5.5); imprimible con cabecera de contexto, solo-imprimible vía CSS. El selector de dos vías (EligeCanal) queda pendiente de probar con una ficha de doble canal (la beca).* ✅ 16/07
+- [x] **T-012** Elección de canal + "antes de empezar" (online) / "qué llevar" imprimible (presencial) (H5, FR-015/016). *Verificado: canal único → preparación directa sin elección falsa; el progreso y el aviso de faltantes excluyen la otra vía; el imprimible incluye fuente y fecha de verificación, con URLs que no desbordan en móvil.* ✅ 19/08
 - [x] **T-013** Multi-checklist con nombre propio (FR-013). *Verificado: "menor" y "para mí (pérdida)" conviven con requisitos distintos y progreso independiente; renombrar disponible.* ✅ 16/07
 
 ## Fase 2 — Persistencia real (semana 2)
@@ -39,14 +39,25 @@ reconocida".
 - [x] **T-014** Login magic link (Supabase Auth) (FR-011). *Construido y conectado al proyecto real (cliente, middleware, callback, /cuenta). Ciclo completo probado por un humano con un email real: enlace recibido, pulsado y sesión iniciada.* ✅ 10/08
 - [x] **T-015** Merge anónimo→cuenta sin pérdida (FR-012). *Verificado E2E con usuario de prueba confirmado: 3 checklists anónimas subieron a la cuenta con sus marcados intactos; conflicto = gana lo local.* ✅ 17/07
 - [x] **T-016** Multi-dispositivo: checklists en BD con RLS (SC-005). *Verificado: localStorage borrado (dispositivo nuevo) → recarga → las 3 checklists bajan con su progreso exacto; marcar con sesión replica a BD al momento. Diseño sync-through: la UI lee siempre local (offline-first), el espejo replica.* ✅ 17/07
+- [x] **Remediación de integridad del catálogo**: el seed conserva las filas padre y todo dato de
+      usuario, bloquea destinos remotos por defecto y avisa de fichas que solo existen en BD. Las
+      claves foráneas de checklists y reportes impiden borrados en cascada. ✅ 19/08
+- [x] **RLS de catálogo endurecida**: preguntas, opciones, requisitos y condiciones solo son
+      públicas cuando su ficha padre está publicada; el helper de curación sale del esquema de la
+      API y fija su `search_path`. ✅ 19/08
 
 ## Fase 3 — Confianza + cierre (semana 3) ✅ 17/07
 
 - [x] **T-017** Sello "verificada el DD/MM" con degradación derivada a 90 días (H6, FR-020). *Verificado con fechas reales en BD: a 100 días → "⚠️ Puede estar desactualizada (verificada el 08/04/2026)"; a 10 días → "✅ Verificada el". Los tres estados (sin verificar / vigente / caducada) correctos.*
 - [x] **T-018** Compartir por token, solo lectura (H7, FR-014). *Verificado: enlace generado, abierto sin sesión muestra la lista con el progreso real (3 de 4) y sin checkboxes; token inválido → "Esta checklist ya no existe". Token de 128 bits, página `noindex`.*
-- [x] **T-019** "¿Salió a la primera?" una vez por checklist (H8, FR-017). *Verificado E2E: el "no" pregunta qué falló, el motivo llega a BD con la checklist como contexto, y no se vuelve a preguntar.*
+- [x] **T-019** "¿Salió a la primera?" una vez por checklist completada (H8, FR-017). *Solo aparece al terminar los requisitos de la vía elegida y se marca respondida después de que la BD confirme el guardado; un fallo permite reintentar.* ✅ 19/08
 - [x] **T-020** Reportar error → cola de revisión (FR-018). *Verificado: reporte en BD como `pendiente`; la ficha no cambia hasta revisión humana.*
 - [x] **RLS auditada**: con la anon key, `checklists`, `shares`, `feedback` y `reportes` devuelven vacío. Los datos de usuario no se filtran; solo el endpoint del share (service role, server-side) los sirve por token válido.
+- [x] **Server Actions endurecidas**: validación por esquema y relaciones del catálogo, reclamación
+      atómica de checklists sin cambio de propietario, redirección de auth solo interna y límites
+      compartidos para sync, share, feedback y reportes. Ensayado contra Postgres con rollback. ✅ 19/08
+- [x] **Dependencias de producción sin avisos conocidos**: Next y `eslint-config-next` suben a
+      16.3.1, `nanoid` queda en 3.3.18 y `npm audit --omit=dev` devuelve 0. ✅ 19/08
 
 ## Fase 4 — Motor de curación ⟶ **reenfocada el 17/07**
 
@@ -90,15 +101,16 @@ BD para cuando llegue.
 ## Fase 5 — Contenido + pulido (semanas 3-5, paralelo, humano)
 
 - [ ] **T-024** Curar y verificar las 11 fichas contra fuente oficial (empezando por beca → certificado → DNI).
-      **11 de 11 extraídas con citas el 17/07. Rastreo de agosto (10-11/08): 22 fuentes revisadas,
-      2 fichas selladas tras cotejo completo de citas.**
+      **22 fichas extraídas. Rastreo de agosto (10-19/08): 22 fuentes revisadas y 13 fichas
+      selladas. La del carnet se retiró del lote tras detectar un cruce entre la cita de identidad
+      y el requisito de la tasa.**
       - [x] Extraídas con citas las 11 del plan; el catálogo creció después hasta 22 fichas.
       - [x] Rastreo de las 22 fuentes (10-11/08): todas responden; el detalle por ficha está en
             [pendientes-verificacion.md](./pendientes-verificacion.md).
-      - [x] Selladas con cotejo completo: beca comedor Madrid (8 citas, 10/08) y transferencia de
-            vehículo (plazo y tasas, 11/08).
-      - [ ] Quedan 20 fichas por cotejar en navegador: sus citas viven en acordeones o menús que
-            el rastreo por HTTP no despliega (FR-022: eso lo resuelve una persona).
+      - [x] Selladas con cotejo completo: 13 de 22. Detalle y fechas en
+            [pendientes-verificacion.md](./pendientes-verificacion.md).
+      - [ ] Quedan 9 fichas: `carnet-conducir` necesita recotejo tras corregir tres citas y las
+            otras 8 requieren navegador por acordeones, bloqueos o contenido dinámico.
       - **Cadenas citadas por la fuente**: pasaporte→DNI · DNI primera vez→{certificado nacimiento,
         empadronamiento} · tarjeta sanitaria→empadronamiento · familia numerosa→empadronamiento
       - **El veredicto de Cl@ve es el único citado literalmente**: «no cabe instar registros en
