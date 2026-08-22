@@ -96,8 +96,6 @@ checklists          id (uuid), user_id, tramite_id, nombre ("DNI Hugo"),
 shares              checklist_id, token (url-safe), creado_en          — solo lectura (FR-014)
 feedback            checklist_id, salio_a_la_primera (bool), comentario, que_fallo   — FR-017
 reportes            tramite_id, descripcion, estado ('pendiente'|'revisado')          — FR-018
-peticiones_catalogo consulta, comunidad, estado ('pendiente'|'revisada'), creado_en   — FR-003
-
 extraction_jobs     id, url, texto_pegado (nullable), estado ('pendiente'|'procesando'|
                     'listo'|'fallido'), error, borrador (jsonb con citas por campo), creado_por
 profiles            user_id, es_curadora (bool)

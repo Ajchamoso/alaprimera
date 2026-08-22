@@ -26,7 +26,8 @@ reconocida".
 ## Fase 1 — Walking skeleton P1 (semanas 1-2)
 
 - [x] **T-006** Catálogo navegable con las fichas publicadas (H1). *Acepta: home lista fichas con nombre coloquial + oficial.* ✅ 16/07
-- [x] **T-007** Búsqueda por alias curados con tolerancia básica (H1, FR-002). *Verificado en navegador: "lo del carné de mi hijo" → DNI. Una búsqueda sin resultado muestra el mensaje honesto y permite dejar una petición persistida, validada y limitada (FR-003).* ✅ 19/08
+- [x] **T-007** Búsqueda por alias curados con tolerancia básica (H1, FR-002). *Verificado en navegador: "lo del carné de mi hijo" → DNI. Una búsqueda sin resultado muestra el mensaje honesto y no genera contenido.* ✅ 16/07
+- [ ] **FR-003, registrar una petición sin resultado**: aplazado después del cierre funcional del Sprint 3. El formulario y su persistencia se retiraron para respetar que el Sprint 4 no incorpora funcionalidades.
 - [x] **T-008** Wizard de máx. 4 preguntas, la 1ª siempre destinatario (H2, FR-004). *Verificado: "menor+caducidad+sin cambio domicilio" da 4 requisitos y excluye denuncia y empadronamiento; el borrador se retoma sin repetir (H2.4).* ✅ 16/07
 - [x] **T-009** Veredicto de inviabilidad con alternativas (H2, FR-005). *Verificado: certificado "para otra persona" → veredicto con alternativas y vuelta atrás, sin checklist.* ✅ 16/07
 - [x] **T-010** Checklist personalizada: 4 tipos etiquetados + requisito trámite_previo enlazado + fuente prominente (H3, FR-007..009). Los enlaces de prerrequisito conservan un regreso visible a la ficha de la que se salió (FR-008). ✅ 19/08
