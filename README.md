@@ -1,122 +1,136 @@
 # A la Primera
 
-### 🌐 https://alaprimera.vercel.app
+**Tu trámite, con tus papeles.**
 
-**Tu trámite, con tus papeles.** Termina cualquier gestión con la administración española
-a la primera, sin que te frene a mitad un requisito que no sabías que necesitabas.
+[Probar la aplicación](https://alaprimera.vercel.app)
 
-App del reto **Viberano** (Comunidad IÁgil de 233 Academy), construida mediante prompts sin editar
-una línea de código a mano: desarrollo principal con Claude Code y auditoría y remediación final
-con OpenAI Codex.
+La información oficial de un trámite existe. El problema es descubrir qué necesitas tú para tu
+situación concreta antes de llegar a la ventanilla o empezar el formulario.
 
-Proyecto de **Alberto Chamoso y Mónica González**.
+**A la Primera** te hace unas preguntas sencillas y prepara una checklist personalizada con los
+papeles, requisitos técnicos y trámites previos que pueden frenarte. Puedes marcar lo que ya tienes,
+guardar el progreso y compartir la lista con tu familia.
 
-Las fichas del catálogo se extraen de sus fuentes oficiales con cita literal, y la app distingue
-las cotejadas por el equipo (sello con fecha) de las que están por verificar. Si reutilizas el
-catálogo, contrasta cada ficha con su fuente.
+La aplicación está pensada para quien termina gestionando los trámites de toda la familia: los
+propios, los de sus hijos y, muchas veces, los de sus padres.
 
-## Documentos (este repo es la fuente de verdad de la construcción)
+## Cómo funciona
 
-Toda la documentación está en [`docs/`](./docs).
+1. Busca el trámite con tus propias palabras.
+2. Responde un máximo de cuatro preguntas sobre tu caso.
+3. Recibe una checklist adaptada a tus respuestas y al canal elegido.
+4. Marca lo que ya tienes y continúa otro día sin perder el progreso.
 
-- [docs/spec.md](./docs/spec.md) — especificación SDD viva (el QUÉ): historias, 29 requisitos, entidades, criterios de éxito.
-- [docs/plan.md](./docs/plan.md) — plan técnico (el CÓMO): stack, arquitectura, modelo de datos, identidad visual, fases.
-- [docs/tasks.md](./docs/tasks.md) — el desglose en tareas y su estado.
-- [docs/preparar-fichas.md](./docs/preparar-fichas.md) — cómo se prepara, verifica y mantiene una ficha, y qué aprendimos curándolas.
-- [docs/estado-catalogo.md](./docs/estado-catalogo.md) — **recuento vivo del catálogo** (fichas, verificadas y pendientes por hecho vital), generado desde los datos con `npm run docs`.
-- [docs/hechos-vitales.md](./docs/hechos-vitales.md) — el backlog del catálogo (~55 trámites) y el diseño de la futura navegación por hechos vitales.
-- [docs/discovery/](./docs/discovery/README.md) — el *discovery* congelado: cómo se llegó a la idea (hipótesis, mapa de historias, ideas descartadas, el pivote desde SpecLens). Copiado del repo `Viberano` de la propuesta; son snapshots de julio de 2026 y no se actualizan.
-- [CLAUDE.md](./CLAUDE.md) / [AGENTS.md](./AGENTS.md) — reglas del reto y del producto para cada sesión, con las skills `/preparar-ficha` y `/revisar-codigo` y la red de seguridad de tests.
+Si un requisito exige completar antes otro trámite, la aplicación muestra la cadena y permite
+prepararlo sin perder el camino de vuelta. Si la gestión solo está disponible durante unas fechas,
+avisa del estado del plazo antes de mostrar la checklist.
 
-## Estado (20/08/2026)
+## Pruébala en dos minutos
 
-✅ **URL pública en marcha** — el requisito del reto, cumplido. Cada push a `main` despliega solo.
+1. Abre [alaprimera.vercel.app](https://alaprimera.vercel.app).
+2. Busca `primer DNI` o entra en **Documentos base**.
+3. Elige **El primer DNI de un niño o niña** y personaliza el caso.
+4. Crea la checklist, marca varios requisitos y recarga la página para comprobar que se conservan.
 
-**Funciona de punta a punta:**
-- Catálogo de **fichas curadas** con búsqueda coloquial, de **Estado, Madrid y Aragón** (recuento vivo en [docs/estado-catalogo.md](./docs/estado-catalogo.md))
-- Catálogo agrupado por **hecho vital** ("nace un hijo", "me mudo"…), con un backlog de trámites **pendientes** (visibles, sin ficha aún) para validar la taxonomía
-- **"Tu zona"**: se elige una vez y se recuerda; filtra el catálogo por comunidad y, al elegirla, muestra la sección **"De tu zona"** con las fichas publicadas de tu comunidad. Si no hay ficha para la tuya, lo dice con honestidad en vez de darte la de otra
-- Wizard personalizado con **veredicto de inviabilidad** ("esto no lo puedes hacer tú por ella")
-- Checklist con 4 tipos de requisito y **cadenas de trámites encadenados** ⛓️
-- **Aviso de plazo** cuando un trámite está fuera de fechas
-- Progreso persistente **anónimo**, con login opcional (magic link) y **sincronización multi-dispositivo**
-- **Compartir** por enlace de solo lectura · **"¿salió a la primera?"** · **reportar error**
+También puedes elegir otra zona, preparar la vía online o presencial, imprimir la lista y generar
+un enlace de solo lectura para compartirla.
 
-Con identidad propia: **el sello** (papel de expediente, tinta y violeta de sello de caucho, IBM
-Plex, iconos SVG). Ni rastro del aspecto por defecto con el que nació. Ver [plan.md §4bis](./docs/plan.md).
+## Información oficial, sin respuestas inventadas
 
-**Verificación del catálogo:** cada ficha nace extraída de su fuente oficial con cita literal y
-marcada "por verificar"; cuando el equipo la coteja contra la fuente, recibe el sello con fecha
-(`npm run verificar <slug>`). El proceso está en [docs/preparar-fichas.md](./docs/preparar-fichas.md)
-y el recuento vivo en [docs/estado-catalogo.md](./docs/estado-catalogo.md).
+A la Primera no genera requisitos con IA mientras la usa una persona. El camino de la demo no
+depende de servicios externos en directo.
 
-**Fases del plan:** 0 (esqueleto), 1 (walking skeleton), 2 (cuentas y sync) y 3 (confianza y cierre)
-completas. El motor de curación automático (Historia 9 de la spec) se reenfocó a extracción asistida
-sin API key, y queda como R2.
+Las fichas se preparan a partir de fuentes oficiales y guardan sus citas y enlaces. Nacen marcadas
+como **por verificar** y solo reciben el sello con fecha cuando el contenido se coteja contra la
+fuente. Los trámites que todavía no tienen ficha aparecen como **en preparación**, sin publicar
+requisitos incompletos.
 
-🎯 Entrega: primer directo de la Comunidad IÁgil de septiembre.
+El [estado del catálogo](./docs/estado-catalogo.md) se genera directamente desde los datos y muestra
+cuántas fichas hay, cuáles están verificadas y cuáles siguen pendientes.
 
-## Red de seguridad (calidad)
+## Qué aprendimos construyéndola
 
-Una red automática evita que un cambio rompa lo que ya funcionaba.
+Llegamos al Viberano con una idea: reunir en un mismo sitio los requisitos de los trámites. Al
+construirla descubrimos que una lista genérica no resolvía el problema. Lo difícil era adaptar esa
+lista al caso de cada persona, descubrir los trámites escondidos dentro de otros y saber qué
+información podía afirmarse con confianza.
 
-- **Tests (Vitest, `npm test`)** — blindan las invariantes que dan confianza: la regla de oro
-  (fichas ancladas a su fuente; pendientes que no publican contenido), la estructura del wizard, la
-  integridad de las cadenas, el aislamiento por zona (incluida la sección "De tu zona", que solo
-  lista fichas publicadas de tu comunidad), el sello a 90 días y la taxonomía.
-- **E2E (Playwright, `npm run e2e`)** — el viaje de la demo clic a clic (catálogo → wizard →
-  checklist), contra el build de producción.
-- **Accesibilidad** — `axe` sobre los componentes y **contraste WCAG AA** de la paleta (el público
-  es gente mayor; el imprimible llega a una persona de 74 años).
-- **Patrones del "sello"** — guardias que fallan si aparece un emoji en la UI (FR-028) o un color de
-  Tailwind no semántico.
-- **CI** — cada push y PR a `main` y `develop` corre lint + tipos + tests + build + los e2e del
-  viaje de la demo en GitHub Actions.
-- **Skill `/revisar-codigo`** — revisión de mantenibilidad contra los patrones del proyecto.
-- **Docs sin deriva** — el estado del catálogo se genera desde los datos (`npm run docs`) y un test
-  falla si se queda desfasado.
+También aprendimos que usar IA para construir un producto no elimina la responsabilidad sobre lo
+que publica. Por eso separamos la IA del camino del usuario, añadimos citas literales, revisión
+humana y una red de pruebas para proteger las reglas del producto.
 
-## Cómo correrlo
+## Construida con IA
+
+Proyecto del reto **Viberano**, de la Comunidad IÁgil de 233 Academy, creado mediante prompts sin
+editar código a mano.
+
+- Desarrollo principal: **Claude Code**.
+- Auditoría final, correcciones y documentación: **OpenAI Codex**.
+- Datos de los trámites: fuentes oficiales, con revisión antes de conceder el sello.
+
+El historial de Git conserva el proceso de construcción como evidencia del reto.
+
+## Estado y calidad
+
+La aplicación está desplegada en Vercel y el recorrido principal funciona sin llamadas externas en
+vivo: catálogo, personalización, checklist, canal y preparación final.
+
+La red de seguridad incluye:
+
+- Tests de reglas de producto, personalización, territorio y cadenas de prerrequisitos.
+- Comprobaciones de accesibilidad con axe y contraste WCAG AA.
+- Pruebas E2E del recorrido de la demo con Playwright.
+- RLS en Supabase y escritura sensible mediante acciones de servidor.
+- Documentación del catálogo generada desde los datos para evitar recuentos desactualizados.
+
+## Ejecutar en local
+
+Requisitos: Node.js 22 o posterior y un proyecto de Supabase para probar las funciones persistentes.
 
 ```bash
 npm install
-npm run dev            # http://localhost:3000
+npm run dev
 ```
 
-Comandos útiles: `npm test` (la red de seguridad), `npm run lint`, `npm run docs` (regenera el
-estado del catálogo), `npm run db:seed` (vuelca el catálogo), `npm run verificar <slug>` (sella una
-ficha cotejada), `npm run buzon` (qué te está diciendo la gente: fallos, reportes y trámites que
-echa en falta).
+La aplicación queda disponible en `http://localhost:3000`.
 
-Variables de entorno en `.env.local` (no versionado): `NEXT_PUBLIC_SUPABASE_URL`,
-`NEXT_PUBLIC_SUPABASE_ANON_KEY`, y para tareas de servidor/seed `SUPABASE_SERVICE_ROLE_KEY` y
-`DATABASE_URL`. Migraciones en `supabase/migrations/`; seed local del catálogo con
-`npm run db:seed`. Un destino remoto queda bloqueado salvo que esa ejecución incluya
-`PERMITIR_SEED_REMOTO=si`; el seed actualiza las fichas sin borrar checklists ni reportes.
+Variables en `.env.local`:
 
-## Autoría y licencia
+```text
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+DATABASE_URL=
+```
 
-Proyecto de **Alberto Chamoso y Mónica González** para el Viberano de la Comunidad IÁgil de
-233 Academy.
+Comandos principales:
 
-De Mónica salen dos cosas que dan forma al proyecto: la **visión inicial del producto** (una web
-donde ver requisitos y procedimientos de las gestiones con organismos oficiales, ver
-[docs/discovery/ideas.md](./docs/discovery/ideas.md)) y toda la **[red de seguridad de
-calidad](#red-de-seguridad-calidad)**: los tests de regresión, la skill que valida mantenibilidad,
-la documentación generada sola y las validaciones de accesibilidad. Es lo que permite seguir
-cambiando la app sin miedo.
+```bash
+npm test                 # tests de regresión
+npx tsc --noEmit         # comprobación de tipos
+npm run lint             # análisis estático
+npm run e2e              # recorrido de navegador
+npm run docs             # regenera el estado del catálogo
+npm run db:seed          # vuelca el catálogo a Supabase
+npm run verificar <slug> # registra un cotejo humano
+npm run buzon            # consulta feedback y reportes
+```
 
-El historial de git sale a nombre de una sola persona porque los commits se lanzaron desde una
-máquina. En este reto el historial es la evidencia de que todo el código se escribió mediante
-agentes, así que su contenido no se toca. Los commits de la construcción principal identifican a
-Claude Code y los de la auditoría final llevan el trailer de OpenAI Codex. La autoría del proyecto
-es de las dos personas.
+El seed remoto está bloqueado salvo que la ejecución incluya `PERMITIR_SEED_REMOTO=si`. Actualiza
+las fichas sin borrar checklists, feedback ni reportes.
 
-Con una excepción, dicha aquí para que nadie la descubra por su cuenta: antes de abrir el repo se
-reescribió la **dirección de correo del autor** en los 42 commits que existían, cambiando una
-dirección personal por la de tipo `noreply` de GitHub, para no publicarla. Solo cambió la firma. Los
-mensajes, las fechas, el orden y el contenido de cada commit son los mismos, y se comprobó que el
-árbol de ficheros resultante es idéntico al anterior.
+## Documentación
 
-Código bajo licencia [MIT](./LICENSE): úsalo, cópialo y adáptalo. Si lo que te llevas son las
-fichas de trámites y no el código, contrasta cada una con su fuente oficial.
+- [Especificación del producto](./docs/spec.md): historias y requisitos funcionales.
+- [Plan técnico](./docs/plan.md): arquitectura, datos, diseño y decisiones.
+- [Tareas y estado](./docs/tasks.md): desglose de la construcción.
+- [Estado del catálogo](./docs/estado-catalogo.md): recuento generado desde los datos.
+- [Preparación de fichas](./docs/preparar-fichas.md): método de extracción, cotejo y mantenimiento.
+- [Discovery](./docs/discovery/README.md): hipótesis, mapa de historias y decisiones descartadas.
+
+## Equipo y licencia
+
+Proyecto de **Alberto Chamoso y Mónica González**.
+
+Código bajo licencia [MIT](./LICENSE). Si reutilizas las fichas de trámites, contrasta siempre su
+contenido con la fuente oficial enlazada.

@@ -78,6 +78,37 @@ describe("cierre de una checklist", () => {
     expect(screen.getByRole("textbox", { name: "Qué te frenó durante el trámite" })).toBeTruthy();
   });
 
+  it("permite reintentar un reporte si la acción falla antes de responder", async () => {
+    acciones.reportaError.mockRejectedValueOnce(new Error("fallo de transporte"));
+    render(<ReportarError tramiteSlug="renovacion-dni" />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Repórtalo/ }));
+    fireEvent.change(screen.getByRole("textbox", { name: "¿Qué está mal?" }), {
+      target: { value: "El enlace oficial no funciona" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Enviar reporte" }));
+
+    expect(
+      await screen.findByText("No se pudo enviar. Comprueba tu conexión e inténtalo de nuevo.")
+    ).toBeTruthy();
+    expect(
+      (screen.getByRole("button", { name: "Enviar reporte" }) as HTMLButtonElement).disabled
+    ).toBe(false);
+  });
+
+  it("confirma el reporte solo después de guardarlo", async () => {
+    acciones.reportaError.mockResolvedValue({ ok: true });
+    render(<ReportarError tramiteSlug="renovacion-dni" />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Repórtalo/ }));
+    fireEvent.change(screen.getByRole("textbox", { name: "¿Qué está mal?" }), {
+      target: { value: "El enlace oficial no funciona" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Enviar reporte" }));
+
+    expect(await screen.findByText(/Gracias, lo revisaremos/)).toBeTruthy();
+  });
+
   it("el enlace compartido se expone con nombre accesible", async () => {
     acciones.creaShare.mockResolvedValue({ token: "token-seguro" });
     render(<Compartir checklist={checklist} conSesion={false} />);

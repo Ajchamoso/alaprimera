@@ -52,9 +52,10 @@ export async function reportaError(
   descripcion: unknown
 ): Promise<{ ok: boolean }> {
   const reporte = validaReporte(tramiteSlug, descripcion);
-  if (!reporte || !(await permiteAccion("reporte", 10, 3600))) return { ok: false };
+  if (!reporte) return { ok: false };
 
   try {
+    if (!(await permiteAccion("reporte", 10, 3600))) return { ok: false };
     const { error } = await supabaseAdmin()
       .from("reportes")
       .insert({ tramite_id: reporte.tramiteSlug, descripcion: reporte.descripcion });
