@@ -40,9 +40,13 @@ Proyecto del reto Viberano (233 Academy): vibe coding puro.
 
 ## Reglas del reto (innegociables)
 
-1. **Todo el código de este repo se escribe vía Claude Code.** Ningún humano edita código a mano —
-   ni un typo, ni una coma. Una edición manual descalifica al equipo del reto.
-2. Los commits se hacen desde Claude Code. El historial de git es la evidencia de juego limpio.
+1. **Todo el código de este repo lo escribe una IA, mediante prompts.** Ningún humano edita código
+   a mano: ni un typo, ni una coma. Una edición manual descalifica al equipo del reto.
+2. **Qué IA:** el desarrollo principal va con **Claude Code**; la auditoría final, las correcciones
+   de seguridad y la documentación de cierre, con **OpenAI Codex** (ver el README). El reto permite
+   cualquier herramienta que construya por prompts, así que lo que importa no es cuál, sino que
+   nadie teclee código.
+3. Los commits se lanzan desde la herramienta. El historial de git es la evidencia de juego limpio.
 
 ## Reglas de producto (innegociables)
 
