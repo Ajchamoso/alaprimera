@@ -1,6 +1,14 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
+const rlsFamilias = readFileSync(
+  new URL(
+    "../supabase/migrations/20260917190000_rls_prerequisitos_por_familia.sql",
+    import.meta.url
+  ),
+  "utf8"
+);
+
 const migracion = readFileSync(
   new URL(
     "../supabase/migrations/20260819192051_seguridad_datos_y_rls.sql",
@@ -37,5 +45,27 @@ describe("migración de seguridad de datos", () => {
     expect(migracion).toMatch(
       /revoke all on function public\.guarda_checklists\(uuid, jsonb\) from public, anon, authenticated/i
     );
+  });
+});
+
+/**
+ * Una política de lectura puede "romper" una feature sin que falle ningún test:
+ * la fila simplemente no llega y la UI enseña menos de lo que debería. Pasó el
+ * 17/09 con los prerrequisitos por familia, y en producción: `dni-primera-vez`
+ * dejó de mostrar el empadronamiento entre sus trámites escondidos porque la
+ * política exigía que `requiere_tramite_id` fuese un trámite publicado, y en un
+ * destino por familia ese campo es NULL.
+ */
+describe("lectura de prerrequisitos por familia", () => {
+  it("la política admite el destino por familia, donde no hay ficha que comprobar", () => {
+    expect(rlsFamilias).toMatch(/prerequisitos\.requiere_tramite_id is null\s*\n?\s*or exists/i);
+  });
+
+  it("sigue exigiendo que la ficha destino esté publicada cuando la hay", () => {
+    expect(rlsFamilias).toMatch(/requerido\.estado = 'publicada'/i);
+  });
+
+  it("sigue atada al trámite de origen publicado", () => {
+    expect(rlsFamilias).toMatch(/origen\.estado = 'publicada'/i);
   });
 });
