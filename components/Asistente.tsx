@@ -21,7 +21,7 @@ import { Checklist } from "@/components/Checklist";
  * familiar (FR-013)—. El estado vive en el store localStorage; aquí solo hay
  * estado de UI (cuál está activa, si se está creando otra).
  */
-export function Asistente({ tramite }: { tramite: Tramite }) {
+export function Asistente({ tramite, catalogo }: { tramite: Tramite; catalogo: Tramite[] }) {
   const checklists = useSyncExternalStore(suscribe, getChecklistsSnapshot, getChecklistsServidor);
   const borradores = useSyncExternalStore(suscribe, getBorradoresSnapshot, getBorradoresServidor);
   const montado = useSyncExternalStore(
@@ -221,7 +221,7 @@ export function Asistente({ tramite }: { tramite: Tramite }) {
   return (
     <div className="space-y-3">
       {selector}
-      <Checklist tramite={tramite} checklist={activa} />
+      <Checklist tramite={tramite} checklist={activa} catalogo={catalogo} />
     </div>
   );
 }

@@ -49,3 +49,37 @@ export function visibleEnZona(t: Tramite, zona: string | null): boolean {
   if (zona === null) return true;
   return t.comunidad === zona;
 }
+
+/**
+ * ¿A qué ficha lleva de verdad un trámite previo, para quien lee desde `zona`?
+ *
+ * Nació de un fallo real (auditoría 17/09): `dni-primera-vez` es estatal y
+ * apuntaba en duro a `empadronamiento-madrid`, así que a alguien de Zaragoza le
+ * decía "Empadronarse en Madrid" teniendo su ficha en el catálogo. La cita de la
+ * fuente era correcta y neutral ("del Ayuntamiento donde la persona solicitante
+ * tenga su domicilio"); era el enlace el que inventaba el territorio.
+ *
+ * Reglas, en orden:
+ * - Estatal: vale para todo el mundo, se enlaza tal cual.
+ * - De la comunidad de quien lee: se enlaza tal cual.
+ * - De otra comunidad: se busca la hermana de su misma `familia` que sí sea de
+ *   la zona. Si no existe, `null`: no se enlaza nada y la UI lo dice.
+ * - Sin zona elegida (`null`): tampoco se enlaza una ficha territorial, porque
+ *   no sabemos de dónde es. Se invita a elegir zona.
+ */
+export function resuelvePrevioEnZona(
+  slug: string,
+  zona: string | null,
+  catalogo: Tramite[]
+): Tramite | null {
+  const destino = catalogo.find((t) => t.slug === slug);
+  if (!destino) return null;
+  if (destino.nivel === "estatal") return destino;
+  if (zona !== null && destino.comunidad === zona) return destino;
+  if (destino.familia === undefined) return null;
+  return (
+    catalogo.find(
+      (t) => t.familia === destino.familia && t.comunidad === zona && !t.pendiente
+    ) ?? null
+  );
+}

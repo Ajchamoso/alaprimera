@@ -29,11 +29,27 @@ describe("integridad de las fichas reales", () => {
   });
 
   it("ninguna ficha real está enteramente sin citar: al menos un requisito lleva «Fuente:»", () => {
-    // La regla de oro no exige cita en CADA requisito (hay pasos autoevidentes),
-    // pero sí que la ficha esté anclada a su fuente y no sea contenido inventado.
     for (const t of fichasReales) {
       const conCita = t.requisitos.filter((r) => r.explicacion.includes("Fuente:")).length;
       expect(conCita, `${t.slug} · requisitos con cita`).toBeGreaterThan(0);
+    }
+  });
+
+  it("CADA requisito trae una cita literal de su fuente (FR-004)", () => {
+    // El listón de verdad, y el que faltaba. El test anterior pedía una cita por
+    // ficha, así que un requisito suelto podía afirmar cosas sin respaldo: en la
+    // auditoría del 17/09 había diez, y ocho vivían en fichas YA selladas. Un
+    // requisito sin comillas es una inferencia nuestra vestida de fuente oficial.
+    //
+    // Si al curar no encuentras la cita, el requisito no entra. Antes vacío y
+    // honesto que completo y falso (FR-004).
+    for (const t of fichasReales) {
+      for (const r of t.requisitos) {
+        expect(
+          /«[^»]+»/.test(r.explicacion),
+          `${t.slug} · ${r.id} ("${r.titulo}") afirma algo sin citar la fuente`
+        ).toBe(true);
+      }
     }
   });
 
@@ -128,9 +144,11 @@ describe("integridad referencial de los encadenamientos", () => {
     }
   });
 
-  it("cada prerequisito apunta a un trámite del catálogo", () => {
+  it("cada prerequisito por slug apunta a un trámite del catálogo", () => {
+    // Los que apuntan a una familia territorial no tienen slug: se resuelven con
+    // la zona de quien lee, y su integridad la cubre tests/zona.test.ts.
     for (const t of catalogo) {
-      for (const pre of t.prerequisitos) {
+      for (const pre of t.prerequisitos.filter((p) => p.slug)) {
         expect(slugsCatalogo, `${t.slug} · prerequisito inexistente ${pre.slug}`).toContain(
           pre.slug
         );

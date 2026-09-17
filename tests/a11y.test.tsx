@@ -6,6 +6,8 @@ import * as matchers from "vitest-axe/matchers";
 import { SelloVerificacion } from "@/components/SelloVerificacion";
 import { SelectorZona } from "@/components/SelectorZona";
 import { IconoRequisito, NOMBRE_TIPO } from "@/components/IconoRequisito";
+import { CadenaTramites } from "@/components/CadenaTramites";
+import { catalogo } from "./_catalogo";
 import type { TipoRequisito } from "@/lib/types";
 
 expect.extend(matchers);
@@ -81,6 +83,19 @@ describe("accesibilidad de los componentes (axe)", () => {
         </p>
       );
       expect(await axe(container, OPC), `tipo ${tipo}`).toHaveNoViolations();
+      cleanup();
+    }
+  });
+
+  it("CadenaTramites · con ficha enlazada y sin ella, en ambas zonas", async () => {
+    // Los dos caminos del componente: el eslabón que enlaza (Aragón tiene su
+    // empadronamiento) y el que solo nombra el trámite (Extremadura aún no).
+    const dni = catalogo.find((t) => t.slug === "dni-primera-vez")!;
+    for (const zona of ["aragon", "extremadura", null]) {
+      window.localStorage.clear();
+      if (zona) window.localStorage.setItem("alaprimera.zona.v1", zona);
+      const { container } = render(<CadenaTramites tramite={dni} catalogo={catalogo} />);
+      expect(await axe(container, OPC), `zona ${zona}`).toHaveNoViolations();
       cleanup();
     }
   });

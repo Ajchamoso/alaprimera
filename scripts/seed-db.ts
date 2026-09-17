@@ -30,9 +30,9 @@ async function main() {
     for (const t of tramites) {
       await db.query(
         `insert into tramites (id, nombre_oficial, nombre_coloquial, descripcion, organismo,
-           nivel, comunidad, territorio, canales, url_fuente, url_cita_previa, estado,
+           nivel, comunidad, familia, territorio, canales, url_fuente, url_cita_previa, estado,
            verificada_en, generada_por_ia, alias, plazo_inicio, plazo_fin, plazo_nota)
-         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'publicada',$12,$13,$14,$15,$16,$17)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,'publicada',$13,$14,$15,$16,$17,$18)
          on conflict (id) do update set
            nombre_oficial = excluded.nombre_oficial,
            nombre_coloquial = excluded.nombre_coloquial,
@@ -40,6 +40,7 @@ async function main() {
            organismo = excluded.organismo,
            nivel = excluded.nivel,
            comunidad = excluded.comunidad,
+           familia = excluded.familia,
            territorio = excluded.territorio,
            canales = excluded.canales,
            url_fuente = excluded.url_fuente,
@@ -59,6 +60,7 @@ async function main() {
           t.organismo,
           t.nivel,
           t.comunidad ?? null,
+          t.familia ?? null,
           t.territorio,
           t.canales,
           t.urlFuente,
@@ -101,9 +103,20 @@ async function main() {
     for (const t of tramites) {
       for (const [i, r] of t.requisitos.entries()) {
         await db.query(
-          `insert into requisitos (id, tramite_id, tipo, titulo, explicacion, canal, tramite_previo_id, orden)
-           values ($1,$2,$3,$4,$5,$6,$7,$8)`,
-          [r.id, t.slug, r.tipo, r.titulo, r.explicacion, r.canal, r.tramitePrevioSlug ?? null, i]
+          `insert into requisitos (id, tramite_id, tipo, titulo, explicacion, canal,
+             tramite_previo_id, tramite_previo_familia, orden)
+           values ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+          [
+            r.id,
+            t.slug,
+            r.tipo,
+            r.titulo,
+            r.explicacion,
+            r.canal,
+            r.tramitePrevioSlug ?? null,
+            r.tramitePrevioFamilia ?? null,
+            i,
+          ]
         );
         for (const opcionId of r.soloSiOpciones ?? []) {
           await db.query(
@@ -114,8 +127,9 @@ async function main() {
       }
       for (const pre of t.prerequisitos) {
         await db.query(
-          "insert into prerequisitos (tramite_id, requiere_tramite_id, nota) values ($1,$2,$3)",
-          [t.slug, pre.slug, pre.nota ?? null]
+          `insert into prerequisitos (tramite_id, requiere_tramite_id, requiere_familia, nota)
+           values ($1,$2,$3,$4)`,
+          [t.slug, pre.slug ?? null, pre.familia ?? null, pre.nota ?? null]
         );
       }
     }

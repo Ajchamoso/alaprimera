@@ -14,9 +14,20 @@ import { IconoRequisito, NOMBRE_TIPO } from "@/components/IconoRequisito";
 import { haySesion, suscribeSesion } from "@/lib/sesion";
 import { requisitosDeChecklist } from "@/lib/personaliza";
 import { formateaFechaEs } from "@/lib/sello";
+import { familias } from "@/lib/data/familias";
+import { fichaDeFamilia } from "@/lib/data";
+import { getZona, getZonaServidor, resuelvePrevioEnZona, suscribeZona } from "@/lib/zona";
 
 /** Vista de checklist: requisitos marcables, elección de canal (H5) y preparación final con imprimible (FR-015/016). */
-export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist: ChecklistLocal }) {
+export function Checklist({
+  tramite,
+  checklist,
+  catalogo,
+}: {
+  tramite: Tramite;
+  checklist: ChecklistLocal;
+  catalogo: Tramite[];
+}) {
   const conSesion = useSyncExternalStore(suscribeSesion, haySesion, () => false);
   const aplicables = requisitosAplicables(tramite, checklist.respuestas);
 
@@ -107,14 +118,7 @@ export function Checklist({ tramite, checklist }: { tramite: Tramite; checklist:
                     <span className="mt-0.5 block break-words text-sm text-tinta-media">
                       {r.explicacion}
                     </span>
-                    {r.tipo === "tramite_previo" && r.tramitePrevioSlug && (
-                      <Link
-                        href={`/tramite/${r.tramitePrevioSlug}?desde=${encodeURIComponent(tramite.slug)}`}
-                        className="mt-1 inline-block text-sm font-medium text-sello hover:underline"
-                      >
-                        Preparar este trámite primero →
-                      </Link>
-                    )}
+                    <EnlacePrevio requisito={r} desde={tramite.slug} catalogo={catalogo} />
                   </span>
                 </label>
               </li>
@@ -313,5 +317,55 @@ function Preparacion({
         </button>
       )}
     </section>
+  );
+}
+
+/**
+ * El enlace de un requisito de tipo "trámite previo", resuelto con la zona de
+ * quien lee. Un requisito puede apuntar a una ficha concreta o a una familia
+ * territorial; si de su comunidad no tenemos ficha, no se enlaza nada y se dice
+ * por qué. Antes se enlazaba la ficha escrita en el dato, que para el primer DNI
+ * era siempre la de Madrid (auditoría 17/09).
+ */
+function EnlacePrevio({
+  requisito,
+  desde,
+  catalogo,
+}: {
+  requisito: Requisito;
+  desde: string;
+  catalogo: Tramite[];
+}) {
+  const zona = useSyncExternalStore(suscribeZona, getZona, getZonaServidor);
+  if (requisito.tipo !== "tramite_previo") return null;
+
+  const previo = requisito.tramitePrevioSlug
+    ? resuelvePrevioEnZona(requisito.tramitePrevioSlug, zona, catalogo)
+    : requisito.tramitePrevioFamilia
+      ? fichaDeFamilia(requisito.tramitePrevioFamilia, zona, catalogo)
+      : null;
+
+  if (previo) {
+    return (
+      <Link
+        href={`/tramite/${previo.slug}?desde=${encodeURIComponent(desde)}`}
+        className="mt-1 inline-block text-sm font-medium text-sello hover:underline"
+      >
+        Preparar este trámite primero →
+      </Link>
+    );
+  }
+
+  const familia =
+    requisito.tramitePrevioFamilia ??
+    catalogo.find((t) => t.slug === requisito.tramitePrevioSlug)?.familia;
+  if (!familia) return null;
+
+  return (
+    <span className="mt-1 block text-sm text-tinta-tenue">
+      {zona === null
+        ? "Depende de tu ayuntamiento. Elige tu zona en el catálogo y te decimos si tenemos su ficha."
+        : familias[familia]?.sinFicha}
+    </span>
   );
 }

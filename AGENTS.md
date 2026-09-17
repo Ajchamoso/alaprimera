@@ -103,6 +103,15 @@ sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (docs/pl
   sin fichas, se le dice con honestidad — nunca se le enseña la de otra comunidad como si fuera la
   suya. Un autonómico nuevo se cura POR comunidad; no se comparte "un esqueleto con variantes"
   (sería síntesis, contra la regla de oro).
+- **Familias territoriales** (`lib/data/familias.ts`): el mismo trámite hecho en sitios distintos
+  (`empadronamiento-madrid` y `empadronamiento-zaragoza` comparten `familia: "empadronamiento"`).
+  **Una ficha estatal NUNCA nombra una ficha territorial**: el primer DNI exige el empadronamiento,
+  pero el de TU ayuntamiento. Por eso un trámite previo apunta o a un `slug` concreto o a una
+  `familia` — nunca a los dos — y el enlace se resuelve con la zona de quien lee
+  (`resuelvePrevioEnZona`, `getCadena(tramite, catalogo, zona)`). Si de su comunidad no hay ficha, no
+  se enlaza: se nombra el trámite y se dice de quién depende. Pasó de verdad (auditoría 17/09):
+  `dni-primera-vez` apuntaba en duro a Madrid y a media España la mandaba al ayuntamiento
+  equivocado, con el sello de verificada puesto. Lo vigila `tests/zona.test.ts`.
 - Migraciones de BD versionadas en el repo; RLS activado en toda tabla desde su creación.
 - **El rol `anon` solo lee el catálogo** (migración 0004). Si una feature nueva necesita escribir en
   BD, la escritura va en una **server action con la service role**, no ampliando permisos de `anon`:
@@ -117,8 +126,10 @@ que dan confianza al producto. **Corre `npm test` (y `npx tsc --noEmit`) antes d
 tocas fichas, pendientes o el modelo territorial, es donde se caza una regresión antes que un humano.
 Qué vigila:
 
-- **Regla de oro (FR-019)**: ninguna ficha real está enteramente sin citar (cada una ancla a su
-  `urlFuente` https y tiene ≥1 requisito con «Fuente:»). Los **pendientes** no publican requisitos,
+- **Regla de oro (FR-019) y cita por requisito (FR-004)**: cada ficha ancla a su `urlFuente` https, y
+  **CADA requisito lleva una cita literal entre comillas latinas**. Sin cita, el requisito no entra:
+  una explicación sin comillas es una inferencia nuestra vestida de fuente oficial. La auditoría del
+  17/09 encontró diez, ocho de ellas en fichas ya selladas. Los **pendientes** no publican requisitos,
   descripción ni fuente, y nunca salen verificados — el candado de que no pueden engañar.
 - **Estructura del wizard**: la primera pregunta es siempre `destinatario`; ids de opción/requisito
   únicos; cada `soloSiOpciones` apunta a una opción que existe; un caso inviable trae alternativas.
