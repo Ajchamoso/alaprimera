@@ -4,6 +4,7 @@ import { tramites as contenidoLocal } from "./tramites";
 import { generadaPorIa, verificadaEn } from "./verificaciones";
 import { hechoVitalDeFicha, hechosVitales } from "./hechos-vitales";
 import { pendientes } from "./pendientes";
+import { resuelvePrevioEnZona } from "@/lib/zona";
 
 /** Contenido + registro de verificaciones = la ficha completa. */
 const seedLocal: Tramite[] = contenidoLocal.map((t) => ({
@@ -67,6 +68,7 @@ function mapeaTramite(fila: any): Tramite {
       explicacion: r.explicacion,
       canal: r.canal,
       tramitePrevioSlug: r.tramite_previo_id ?? undefined,
+      tramitePrevioFamilia: r.tramite_previo_familia ?? undefined,
       soloSiOpciones:
         r.requisito_condiciones?.length > 0
           ? r.requisito_condiciones.map((c: any) => c.opcion_id)
@@ -81,6 +83,7 @@ function mapeaTramite(fila: any): Tramite {
     organismo: fila.organismo,
     nivel: fila.nivel,
     comunidad: fila.comunidad ?? undefined,
+    familia: fila.familia ?? undefined,
     territorio: fila.territorio,
     canales: fila.canales as Canal[],
     urlFuente: fila.url_fuente,
@@ -94,7 +97,8 @@ function mapeaTramite(fila: any): Tramite {
     preguntas,
     requisitos,
     prerequisitos: (fila.prerequisitos ?? []).map((p: any) => ({
-      slug: p.requiere_tramite_id,
+      slug: p.requiere_tramite_id ?? undefined,
+      familia: p.requiere_familia ?? undefined,
       nota: p.nota ?? undefined,
     })),
   };
@@ -107,14 +111,15 @@ export async function getTramites(): Promise<Tramite[]> {
   const { data, error } = await clienteAnon()
     .from("tramites")
     .select(
-      `id, nombre_oficial, nombre_coloquial, descripcion, organismo, nivel, comunidad,
+      `id, nombre_oficial, nombre_coloquial, descripcion, organismo, nivel, comunidad, familia,
        territorio, canales, url_fuente, url_cita_previa, plazo_inicio, plazo_fin, plazo_nota,
        verificada_en, generada_por_ia, alias,
        preguntas ( id, orden, texto, tipo,
          opciones ( id, texto, veredicto_inviable, texto_alternativas ) ),
-       requisitos!requisitos_tramite_id_fkey ( id, tipo, titulo, explicacion, canal, tramite_previo_id, orden,
+       requisitos!requisitos_tramite_id_fkey ( id, tipo, titulo, explicacion, canal,
+         tramite_previo_id, tramite_previo_familia, orden,
          requisito_condiciones ( opcion_id ) ),
-       prerequisitos!prerequisitos_tramite_id_fkey ( requiere_tramite_id, nota )`
+       prerequisitos!prerequisitos_tramite_id_fkey ( requiere_tramite_id, requiere_familia, nota )`
     )
     .eq("estado", "publicada")
     .order("id");
@@ -130,26 +135,69 @@ export async function getTramiteBySlug(slug: string): Promise<Tramite | undefine
   return (await getTramites()).find((t) => t.slug === slug);
 }
 
-/** Cadena de prerrequisitos desde un trámite (sin ciclos: lo garantiza la BD, FR-026). */
+/**
+ * Un eslabón de la cadena de trámites previos, ya resuelto para una zona: o hay
+ * ficha que enlazar, o se nombra lo que hace falta sin enlazarlo. Nunca se
+ * enlaza la ficha de otra comunidad (auditoría 17/09, ver `resuelvePrevioEnZona`).
+ */
+export type Eslabon =
+  | { tipo: "ficha"; tramite: Tramite; nota?: string }
+  | { tipo: "sin-ficha"; familia: string; nota?: string };
+
+/**
+ * Cadena de prerrequisitos desde un trámite (sin ciclos: lo garantiza la BD,
+ * FR-026), resuelta para `zona`. Un prerrequisito apunta a una ficha concreta o
+ * a una familia territorial; en el segundo caso se busca la ficha de la zona de
+ * quien lee, y si no la hay el eslabón sale sin enlace en vez de mandar a nadie
+ * al ayuntamiento de otra provincia.
+ */
 export function getCadena(
   tramite: Tramite,
-  catalogo: Tramite[]
-): { tramite: Tramite; nota?: string }[] {
-  const cadena: { tramite: Tramite; nota?: string }[] = [];
+  catalogo: Tramite[],
+  zona: string | null = null
+): Eslabon[] {
+  const cadena: Eslabon[] = [];
   const vistos = new Set<string>([tramite.slug]);
+  const familiasVistas = new Set<string>();
   let pendientes = [...tramite.prerequisitos];
+
   while (pendientes.length > 0) {
     const [actual, ...resto] = pendientes;
     pendientes = resto;
-    if (vistos.has(actual.slug)) continue;
-    vistos.add(actual.slug);
-    const previo = catalogo.find((t) => t.slug === actual.slug);
+
+    const previo = actual.slug
+      ? resuelvePrevioEnZona(actual.slug, zona, catalogo)
+      : actual.familia
+        ? fichaDeFamilia(actual.familia, zona, catalogo)
+        : null;
+
     if (previo) {
-      cadena.push({ tramite: previo, nota: actual.nota });
+      if (vistos.has(previo.slug)) continue;
+      vistos.add(previo.slug);
+      cadena.push({ tipo: "ficha", tramite: previo, nota: actual.nota });
       pendientes.push(...previo.prerequisitos);
+      continue;
+    }
+
+    // Sin ficha que enlazar. Si el destino era una familia, se nombra igual: que
+    // el trámite exista no depende de que tengamos su ficha.
+    const familia = actual.familia ?? catalogo.find((t) => t.slug === actual.slug)?.familia;
+    if (familia && !familiasVistas.has(familia)) {
+      familiasVistas.add(familia);
+      cadena.push({ tipo: "sin-ficha", familia, nota: actual.nota });
     }
   }
   return cadena;
+}
+
+/** La ficha de una familia que le sirve a quien es de `zona`, si la tenemos. */
+export function fichaDeFamilia(
+  familia: string,
+  zona: string | null,
+  catalogo: Tramite[]
+): Tramite | null {
+  if (zona === null) return null;
+  return catalogo.find((t) => t.familia === familia && t.comunidad === zona && !t.pendiente) ?? null;
 }
 
 /** Quita acentos y pasa a minúsculas para comparar como escribe la gente. */

@@ -1,13 +1,14 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCadena, getTramites } from "@/lib/data";
+import { getTramites } from "@/lib/data";
 import { SelloVerificacion } from "@/components/SelloVerificacion";
 import { Asistente } from "@/components/Asistente";
 import { ReportarError } from "@/components/ReportarError";
 import { AvisoPlazo } from "@/components/AvisoPlazo";
 import { IconoRequisito, NOMBRE_TIPO } from "@/components/IconoRequisito";
 import { VueltaTramite } from "@/components/VueltaTramite";
+import { CadenaTramites } from "@/components/CadenaTramites";
 
 export const revalidate = 300;
 
@@ -52,8 +53,6 @@ export default async function PaginaTramite({
     );
   }
 
-  const cadena = getCadena(tramite, catalogo);
-
   return (
     <article className="space-y-8">
       <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm print:hidden">
@@ -92,30 +91,9 @@ export default async function PaginaTramite({
         </p>
       </header>
 
-      {cadena.length > 0 && (
-        <section className="rounded-xl border border-linea bg-hoja p-5">
-          <h2 className="font-cond text-lg font-bold uppercase tracking-wide">Este trámite esconde otros trámites</h2>
-          <p className="mt-1 text-sm text-tinta-media">
-            Antes de empezar, asegúrate de tener resueltos estos. Descubrirlo ahora es lo que evita
-            el atasco a mitad.
-          </p>
-          <ul className="mt-3 space-y-2">
-            {cadena.map(({ tramite: previo, nota }) => (
-              <li key={previo.slug} className="flex flex-wrap items-baseline gap-2">
-                <Link
-                  href={`/tramite/${previo.slug}?desde=${encodeURIComponent(tramite.slug)}`}
-                  className="font-medium text-sello hover:underline"
-                >
-                  {previo.nombreColoquial} →
-                </Link>
-                {nota && <span className="text-sm text-tinta-tenue">{nota}</span>}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <CadenaTramites tramite={tramite} catalogo={catalogo} />
 
-      <Asistente tramite={tramite} />
+      <Asistente tramite={tramite} catalogo={catalogo} />
 
       <details className="rounded-xl border border-linea bg-hoja p-5">
         <summary className="cursor-pointer font-medium text-tinta-media">

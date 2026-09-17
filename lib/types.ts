@@ -27,10 +27,25 @@ export interface Requisito {
   soloSiOpciones?: string[];
   /** Para tipo 'tramite_previo': slug del trámite encadenado, si está en el catálogo. */
   tramitePrevioSlug?: string;
+  /**
+   * Alternativa a `tramitePrevioSlug` cuando el trámite previo depende del
+   * territorio (ver familias.ts). Se resuelve con la zona de quien lee.
+   */
+  tramitePrevioFamilia?: string;
 }
 
+/**
+ * Un trámite que hay que tener resuelto antes. Apunta a UNA de dos cosas, nunca
+ * a las dos: una ficha concreta (`slug`) o una familia territorial (`familia`,
+ * ver familias.ts), que se resuelve a la ficha de la zona de quien lee.
+ *
+ * La familia existe porque una ficha estatal no puede nombrar una local sin
+ * mentirle a media España: el primer DNI exige el empadronamiento, pero el de TU
+ * ayuntamiento, no el de Madrid.
+ */
 export interface Prerequisito {
-  slug: string;
+  slug?: string;
+  familia?: string;
   nota?: string;
 }
 
@@ -64,6 +79,18 @@ export interface Tramite {
   nivel: NivelTerritorial;
   /** Código de CCAA (ver comunidades.ts). Ausente en los estatales. */
   comunidad?: string;
+  /**
+   * Fichas equivalentes en distintos territorios: el mismo trámite hecho en
+   * sitios distintos (`empadronamiento-madrid` y `empadronamiento-zaragoza`
+   * comparten familia `empadronamiento`).
+   *
+   * Existe porque un trámite estatal puede exigir uno local —el primer DNI pide
+   * el empadronamiento— y ahí no vale apuntar a una ficha concreta: mandaba a
+   * empadronarse en Madrid a quien vive en Zaragoza. El enlace se resuelve por
+   * la zona de quien lee (ver `resuelvePrevioEnZona`), y si no hay ficha de su
+   * territorio no se enlaza nada. Antes vacío y honesto que ajeno y falso.
+   */
+  familia?: string;
   /** Hecho vital al que pertenece, para la agrupación del catálogo (ver hechos-vitales.ts). */
   hechoVital?: string;
   /**

@@ -93,7 +93,8 @@ export const tramites: TramiteContenido[] = [
         id: "dni-r2",
         tipo: "doc_fisico",
         titulo: "El DNI que vas a renovar",
-        explicacion: "Se entrega en el momento de la renovación.",
+        explicacion:
+          "Fuente: entre los documentos a aportar, «El DNI a renovar».",
         canal: "presencial",
         soloSiOpciones: ["dni-p2-caducidad", "dni-p2-deterioro"],
       },
@@ -102,7 +103,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "La denuncia por pérdida o robo",
         explicacion:
-          "Fuente: en casos de pérdida o robo debe presentarse denuncia ante oficina policial o unidad de documentación.",
+          "Fuente: «En los casos de extravío y/o sustracción deberá presentar denuncia ante una Oficina de Denuncias y Atención al Ciudadano o ante la Unidad de Documentación en el momento de expedición del Documento Nacional de Identidad». Si ya la pusiste en otro sitio (guardia civil, juzgado, consulado), basta con comunicarlo aportando el justificante.",
         canal: "presencial",
         soloSiOpciones: ["dni-p2-perdida"],
       },
@@ -111,7 +112,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "Certificado de empadronamiento de menos de 3 meses",
         explicacion:
-          "Para actualizar la dirección. Fuente: certificado de empadronamiento con máximo 3 meses de antigüedad, o consulta al padrón municipal.",
+          "Solo si cambias de domicilio respecto del DNI anterior. Fuente: «certificado o volante de empadronamiento del Ayuntamiento donde el solicitante tenga su domicilio, expedido con una antelación máxima de tres meses a la fecha de la solicitud del Documento Nacional de Identidad». Puedes ahorrártelo: no hace falta si no te opones a que consulten el padrón, «siempre que el empadronamiento se haya realizado por el interesado con una antelación mínima de dos meses».",
         canal: "presencial",
         soloSiOpciones: ["dni-p3-si"],
       },
@@ -120,7 +121,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "doc_fisico",
         titulo: "Certificado del Registro Civil de menos de 6 meses",
         explicacion:
-          "Solo si cambian tus datos personales. Fuente: certificado del Registro Civil con máximo 6 meses de antigüedad.",
+          "Fuente: «En caso de variación de datos de filiación, Certificado del Registro Civil (expedido con una antelación máxima de seis meses a la fecha de la solicitud del DNI)».",
         canal: "presencial",
         soloSiOpciones: ["dni-p4-si"],
       },
@@ -230,7 +231,7 @@ export const tramites: TramiteContenido[] = [
         explicacion:
           "Fuente: «Certificado o volante de empadronamiento del Ayuntamiento donde la persona solicitante tenga su domicilio, expedido con una antelación máxima de tres meses a la fecha de la tramitación».",
         canal: "presencial",
-        tramitePrevioSlug: "empadronamiento-madrid",
+        tramitePrevioFamilia: "empadronamiento",
         soloSiOpciones: ["dni1-p2-espana"],
       },
       {
@@ -287,7 +288,7 @@ export const tramites: TramiteContenido[] = [
     ],
     prerequisitos: [
       { slug: "certificado-nacimiento", nota: "Pídelo «emitida solo a efectos de la obtención del Documento Nacional de Identidad» del DNI: caduca a los 6 meses." },
-      { slug: "empadronamiento-madrid", nota: "El certificado caduca a los 3 meses." },
+      { familia: "empadronamiento", nota: "El certificado caduca a los 3 meses." },
     ],
   },
 
@@ -409,13 +410,6 @@ export const tramites: TramiteContenido[] = [
           "Fuente: «Primera obtención, renovación, extravío, sustracción, anticipo o deterioro: 30,00 euros, abonados bien en efectivo o a través de tarjeta de crédito/débito en la Unidad de Documentación, o utilizando el pago por vía telemática». Gratis si acreditáis familia numerosa.",
         canal: "presencial",
       },
-      {
-        id: "pas-r8",
-        tipo: "doc_fisico",
-        titulo: "Cita previa pedida",
-        explicacion: "Se pide en citapreviadnie.es, donde también puedes pagar la tasa.",
-        canal: "presencial",
-      },
     ],
     prerequisitos: [
       { slug: "renovacion-dni", nota: "El pasaporte exige el DNI en vigor." },
@@ -529,6 +523,7 @@ export const tramites: TramiteContenido[] = [
     slug: "empadronamiento-madrid",
     nivel: "local",
     comunidad: "madrid",
+    familia: "empadronamiento",
     nombreOficial: "Padrón Municipal: alta y cambio de domicilio (Ayuntamiento de Madrid)",
     nombreColoquial: "Empadronarse en Madrid",
     descripcion:
@@ -1302,7 +1297,8 @@ export const tramites: TramiteContenido[] = [
         id: "beca-r3",
         tipo: "doc_fisico",
         titulo: "Certificado de empadronamiento familiar",
-        explicacion: "Fuente: hace falta el empadronamiento familiar si residís fuera de Madrid.",
+        explicacion:
+          "Fuente: «Empadronamiento familiar del municipio si es distinto al de Madrid en el que figuren todos los residentes en el mismo si los datos de los miembros de la solicitud no coinciden con el número de miembros que figuran en el Libro de familia, certificado Registro Civil o Partida de nacimiento (si no se marca declaración responsable del apartado 8 de la solicitud)».",
         canal: "ambos",
         soloSiOpciones: ["beca-p3-no"],
       },
@@ -1328,7 +1324,8 @@ export const tramites: TramiteContenido[] = [
         id: "beca-r6",
         tipo: "doc_fisico",
         titulo: "Sentencia de separación o divorcio, o certificado de defunción",
-        explicacion: "Fuente: sentencias de separación/divorcio o certificados de defunción, si aplica a vuestro caso.",
+        explicacion:
+          "Solo si hay custodia en exclusiva. Fuente: «Sentencia judicial de separación legal o divorcio o convenio regulador ratificado por el juez o certificado de defunción que determine la custodia en exclusiva de los menores (si no se marca declaración responsable del apartado 8 de la solicitud)».",
         canal: "ambos",
       },
       {
@@ -1404,25 +1401,14 @@ export const tramites: TramiteContenido[] = [
           { id: "cert-p2-extranjero", texto: "Soy de fuera de la UE (tengo NIE)" },
         ],
       },
-      {
-        id: "cert-p3",
-        orden: 3,
-        texto: "¿Desde qué sistema operativo lo vas a hacer?",
-        tipo: "normal",
-        opciones: [
-          { id: "cert-p3-windows", texto: "Windows" },
-          { id: "cert-p3-mac", texto: "macOS" },
-          { id: "cert-p3-linux", texto: "GNU/Linux" },
-        ],
-      },
     ],
     requisitos: [
       {
         id: "cert-r1",
         tipo: "tramite_previo",
-        titulo: "Un documento de identidad en vigor",
+        titulo: "El DNI con el que vas a acreditarte",
         explicacion:
-          "Sin él no puedes acreditar tu identidad en la oficina. Si tu DNI está caducado, primero toca renovarlo.",
+          "Fuente (ciudadanos españoles), sobre lo que hay que llevar a la oficina: «El código de solicitud que le ha sido remitido a su cuenta de correo electrónico y el Documento Nacional de Identidad (DNI), pasaporte o carné de conducir». Consejo nuestro, no de la fuente: si el tuyo está caducado, renuévalo antes de empezar, porque entre la solicitud y la acreditación no conviene parar.",
         canal: "ambos",
         tramitePrevioSlug: "renovacion-dni",
         soloSiOpciones: ["cert-p2-es"],
@@ -1432,7 +1418,7 @@ export const tramites: TramiteContenido[] = [
         tipo: "tecnico",
         titulo: "Instalar el CONFIGURADOR FNMT-RCM",
         explicacion:
-          "Es el programa oficial que genera las claves. Sin él no se puede ni empezar la solicitud. Fuente: «La Fábrica Nacional de Moneda y Timbre ha desarrollado esta aplicación para solicitar las claves necesarias en la obtención de un certificado digital».",
+          "Es el programa oficial que genera las claves. Sin él no se puede ni empezar la solicitud. Fuente: «La Fábrica Nacional de Moneda y Timbre ha desarrollado esta aplicación para solicitar las claves necesarias en la obtención de un certificado digital». No te preocupes por tu sistema: «Puede ser ejecutada en cualquier navegador y sistema Operativo».",
         canal: "online",
       },
       {
@@ -1442,22 +1428,6 @@ export const tramites: TramiteContenido[] = [
         explicacion:
           "Fuente: «Última versión de cualquiera de los siguientes navegadores: Mozilla Firefox, Google Chrome, Microsoft EDGE, Opera, Safari».",
         canal: "online",
-      },
-      {
-        id: "cert-r4",
-        tipo: "tecnico",
-        titulo: "Windows de 64 bits",
-        explicacion: "El configurador se distribuye para Windows 64 bits.",
-        canal: "online",
-        soloSiOpciones: ["cert-p3-windows"],
-      },
-      {
-        id: "cert-r5",
-        tipo: "tecnico",
-        titulo: "GNU/Linux de 64 bits (paquete DEB o RPM)",
-        explicacion: "El configurador se distribuye para GNU/Linux 64 bits en formatos DEB y RPM.",
-        canal: "online",
-        soloSiOpciones: ["cert-p3-linux"],
       },
       {
         id: "cert-r6",
@@ -1858,6 +1828,7 @@ export const tramites: TramiteContenido[] = [
     slug: "empadronamiento-zaragoza",
     nivel: "local",
     comunidad: "aragon",
+    familia: "empadronamiento",
     nombreOficial: "Alta en el Padrón Municipal (Ayuntamiento de Zaragoza)",
     nombreColoquial: "Empadronarse en Zaragoza",
     descripcion:
