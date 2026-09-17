@@ -95,7 +95,7 @@ sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (docs/pl
 - **Pendientes** (`lib/data/pendientes.ts`): entradas del catálogo SIN ficha, visibles y agrupadas
   por hecho vital para dar masa a la taxonomía, pero que NO muestran requisitos: solo "en
   preparación". No violan la regla de oro porque no publican contenido. Al curar uno, se mueve a
-  `tramites.ts` y deja de ser pendiente. El catálogo se agrupa por **hecho vital**
+  `tramites/` y deja de ser pendiente. El catálogo se agrupa por **hecho vital**
   (`lib/data/hechos-vitales.ts`), no por organismo.
 - **Modelo territorial**: cada trámite tiene `nivel` (estatal | autonomico | local). Estatal = una
   ficha para toda España; autonomico/local = una ficha por comunidad (con `comunidad`). "Tu zona"
@@ -118,6 +118,13 @@ sobre stone, emoji de logo, Geist sin tocar. Se rediseñó a propósito (docs/pl
   su clave viaja en el JavaScript del navegador, y el repo es público, así que el esquema se conoce.
   Y no basta con escribir una policy: `TRUNCATE` ignora RLS, así que los permisos de tabla mandan.
 - Tras cada fase del plan: recorrido manual en la URL pública, no solo en local.
+
+- **Una ficha, un fichero** (`lib/data/tramites/<slug>.ts`, reexportadas por su `index.ts`): era un
+  único fichero de 2.680 líneas, la mitad del repo. La unidad de cambio real aquí es la ficha —se
+  cura de una en una—, así que un fichero por ficha da diffs legibles, `git blame` por trámite y dos
+  curaciones en paralelo sin pisarse. NO se agrupa por hecho vital: esa taxonomía ya vive en
+  `hechos-vitales.ts` y tenerla también en nombres de fichero la duplicaría. Lo vigila
+  `tests/instantanea-catalogo.test.ts`: si tocas contenido, actualiza su huella en el mismo commit.
 
 ## Red de seguridad (tests) — corre `npm test` antes de cada commit
 

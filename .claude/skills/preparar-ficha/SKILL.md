@@ -43,7 +43,7 @@ Para `madrid.es` (403) usa el navegador y vuelca el DOM.
 
 ## 2. Contrasta cada cita guardada
 
-Saca las citas de la ficha en `lib/data/tramites.ts` (van entre «» tras "Fuente:") y busca cada
+Saca las citas de la ficha en `lib/data/tramites/<slug>.ts` (van entre «» tras "Fuente:") y busca cada
 una en el volcado:
 
 ```bash
@@ -147,7 +147,8 @@ Qué buscar siempre:
 
 ## 3. Escribir la ficha
 
-En `lib/data/tramites.ts`, según el tipo `TramiteContenido` de `lib/types.ts`:
+En `lib/data/tramites/<slug>.ts` (un fichero por ficha; se añade luego al array de
+`lib/data/tramites/index.ts`), según el tipo `TramiteContenido` de `lib/types.ts`:
 
 - `slug` legible y estable (es el id en BD y en la URL)
 - **Aquí NO se pone nada de verificación.** El estado del sello vive en el registro

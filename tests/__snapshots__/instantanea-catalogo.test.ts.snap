@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`instantánea del catálogo > siguen estando todas las fichas, con el mismo recuento de partes 1`] = `
+[
+  "apoderamiento:6/3/1",
+  "beca-comedor-aragon:5/2/0",
+  "beca-comedor-madrid:8/4/1",
+  "carnet-conducir:5/3/0",
+  "certificado-defuncion:3/2/0",
+  "certificado-digital-fnmt:10/2/1",
+  "certificado-nacimiento:5/3/0",
+  "clave:9/3/0",
+  "dni-primera-vez:8/3/2",
+  "empadronamiento-madrid:11/3/0",
+  "empadronamiento-zaragoza:5/2/0",
+  "familia-numerosa-aragon:6/3/1",
+  "familia-numerosa-madrid:8/4/1",
+  "inscripcion-nacimiento:5/3/0",
+  "matriculacion-vehiculo:8/3/0",
+  "pasaporte:7/3/1",
+  "renovacion-dni:8/4/0",
+  "seguros-fallecimiento:4/3/1",
+  "tarjeta-sanitaria-aragon:7/2/1",
+  "tarjeta-sanitaria-madrid:7/3/1",
+  "transferencia-vehiculo:9/3/0",
+  "ultimas-voluntades:4/3/1",
+]
+`;
