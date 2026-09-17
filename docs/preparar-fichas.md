@@ -132,7 +132,8 @@ de memoria.
 
 ### 2. Volcar
 
-La ficha se escribe en `lib/data/tramites.ts` (tipo `TramiteContenido`) con:
+La ficha se escribe en `lib/data/tramites/<slug>.ts` (tipo `TramiteContenido`), una ficha por
+fichero, y se añade al array de `lib/data/tramites/index.ts` en orden alfabético de slug. Con:
 - `nivel` (estatal / autonomico / local) y, si no es estatal, su `comunidad`.
 - La cita literal dentro de `explicacion`, entre comillas, precedida de "Fuente:".
 - **Nada de verificación aquí.** No estar en el registro (`verificaciones.ts`) ya hace que la app

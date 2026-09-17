@@ -28,7 +28,7 @@ Lo decidimos con datos, no por gusto ([nota completa en el commit de los destaca
 El catálogo se **agrupa por hecho vital** en la home, y el backlog está cargado como **pendientes**:
 entradas visibles y agrupadas pero SIN ficha — muestran "en preparación", nunca requisitos, así que
 no pueden engañar. Con esto los 11 hechos vitales tienen masa (15 fichas + ~30 pendientes) y se puede
-validar si la agrupación funciona. Curar uno = moverlo de `pendientes.ts` a `tramites.ts`. La
+validar si la agrupación funciona. Curar uno = moverlo de `pendientes.ts` a su propia ficha en `lib/data/tramites/`. La
 asignación primaria de cada trámite a un hecho vital (`hechos-vitales.ts`) es un primer corte a
 afinar: algunos trámites tocan varios eventos y de momento tienen un solo hogar.
 
